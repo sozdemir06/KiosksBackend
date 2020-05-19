@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Core.DataAccess.Specifications;
 using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,8 +31,10 @@ namespace Core.DataAccess.EntityFramework
 
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression)
         {
-             return await context.Set<TEntity>().FirstOrDefaultAsync(expression);
+            return await context.Set<TEntity>().FirstOrDefaultAsync(expression);
         }
+
+
 
         public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> expression = null)
         {
@@ -42,14 +45,15 @@ namespace Core.DataAccess.EntityFramework
 
         }
 
+
         public bool SaveChanges()
         {
-            return context.SaveChanges()>0;
+            return context.SaveChanges() > 0;
         }
 
         public async Task<bool> SaveChangesAsync()
         {
-            return await context.SaveChangesAsync()>0;
+            return await context.SaveChangesAsync() > 0;
         }
 
         public TEntity Update(TEntity entity)
@@ -57,5 +61,27 @@ namespace Core.DataAccess.EntityFramework
             context.Update(entity);
             return entity;
         }
+
+        public async Task<TEntity> GetEntityWithSpecAsync(ISpecification<TEntity> spec)
+        {
+            return await ApplySpecification(spec).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<TEntity>> ListEntityWithSpecAsync(ISpecification<TEntity> spec)
+        {
+            return await ApplySpecification(spec).ToListAsync();
+        }
+
+        public async Task<int> CountAsync(ISpecification<TEntity> spec)
+        {
+            return await ApplySpecification(spec).CountAsync();
+        }
+
+        private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> spec)
+        {
+            return SpecificationEvaluator<TEntity>.GetQuery(context.Set<TEntity>().AsQueryable(), spec);
+        }
+
+
     }
 }

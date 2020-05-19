@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Entities;
 
 namespace Entities.Concrete
@@ -6,5 +7,6 @@ namespace Entities.Concrete
     {
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }

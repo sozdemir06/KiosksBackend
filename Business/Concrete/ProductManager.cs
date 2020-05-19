@@ -7,13 +7,21 @@ using Core.Extensions;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System.Linq;
+using Core.QueryParams;
+using DataAccess.EntitySpecification.ProductSpecification;
+using Business.Helpers;
+using AutoMapper;
+using Entities.Dtos;
+
 namespace Business.Concrete
 {
     public class ProductManager : IProductService
     {
         private IProductDal productDal;
-        public ProductManager(IProductDal productDal)
+        private readonly IMapper mapper;
+        public ProductManager(IProductDal productDal, IMapper mapper)
         {
+            this.mapper = mapper;
             this.productDal = productDal;
 
         }
@@ -34,7 +42,7 @@ namespace Business.Concrete
             var products = await productDal.GetListAsync(x => x.CategoryId == categoryId);
             if (products == null)
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Product=Messages.ProductNotFound });
+                throw new RestException(HttpStatusCode.BadRequest, new { Product = Messages.ProductNotFound });
             }
 
             return products;
@@ -51,26 +59,40 @@ namespace Business.Concrete
             return product;
         }
 
-        public async Task<List<Product>> GetProductListAsync()
+        public async Task<Pagination<ProductForListDto>> GetProductListAsync(ProductQueryParams queryParams)
         {
-            var products = await productDal.GetListAsync();
-            if (products.Count == 0)
+            var spec = new ProductWithCategorySpecification(queryParams);
+            var countSpec = new ProductWithFilterForCountSpecification(queryParams);
+            var totalItems = await productDal.CountAsync(countSpec);
+
+            var products = await productDal.ListEntityWithSpecAsync(spec);
+            if (products==null)
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Product=Messages.ProductNotFound });
+                throw new RestException(HttpStatusCode.BadRequest, new { Product = Messages.ProductNotFound });
             }
 
-            return products;
+            var data = mapper.Map<List<Product>, List<ProductForListDto>>(products);
+
+            return new Pagination<ProductForListDto>
+            (
+                queryParams.PageIndex,
+                queryParams.PageSize,
+                totalItems,
+                data
+
+            );
         }
 
         public void Update(Product product)
         {
             productDal.Update(product);
-            var result=productDal.SaveChanges();
-            if(!result)
+            var result = productDal.SaveChanges();
+            if (!result)
             {
-                 throw new RestException(HttpStatusCode.BadRequest, new { product=Messages.UpdateProblem });
+                throw new RestException(HttpStatusCode.BadRequest, new { product = Messages.UpdateProblem });
             }
 
         }
+
     }
 }

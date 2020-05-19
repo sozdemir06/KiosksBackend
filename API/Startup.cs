@@ -1,5 +1,9 @@
+using AutoMapper;
+using Business.Handlers.Products.Query;
 using Core.Extensions;
 using DataAccess.Concrete.EntityFramework.Contexts;
+using Entities.Concrete;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +32,8 @@ namespace API
             });
             
             services.AddControllers();
+            services.AddMediatR(typeof(ProductListQuery).Assembly);
+            services.AddAutoMapper(typeof(ProductListQuery));
             
         }
 

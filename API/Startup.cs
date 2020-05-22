@@ -1,16 +1,18 @@
 using AutoMapper;
 using Business.Handlers.Products.Query;
 using Core.Extensions;
+using Core.Utilities.Security.Jwt;
+using Core.Utilities.Security.Jwt.Encryption;
 using DataAccess.Concrete.EntityFramework.Contexts;
-using Entities.Concrete;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Microsoft.IdentityModel.Tokens;
 
 namespace API
 {
@@ -27,14 +29,39 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             //Add Database connection
-            services.AddDbContext<DataContext>(opt=>{
+            services.AddDbContext<DataContext>(opt =>
+            {
                 opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             });
-            
+
             services.AddControllers();
             services.AddMediatR(typeof(ProductListQuery).Assembly);
             services.AddAutoMapper(typeof(ProductListQuery));
-            
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+                });
+            });
+
+            var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(jwt =>
+                    {
+                        jwt.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey),
+                            ValidateAudience = true,
+                            ValidAudience = tokenOptions.Audience,
+                            ValidateIssuer = true,
+                            ValidIssuer = tokenOptions.Issuer,
+                            ValidateLifetime = true
+                        };
+                    });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +77,9 @@ namespace API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {

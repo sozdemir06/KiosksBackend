@@ -1,8 +1,9 @@
+using Core.Entities;
 using Entities.Concrete;
 
 namespace Entities.Dtos
 {
-    public class ProductForListDto
+    public class ProductForListDto:IDto
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }

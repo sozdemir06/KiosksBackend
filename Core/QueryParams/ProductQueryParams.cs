@@ -12,8 +12,15 @@ namespace Core.QueryParams
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
 
         }
+        public int? CategoryId { get; set; }
         public string Sort { get; set; }
 
-        public int? CategoryId { get; set; }
+        private string _search;
+        public string Search { 
+            get=>_search; 
+            set=>_search=value.ToLower();
+            
+        }
+
     }
 }

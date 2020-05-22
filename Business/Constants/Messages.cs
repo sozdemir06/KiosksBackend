@@ -13,7 +13,9 @@ namespace Business.Constants
         public static string PasswordError = "Kimlik Bilgileri Doğrulanamadı, Kullanıcı adı ve/veya parola hatalı.";
         public static string SuccessfulLogin = "Sisteme giriş başarılı.";
         public static string UserAlreadyExists = "Bu kullanıcı zaten mevcut.";
+        public static string UserClaimsNotFound = "Bu kullanıcı zaten mevcut.";
         public static string UserRegistered = "Kullanıcı başarıyla kaydedildi.";
+        public static string UserCantAdded = "Kullanıcı Kayıt Hatası..";
         public static string SendMobileCode = "Lütfen Size SMS Olarak Gönderilen Kodu Girin!";
         public static string AccessTokenCreated = "Access token başarıyla oluşturuldu.";
 
@@ -45,6 +47,7 @@ namespace Business.Constants
         public static string SaveProblem ="Yeni kayıt eklemenemedi...";
         public static string UpdateProblem ="Yeni kayıt Güncellenemedi...";
         public static string DeleteProblem ="Kayıt Silinemedi...";
+        public static string TokenNotCreated="Access token oluşturulamadı..";
 
         public static string UserExists => "Bu İsimde Kullanıcı mevcut.";
         public static string WrongPassword => "Şifre Hatalı";

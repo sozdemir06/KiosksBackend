@@ -8,6 +8,10 @@ namespace DataAccess.EntitySpecification.ProductSpecification
     {
         public ProductWithCategorySpecification(ProductQueryParams queryParams)
             :base(x=>
+                (string.IsNullOrEmpty(queryParams.Search) 
+                    || x.ProductName.ToLower().Contains(queryParams.Search)
+                    
+                    ) &&
                 (!queryParams.CategoryId.HasValue || x.CategoryId==queryParams.CategoryId)
             )
         {

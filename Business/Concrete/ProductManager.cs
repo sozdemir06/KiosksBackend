@@ -16,6 +16,9 @@ using Business.ValidaitonRules.FluentValidation;
 using FluentValidation;
 using Core.Aspects.AutoFac.Validation;
 using Core.Aspects.AutoFac.Caching;
+using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 
 namespace Business.Concrete
 {
@@ -70,6 +73,7 @@ namespace Business.Concrete
             return product;
         }
 
+        [SecuredOperation("Product.List")]
         [CacheAspect(1)]
         public async Task<Pagination<ProductForListDto>> GetProductListAsync(ProductQueryParams queryParams)
         {
@@ -95,7 +99,8 @@ namespace Business.Concrete
             );
         }
 
-        [CacheRemoveAspect("IProductService.Get")]
+        //[CacheRemoveAspect("IProductService.Get")]
+        [LogAspect(typeof(PgSqlLogger))]
         public async Task<ProductForListDto> Update(Product product)
         {
             var updatedProduct = await productDal.Update(product);

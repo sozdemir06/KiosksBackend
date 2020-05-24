@@ -27,5 +27,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<RoleCategory> RoleCategories { get; set; }
+        public DbSet<Log> Logs { get; set; }
     }
 }

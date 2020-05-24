@@ -41,5 +41,17 @@ namespace API.Controllers
         {
             return await mediator.Send(new ProductByIdQuery{ProductId=productId});
         }
+
+        [HttpPost("add")]
+        public async Task<ActionResult<ProductForListDto>> Add(Product product)
+        {
+            return await productService.Add(product);
+        }
+
+        [HttpPut]
+        public async Task<ProductForListDto> Update(Product product)
+        {
+            return await productService.Update(product);
+        } 
     }
 }

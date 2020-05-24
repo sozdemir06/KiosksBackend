@@ -26,12 +26,8 @@ namespace Business.Concrete
         }
         public async Task Add(User user)
         {
-            userDal.Add(user);
-            var result = await userDal.SaveChangesAsync();
-            if (!result)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { UserNotFound = Messages.UserCantAdded });
-            }
+           await userDal.Add(user);
+           
         }
 
         public async Task<User> GetByEmail(string email)

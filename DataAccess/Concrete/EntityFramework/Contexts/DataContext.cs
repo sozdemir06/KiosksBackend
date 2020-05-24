@@ -7,10 +7,14 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options):base(options)
+       
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+            optionsBuilder.UseNpgsql("Host=localhost;Database=Hmkiosks;Username=postgres;Password=466357",b=>b.MigrationsAssembly("DataAccess"));
         }
+
+       
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

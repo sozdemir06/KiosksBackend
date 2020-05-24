@@ -2,86 +2,128 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Threading.Tasks;
 using Core.DataAccess.Specifications;
 using Core.Entities;
+using Core.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Core.DataAccess.EntityFramework
 {
     public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
-    where TEntity : class, IEntity
-    where TContext : DbContext
+    where TEntity : class, IEntity, new()
+    where TContext : DbContext, new()
     {
-        private readonly TContext context;
-        public EfEntityRepositoryBase(TContext context)
-        {
-            this.context = context;
-        }
 
-        public TEntity Add(TEntity entity)
-        {
-            return context.Add(entity).Entity;
-        }
 
-        public void Delete(TEntity entity)
-        {
-            context.Remove(entity);
-        }
+
 
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression)
         {
-            return await context.Set<TEntity>().FirstOrDefaultAsync(expression);
+            using (var context = new TContext())
+            {
+                return await context.Set<TEntity>().FirstOrDefaultAsync(expression);
+            }
+
         }
 
 
 
         public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> expression = null)
         {
-            return expression == null
-                                ? await context.Set<TEntity>().ToListAsync()
-                                : await context.Set<TEntity>().Where(expression).ToListAsync();
+            using (var context = new TContext())
+            {
+                return expression == null
+                           ? await context.Set<TEntity>().ToListAsync()
+                           : await context.Set<TEntity>().Where(expression).ToListAsync();
+            }
+
 
 
         }
 
-
-        public bool SaveChanges()
-        {
-            return context.SaveChanges() > 0;
-        }
-
-        public async Task<bool> SaveChangesAsync()
-        {
-            return await context.SaveChangesAsync() > 0;
-        }
-
-        public TEntity Update(TEntity entity)
-        {
-            context.Update(entity);
-            return entity;
-        }
 
         public async Task<TEntity> GetEntityWithSpecAsync(ISpecification<TEntity> spec)
         {
-            return await ApplySpecification(spec).FirstOrDefaultAsync();
+            using (var context = new TContext())
+            {
+                return await ApplySpecification(spec, context).FirstOrDefaultAsync();
+            }
+
         }
 
         public async Task<List<TEntity>> ListEntityWithSpecAsync(ISpecification<TEntity> spec)
         {
-            return await ApplySpecification(spec).ToListAsync();
+            using(var context=new TContext())
+            {
+                 return await ApplySpecification(spec,context).ToListAsync();
+            }
+           
         }
 
         public async Task<int> CountAsync(ISpecification<TEntity> spec)
         {
-            return await ApplySpecification(spec).CountAsync();
+             using(var context=new TContext())
+            {
+                 return await ApplySpecification(spec,context).CountAsync();
+            }
+           
         }
 
-        private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> spec)
+        private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> spec, TContext context)
         {
+
             return SpecificationEvaluator<TEntity>.GetQuery(context.Set<TEntity>().AsQueryable(), spec);
+
+
         }
 
+        public async Task<TEntity> Add(TEntity entity)
+        {
+            using (var context = new TContext())
+            {
+                var addedEntity = context.Entry(entity);
+                addedEntity.State = EntityState.Added;
+                await SaveChangeAsync(context);
+                return entity;
+            }
 
+        }
+
+        public async Task<TEntity> Update(TEntity entity)
+        {
+            using (var context = new TContext())
+            {
+                var updatedEntity = context.Entry(entity);
+                updatedEntity.State = EntityState.Modified;
+                await SaveChangeAsync(context);
+                return entity;
+            }
+
+        }
+
+        public async Task Delete(TEntity entity)
+        {
+            using (var context = new TContext())
+            {
+                var deletedEntity = context.Entry(entity);
+                deletedEntity.State = EntityState.Deleted;
+                await SaveChangeAsync(context);
+            }
+
+        }
+
+        private async Task SaveChangeAsync(TContext context)
+        {
+
+            var result = await context.SaveChangesAsync() > 0;
+            if (!result)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { DatabaseCrudProblem = "Veritabanı İşlem Hatası..." });
+            }
+
+
+        }
     }
 }

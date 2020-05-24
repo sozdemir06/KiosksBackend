@@ -12,6 +12,10 @@ using DataAccess.EntitySpecification.ProductSpecification;
 using Business.Helpers;
 using AutoMapper;
 using Entities.Dtos;
+using Business.ValidaitonRules.FluentValidation;
+using FluentValidation;
+using Core.Aspects.AutoFac.Validation;
+using Core.Aspects.AutoFac.Caching;
 
 namespace Business.Concrete
 {
@@ -26,10 +30,17 @@ namespace Business.Concrete
 
         }
 
-        public void Add(Product product)
+        [ValidationAspect(typeof(ProductValidatior))]
+        // [CacheRemoveAspect("IProductService.Get")]
+        public async Task<ProductForListDto> Add(Product product)
         {
 
-            productDal.Add(product);
+
+            var addedProduct = await productDal.Add(product);
+            
+
+            return mapper.Map<Product, ProductForListDto>(addedProduct);
+
         }
 
         public void Delete(Product product)
@@ -59,6 +70,7 @@ namespace Business.Concrete
             return product;
         }
 
+        [CacheAspect(1)]
         public async Task<Pagination<ProductForListDto>> GetProductListAsync(ProductQueryParams queryParams)
         {
             var spec = new ProductWithCategorySpecification(queryParams);
@@ -66,7 +78,7 @@ namespace Business.Concrete
             var totalItems = await productDal.CountAsync(countSpec);
 
             var products = await productDal.ListEntityWithSpecAsync(spec);
-            if (products==null)
+            if (products == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { Product = Messages.ProductNotFound });
             }
@@ -83,14 +95,12 @@ namespace Business.Concrete
             );
         }
 
-        public void Update(Product product)
+        [CacheRemoveAspect("IProductService.Get")]
+        public async Task<ProductForListDto> Update(Product product)
         {
-            productDal.Update(product);
-            var result = productDal.SaveChanges();
-            if (!result)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { product = Messages.UpdateProblem });
-            }
+            var updatedProduct = await productDal.Update(product);
+
+            return mapper.Map<Product, ProductForListDto>(updatedProduct);
 
         }
 

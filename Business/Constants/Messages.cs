@@ -48,6 +48,7 @@ namespace Business.Constants
         public static string UpdateProblem ="Yeni kayıt Güncellenemedi...";
         public static string DeleteProblem ="Kayıt Silinemedi...";
         public static string TokenNotCreated="Access token oluşturulamadı..";
+        internal static string ProductNotAdded="Ürün Eklenemedi..";
 
         public static string UserExists => "Bu İsimde Kullanıcı mevcut.";
         public static string WrongPassword => "Şifre Hatalı";

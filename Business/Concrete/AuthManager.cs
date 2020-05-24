@@ -2,6 +2,8 @@ using System.Net;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidaitonRules.FluentValidation;
+using Core.Aspects.AutoFac.Validation;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.Utilities.Security.Hashing;
@@ -32,6 +34,7 @@ namespace Business.Concrete
 
         }
 
+        [ValidationAspect(typeof(UserForLoginValidator))]
         public async Task<User> Login(UserForLoginDto userForLoginDto)
         {
             var userToCheck = await userService.GetByEmail(userForLoginDto.Email);
@@ -49,6 +52,7 @@ namespace Business.Concrete
 
         }
 
+         [ValidationAspect(typeof(UserForRegisterValidator))]
         public async Task<User> Register(UserForRegisterDto userForRegisterDto, string password)
         {
             byte[] passwordHash,passwordSalt;

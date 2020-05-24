@@ -1,6 +1,8 @@
 using AutoMapper;
 using Business.Handlers.Products.Query;
+using Core.DependencyResolvers;
 using Core.Extensions;
+using Core.Utilities.IoC;
 using Core.Utilities.Security.Jwt;
 using Core.Utilities.Security.Jwt.Encryption;
 using DataAccess.Concrete.EntityFramework.Contexts;
@@ -28,11 +30,11 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Add Database connection
-            services.AddDbContext<DataContext>(opt =>
-            {
-                opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
-            });
+            // //Add Database connection
+            // services.AddDbContext<DataContext>(opt =>
+            // {
+            //     opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
+            // });
 
             services.AddControllers();
             services.AddMediatR(typeof(ProductListQuery).Assembly);
@@ -60,6 +62,10 @@ namespace API
                             ValidIssuer = tokenOptions.Issuer,
                             ValidateLifetime = true
                         };
+                    });
+
+                    services.AddDependencyResolvers(new ICoreModule[]{
+                        new CoreModule(),
                     });
 
         }

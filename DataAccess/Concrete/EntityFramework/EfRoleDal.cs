@@ -7,8 +7,6 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfRoleDal : EfEntityRepositoryBase<Role, DataContext>, IRoleDal
     {
-        public EfRoleDal(DataContext context) : base(context)
-        {
-        }
+       
     }
 }

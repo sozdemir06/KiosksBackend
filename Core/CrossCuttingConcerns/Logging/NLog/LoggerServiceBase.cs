@@ -18,6 +18,7 @@ namespace Core.CrossCuttingConcerns.Logging.NLog
         {
             LayoutRenderer.Register("CustomJson", typeof(CustomJsonLayoutRenderer));
             _logger = NLogBuilder.ConfigureNLog("nlog.config").GetLogger(name);
+            
 
         }
 

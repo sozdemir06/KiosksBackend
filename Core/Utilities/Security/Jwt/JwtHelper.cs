@@ -39,6 +39,10 @@ namespace Core.Utilities.Security.Jwt
              {
                  Token=handler.WriteToken(token),
                  Expiration=_tokenExpire,
+                 FirstName=user.FirstName,
+                 LastName=user.LastName,
+                 Email=user.Email,
+                 UserId=user.Id
              };
 
 

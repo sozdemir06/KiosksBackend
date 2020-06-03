@@ -1,0 +1,33 @@
+@import "./assets/sass/variables";
+
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; //10px/16px=62.5%->1rem=10px
+  height: 100%;
+}
+
+body {
+  font-family: $font-primary;
+  background-color: $bg-color;
+  font-weight: 300;
+  line-height: 1.6;
+  height: 100%;
+}
+
+.container{
+  width:114rem;
+  padding: 0.1rem;
+  margin: 0 auto;
+}
+
+
+

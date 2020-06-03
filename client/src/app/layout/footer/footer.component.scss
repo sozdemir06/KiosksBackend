@@ -1,0 +1,15 @@
+@import "../../../assets/sass/variables";
+
+.footer {
+  width: 100%;
+  min-height: 6vh;
+  background-color: $primary-color;
+  color: white;
+
+  & > .container {
+    display: grid;
+    grid-template-columns:max-content;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,19 @@
+%grid{
+    display: grid;
+    grid-template-columns:minmax(6rem,1fr) [center-start] repeat(8,minmax(min-content,14rem))[center-end] minmax(6rem,1fr);
+    align-items: center;
+}
+
+%grid-container{
+    grid-column: center-start/center-end;
+}
+
+
+//admin sidebar expansion panel
+%panel-title{
+    display: grid;
+    grid-template-columns: repeat(2,max-content);
+
+    grid-column-gap:0.3rem;
+    align-items: center;
+}

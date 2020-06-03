@@ -1,0 +1,23 @@
+<mat-drawer-container class="example-container container mat-elevation-z4">
+  <!-- SideNav Start -->
+  <mat-drawer #drawer [mode]="'side'" [(opened)]="opened">
+    <mat-toolbar color="primary">
+      DashBoard
+    </mat-toolbar>
+
+    <!-- User Panel -->
+    <app-user-panel></app-user-panel>
+  </mat-drawer>
+  <!-- SideNav End -->
+
+  <mat-drawer-content>
+    <!-- Toolbar -->
+    <mat-toolbar color="primary">
+      <mat-icon (click)="drawer.toggle()" style="cursor: pointer;"
+        >menu</mat-icon
+      >
+    </mat-toolbar>
+    <!-- Toolbar End -->
+    <router-outlet style="cursor: pointer;"></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

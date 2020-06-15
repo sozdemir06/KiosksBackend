@@ -11,6 +11,8 @@ namespace Entities.Dtos
         public string GsmPhone { get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; }
+        public int CampusId { get; set; }
+        public int DepartmentId { get; set; }
         public DateTime Created { get; set; }
         public string Password { get; set; }
         public UserForRegisterDto()

@@ -12,8 +12,8 @@ namespace Business.Abstract
         Task<Pagination<ProductForListDto>> GetProductListAsync(ProductQueryParams queryParams);
         Task<Product> GetProductByIdAsync(int productId);
         Task<List<Product>> GetProductByCategoryIdAsync(int categoryId);
-        Task<ProductForListDto> Add(Product product);
+        Task<ProductForListDto> Create(Product product);
         void Delete(Product product);
-        Task<ProductForListDto> Update(Product product);
+        Task<ProductForListDto> UpdateExist(Product product);
     }
 }

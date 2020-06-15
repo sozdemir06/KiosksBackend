@@ -43,15 +43,15 @@ namespace API.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<ActionResult<ProductForListDto>> Add(Product product)
+        public async Task<ActionResult<ProductForListDto>> AddNewProduct(Product product)
         {
-            return await productService.Add(product);
+            return await productService.Create(product);
         }
 
         [HttpPut]
-        public async Task<ProductForListDto> Update(Product product)
+        public async Task<ProductForListDto> UpdateExistProduct(Product product)
         {
-            return await productService.Update(product);
+            return await productService.UpdateExist(product);
         } 
     }
 }

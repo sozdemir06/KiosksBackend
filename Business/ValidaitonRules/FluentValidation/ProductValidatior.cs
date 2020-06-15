@@ -7,8 +7,8 @@ namespace Business.ValidaitonRules.FluentValidation
     {
         public ProductValidatior()
         {
-            RuleFor(p=>p.ProductName).NotEmpty().WithMessage("Ürün adı boş olamaz...");
-            RuleFor(p=>p.ProductName).Length(2,30).WithMessage("Ürün adı enaz 2 en fazla 30 karakter olmalı..");
+            // RuleFor(p=>p.ProductName).NotEmpty().WithMessage("Ürün adı boş olamaz...");
+            // RuleFor(p=>p.ProductName).Length(2,30).WithMessage("Ürün adı enaz 2 en fazla 30 karakter olmalı..");
         }
     }
 }

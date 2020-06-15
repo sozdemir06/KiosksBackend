@@ -20,10 +20,10 @@ namespace Core.Entities.Concrete
         public DateTime Updated { get; set; }
 
         public ICollection<UserRole> UserRoles { get; set; }
-        // public Campus Campus { get; set; }
-        // public Guid CampusId { get; set; }
-        //public Department Department { get; set; }
-        // public Guid DepartmentId { get; set; }
+        public Campus Campus { get; set; }
+        public int CampusId { get; set; }
+        public Department Department { get; set; }
+        public int DepartmentId { get; set; }
 
     }
 }

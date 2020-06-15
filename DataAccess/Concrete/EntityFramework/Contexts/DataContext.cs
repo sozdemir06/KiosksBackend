@@ -7,6 +7,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 {
     public class DataContext : DbContext
     {
+
        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,5 +29,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<RoleCategory> RoleCategories { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<Campus> Campuses { get; set; }
+        public DbSet<Department> Departments { get; set; }
     }
 }

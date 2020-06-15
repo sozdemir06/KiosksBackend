@@ -6,14 +6,12 @@ using Business.Constants;
 using Core.Extensions;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using System.Linq;
 using Core.QueryParams;
 using DataAccess.EntitySpecification.ProductSpecification;
 using Business.Helpers;
 using AutoMapper;
 using Entities.Dtos;
 using Business.ValidaitonRules.FluentValidation;
-using FluentValidation;
 using Core.Aspects.AutoFac.Validation;
 using Core.Aspects.AutoFac.Caching;
 using BusinessAspects.AutoFac;
@@ -35,7 +33,7 @@ namespace Business.Concrete
 
         [ValidationAspect(typeof(ProductValidatior))]
         // [CacheRemoveAspect("IProductService.Get")]
-        public async Task<ProductForListDto> Add(Product product)
+        public async Task<ProductForListDto> Create(Product product)
         {
 
 
@@ -101,7 +99,7 @@ namespace Business.Concrete
 
         //[CacheRemoveAspect("IProductService.Get")]
         [LogAspect(typeof(PgSqlLogger))]
-        public async Task<ProductForListDto> Update(Product product)
+        public async Task<ProductForListDto> UpdateExist(Product product)
         {
             var updatedProduct = await productDal.Update(product);
 

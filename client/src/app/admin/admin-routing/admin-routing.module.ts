@@ -8,7 +8,10 @@ const routes:Routes=[
     path:"",
     component:DashboardComponent,
     children:[
-      
+        {
+          path:"",
+          loadChildren:()=>import("../users/users.module").then(m=>m.UsersModule)
+        }
     ]
   }
 ]

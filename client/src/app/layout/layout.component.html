@@ -1,5 +1,20 @@
-<app-header></app-header>
-<div class="content">
-    <router-outlet ></router-outlet>
-</div>
+<mat-sidenav-container>
+    <!-- SideNav Start -->
+    <mat-sidenav  #sidenav [mode]="'side'" [(opened)]="opened">
+      <mat-toolbar color="primary">
+        DashBoard
+      </mat-toolbar>
+  
+      <!-- User Panel -->
+      <h1>Side Nav</h1>
+    </mat-sidenav>
+    <!-- SideNav End -->
+  
+    <mat-sidenav-content>
+      <!-- Header -->
+       <app-header (toggleSidenav)="sidenav.toggle()"></app-header>
+      <!-- Toolbar End -->
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 <app-footer></app-footer>

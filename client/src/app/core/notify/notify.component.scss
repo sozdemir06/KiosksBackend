@@ -1,0 +1,33 @@
+.notify {
+    display:flex;
+    flex-direction: row;
+    line-height: 4rem;
+  
+  
+    & > mat-icon {
+      font-size: 4rem;
+      margin-right: 2rem;
+    }
+  
+    &>span{
+      color: #fff;
+      font-weight: 400;
+      font-size: 1.6rem;
+    
+    }
+  
+    & > .success {
+      color: rgb(72, 107, 12);
+      
+    }
+    & > .error {
+      color: rgb(214, 55, 55);
+    }
+    & > .warning {
+      color: rgb(224, 151, 66);
+    }
+  
+    & > .default {
+      color: rgb(221, 205, 205);
+    }
+  }

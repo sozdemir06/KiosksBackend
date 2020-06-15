@@ -1,0 +1,31 @@
+.container{
+    display: grid;
+    grid-template-columns: 100%;
+    justify-content: center;
+
+    margin-top: 2rem;
+
+   
+
+    &>.notfound{
+        padding: 3rem;
+        display: grid;
+        grid-template-columns: 40rem;
+        justify-content: center;
+        justify-items: center;
+
+       
+    }
+
+    
+}
+.buttons{
+    display: grid;
+    grid-template-columns: repeat(2,max-content);
+    grid-column-gap: 0.5rem;
+    &>button{
+        padding: 1rem;
+        cursor: pointer;
+        
+    }
+}

@@ -1,0 +1,18 @@
+<div [ngSwitch]="data.type">
+    <div *ngSwitchCase="'success'" class="notify">
+      <mat-icon class="success">check</mat-icon>
+      <span>{{ data.message }}</span>
+    </div>
+    <div *ngSwitchCase="'error'" class="notify">
+      <mat-icon class="error">clear</mat-icon>
+      <span>{{ data.message }}</span>
+    </div>
+    <div *ngSwitchCase="'warning'" class="notify">
+      <mat-icon class="warning">warning</mat-icon>
+      <span>{{ data.message }}</span>
+    </div>
+    <div *ngSwitchDefault class="notify">
+      <mat-icon class="default">person</mat-icon>
+      <span>{{ data.message }}</span>
+    </div>
+  </div>

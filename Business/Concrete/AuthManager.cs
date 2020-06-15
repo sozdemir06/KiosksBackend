@@ -1,5 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidaitonRules.FluentValidation;
@@ -16,59 +17,56 @@ namespace Business.Concrete
     {
         private readonly IUserService userService;
         private readonly ITokenHelper tokenHelper;
-        public AuthManager(IUserService userService, ITokenHelper tokenHelper)
+        private readonly IMapper mapper;
+        public AuthManager(IUserService userService, ITokenHelper tokenHelper, IMapper mapper)
         {
+            this.mapper = mapper;
             this.tokenHelper = tokenHelper;
             this.userService = userService;
         }
 
         public async Task<AccessToken> CreateAccessToken(User user)
         {
-           var userRoles=await userService.GetUserRoles(user);
-           var accesstoken=tokenHelper.CreateToken(user,userRoles);
-             if (accesstoken == null)
+            var userRoles = await userService.GetUserRoles(user);
+            var accesstoken = tokenHelper.CreateToken(user, userRoles);
+            if (accesstoken == null)
             {
-                throw new RestException(HttpStatusCode.BadRequest, new {TokenNotCreated = Messages.TokenNotCreated });
+                throw new RestException(HttpStatusCode.BadRequest, new { TokenNotCreated = Messages.TokenNotCreated });
             }
-           return accesstoken;
+            return accesstoken;
 
         }
 
         [ValidationAspect(typeof(UserForLoginValidator))]
         public async Task<User> Login(UserForLoginDto userForLoginDto)
         {
-            var userToCheck = await userService.GetByEmail(userForLoginDto.Email);
-            if (userToCheck == null)
+            var user = await userService.GetByEmail(userForLoginDto.Email);
+            if (user == null)
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { USerNotFound = Messages.UserNotFound });
+                throw new RestException(HttpStatusCode.BadRequest, new { Blaaaa = Messages.UserNotFound });
             }
 
-            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
+            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, user.PasswordHash, user.PasswordSalt))
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { LoginDenied = Messages.WrongPassword });
+                throw new RestException(HttpStatusCode.BadRequest, new { CantAccess = Messages.WrongPassword });
             }
 
-            return userToCheck;
+            return user;
 
         }
 
-         [ValidationAspect(typeof(UserForRegisterValidator))]
+        [ValidationAspect(typeof(UserForRegisterValidator))]
         public async Task<User> Register(UserForRegisterDto userForRegisterDto, string password)
         {
-            byte[] passwordHash,passwordSalt;
-            HashingHelper.CreatePaswordHash(password,out passwordHash,out passwordSalt);
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePaswordHash(password, out passwordHash, out passwordSalt);
 
-            var user=new User
-            {
-                Email=userForRegisterDto.Email,
-                FirstName=userForRegisterDto.FirstName,
-                LastName=userForRegisterDto.LastName,
-                PasswordHash=passwordHash,
-                PasswordSalt=passwordSalt,
-                IsActive=false
-            };
 
-             await  userService.Add(user);
+            var user = mapper.Map<User>(userForRegisterDto);
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+
+            await userService.Add(user);
             return user;
         }
 

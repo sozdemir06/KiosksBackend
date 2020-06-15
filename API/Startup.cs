@@ -1,16 +1,18 @@
 using AutoMapper;
 using Business.Handlers.Products.Query;
+using Business.ValidaitonRules.FluentValidation;
 using Core.DependencyResolvers;
 using Core.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Jwt;
 using Core.Utilities.Security.Jwt.Encryption;
 using DataAccess.Concrete.EntityFramework.Contexts;
+using DataAccess.SeedData;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -36,9 +38,10 @@ namespace API
             //     opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             // });
 
-            services.AddControllers();
+            services.AddDbContext<DataContext>();
             services.AddMediatR(typeof(ProductListQuery).Assembly);
             services.AddAutoMapper(typeof(ProductListQuery));
+            services.AddSingleton<SeedContext>();
 
             services.AddCors(opt =>
             {
@@ -47,6 +50,7 @@ namespace API
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
                 });
             });
+            services.AddControllers();
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -71,7 +75,7 @@ namespace API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedContext seedData)
         {
             app.UseMiddleware<ErrorHandlingMiddleware>();
             if (env.IsDevelopment())
@@ -80,9 +84,8 @@ namespace API
             }
 
             //app.UseHttpsRedirection();
-
+            seedData.SeedAsync();
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseCors("CorsPolicy");

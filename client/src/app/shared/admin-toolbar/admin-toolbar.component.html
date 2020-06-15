@@ -1,0 +1,36 @@
+<div class="row align-items-center mat-elevation-z3 bg-white">
+  <div class="col-md-5 col-sm-4">
+    <mat-form-field class="w-100">
+      <input matInput type="text" #searchInput placeholder="{{inputPlaceholder}}" />
+    </mat-form-field>
+  </div>
+  <div class="col-md-5 col-sm-4">
+    <div class="d-flex justify-content-end">
+      <button mat-icon-button (click)="onWaitingConfirm()">
+        <mat-icon
+          matBadge="{{numberConfirm}}"
+          matBadgeColor="warn"
+          matBadgeSize="small"
+          
+          >done</mat-icon
+        >
+      </button>
+      <button mat-icon-button (click)="onCreateNew()">
+        <mat-icon>create</mat-icon>
+      </button>
+      <button mat-icon-button [matMenuTriggerFor]="toolbarFilterList">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+      <mat-menu #toolbarFilterList="matMenu">
+        <button 
+        *ngFor="let item of filterList" 
+        mat-menu-item
+        (click)="filterBy(item)"
+        >
+        {{item.name}}
+        </button>
+        
+      </mat-menu>
+    </div>
+  </div>
+</div>

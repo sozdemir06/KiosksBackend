@@ -1,0 +1,24 @@
+<mat-form-field>
+  <input
+    matInput
+    [type]="type"
+    (input)="onChange($event.target.value)"
+    (blur)="onTouched()"
+    #input
+    placeholder="{{ label }}"
+  />
+
+  <mat-error
+    *ngIf="
+      controlDir &&
+      controlDir.control &&
+      !controlDir.control.valid &&
+      controlDir.control.touched
+     
+    "
+    >
+        <span *ngIf=" controlDir.control.errors?.required">{{label}} alanını doldurunuz..</span>
+        <span *ngIf=" controlDir.control.errors?.pattern">Hatalı email adresi..</span>
+    </mat-error
+  >
+</mat-form-field>

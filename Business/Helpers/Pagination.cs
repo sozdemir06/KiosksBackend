@@ -2,8 +2,12 @@ using System.Collections.Generic;
 
 namespace Business.Helpers
 {
-    public class Pagination<T> where T:class
+    public class Pagination<T> where T : class
     {
+        public int PageIndex { get; set; }
+        public int PageSize { get; set; }
+        public int Count { get; set; }
+        public List<T> Data { get; set; }
         public Pagination(int pageIndex, int pageSize, int count, List<T> data)
         {
             PageIndex = pageIndex;
@@ -12,9 +16,5 @@ namespace Business.Helpers
             Data = data;
         }
 
-        public int PageIndex { get; set; }
-        public int PageSize { get; set; }
-        public int Count { get; set; }
-        public List<T> Data { get; set; }
     }
 }

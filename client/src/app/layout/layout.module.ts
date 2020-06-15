@@ -5,6 +5,8 @@ import { FooterComponent } from './footer/footer.component';
 import { LayoutComponent } from './layout.component';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
+import { NotFoundComponent } from '../shared/not-found/not-found.component';
+
 
 const routes:Routes=[
   {
@@ -23,7 +25,16 @@ const routes:Routes=[
         {
           path:"auth",
           loadChildren:()=>import("../auth/auth.module").then(m=>m.AuthModule)
+        },
+        {
+          path:"not-found",
+          component:NotFoundComponent
+        },
+        {
+          path:"**",
+          component:NotFoundComponent
         }
+
        
 
      ]

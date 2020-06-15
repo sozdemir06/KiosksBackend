@@ -1,62 +1,74 @@
-<header class="header">
+<header class="header text-white">
   <div class="container">
-    <div class="header__logo">
-      <img mat-card-avatar src="/assets/logo/logo.png" alt="Logo">
-    </div>
-    <div class="header__login">
-      <div class="header__login-signIn">
-        <div>
-          <mat-icon
-            matBadge="15"
-            matBadgeColor="warn"
-            matBadgeSize="small"
-            [matMenuTriggerFor]="message"
-            >message</mat-icon
-          >
-          <mat-menu #message="matMenu">
-            <button mat-menu-item>Item 1</button>
-            <button mat-menu-item>Item 2</button>
-          </mat-menu>
-        </div>
-        <div>
-          <mat-icon
-            matBadge="5"
-            matBadgeColor="warn"
-            matBadgeSize="small"
-            [matMenuTriggerFor]="notification"
-            >notification_important</mat-icon
-          >
-          <mat-menu #notification="matMenu">
-            <button mat-menu-item>Item 1</button>
-            <button mat-menu-item>Item 2</button>
-          </mat-menu>
-        </div>
+    <div
+      class="d-flex justify-content-between align-items-center"
+      style="min-height: 7vh;"
+    >
+      <div class="d-flex align-items-center">
+        <button mat-icon-button (click)="onToogleSidenav()">
+          <mat-icon>menu</mat-icon>
+        </button>
         <img
-          class="header__login-signIn_avatar"
-          mat-card-avatar
-          src="/assets/user/avatar.png"
-          alt="User Avatar"
-          [matMenuTriggerFor]="menu"
+          routerLink="/"
+          src="/assets/logo/logo.png"
+          alt="Logo"
+          width="70"
+          style="cursor: pointer; outline: none;"
         />
-        <span class="header__login-signIn_username"  [matMenuTriggerFor]="menu">Şükrü Özdemir</span>
-        <div>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item [routerLink]="['/admin']" >Yönetim Paneli</button>
-            <button mat-menu-item [routerLink]="['/screen']" target="_blank">Tester</button>
-            <button mat-menu-item>Ayarlar</button>
-          </mat-menu>
-        </div>
-       
       </div>
-      <div class="header__login-signOut">
-        <button mat-raised-button color="basic" [routerLink]="['/auth']">
-            <mat-icon>input</mat-icon>
-            Giriş Yap
+      <div class="d-flex align-items-center justify-content-between">
+        <ng-container *ngIf="authStore.isLoggedIn$ | async">
+          <div class="message">
+            <button mat-icon-button [matMenuTriggerFor]="message">
+              <mat-icon matBadge="2" matBadgeColor="warn" matBadgeSize="small"
+                >message</mat-icon
+              >
+            </button>
+            <mat-menu #message="matMenu">
+              <button mat-menu-item>Item 1</button>
+              <button mat-menu-item>Item 2</button>
+            </mat-menu>
+          </div>
+          <div class="notifications">
+            <button mat-icon-button [matMenuTriggerFor]="notification">
+              <mat-icon matBadge="2" matBadgeColor="warn" matBadgeSize="small"
+                >notifications</mat-icon
+              >
+            </button>
+            <mat-menu #notification="matMenu">
+              <button mat-menu-item>Item 1</button>
+              <button mat-menu-item>Item 2</button>
+            </mat-menu>
+          </div>
+          <div class="d-flex align-items-center mr-2">
+            <img
+              [matMenuTriggerFor]="menu"
+              src="/assets/user/avatar.png"
+              class="mr-2"
+              width="35"
+              alt="user avatar"
+              style="cursor: pointer;"
+            />
+            <span [matMenuTriggerFor]="menu" style="cursor: pointer;"
+              >Şükrü Özdemir</span
+            >
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item [routerLink]="['/admin']">
+                Yönetim Paneli
+              </button>
+              <button mat-menu-item [routerLink]="['/kiosks']">Kiosks</button>
+              <button mat-menu-item>Ayarlar</button>
+              <button mat-menu-item (click)="logout()">Çıkış</button>
+            </mat-menu>
+          </div>
+        </ng-container>
+
+        <div class="signIn-SignOut" *ngIf="authStore.isLoggedOut$ | async">
+          <button mat-raised-button routerLink="/auth">
+            Giriş
+            <mat-icon>login</mat-icon>
           </button>
-          <button mat-raised-button color="basic" [routerLink]="['/auth/register']">
-            <mat-icon>save_alt</mat-icon>
-            Kayıt Ol
-          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -5,7 +5,7 @@ namespace Core.Extensions
 {
     public class RestException : Exception
     {
-       public RestException(HttpStatusCode code,object errors=null)
+        public RestException(HttpStatusCode code,object errors=null)
         {
             Code = code;
             Errors = errors;

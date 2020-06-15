@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminRoutingModule } from './admin-routing/admin-routing.module';
-import { MaterialModule } from '../material/material.module';
 import { UserPanelComponent } from './dashboard/panels/user-panel/user-panel.component';
 import {LayoutModule} from '@angular/cdk/layout';
+import { SharedModule } from '../shared/shared.module';
+
 
 
 @NgModule({
@@ -13,15 +13,14 @@ import {LayoutModule} from '@angular/cdk/layout';
     UserPanelComponent,
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     AdminRoutingModule,
-    MaterialModule,
     LayoutModule
   ],
 
   exports:[
     AdminRoutingModule,
-    LayoutModule
+    LayoutModule,
   ]
 })
 export class AdminModule { }

@@ -57,7 +57,6 @@ namespace Core.Utilities.Security.Jwt
                 Issuer = tokenOptions.Issuer,
                 Audience = tokenOptions.Audience,
                 Expires = _tokenExpire,
-                NotBefore = DateTime.Now,
                 Subject = new ClaimsIdentity(SetClaim(user, userRoles)),
                 SigningCredentials = signingCredentials
             };

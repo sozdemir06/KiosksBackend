@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Business.Helpers;
 using Core.Entities;
 using Core.Entities.Concrete;
+using Core.QueryParams;
+using Entities.Dtos;
 
 namespace Business.Abstract
 {
@@ -10,5 +13,6 @@ namespace Business.Abstract
         Task<List<UserRoleForListDto>> GetUserRoles(User user);
         Task Add(User user);
         Task<User> GetByEmail(string email);
+        Task<Pagination<UserForListDto>> GetUserForList(UserQueryParams userQueryParams);
     }
 }

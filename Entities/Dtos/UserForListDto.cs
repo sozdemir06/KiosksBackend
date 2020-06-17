@@ -17,5 +17,6 @@ namespace Entities.Dtos
         public DateTime Created { get; set; }
         public CampusForListDto Campus { get; set; }
         public DepartmentForListDto Department { get; set; }
+        public DegreeForListDto Degree { get; set; }
     }
 }

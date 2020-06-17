@@ -35,6 +35,22 @@ namespace DataAccess.Migrations
                     b.ToTable("Campuses");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.Degree", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("character varying(140)")
+                        .HasMaxLength(140);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Degrees");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -111,6 +127,9 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int>("DegreeId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("DepartmentId")
                         .HasColumnType("integer");
 
@@ -148,6 +167,8 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CampusId");
+
+                    b.HasIndex("DegreeId");
 
                     b.HasIndex("DepartmentId");
 
@@ -259,6 +280,12 @@ namespace DataAccess.Migrations
                     b.HasOne("Core.Entities.Concrete.Campus", "Campus")
                         .WithMany("Users")
                         .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.Degree", "Degree")
+                        .WithMany("Users")
+                        .HasForeignKey("DegreeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

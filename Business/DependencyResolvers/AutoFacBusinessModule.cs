@@ -26,11 +26,22 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
 
+            builder.RegisterType<CampusManager>().As<ICampusService>();
+            builder.RegisterType<EfCampusDal>().As<ICampusDal>();
+
+            builder.RegisterType<DepartmentManager>().As<IDepartmentService>();
+            builder.RegisterType<EfDepartmentDal>().As<IDepartmentDal>();
+
+             builder.RegisterType<DegreeManager>().As<IDegreeService>();
+            builder.RegisterType<EfDegreeDal>().As<IDegreeDal>();
+
        
             builder.RegisterType<EfRoleDal>().As<IRoleDal>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+
+         
 
             var assembly=System.Reflection.Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()

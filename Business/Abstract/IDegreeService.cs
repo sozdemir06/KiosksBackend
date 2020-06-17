@@ -1,0 +1,11 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Entities.Dtos;
+
+namespace Business.Abstract
+{
+    public interface IDegreeService
+    {
+           Task<List<DegreeForListDto>> GetDegreeListAsync();
+    }
+}

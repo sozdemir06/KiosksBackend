@@ -31,5 +31,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<Log> Logs { get; set; }
         public DbSet<Campus> Campuses { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Degree> Degrees { get; set; }
     }
 }

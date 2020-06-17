@@ -1,0 +1,3809 @@
+[
+ {
+   "Name": "Bakan Yardimcisi"
+ },
+ {
+   "Name": "Müstesar"
+ },
+ {
+   "Name": "Müstesar(Vali)"
+ },
+ {
+   "Name": "Müstesar Yardimcisi"
+ },
+ {
+   "Name": "Baskan"
+ },
+ {
+   "Name": "Birinci Baskan"
+ },
+ {
+   "Name": "Cumhuriyet Bassavcisi"
+ },
+ {
+   "Name": "Diyanet İsleri Baskani"
+ },
+ {
+   "Name": "Devlet Personel Baskani"
+ },
+ {
+   "Name": "Türkiye İstatistik Kurumu Baskani"
+ },
+ {
+   "Name": "Enstitü Baskani"
+ },
+ {
+   "Name": "Sosyal Güvenlik Kurumu Baskani"
+ },
+ {
+   "Name": "Yüksek Kurum Baskani"
+ },
+ {
+   "Name": "Gelir İdaresi Baskani"
+ },
+ {
+   "Name": "Basbakan Basmüsaviri"
+ },
+ {
+   "Name": "Basbakan Müsaviri"
+ },
+ {
+   "Name": "Basbakanlik Müsaviri"
+ },
+ {
+   "Name": "Basbakanlik Müsaviri (s)"
+ },
+ {
+   "Name": "Bakan Özel Müsaviri"
+ },
+ {
+   "Name": "Bakanlik Yüksek Müsaviri"
+ },
+ {
+   "Name": "Bakanlik Müsaviri"
+ },
+ {
+   "Name": "Bakanlik Müsaviri (s)"
+ },
+ {
+   "Name": "Müstesar Özel Müsaviri"
+ },
+ {
+   "Name": "Müstesarlik Müsaviri"
+ },
+ {
+   "Name": "Müstesarlik Müsaviri (s)"
+ },
+ {
+   "Name": "Mali Suçlari Arastirma Kurulu Baskani"
+ },
+ {
+   "Name": "Teftis Kurulu Baskani"
+ },
+ {
+   "Name": "Vergi Denetim Kurulu Baskani"
+ },
+ {
+   "Name": "İs Teftis Kurulu Baskani"
+ },
+ {
+   "Name": "İhtisas Kurulu Baskani"
+ },
+ {
+   "Name": "Talim ve Terbiye Kurulu Baskani"
+ },
+ {
+   "Name": "Hazine Kontrolörleri Kurulu Baskani"
+ },
+ {
+   "Name": "Sigorta Denetleme Kurulu Baskani"
+ },
+ {
+   "Name": "Yüksek Fen Kurulu Baskani"
+ },
+ {
+   "Name": "Proje Grup Baskani"
+ },
+ {
+   "Name": "Grup Baskani"
+ },
+ {
+   "Name": "Grup Baskani (s)"
+ },
+ {
+   "Name": "Çalisma ve Sosyal Güvenlik Eğitim Arastirma Merkezi Baskani"
+ },
+ {
+   "Name": "Talim ve Terbiye Kurulu Üyesi"
+ },
+ {
+   "Name": "Dis Politika Danisma Kurulu Üyesi"
+ },
+ {
+   "Name": "A.P.K. Kurulu Üyesi"
+ },
+ {
+   "Name": "Yüksek Fen Kurulu Üyesi"
+ },
+ {
+   "Name": "Kanunlar ve Kararlar Genel Müdürü"
+ },
+ {
+   "Name": "Tarim Reformu Genel Müdürü"
+ },
+ {
+   "Name": "Tarimsal Arastirmalar ve Politikalar Genel Müdürü"
+ },
+ {
+   "Name": "İktisadi Sektörler ve Koordinasyon Genel Müdürü"
+ },
+ {
+   "Name": "Personel ve Prensipler Genel Müdürü"
+ },
+ {
+   "Name": "Gida ve Kontrol Genel Müdürü"
+ },
+ {
+   "Name": "Hayvancilik Genel Müdürü"
+ },
+ {
+   "Name": "Bitkisel Üretim Genel Müdürü"
+ },
+ {
+   "Name": "Mevzuati Gelistirme ve Yay. Genel Müdürü"
+ },
+ {
+   "Name": "Balikçilik ve Su Ürünleri Genel Müdürü"
+ },
+ {
+   "Name": "Sinema Genel Müdürü"
+ },
+ {
+   "Name": "Devlet Arsivleri Genel Müdürü"
+ },
+ {
+   "Name": "Ceza İsleri Genel Müdürü"
+ },
+ {
+   "Name": "Ceza ve Tevkif Evleri Genel Müdürü"
+ },
+ {
+   "Name": "Yillik Prog. ve Konjonktür Değerlendirme Genel Müdürü"
+ },
+ {
+   "Name": "Hukuk İsleri Genel Müdürü"
+ },
+ {
+   "Name": "Ekonomik Modeller ve Stratejik Arastirmalar Genel Müdürü"
+ },
+ {
+   "Name": "Kanunlar Genel Müdürü"
+ },
+ {
+   "Name": "Adli Sicil ve İstatistik Genel Müdürü"
+ },
+ {
+   "Name": "Dis İliskiler ve Yurt Disi İsçi Hizmetleri Genel Müdürü"
+ },
+ {
+   "Name": "Avrupa Birliği ve Dis İliskiler Genel Müdürü"
+ },
+ {
+   "Name": "Seçmen Kütüğü Genel Müdürü"
+ },
+ {
+   "Name": "Emniyet Genel Müdürü (Vali)"
+ },
+ {
+   "Name": "Avrupa Birliği Genel Müdürü"
+ },
+ {
+   "Name": "İller İdaresi Genel Müdürü"
+ },
+ {
+   "Name": "Nüfus ve Vatandaslik İsleri Genel Müdürü"
+ },
+ {
+   "Name": "Mahalli İdareler Genel Müdürü"
+ },
+ {
+   "Name": "Bashukuk Müsaviri ve Muhakemat Genel Müdürü"
+ },
+ {
+   "Name": "Bütçe ve Mali Kontrol Genel Müdürü"
+ },
+ {
+   "Name": "Muhasebat Genel Müdürü"
+ },
+ {
+   "Name": "Gelir Politikalari Genel Müdürü"
+ },
+ {
+   "Name": "Yatirim ve İsletmeler Genel Müdürü"
+ },
+ {
+   "Name": "Milli Emlak Genel Müdürü"
+ },
+ {
+   "Name": "Uluslararasi Hukuk ve Dis İliskiler Genel Müdürü"
+ },
+ {
+   "Name": "Gümrükler Genel Müdürü"
+ },
+ {
+   "Name": "Gümrükler Muhafaza Genel Müdürü"
+ },
+ {
+   "Name": "Ortaöğretim Genel Müdürü"
+ },
+ {
+   "Name": "Risk Yönetimi ve Kontrol Genel Müdürü"
+ },
+ {
+   "Name": "Tasfiye Hizmetleri Genel Müdürü"
+ },
+ {
+   "Name": "Tüketicinin Korunmasi ve Piyasa Gözetimi Genel Müdürü"
+ },
+ {
+   "Name": "Kooperatifçilik Genel Müdürü"
+ },
+ {
+   "Name": "Din Öğretimi Genel Müdürü"
+ },
+ {
+   "Name": "Enerji İsleri Genel Müdürü"
+ },
+ {
+   "Name": "Maden İsleri Genel Müdürü"
+ },
+ {
+   "Name": "Çalisma Genel Müdürü"
+ },
+ {
+   "Name": "İs Sağliği ve Güvenliği Genel Müdürü"
+ },
+ {
+   "Name": "Sosyal Sektörler ve Koordinasyon Genel Müdürü"
+ },
+ {
+   "Name": "Bölgesel Gelisme ve Yapisal Uyum Genel Müdürü"
+ },
+ {
+   "Name": "Güvenlik İsleri Genel Müdürü"
+ },
+ {
+   "Name": "İç Ticaret Genel Müdürü"
+ },
+ {
+   "Name": "Tanitma Genel Müdürü"
+ },
+ {
+   "Name": "Kütüphaneler ve Yayimlar Genel Müdürü"
+ },
+ {
+   "Name": "Kültür Varliklari ve Müzeler Genel Müdürü"
+ },
+ {
+   "Name": "Arastirma ve Eğitim Genel Müdürü"
+ },
+ {
+   "Name": "Güzel Sanatlar Genel Müdürü"
+ },
+ {
+   "Name": "Emeklilik Hizmetleri Genel Müdürü"
+ },
+ {
+   "Name": "Sigorta Primleri Genel Müdürü"
+ },
+ {
+   "Name": "Dis Ekonomik İliskiler Genel Müdürü"
+ },
+ {
+   "Name": "Kamu Finansmani Genel Müdürü"
+ },
+ {
+   "Name": "Temel Eğitim Genel Müdürü"
+ },
+ {
+   "Name": "Mesleki ve Teknik Eğitim Genel Müdürü"
+ },
+ {
+   "Name": "Özel Eğitim ve Rehberlik Hizmetleri Genel Müdürü"
+ },
+ {
+   "Name": "Hayat Boyu Öğrenme Genel Müdürü"
+ },
+ {
+   "Name": "Yenilik ve Eğitim Teknolojileri Genel Müdürü"
+ },
+ {
+   "Name": "Öğretmen Yetistirme ve Gelistirme Genel Müdürü"
+ },
+ {
+   "Name": "İnsan Kaynaklari Genel Müdürü"
+ },
+ {
+   "Name": "Destek Hizmetleri Genel Müdürü"
+ },
+ {
+   "Name": "Sigortacilik Genel Müdürü"
+ },
+ {
+   "Name": "Yükseköğretim ve Yurt Disi Eğitim Genel Müdürü"
+ },
+ {
+   "Name": "Özel Öğr. Kurumlari Genel Müdürü"
+ },
+ {
+   "Name": "Ölçme, Değerlendirme ve Sinav Hizmetleri Genel Müdürü"
+ },
+ {
+   "Name": "Ekonomik Arastirmalar Genel Müdürü"
+ },
+ {
+   "Name": "Esnaf ve Sanatkarlar Genel Müdürü"
+ },
+ {
+   "Name": "Genel Müdür"
+ },
+ {
+   "Name": "Personel Genel Müdürü"
+ },
+ {
+   "Name": "Devlet Destekleri Genel Müdürü"
+ },
+ {
+   "Name": "Karayolu Düzenleme Genel Müdürü"
+ },
+ {
+   "Name": "Demiryolu Düzenleme Genel Müdürü"
+ },
+ {
+   "Name": "Deniz ve İçsular Düzenleme Genel Müdürü"
+ },
+ {
+   "Name": "Tehlikeli Mal ve Kombine Tasimacilik Düzenleme Genel Müdürü"
+ },
+ {
+   "Name": "Deniz Ticareti Genel Müdürü"
+ },
+ {
+   "Name": "Tersaneler ve Kiyi Yapilari Genel Müdürü"
+ },
+ {
+   "Name": "Haberlesme Genel Müdürü"
+ },
+ {
+   "Name": "Havacilik ve Uzay Teknolojileri Genel Müdürü"
+ },
+ {
+   "Name": "Altyapi Yatirimlari Genel Müdürü"
+ },
+ {
+   "Name": "Dis İliskiler ve Avrupa Birliği Genel Müdürü"
+ },
+ {
+   "Name": "Telif Haklari Genel Müdürü"
+ },
+ {
+   "Name": "Kamu Sermayeli Kurulus ve İsletmeler Genel Müdürü"
+ },
+ {
+   "Name": "Mali Sektörle İliskiler ve Kambiyo Genel Müdürü"
+ },
+ {
+   "Name": "Petrol İsleri Genel Müdürü"
+ },
+ {
+   "Name": "Yenilenebilir Enerji Genel Müdürü"
+ },
+ {
+   "Name": "Rehberlik ve Denetim Baskani"
+ },
+ {
+   "Name": "Bilgi İslem Grup Baskani"
+ },
+ {
+   "Name": "İnsaat ve Emlak Grup Baskani"
+ },
+ {
+   "Name": "Denetim Hizmetleri Baskani"
+ },
+ {
+   "Name": "Dis İliskiler Baskani"
+ },
+ {
+   "Name": "Hukuk Hizmetleri Baskani"
+ },
+ {
+   "Name": "İdareyi Gelistirme Baskani"
+ },
+ {
+   "Name": "Strateji Gelistirme Baskani"
+ },
+ {
+   "Name": "Rehberlik ve Teftis Baskani"
+ },
+ {
+   "Name": "Türkiye Yazma Eserler Kurumu Baskani"
+ },
+ {
+   "Name": "Akademi Baskani"
+ },
+ {
+   "Name": "Bilgi İslem Baskani"
+ },
+ {
+   "Name": "Müze Baskani"
+ },
+ {
+   "Name": "Milli Kütüphane Baskani"
+ },
+ {
+   "Name": "Maliye Yüksek Eğitim Merkezi Baskani"
+ },
+ {
+   "Name": "Kalkinma Arastirmalari Merkezi Baskani"
+ },
+ {
+   "Name": "Ulastirma, Denizcilik ve Haberlesme Arastirmalari Merkezi Baskani"
+ },
+ {
+   "Name": "Atatürk Arastirma Merkezi Baskani"
+ },
+ {
+   "Name": "Atatürk Kültür Merkezi Baskani"
+ },
+ {
+   "Name": "Kurum Baskani"
+ },
+ {
+   "Name": "Baskan Yardimcisi"
+ },
+ {
+   "Name": "Baskan Vekili"
+ },
+ {
+   "Name": "Birinci Baskan Vekili"
+ },
+ {
+   "Name": "Cumhuriyet Bassavci Vekili"
+ },
+ {
+   "Name": "Teftis Kurulu Baskan Yardimcisi"
+ },
+ {
+   "Name": "Vergi Denetim Kurulu Baskan Yardimcisi"
+ },
+ {
+   "Name": "Liman Baskan Yardimcisi"
+ },
+ {
+   "Name": "Diyanet İsleri Baskan Yardimcisi"
+ },
+ {
+   "Name": "Türkiye İstatistik Kurumu Baskan Yardimcisi"
+ },
+ {
+   "Name": "Sosyal Güvenlik Kurumu Baskan Yardimcisi"
+ },
+ {
+   "Name": "Yüksek Kurum Baskan Yardimcisi"
+ },
+ {
+   "Name": "Gelir İdaresi Baskan Yardimcisi"
+ },
+ {
+   "Name": "Milli Kütüphane Baskan Yardimcisi"
+ },
+ {
+   "Name": "Maliye Yüksek Eğitim Merkezi Baskan Yardimcisi"
+ },
+ {
+   "Name": "Atatürk Arastirma Merkezi Baskan Yardimcisi"
+ },
+ {
+   "Name": "Atatürk Kültür Merkezi Baskan Yardimcisi"
+ },
+ {
+   "Name": "Akademi Baskan Yardimcisi"
+ },
+ {
+   "Name": "Çalisma ve Sosyal Güvenlik Eğitim Arastirma Merkezi Baskan Yardimcisi"
+ },
+ {
+   "Name": "Kurum Baskan Yardimcisi"
+ },
+ {
+   "Name": "Genel Müdür Yardimcisi"
+ },
+ {
+   "Name": "İs Sağliği ve Güvenliği Genel Müdür Yardimcisi"
+ },
+ {
+   "Name": "Genel Müdür Yardimcisi (s)"
+ },
+ {
+   "Name": "Basin Müsaviri"
+ },
+ {
+   "Name": "Basin ve Halkla İliskiler Müsaviri"
+ },
+ {
+   "Name": "Vakiflar Meclisi Üyesi"
+ },
+ {
+   "Name": "Yönetim Kurulu Üyesi"
+ },
+ {
+   "Name": "Olağanüstü Hal Bölge Valisi"
+ },
+ {
+   "Name": "Vali"
+ },
+ {
+   "Name": "Vali Yardimcisi"
+ },
+ {
+   "Name": "Din İsleri Yüksek Kurulu Baskani"
+ },
+ {
+   "Name": "Spor Kontrolörleri Kurul Baskani"
+ },
+ {
+   "Name": "Mushaflari İnceleme ve Kiraat Kurulu Baskani"
+ },
+ {
+   "Name": "Gemi Sürvey Kurulu Baskani"
+ },
+ {
+   "Name": "İhtisas Kurulu Üyesi"
+ },
+ {
+   "Name": "Din İsleri Yüksek Kurulu Üyesi"
+ },
+ {
+   "Name": "Mushaflari İnceleme ve Kiraat Kurulu Üyesi"
+ },
+ {
+   "Name": "Bakanlar Kurulu Sekreteri"
+ },
+ {
+   "Name": "Yüksek Hakem Kurulu Genel Sekreteri"
+ },
+ {
+   "Name": "Genel Sekreter"
+ },
+ {
+   "Name": "Genel Sekreter Yardimcisi"
+ },
+ {
+   "Name": "Baskanlik Müsaviri"
+ },
+ {
+   "Name": "Baskanlik Müsaviri (s)"
+ },
+ {
+   "Name": "1. Hukuk Müsaviri"
+ },
+ {
+   "Name": "Hukuk Müsaviri"
+ },
+ {
+   "Name": "Hukuk Müsaviri (Ö)"
+ },
+ {
+   "Name": "Federasyon Genel Sekreteri"
+ },
+ {
+   "Name": "Üniversite Genel Sekreteri"
+ },
+ {
+   "Name": "Üniversite Genel Sekreter Yardimcisi"
+ },
+ {
+   "Name": "Diplomasi Akademisi Baskani"
+ },
+ {
+   "Name": "Stratejik Arastirmalar Merkezi Baskani"
+ },
+ {
+   "Name": "Stratejik Arastirmalar Merkezi Sekreteri"
+ },
+ {
+   "Name": "By.Özl Klm Müdürüsb Müdürü,By Mst.D.Tm Mst.Baskn Yardimcisimas.Bkat.Kn.İk Kat.Mv Kn.At."
+ },
+ {
+   "Name": "By.Daim Tem.Mas.Br Sn Bk.El-Mst.El-Daim Tem Y.El.Daim Tem Y.By Br Mst.D.Tm Br Mst. By Mst.D.Tm Mst.Bk.Bk Y.Bkat.Kn.İk Kat.Mv Kn.At."
+ },
+ {
+   "Name": "Dai Baskaniöz Klm Müdürü,sb Müdürü,Bk.By Br Mst.Dai Tem Bir Mst.Elçi.By Mst.Daim Tem Mst.Bk Yardimcisibkat.Kn.İk Kat.Mv Kn.At."
+ },
+ {
+   "Name": "By.Dai Baskaniöz Klm Müdürüsb Müdürübk.Bk Yardimcisiby Mst.D.Tm Mst.Bkat.Kn.İk Kat.Mv Kn.At."
+ },
+ {
+   "Name": "Baskatip,Konsolos,İkinci Katip,Muavin Konsolos,Üçüncü Katip,Atase"
+ },
+ {
+   "Name": "İkinci Katip,Muavin Konsolos,Üçüncü Katip,Atase,Aday Meslek Memuru,Aday Konsolosluk ve İhtisas Memuru"
+ },
+ {
+   "Name": "İkinci Katip,Üçüncü Katip,Muavin Konsolos,Atase,Aday Meslek Memuru,Aday Konsolosluk ve İhtisas Memuru"
+ },
+ {
+   "Name": "Daire Baskani 2.Sinif Baskonsolos"
+ },
+ {
+   "Name": "Özel Kalem Müdürü, 3.Sinif Baskonsolos"
+ },
+ {
+   "Name": "Aday Meslek Memuru, Üçüncü Katip, Muavin Konsolos, Atase, Aday Konsolosluk ve İhtisas Memuru"
+ },
+ {
+   "Name": "Daimi Temsilci Yardimcisi"
+ },
+ {
+   "Name": "Bilim ve Teknoloji Müsaviri"
+ },
+ {
+   "Name": "Ekonomi Basmüsaviri"
+ },
+ {
+   "Name": "Ticaret Basmüsaviri"
+ },
+ {
+   "Name": "Ekonomi Müsaviri"
+ },
+ {
+   "Name": "Eğitim Müsaviri"
+ },
+ {
+   "Name": "Tarim Müsaviri"
+ },
+ {
+   "Name": "Din Hizmetleri Müsaviri"
+ },
+ {
+   "Name": "Ticaret Müsaviri"
+ },
+ {
+   "Name": "Gümrük Müsaviri"
+ },
+ {
+   "Name": "Maliye Müsaviri"
+ },
+ {
+   "Name": "Avrupa Birliği Müsaviri"
+ },
+ {
+   "Name": "Kültür ve Tanitma Müsaviri"
+ },
+ {
+   "Name": "Göç Müsaviri"
+ },
+ {
+   "Name": "Çalisma ve Sosyal Güvenlik Müsaviri"
+ },
+ {
+   "Name": "Spor Müsaviri"
+ },
+ {
+   "Name": "Danisman"
+ },
+ {
+   "Name": "Uzman Müsavir"
+ },
+ {
+   "Name": "Savunma Sekreteri"
+ },
+ {
+   "Name": "Ekonomi Müsavir Yardimcisi"
+ },
+ {
+   "Name": "Kültür ve Tanitma Müsavir Yardimcisi"
+ },
+ {
+   "Name": "Çalisma ve Sosyal Güvenlik Müsavir Yardimcisi"
+ },
+ {
+   "Name": "Ticaret Müsavir Yardimcisi"
+ },
+ {
+   "Name": "Uzman Müsavir Yardimcisi"
+ },
+ {
+   "Name": "Atase"
+ },
+ {
+   "Name": "Gümrük Atasesi"
+ },
+ {
+   "Name": "Ekonomi Atasesi"
+ },
+ {
+   "Name": "Din Hizmetleri Atasesi"
+ },
+ {
+   "Name": "Din Hizmetleri Koordinatörü"
+ },
+ {
+   "Name": "Ticaret Atasesi"
+ },
+ {
+   "Name": "Göç Atasesi"
+ },
+ {
+   "Name": "Çalisma ve Sosyal Güvenlik Atesesi"
+ },
+ {
+   "Name": "Kültür ve Tanitma Atasesi"
+ },
+ {
+   "Name": "Atase Yardimcisi"
+ },
+ {
+   "Name": "Kültür ve Tanitma Atase Yardimcisi"
+ },
+ {
+   "Name": "Çalisma ve Sosyal Güvenlik Atese Yardimcisi"
+ },
+ {
+   "Name": "Din Görevlisi"
+ },
+ {
+   "Name": "Mahalli Katip"
+ },
+ {
+   "Name": "Bassavci"
+ },
+ {
+   "Name": "Dekan Yardimcisi"
+ },
+ {
+   "Name": "Profesör"
+ },
+ {
+   "Name": "Doçent"
+ },
+ {
+   "Name": "Yardimci Doçent"
+ },
+ {
+   "Name": "Öğretim Görevlisi"
+ },
+ {
+   "Name": "Okutman"
+ },
+ {
+   "Name": "Çevirici"
+ },
+ {
+   "Name": "Eğitim ve Öğretim Planlamacisi"
+ },
+ {
+   "Name": "Arastirma Görevlisi"
+ },
+ {
+   "Name": "Orta Asya ve Kafkaslar Dairesi Baskani"
+ },
+ {
+   "Name": "Balkanlar ve Doğu Avrupa Dairesi Baskani"
+ },
+ {
+   "Name": "Ortadoğu ve Afrika Dairesi Baskani"
+ },
+ {
+   "Name": "Doğu ve Güney Asya, Pasifik ve Latin Amerika Dairesi Baskani"
+ },
+ {
+   "Name": "Dis İliskiler ve Ortakliklar Dairesi Baskani"
+ },
+ {
+   "Name": "Meteorolojik Veri İslem Dairesi Baskani"
+ },
+ {
+   "Name": "Tahminler Dairesi Baskani"
+ },
+ {
+   "Name": "İnsan Kaynaklari ve Eğitim Dairesi Baskani"
+ },
+ {
+   "Name": "Gözlem Sistemleri Dairesi Baskani"
+ },
+ {
+   "Name": "Bilgi Sistemleri ve Haberlesme Dairesi Baskani"
+ },
+ {
+   "Name": "Nükleer Enerji Proje Uygulama Dairesi Baskani"
+ },
+ {
+   "Name": "Bilimsel Çalismalar Koordinasyon Dairesi Baskani"
+ },
+ {
+   "Name": "İstihdam Hizmetleri Dairesi Baskani"
+ },
+ {
+   "Name": "Aktif İsgücü Hizmetleri Dairesi Baskani"
+ },
+ {
+   "Name": "İs ve Meslek Danismanliği Dairesi Baskani"
+ },
+ {
+   "Name": "İsgücü Piyasasi ve İstatistik Dairesi Baskani"
+ },
+ {
+   "Name": "Dis İliskiler ve Projeler Dairesi Baskani"
+ },
+ {
+   "Name": "Fon Yönetimi ve Aktüerya Dairesi Baskani"
+ },
+ {
+   "Name": "Uçusa Elverislilik Dairesi Baskani"
+ },
+ {
+   "Name": "Uçus Operasyon Dairesi Baskani"
+ },
+ {
+   "Name": "Sektörel Düzenleme ve Eğitim Dairesi Baskani"
+ },
+ {
+   "Name": "Deniz ve Çevre Arastirmalari Dairesi Baskani"
+ },
+ {
+   "Name": "TUİK Daire Baskani"
+ },
+ {
+   "Name": "Dis İliskiler ve İs Gelistirme Daire Baskani"
+ },
+ {
+   "Name": "Sinav Görevlileri Yönetimi Daire Baskani"
+ },
+ {
+   "Name": "Ekonomik, Sosyal ve Kültürel İsler Baskani"
+ },
+ {
+   "Name": "İdari ve Mali İsler Baskani"
+ },
+ {
+   "Name": "Ağaçlandirma Dairesi Baskani"
+ },
+ {
+   "Name": "Bilgi Sistemleri Dairesi Baskani"
+ },
+ {
+   "Name": "İzin ve İrtifak Dairesi Baskani"
+ },
+ {
+   "Name": "Kamu Görevlileri Sendikalari Dairesi Baskani"
+ },
+ {
+   "Name": "Kamu Personel İstihdami Dairesi Baskani"
+ },
+ {
+   "Name": "Kamu İktisadi Tesebbüsleri ve Özellestirme Dairesi Baskani"
+ },
+ {
+   "Name": "Bilgi Sistemleri ve İstatistik Dairesi Baskani"
+ },
+ {
+   "Name": "Döner Sermaye İsletme Dairesi Baskani"
+ },
+ {
+   "Name": "Asayis Dairesi Baskani"
+ },
+ {
+   "Name": "Akaryakit İkmal ve İsletme Dairesi Baskani"
+ },
+ {
+   "Name": "Silvikültür Dairesi Baskani"
+ },
+ {
+   "Name": "Tedarik Dairesi Baskani"
+ },
+ {
+   "Name": "Planlama,Koordinasyon ve Sosyal Destek Dairesi Baskani"
+ },
+ {
+   "Name": "İletisim Dairesi Baskani"
+ },
+ {
+   "Name": "Mali İsler Dairesi Baskani"
+ },
+ {
+   "Name": "İnsan Kaynaklari ve Destek Hizmetleri Dairesi Baskani"
+ },
+ {
+   "Name": "Bilisim Teknolojileri Dairesi Baskani"
+ },
+ {
+   "Name": "Sanat Eserleri ve Yapi İsleri Dairesi Baskani"
+ },
+ {
+   "Name": "Diplomatik Arsiv Dairesi Baskani"
+ },
+ {
+   "Name": "Tercüme Dairesi Baskani"
+ },
+ {
+   "Name": "Etüt, Proje ve Çevre Dairesi Baskani"
+ },
+ {
+   "Name": "Yol Yapim Dairesi Baskani"
+ },
+ {
+   "Name": "Tesisler ve Bakim Dairesi Baskani"
+ },
+ {
+   "Name": "Trafik Güvenliği Dairesi Baskani"
+ },
+ {
+   "Name": "Sanat Yapilari Dairesi Baskani"
+ },
+ {
+   "Name": "Arastirma ve Gelistirme Dairesi Baskani"
+ },
+ {
+   "Name": "Arastirma Dairesi Baskani"
+ },
+ {
+   "Name": "Tasinmazlar Dairesi Baskani"
+ },
+ {
+   "Name": "Bilgi Teknolojileri Dairesi Baskani"
+ },
+ {
+   "Name": "Birim Baskani"
+ },
+ {
+   "Name": "Bahisler ve Oyunlar Dairesi Baskani"
+ },
+ {
+   "Name": "Bağli ve İlgili Kuruluslar Dairesi Baskani"
+ },
+ {
+   "Name": "Göç Politika ve Projeleri Dairesi Baskani"
+ },
+ {
+   "Name": "İnsan Ticareti Mağdurlarini Koruma Dairesi Baskani"
+ },
+ {
+   "Name": "Uluslararasi Koruma Dairesi Baskani"
+ },
+ {
+   "Name": "Uyum ve İletisim Dairesi Baskani"
+ },
+ {
+   "Name": "Barajlar ve Hes Dairesi Baskani"
+ },
+ {
+   "Name": "Yabancilar Dairesi Baskani"
+ },
+ {
+   "Name": "Basin-Yayin Dairesi Baskani"
+ },
+ {
+   "Name": "Basin ve Halkla İliskiler Dairesi Baskani"
+ },
+ {
+   "Name": "Bilimsel Dökümantasyon ve Tanitma Dairesi Baskani"
+ },
+ {
+   "Name": "Damga Matbaasi Dairesi Baskani"
+ },
+ {
+   "Name": "Danismanlik Hizmetleri Dairesi Baskani"
+ },
+ {
+   "Name": "Darphane Dairesi Baskani"
+ },
+ {
+   "Name": "İnsan Kaynaklari Dairesi Baskani"
+ },
+ {
+   "Name": "Etüt, Planlama ve Tahsisler Dairesi Baskani"
+ },
+ {
+   "Name": "Destek Hizmetleri Dairesi Baskani"
+ },
+ {
+   "Name": "Strateji Gelistirme Dairesi Baskani"
+ },
+ {
+   "Name": "Strateji Gelistirme Birim Baskani"
+ },
+ {
+   "Name": "Atiksu Dairesi Baskani"
+ },
+ {
+   "Name": "Dis İliskiler Dairesi Baskani"
+ },
+ {
+   "Name": "Dis İliskiler, Eğitim ve Arastirma Dairesi Baskani"
+ },
+ {
+   "Name": "Dis İliskiler ve Avrupa Birliği Koordinasyon Dairesi Baskani"
+ },
+ {
+   "Name": "Hidroelektrik Enerji Dairesi Baskani"
+ },
+ {
+   "Name": "Yazma ve Nadir Eserler Dairesi Baskani"
+ },
+ {
+   "Name": "Çeviri ve Yayim Dairesi Baskani"
+ },
+ {
+   "Name": "Kitap sifahanesi ve Arsiv Dairesi Baskani"
+ },
+ {
+   "Name": "Dernekler Dairesi Baskani"
+ },
+ {
+   "Name": "Enerji Hammadde Etüd ve Arama Dairesi Baskani"
+ },
+ {
+   "Name": "Endüstriyel Tasarimlar Dairesi Baskani"
+ },
+ {
+   "Name": "Enformasyon Dairesi Baskani"
+ },
+ {
+   "Name": "Enformasyon,Dökümantasyon ve Bilgi İslem Dairesi Baskani"
+ },
+ {
+   "Name": "Fidanlik ve Tohum İsleri Dairesi Baskani"
+ },
+ {
+   "Name": "Aktüerya ve Fon Yönetimi Dairesi Baskani"
+ },
+ {
+   "Name": "Finansman ve Fon Yönetimi Dairesi Baskani"
+ },
+ {
+   "Name": "Afet ve Acil Durum Yönetimi Baskani"
+ },
+ {
+   "Name": "Planlama ve Zarar Azaltma Dairesi Baskani"
+ },
+ {
+   "Name": "Müdahale Dairesi Baskani"
+ },
+ {
+   "Name": "İyilestirme Dairesi Baskani"
+ },
+ {
+   "Name": "Fizibilite Etüdleri Dairesi Baskani"
+ },
+ {
+   "Name": "Sivil Savunma Dairesi Baskani"
+ },
+ {
+   "Name": "Deprem Dairesi Baskani"
+ },
+ {
+   "Name": "Gelir İdaresi Dairesi Baskani"
+ },
+ {
+   "Name": "Yönetim Hizmetleri Dairesi Baskani"
+ },
+ {
+   "Name": "Güvenlik Dairesi Baskani"
+ },
+ {
+   "Name": "Haber Dairesi Baskani"
+ },
+ {
+   "Name": "Harita Dairesi Baskani"
+ },
+ {
+   "Name": "Hava Ulasim Dairesi Baskani"
+ },
+ {
+   "Name": "Hava Seyrüsefer Dairesi Baskani"
+ },
+ {
+   "Name": "Hava Alanlari Dairesi Baskani"
+ },
+ {
+   "Name": "Havacilik Güvenliği Dairesi Baskani"
+ },
+ {
+   "Name": "Havacilik Dairesi Baskani"
+ },
+ {
+   "Name": "Hayir Hizmetleri Dairesi Baskani"
+ },
+ {
+   "Name": "Kadro ve Kamu Görevlileri Dairesi Baskani"
+ },
+ {
+   "Name": "İçmesuyu Dairesi Baskani"
+ },
+ {
+   "Name": "İkramiye Kontrol ve Çekilisler Dairesi Baskani"
+ },
+ {
+   "Name": "İstihbarat Dairesi Baskani"
+ },
+ {
+   "Name": "İhale Hizmetleri Dairesi Baskani"
+ },
+ {
+   "Name": "İnsaat ve Emlak Dairesi Baskani"
+ },
+ {
+   "Name": "İstihdam ve Sosyal Hizmetler Dairesi Baskani"
+ },
+ {
+   "Name": "İssizlik Sigortasi Dairesi Baskani"
+ },
+ {
+   "Name": "İsletme ve Pazar Dairesi Baskani"
+ },
+ {
+   "Name": "Jeofizik Etüdleri Dairesi Baskani"
+ },
+ {
+   "Name": "Jeoloji Etüdleri Dairesi Baskani"
+ },
+ {
+   "Name": "Jeoteknik Hizmetler ve Yas Dairesi Baskani"
+ },
+ {
+   "Name": "Hukuki ve Mali Statüler Dairesi Baskani"
+ },
+ {
+   "Name": "Kadastro Dairesi Baskani"
+ },
+ {
+   "Name": "Kadastro ve Mülkiyet Dairesi Baskani"
+ },
+ {
+   "Name": "Kaçakçilik İ.H.B. Toplama Dairesi Baskani"
+ },
+ {
+   "Name": "Kaçakçilik ve Organize Suçlarla Mücadele Dairesi Baskani"
+ },
+ {
+   "Name": "Konut Kredileri Dairesi Baskani"
+ },
+ {
+   "Name": "Kredi Dairesi Baskani"
+ },
+ {
+   "Name": "Kültür ve Tescil Dairesi Baskani"
+ },
+ {
+   "Name": "Loto Dairesi Baskani"
+ },
+ {
+   "Name": "Maden Analizleri ve Teknolojisi Dairesi Baskani"
+ },
+ {
+   "Name": "Maden Etüd ve Arama Dairesi Baskani"
+ },
+ {
+   "Name": "Markalar Dairesi Baskani"
+ },
+ {
+   "Name": "Vakif Hizmetleri Dairesi Baskani"
+ },
+ {
+   "Name": "Nükleer Güvenlik Dairesi Baskani"
+ },
+ {
+   "Name": "Orman İdare ve Plan Dairesi Baskani"
+ },
+ {
+   "Name": "Orman Zararlilariyla Mücadele Dairesi Baskani"
+ },
+ {
+   "Name": "Orman Yanginlariyla Mücadele Dairesi Baskani"
+ },
+ {
+   "Name": "Orman ve Köy İliskileri Dairesi Baskani"
+ },
+ {
+   "Name": "Odun Disi Ürün ve Hizmetler Dairesi Baskani"
+ },
+ {
+   "Name": "Kurullar Sekreteryasi Dairesi Baskani"
+ },
+ {
+   "Name": "Spor Hizmetleri Dairesi Baskani"
+ },
+ {
+   "Name": "Uluslararasi Organizasyonlar Dairesi Baskani"
+ },
+ {
+   "Name": "sehit Yakinlari ve Gaziler Dairesi Baskani"
+ },
+ {
+   "Name": "Eğitim, Yayim ve Yayinlar Dairesi Baskani"
+ },
+ {
+   "Name": "Patent Dairesi Baskani"
+ },
+ {
+   "Name": "Piyango Dairesi Baskani"
+ },
+ {
+   "Name": "Proje Değerlendirme ve Hazirlik Dairesi Baskani"
+ },
+ {
+   "Name": "Proje ve İnsaat Dairesi Baskani"
+ },
+ {
+   "Name": "Radyasyon Güvenliği Dairesi Baskani"
+ },
+ {
+   "Name": "Sermaye Piyasalari Dairesi Baskani"
+ },
+ {
+   "Name": "Sondaj Dairesi Baskani"
+ },
+ {
+   "Name": "Sosyal Hizmetler Dairesi Baskani"
+ },
+ {
+   "Name": "Spor Faaliyetleri Dairesi Baskani"
+ },
+ {
+   "Name": "Spor Kuruluslari Dairesi Baskani"
+ },
+ {
+   "Name": "Sportif Eğitim Dairesi Baskani"
+ },
+ {
+   "Name": "Talih Oyunlari Dairesi Baskani"
+ },
+ {
+   "Name": "Tapu Dairesi Baskani"
+ },
+ {
+   "Name": "Transit Petrol Boru Hatlari Dairesi Baskani"
+ },
+ {
+   "Name": "Terörle Mücadele Dairesi Baskani"
+ },
+ {
+   "Name": "Teskilat ve Yönetimi Gelistirme Dairesi Baskani"
+ },
+ {
+   "Name": "Toplu Konut Proje ve Arastirma Dairesi Baskani"
+ },
+ {
+   "Name": "Toprak Muhafaza ve Havza islahi Dairesi Baskani"
+ },
+ {
+   "Name": "Uygulama Dairesi Baskani"
+ },
+ {
+   "Name": "Yabanci İsler Dairesi Baskani"
+ },
+ {
+   "Name": "Yabancilar Hudut İltica Dairesi Baskani"
+ },
+ {
+   "Name": "Yurt İdare ve İsletme Dairesi Baskani"
+ },
+ {
+   "Name": "Özel Harekat Dairesi Baskani"
+ },
+ {
+   "Name": "Özel Güvenlik Denetleme Baskani"
+ },
+ {
+   "Name": "Uluslararasi İliskiler Dairesi Baskani"
+ },
+ {
+   "Name": "A.P.K. Dairesi Baskani"
+ },
+ {
+   "Name": "Avrupa Birliği Koordinasyon Dairesi Baskani"
+ },
+ {
+   "Name": "Avrupa Birliği ve Dis İliskiler Dairesi Baskani"
+ },
+ {
+   "Name": "Personel Dairesi Baskani"
+ },
+ {
+   "Name": "Personel ve Eğitim Dairesi Baskani"
+ },
+ {
+   "Name": "Personel ve İdari İsler Dairesi Baskani"
+ },
+ {
+   "Name": "Arsiv Dairesi Baskani"
+ },
+ {
+   "Name": "Bilgi İslem Dairesi Baskani"
+ },
+ {
+   "Name": "Eğitim Dairesi Baskani"
+ },
+ {
+   "Name": "Eğitim ve Yayin Dairesi Baskani"
+ },
+ {
+   "Name": "Eğitim Öğretim Dairesi Baskani"
+ },
+ {
+   "Name": "Vergi Dairesi Baskani"
+ },
+ {
+   "Name": "Milli Emlak Dairesi Baskani"
+ },
+ {
+   "Name": "Emlak ve Kamulastirma Dairesi Baskani"
+ },
+ {
+   "Name": "Finansman Dairesi Baskani"
+ },
+ {
+   "Name": "Haberlesme Dairesi Baskani"
+ },
+ {
+   "Name": "Halkla İliskiler Dairesi Baskani"
+ },
+ {
+   "Name": "İhtisas Dairesi Baskani"
+ },
+ {
+   "Name": "İdari ve Mali İsler Dairesi Baskani"
+ },
+ {
+   "Name": "İdari İsler Dairesi Baskani"
+ },
+ {
+   "Name": "İkmal ve Bakim Dairesi Baskani"
+ },
+ {
+   "Name": "İnsaat Bakim-Onarim Dairesi Baskani"
+ },
+ {
+   "Name": "İnsaat Emlak Dairesi Baskani"
+ },
+ {
+   "Name": "İnsaat ve İkmal Dairesi Baskani"
+ },
+ {
+   "Name": "İsletme ve Bakim Dairesi Baskani"
+ },
+ {
+   "Name": "İsletmeler Dairesi Baskani"
+ },
+ {
+   "Name": "Koruma Dairesi Baskani"
+ },
+ {
+   "Name": "Kütüphane ve Dökümantasyon Dairesi Baskani"
+ },
+ {
+   "Name": "Makina ve İkmal Dairesi Baskani"
+ },
+ {
+   "Name": "Makina İmalat ve Donatim Dairesi Baskani"
+ },
+ {
+   "Name": "Muhasebe ve Mali İsler Dairesi Baskani"
+ },
+ {
+   "Name": "Öğrenci İsleri Dairesi Baskani"
+ },
+ {
+   "Name": "Sağlik Kültür ve Spor Dairesi Baskani"
+ },
+ {
+   "Name": "Sağlik Dairesi Baskani"
+ },
+ {
+   "Name": "Program ve İzleme Dairesi Baskani"
+ },
+ {
+   "Name": "Dev. Türk.Müz.Arastirma ve Uyg.Top.Müd."
+ },
+ {
+   "Name": "Morg İhtisas Dairesi Baskani"
+ },
+ {
+   "Name": "Gözlem İhtisas Dairesi Baskani"
+ },
+ {
+   "Name": "Kimyasal Tahliller İhtisas Dairesi Baskani"
+ },
+ {
+   "Name": "Biyoloji İhtisas Dairesi Baskani"
+ },
+ {
+   "Name": "Fizik İnceleme İhtisas Dairesi Baskani"
+ },
+ {
+   "Name": "Sağlik Hizmetleri Dairesi Baskani"
+ },
+ {
+   "Name": "Trafik İhtisas Dairesi Baskani"
+ },
+ {
+   "Name": "Trafik Uygulama ve Denetleme Dairesi Baskani"
+ },
+ {
+   "Name": "Trafik Planlama ve Destek Dairesi Baskani"
+ },
+ {
+   "Name": "Trafik Eğitim ve Arastirma Dairesi Baskani"
+ },
+ {
+   "Name": "Teknik Arastirma ve Kalite Kontrol Dairesi Baskan"
+ },
+ {
+   "Name": "Teknik İsler Dairesi Baskani"
+ },
+ {
+   "Name": "Teknoloji Dairesi Baskani"
+ },
+ {
+   "Name": "Tesisler Dairesi Baskani"
+ },
+ {
+   "Name": "Yapi İsleri ve Teknik Dairesi Baskani"
+ },
+ {
+   "Name": "Yapi İsleri Dairesi Baskani"
+ },
+ {
+   "Name": "Yatirim ve Emlak Dairesi Baskani"
+ },
+ {
+   "Name": "Yayin ve Dökümantasyon Dairesi Baskani"
+ },
+ {
+   "Name": "Yayin İsleri Dairesi Baskani"
+ },
+ {
+   "Name": "Soru Hazirlama ve Gelistirme Dairesi Baskani"
+ },
+ {
+   "Name": "Sinav Hizmetleri Dairesi Baskani"
+ },
+ {
+   "Name": "Yabanci Dil Sinavlari Dairesi Baskani"
+ },
+ {
+   "Name": "Bilgi Güvenliği ve Yönetimi Dairesi Baskani"
+ },
+ {
+   "Name": "Avrupa Birliği Yatirimlari Dairesi Baskani "
+ },
+ {
+   "Name": "Daire Baskani"
+ },
+ {
+   "Name": "Daire Baskani (s)"
+ },
+ {
+   "Name": "Daire Baskan Yardimcisi"
+ },
+ {
+   "Name": "Gelir İdaresi Grup Baskani"
+ },
+ {
+   "Name": "Üye"
+ },
+ {
+   "Name": "Kurul Basmüfettisi"
+ },
+ {
+   "Name": "Savci"
+ },
+ {
+   "Name": "Anayasa Mahkemesi Raportörü (Hakim ve Savci)"
+ },
+ {
+   "Name": "Raportör (Hakim ve Savci)"
+ },
+ {
+   "Name": "Raportör (Uzman Denetçi)"
+ },
+ {
+   "Name": "Raportör (Basdenetçi)"
+ },
+ {
+   "Name": "Raportör (Denetçi)"
+ },
+ {
+   "Name": "Raportör (Doçent)"
+ },
+ {
+   "Name": "Raportör (Yardimci Doçent)"
+ },
+ {
+   "Name": "Raportör (Doktor Arastirma Görevlisi)"
+ },
+ {
+   "Name": "Raportör (Raportör Yardimcisi)"
+ },
+ {
+   "Name": "Tetkik Hakimi"
+ },
+ {
+   "Name": "Hakim"
+ },
+ {
+   "Name": "Hakim ve Savci"
+ },
+ {
+   "Name": "Hakim ve Savci (Anayasa Mahkemesi Raportörü)"
+ },
+ {
+   "Name": "Kamu Basdenetçisi"
+ },
+ {
+   "Name": "Sağlik Basdenetçisi"
+ },
+ {
+   "Name": "Uzman Denetçi"
+ },
+ {
+   "Name": "Bas Denetçi"
+ },
+ {
+   "Name": "Kamu Denetçisi"
+ },
+ {
+   "Name": "Denetçi"
+ },
+ {
+   "Name": "İç Denetçi"
+ },
+ {
+   "Name": "Denetçi Yardimcisi"
+ },
+ {
+   "Name": "Sağlik Denetçi Yardimcisi"
+ },
+ {
+   "Name": "Adalet Bas Müfettisi"
+ },
+ {
+   "Name": "Mülkiye Basmüfettisi"
+ },
+ {
+   "Name": "Gümrük ve Ticaret Basmüfettisi"
+ },
+ {
+   "Name": "Vergi Basmüfettisi"
+ },
+ {
+   "Name": "İs Basmüfettisi"
+ },
+ {
+   "Name": "Basmüfettis"
+ },
+ {
+   "Name": "Basmüfettis (Ö)"
+ },
+ {
+   "Name": "İhracati Gelistirme Uzmani"
+ },
+ {
+   "Name": "Ulastirma ve Haberlesme Uzmani"
+ },
+ {
+   "Name": "Afet ve Acil Durum Yönetimi Uzmani"
+ },
+ {
+   "Name": "Yazma Eser Uzmani"
+ },
+ {
+   "Name": "Türkiye İstatistik Kurumu Uzmani"
+ },
+ {
+   "Name": "Yurtdisi Türkler ve Akraba Topluluklar Uzmani"
+ },
+ {
+   "Name": "Orman ve Su İsleri Uzmani"
+ },
+ {
+   "Name": "Uzman (sube Müdürü)"
+ },
+ {
+   "Name": "Devlet Personel Uzmani (sube Müdürü)"
+ },
+ {
+   "Name": "Devlet Personel Uzmani"
+ },
+ {
+   "Name": "Din Hizmetleri Uzmani"
+ },
+ {
+   "Name": "Denizcilik Uzmani"
+ },
+ {
+   "Name": "Vergi İstihbarat Uzmani"
+ },
+ {
+   "Name": "Gelir Uzmani"
+ },
+ {
+   "Name": "Devlet Gelir Uzmani"
+ },
+ {
+   "Name": "Sigorta Denetleme Uzmani"
+ },
+ {
+   "Name": "Hazine Baskontrolörü"
+ },
+ {
+   "Name": "Bütçe Baskontrolörü"
+ },
+ {
+   "Name": "Gemi Trafik Baskontrolörü"
+ },
+ {
+   "Name": "Baskontrolör"
+ },
+ {
+   "Name": "Adalet Müfettisi"
+ },
+ {
+   "Name": "Mülkiye Müfettisi"
+ },
+ {
+   "Name": "Kurul Müfettisi"
+ },
+ {
+   "Name": "Gümrük ve Ticaret Müfettisi"
+ },
+ {
+   "Name": "Vergi Müfettisi"
+ },
+ {
+   "Name": "Gümrük ve Ticaret Uzmani"
+ },
+ {
+   "Name": "Müfettis (Ö)"
+ },
+ {
+   "Name": "Müfettis"
+ },
+ {
+   "Name": "İs Müfettisi"
+ },
+ {
+   "Name": "Hazine Kontrolörü"
+ },
+ {
+   "Name": "Bütçe Kontrolörü"
+ },
+ {
+   "Name": "Kontrolör"
+ },
+ {
+   "Name": "İçisleri Bakanliği Dernekler Denetçisi"
+ },
+ {
+   "Name": "İl Eğitim Denetmeni"
+ },
+ {
+   "Name": "İl Eğitim Denetmen Yardimcisi "
+ },
+ {
+   "Name": "İsletmeler Saymani"
+ },
+ {
+   "Name": "Maarif Müfettisi"
+ },
+ {
+   "Name": "Maarif Müfettis Yardimcisi"
+ },
+ {
+   "Name": "Ürün Denetmeni"
+ },
+ {
+   "Name": "Ürün Denetmen Yardimcisi"
+ },
+ {
+   "Name": "Sağlik Denetçisi"
+ },
+ {
+   "Name": "Gümrük ve Ticaret Denetmen Yardimcisi"
+ },
+ {
+   "Name": "Vergi Müfettis Yardimcisi"
+ },
+ {
+   "Name": "Yurtdisi Türkler ve Akraba Topluluklar Uzman Yardimcisi"
+ },
+ {
+   "Name": "Gümrük ve Ticaret Müfettis Yardimcisi"
+ },
+ {
+   "Name": "Ulastirma ve Haberlesme Uzman Yardimcisi"
+ },
+ {
+   "Name": "Afet ve Acil Durum Yönetimi Uzman Yardimcisi"
+ },
+ {
+   "Name": "Orman ve Su İsleri Uzman Yardimcisi"
+ },
+ {
+   "Name": "Gümrük ve Ticaret Uzman Yardimcisi"
+ },
+ {
+   "Name": "İhracati Gelistirme Uzman Yardimcisi"
+ },
+ {
+   "Name": "Devlet Personel Uzman Yardimcisi"
+ },
+ {
+   "Name": "Denizcilik Uzman Yardimcisi"
+ },
+ {
+   "Name": "Türkiye İstatistik Kurumu Uzman Yardimcisi"
+ },
+ {
+   "Name": "Yazma Eser Uzman Yardimcisi"
+ },
+ {
+   "Name": "Müfettis Yardimcisi"
+ },
+ {
+   "Name": "İs Müfettis Yardimcisi"
+ },
+ {
+   "Name": "Devlet Gelir Uzman Yardimcisi"
+ },
+ {
+   "Name": "Stajyer Hazine Kontrolörü"
+ },
+ {
+   "Name": "Stajyer Bütçe Kontrolörü"
+ },
+ {
+   "Name": "Gemi Trafik Kontrolörü"
+ },
+ {
+   "Name": "Stajyer Kontrolör"
+ },
+ {
+   "Name": "Aile ve Sosyal Politikalar Uzmani"
+ },
+ {
+   "Name": "Gençlik ve Spor Uzmani"
+ },
+ {
+   "Name": "Gida, Tarim ve Hayvancilik Uzmani"
+ },
+ {
+   "Name": "Sanayi ve Teknoloji Uzmani"
+ },
+ {
+   "Name": "Çevre ve sehircilik Uzmani"
+ },
+ {
+   "Name": "Milli Eğitim Uzmani"
+ },
+ {
+   "Name": "Basin ve Enformasyon Uzmani"
+ },
+ {
+   "Name": "Defterdarlik Uzmani"
+ },
+ {
+   "Name": "Sağlik Uzmani"
+ },
+ {
+   "Name": "Havacilik ve Uzay Teknolojileri Uzmani"
+ },
+ {
+   "Name": "Gemi Sürvey Uzmani"
+ },
+ {
+   "Name": "TİKA Uzmani"
+ },
+ {
+   "Name": "Meteoroloji Uzmani"
+ },
+ {
+   "Name": "Enerji ve Tabii Kaynaklar Uzmani"
+ },
+ {
+   "Name": "Yüksek Kurum Uzmani"
+ },
+ {
+   "Name": "İstihdam Uzmani"
+ },
+ {
+   "Name": "İl İstihdam Uzmani"
+ },
+ {
+   "Name": "Savunma Sanayii Uzmani"
+ },
+ {
+   "Name": "Adalet Uzmani"
+ },
+ {
+   "Name": "Çalisma ve Sosyal Güvenlik Eğitim Uzmani"
+ },
+ {
+   "Name": "Disisleri Uzmani"
+ },
+ {
+   "Name": "İçisleri Uzmani"
+ },
+ {
+   "Name": "Yükseköğretim Kurulu Uzmani"
+ },
+ {
+   "Name": "Göç Uzmani"
+ },
+ {
+   "Name": "Basbakanlik Uzmani"
+ },
+ {
+   "Name": "Kamu Denetçiliği Uzmani"
+ },
+ {
+   "Name": "İnsan Haklari Uzmani"
+ },
+ {
+   "Name": "Kamu Düzeni ve Güvenliği Uzmani"
+ },
+ {
+   "Name": "Karayollari Uzmani"
+ },
+ {
+   "Name": "Maden Tetkik ve Arama Uzmani"
+ },
+ {
+   "Name": "Milli Piyango Uzmani"
+ },
+ {
+   "Name": "Orman Uzmani"
+ },
+ {
+   "Name": "Spor Hizmetleri Uzmani"
+ },
+ {
+   "Name": "Atom Enerjisi Uzmani"
+ },
+ {
+   "Name": "Kredi ve Yurt Hizmetleri Uzmani"
+ },
+ {
+   "Name": "Bölge Müdürü"
+ },
+ {
+   "Name": "Gümrük ve Ticaret Bölge Müdürü"
+ },
+ {
+   "Name": "Emlak Müdürü"
+ },
+ {
+   "Name": "Devlet Tiyatrosu Müdürü"
+ },
+ {
+   "Name": "Denetimli Serbestlik Müdürü"
+ },
+ {
+   "Name": "Anadolu Flarmoni Orkestrasi Müdürü"
+ },
+ {
+   "Name": "Bölge Müdür Yardimcisi"
+ },
+ {
+   "Name": "Gümrük ve Ticaret Bölge Müdür Yardimcisi"
+ },
+ {
+   "Name": "Aile ve Sosyal Politikalar Uzman Yardimcisi"
+ },
+ {
+   "Name": "Gençlik ve Spor Uzman Yardimcisi"
+ },
+ {
+   "Name": "Gida, Tarim ve Hayvancilik Uzman Yardimcisi"
+ },
+ {
+   "Name": "Sanayi ve Teknoloji Uzman Yardimcisi"
+ },
+ {
+   "Name": "Çevre ve sehircilik Uzman Yardimcisi"
+ },
+ {
+   "Name": "Milli Eğitim Uzman Yardimcisi"
+ },
+ {
+   "Name": "Basin ve Enformasyon Uzman Yardimcisi"
+ },
+ {
+   "Name": "Defterdarlik Uzman Yardimcisi"
+ },
+ {
+   "Name": "Sağlik Uzman Yardimcisi"
+ },
+ {
+   "Name": "Havacilik ve Uzay Teknolojileri Uzman Yardimcisi"
+ },
+ {
+   "Name": "TİKA Uzman Yardimcisi"
+ },
+ {
+   "Name": "Meteoroloji Uzman Yardimcisi"
+ },
+ {
+   "Name": "Basbakanlik Uzman Yardimcisi "
+ },
+ {
+   "Name": "Yüksek Kurum Uzman Yardimcisi"
+ },
+ {
+   "Name": "İstihdam Uzman Yardimcisi"
+ },
+ {
+   "Name": "İl İstihdam Uzman Yardimcisi"
+ },
+ {
+   "Name": "Enerji ve Tabii Kaynaklar Uzman Yardimcisi"
+ },
+ {
+   "Name": "Savunma Sanayii Uzman Yardimcisi"
+ },
+ {
+   "Name": "Adalet Uzman Yardimcisi"
+ },
+ {
+   "Name": "Disisleri Uzman Yardimcisi"
+ },
+ {
+   "Name": "İçisleri Uzman Yardimcisi"
+ },
+ {
+   "Name": "Yükseköğretim Kurulu Uzman Yardimcisi"
+ },
+ {
+   "Name": "Kamu Denetçiliği Uzman Yardimcisi"
+ },
+ {
+   "Name": "İnsan Haklari Uzman Yardimcisi"
+ },
+ {
+   "Name": "Kamu Düzeni ve Güvenliği Uzman Yardimcisi"
+ },
+ {
+   "Name": "Karayollari Uzman Yardimcisi"
+ },
+ {
+   "Name": "Maden Tetkik ve Arama Uzman Yardimcisi"
+ },
+ {
+   "Name": "Mllli Piyango Uzman Yardimcisi"
+ },
+ {
+   "Name": "Orman Uzman Yardimcisi"
+ },
+ {
+   "Name": "Spor Hizmetleri Uzman Yardimcisi"
+ },
+ {
+   "Name": "Atom Enerjisi Uzman Yardimcisi"
+ },
+ {
+   "Name": "Kredi ve Yurt Hizmetleri Uzman Yardimcisi"
+ },
+ {
+   "Name": "Çalisma ve Sosyal Güvenlik Eğitim Uzman Yardimcisi"
+ },
+ {
+   "Name": "Göç Uzman Yardimcisi"
+ },
+ {
+   "Name": "112 Acil Çağri Merkezi Müdürü"
+ },
+ {
+   "Name": "Defterdar"
+ },
+ {
+   "Name": "Afet ve Acil Durum Eğitim Merkezi Müdürü"
+ },
+ {
+   "Name": "Dini Yüksek İhtisas Merkezi Müdürü"
+ },
+ {
+   "Name": "İl Emniyet Müdürü"
+ },
+ {
+   "Name": "Halkla İliskiler Müdürü"
+ },
+ {
+   "Name": "Tapu ve Kadastro Eğitim Müdürü"
+ },
+ {
+   "Name": "İl İdare Kurulu Müdürü"
+ },
+ {
+   "Name": "İl Mahalli İdareler Müdürü"
+ },
+ {
+   "Name": "İl Milli Eğitim Müdürü"
+ },
+ {
+   "Name": "Tapu Müdürü"
+ },
+ {
+   "Name": "Baskanlik Müftüsü"
+ },
+ {
+   "Name": "İl Hukuk İsleri Müdürü"
+ },
+ {
+   "Name": "İl Gida, Tarim ve Hayvancilik Müdürü"
+ },
+ {
+   "Name": "İl Müftüsü"
+ },
+ {
+   "Name": "Gençlik Hizmetleri ve Spor İl Müdürü"
+ },
+ {
+   "Name": "İl Afet ve Acil Durum Müdürü"
+ },
+ {
+   "Name": "Afet ve Acil Durum Arama ve Kurtarma Birlik Müdürü"
+ },
+ {
+   "Name": "İl Sağlik Müdürü"
+ },
+ {
+   "Name": "İl Basin ve Halkla İliskiler Müdürü"
+ },
+ {
+   "Name": "İl Nufus ve Vatandaslik Müdürü"
+ },
+ {
+   "Name": "İl Yazi İsleri Müdürü"
+ },
+ {
+   "Name": "İl Dernekler Müdürü"
+ },
+ {
+   "Name": "Dis İliskiler Müdürü"
+ },
+ {
+   "Name": "Strateji Gelistirme Müdürü"
+ },
+ {
+   "Name": "Yayin ve Halkla İliskiler Müdürü"
+ },
+ {
+   "Name": "Altyapi ve Kentsel Dönüsüm Müdürü"
+ },
+ {
+   "Name": "Çevre ve sehircilik İl Müdürü"
+ },
+ {
+   "Name": "Sosyal Güvenlik İl Müdürü"
+ },
+ {
+   "Name": "Teknik Hizmetler Müdürü"
+ },
+ {
+   "Name": "İl Müdürü"
+ },
+ {
+   "Name": "İl Kültür ve Turizm Müdürü"
+ },
+ {
+   "Name": "İl Müdürü (s)"
+ },
+ {
+   "Name": "Defterdar Yardimcisi"
+ },
+ {
+   "Name": "Tüketici Hakem Heyeti Raportörü"
+ },
+ {
+   "Name": "İl Emniyet Müdür Yardimcisi"
+ },
+ {
+   "Name": "Afet ve Acil Durum Eğitim Merkezi Müdür Yardimcisi"
+ },
+ {
+   "Name": "İl Milli Eğitim Müdür Yardimcisi"
+ },
+ {
+   "Name": "İl Müftü Yardimcisi"
+ },
+ {
+   "Name": "İl Sağlik Müd.Yardimcisi"
+ },
+ {
+   "Name": "Denetimli Serbestlik Müdür Yardimcisi"
+ },
+ {
+   "Name": "İl Müdür Yardimcisi"
+ },
+ {
+   "Name": "Çevre ve sehircilik İl Müdür Yardimcisi"
+ },
+ {
+   "Name": "Atatürk Orman Çiftliği Müdürü"
+ },
+ {
+   "Name": "Basbakanlik Özel Kalem Müdürü"
+ },
+ {
+   "Name": "Emniyet Müdürü (Öğretim Görevlisi)"
+ },
+ {
+   "Name": "Emniyet Müdürü(Ukk Üyesi)"
+ },
+ {
+   "Name": "Emniyet Müdürü(Pilot)"
+ },
+ {
+   "Name": "Emniyet Müdürü(Havacilik Müdürü)"
+ },
+ {
+   "Name": "İstanbul Atatürk Kültür Merkezi Müdürü"
+ },
+ {
+   "Name": "Ankara Atatürk Kültür Merkezi Müdürü"
+ },
+ {
+   "Name": "Bölge Temiz Hava Merkezi Müdürü"
+ },
+ {
+   "Name": "Arastirma ve Eğitim Merkezi Müdürü"
+ },
+ {
+   "Name": "Devlet Opera ve Balesi Müdürü"
+ },
+ {
+   "Name": "Nükleer Arastirma ve Eğitim Merkezi Müdürü"
+ },
+ {
+   "Name": "İsletme Müdürü"
+ },
+ {
+   "Name": "Yedek Parça Depo Müdürü"
+ },
+ {
+   "Name": "Depo Müdürü"
+ },
+ {
+   "Name": "Çiftlik Müdürü"
+ },
+ {
+   "Name": "Tasfiye İsletme Müdürü"
+ },
+ {
+   "Name": "Döner Sermaye İsletme Müdürü"
+ },
+ {
+   "Name": "Üniversite Hastahaneleri Basmüdürü"
+ },
+ {
+   "Name": "Atatürk Orman Çiftliği Müdür Yardimcisi"
+ },
+ {
+   "Name": "Sosyal Etüt ve Proje Müdürü"
+ },
+ {
+   "Name": "İstanbul Atatürk Kültür Mrk. Müd. Yardimcisi"
+ },
+ {
+   "Name": "Ankara Atatürk Kültür Merkezi Müdür Yardimcisi"
+ },
+ {
+   "Name": "Bölge Temiz Hava Merkezi Müdür Yardimcisi"
+ },
+ {
+   "Name": "Altyapi ve Kentsel Dönüsüm Müdür Yardimcisi"
+ },
+ {
+   "Name": "Devlet Opera ve Balesi Müd. Yardimcisi"
+ },
+ {
+   "Name": "Tiyatro Müdür Yardimcisi"
+ },
+ {
+   "Name": "Sosyal Güvenlik Merkezi Müdür Yardimcisi"
+ },
+ {
+   "Name": "Nükleer Arastirma ve Eğit. Mrk. Müd. Yardimcisi"
+ },
+ {
+   "Name": "İsletme Müdür Yardimcisi"
+ },
+ {
+   "Name": "Döner Sermaye İsletme Müdür Yardimcisi"
+ },
+ {
+   "Name": "Genel Yazi İsleri Müdürü"
+ },
+ {
+   "Name": "Muhakemat Müdürü"
+ },
+ {
+   "Name": "Ankara Resim Heykel Müzesi Müdürü"
+ },
+ {
+   "Name": "Yatirim Programlama, İzleme ve Değerlendirme Genel Müdürü"
+ },
+ {
+   "Name": "Yönetim Hizmetleri Genel Müdürü"
+ },
+ {
+   "Name": "Atölye Müdürü"
+ },
+ {
+   "Name": "Bilgi İslem Müdürü"
+ },
+ {
+   "Name": "Bilgi İslem Merkezi Müdürü"
+ },
+ {
+   "Name": "Basma Yazi ve Resimleri Derleme Müdürü"
+ },
+ {
+   "Name": "Boğaziçi Köprü Çevre Yollari Koruma Müdürü"
+ },
+ {
+   "Name": "İlam Müdürü"
+ },
+ {
+   "Name": "Cezaevi Müdürü"
+ },
+ {
+   "Name": "Cumhurbaskanliği Senfoni Orkestrasi Müdürü"
+ },
+ {
+   "Name": "Cumhurbaskanliği Klasik Türk Müziği Korosu Müdürü "
+ },
+ {
+   "Name": "Devlet Güzel Sanatlar Galeri Müdürü"
+ },
+ {
+   "Name": "Devlet Kitaplari Döner Sermayesi Müdürü"
+ },
+ {
+   "Name": "Telif Haklari ve Sinema Müdürü"
+ },
+ {
+   "Name": "Türk Dünya Müziği Topluluğu Müdürü"
+ },
+ {
+   "Name": "Devlet Türk Dünyasi Dans ve Müzik Topluluğu Müdürü"
+ },
+ {
+   "Name": "Devlet Klasik Türk Müziği Korosu Müdürü"
+ },
+ {
+   "Name": "Devlet Türk Müziği Topl.Müd."
+ },
+ {
+   "Name": "Devlet Türk Halk Müziği Korosu Müdürü"
+ },
+ {
+   "Name": "Devlet Modern Dans Topluluğu Müdürü"
+ },
+ {
+   "Name": "Devlet Senfoni Orkestrasi Müdürü"
+ },
+ {
+   "Name": "Devlet Modern Folk Müziği Topluluğu Müdürü"
+ },
+ {
+   "Name": "Türk Tasavvuf Müziği Topl.Müd."
+ },
+ {
+   "Name": "Bölge Devlet Senfoni Orkestrasi Müdürü"
+ },
+ {
+   "Name": "Devlet Çoksesli Müzik Korosu Müdürü"
+ },
+ {
+   "Name": "Devlet Halk Danslari Topluluğu Müdürü"
+ },
+ {
+   "Name": "Atatürk Kültür Mer.Alani Tesisler ve İsl.Müdürü"
+ },
+ {
+   "Name": "Eğitim Merkezi Müdürü"
+ },
+ {
+   "Name": "Tarihi Türk Müziği Topluluğu Müdürü"
+ },
+ {
+   "Name": "Enstitü Müdürü"
+ },
+ {
+   "Name": "Fidanlik Müdürü"
+ },
+ {
+   "Name": "Gümrük Muhafaza Kaçakçilik ve İstihbarat Müdürü"
+ },
+ {
+   "Name": "Gümrük Müdürü"
+ },
+ {
+   "Name": "İnsan Kaynaklari Müdürü"
+ },
+ {
+   "Name": "Destek Hizmetleri Müdürü"
+ },
+ {
+   "Name": "Hastane Müdürü"
+ },
+ {
+   "Name": "Hayvanat Bahçesi Müdürü"
+ },
+ {
+   "Name": "Hayvancilik Müdürü"
+ },
+ {
+   "Name": "İcra Müdürü"
+ },
+ {
+   "Name": "İkmal Müdürü"
+ },
+ {
+   "Name": "İlçe Emniyet Müdürü"
+ },
+ {
+   "Name": "İs Sağliği ve Güvenliği Enstitüsü Müdürü"
+ },
+ {
+   "Name": "Kadastro Müdürü"
+ },
+ {
+   "Name": "Kurulus Müdürü"
+ },
+ {
+   "Name": "Kütüphane Müdürü"
+ },
+ {
+   "Name": "Yazma Eser Kütüphane Müdürü"
+ },
+ {
+   "Name": "Laboratuvar Müdürü"
+ },
+ {
+   "Name": "Bölge Laboratuvar Müdürü"
+ },
+ {
+   "Name": "Maliye Kursu Müdürü"
+ },
+ {
+   "Name": "Mayalandirma Sanayi Müdürü"
+ },
+ {
+   "Name": "Meteoroloji Müdürü"
+ },
+ {
+   "Name": "Milli Park Müdürü"
+ },
+ {
+   "Name": "Gelibolu Tarihi Milli Park Müdürü"
+ },
+ {
+   "Name": "Moral Eğitim Merkezi Müdürü"
+ },
+ {
+   "Name": "Muhasebe Müdürü"
+ },
+ {
+   "Name": "Büro Müdürü"
+ },
+ {
+   "Name": "Milli Emlak Müdürü"
+ },
+ {
+   "Name": "Müze Müdürü"
+ },
+ {
+   "Name": "Öğrenci İsleri Müdürü"
+ },
+ {
+   "Name": "Özel Kalem Müdürü"
+ },
+ {
+   "Name": "Müstesarlik Özel Kalem Müdürü"
+ },
+ {
+   "Name": "Müstesar Özel Kalem Müdürü"
+ },
+ {
+   "Name": "Polis Meslek Yüksek Okulu Müdürü"
+ },
+ {
+   "Name": "Polis Koleji Müdürü"
+ },
+ {
+   "Name": "Kriminal Laboratuvar Müdürü"
+ },
+ {
+   "Name": "Polis Eğitim Merkezi Müdürü"
+ },
+ {
+   "Name": "Polis Meslek Eğitim Merkezi Müdürü"
+ },
+ {
+   "Name": "Resim Heykel Müzesi ve Galeri Müdürü"
+ },
+ {
+   "Name": "Restorasyon ve Konservasyon Merkez Laboratuvar Müdürü"
+ },
+ {
+   "Name": "Merkez ve Bölge Laboratuvar Müdürü"
+ },
+ {
+   "Name": "Röleve ve Anitlar Müdürü"
+ },
+ {
+   "Name": "Sosyal Güvenlik Merkezi Müdürü"
+ },
+ {
+   "Name": "Sağlik Meslek Lisesi Müdürü"
+ },
+ {
+   "Name": "Saymanlik Müdürü"
+ },
+ {
+   "Name": "Serbest Bölge Müdürü"
+ },
+ {
+   "Name": "Seçim Müdürü"
+ },
+ {
+   "Name": "İnsan Ticareti Mağdurlari Siğinma Evi Müdürü"
+ },
+ {
+   "Name": "Tabiat Tarihi Müze Müdürü"
+ },
+ {
+   "Name": "İl Göç İdaresi Müdürü"
+ },
+ {
+   "Name": "İlçe Göç İdaresi Müdürü"
+ },
+ {
+   "Name": "Koruma Bölge Kurulu Müdürü"
+ },
+ {
+   "Name": "Tesis Müdürü"
+ },
+ {
+   "Name": "Ticaret Müdürü"
+ },
+ {
+   "Name": "Bitkisel Üretim Müdürü"
+ },
+ {
+   "Name": "Personel ve İdari İsler Müdürü"
+ },
+ {
+   "Name": "Halkla İliskiler ve Pazarlama Müdürü"
+ },
+ {
+   "Name": "Trafik Arastirma Merkezi Müdürü"
+ },
+ {
+   "Name": "Vergi Dairesi Müdürü"
+ },
+ {
+   "Name": "Yayin İsleri Müdürü"
+ },
+ {
+   "Name": "Yayinevi Satis Müdürü"
+ },
+ {
+   "Name": "Yazi İsleri Müdürü"
+ },
+ {
+   "Name": "Yurt Müdürü"
+ },
+ {
+   "Name": "Ziraat Sanayi Müdürü"
+ },
+ {
+   "Name": "Arsiv Müdürü"
+ },
+ {
+   "Name": "Basimevi Müdürü"
+ },
+ {
+   "Name": "Merkez Müdürü"
+ },
+ {
+   "Name": "Merkez Emniyet Müdürü"
+ },
+ {
+   "Name": "Döner Sermaye Merkez Müdürü"
+ },
+ {
+   "Name": "Gençlik Merkezi Müdürü"
+ },
+ {
+   "Name": "Personel Müdürü"
+ },
+ {
+   "Name": "Personel ve Eğitim Müdürü"
+ },
+ {
+   "Name": "Spor Eğitim Merkezi Müdürü"
+ },
+ {
+   "Name": "İdare Müdürü"
+ },
+ {
+   "Name": "İdari İsler Müdürü"
+ },
+ {
+   "Name": "İdari ve Mali İsler Müdürü"
+ },
+ {
+   "Name": "Mali İsler Müdürü"
+ },
+ {
+   "Name": "Emniyet Müdürü (Öğretmen)"
+ },
+ {
+   "Name": "Muhasebe ve Mali İsler Müdürü"
+ },
+ {
+   "Name": "Grup Müdürü"
+ },
+ {
+   "Name": "Gelir İdaresi Grup Müdürü"
+ },
+ {
+   "Name": "Müdür (Ö)"
+ },
+ {
+   "Name": "Müdür"
+ },
+ {
+   "Name": "Müdür Yardimcisi (Ö)"
+ },
+ {
+   "Name": "Müdür Yardimcisi"
+ },
+ {
+   "Name": "Muhakemat Müdür Yardimcisi"
+ },
+ {
+   "Name": "Basimevi Müdür Yardimcisi"
+ },
+ {
+   "Name": "Basma Yazi ve Resimleri Derleme Müd. Yardimcisi"
+ },
+ {
+   "Name": "Devlet Kitaplari Döner Sermayesi Müd. Yardimcisi"
+ },
+ {
+   "Name": "Enstitü Müdür Yardimcisi"
+ },
+ {
+   "Name": "Fidanlik Müdür Yardimcisi"
+ },
+ {
+   "Name": "Eğitim Merkezi Müdür Yardimcisi"
+ },
+ {
+   "Name": "Emlak Müdür Yardimcisi"
+ },
+ {
+   "Name": "İl Kültür ve Turizm Müdür Yardimcisi"
+ },
+ {
+   "Name": "Gümrük Müdür Yardimcisi"
+ },
+ {
+   "Name": "Hastane Müdür Yardimcisi"
+ },
+ {
+   "Name": "Huzurevi Müdür Yardimcisi"
+ },
+ {
+   "Name": "Sigorta İl Müdür Yardimcisi"
+ },
+ {
+   "Name": "Atölye Müdür Yardimcisi"
+ },
+ {
+   "Name": "Sağlik İsleri İl Müdür Yardimcisi"
+ },
+ {
+   "Name": "Sosyal Güvenlik İl Müdür Yardimcisi"
+ },
+ {
+   "Name": "İkmal Müdür Yardimcisi"
+ },
+ {
+   "Name": "İcra Müdür Yardimcisi"
+ },
+ {
+   "Name": "İs Sağliği ve Güvenliği Enstitüsü Müdür Yardimcisi"
+ },
+ {
+   "Name": "Kurulus Müdür Yardimcisi"
+ },
+ {
+   "Name": "Kütüphane Müdür Yardimcisi"
+ },
+ {
+   "Name": "Moral Eğitim Merkezi Müdür Yardimcisi"
+ },
+ {
+   "Name": "Maliye Kursu Müdür Yardimcisi"
+ },
+ {
+   "Name": "Milli Emlak Müdür Yardimcisi"
+ },
+ {
+   "Name": "Milli Park Müdür Yardimcisi"
+ },
+ {
+   "Name": "Gelibolu Tarihi Milli Park Müdür Yardimcisi"
+ },
+ {
+   "Name": "Müze Müdür Yardimcisi"
+ },
+ {
+   "Name": "Merkez Müdür Yardimcisi"
+ },
+ {
+   "Name": "İlçe Emniyet Müdür Yardimcisi"
+ },
+ {
+   "Name": "Polis Meslek Yüksek Okulu Müdür Yardimcisi"
+ },
+ {
+   "Name": "Polis Meslek Eğitim Merkezi Müdür Yardimcisi"
+ },
+ {
+   "Name": "Polis Koleji Müdür Yardimcisi"
+ },
+ {
+   "Name": "Personel Müdür Yardimcisi"
+ },
+ {
+   "Name": "Polis Eğitim Merkezi Müdür Yardimcisi"
+ },
+ {
+   "Name": "Resim Heykel Müzesi ve Galerisi Müdür Yardimcisi"
+ },
+ {
+   "Name": "Resim Heykel Müzesi Müdür Yardimcisi"
+ },
+ {
+   "Name": "Restorasyon ve Konservasyon Merkez Laboratuvar Müdürü Yardimcisi"
+ },
+ {
+   "Name": "Merkez ve Bölge Laboratuvar Müdür Yardimcisi"
+ },
+ {
+   "Name": "Röleve ve Anitlar Müdür Yardimcisi"
+ },
+ {
+   "Name": "Saymanlik Müdür Yardimcisi"
+ },
+ {
+   "Name": "Serbest Bölge Müdür Yardimcisi"
+ },
+ {
+   "Name": "Sigorta Müdür Yardimcisi"
+ },
+ {
+   "Name": "Yedek Parça Depo Müdür Yardimcisi"
+ },
+ {
+   "Name": "Tapu Sicil Müdür Yardimcisi"
+ },
+ {
+   "Name": "Vergi Dairesi Müdür Yardimcisi"
+ },
+ {
+   "Name": "Yurt Müdür Yardimcisi"
+ },
+ {
+   "Name": "İçisleri Bakanliği Dernekler Denetçi Yardimcisi"
+ },
+ {
+   "Name": "Kaymakam"
+ },
+ {
+   "Name": "Kaymakam Adayi"
+ },
+ {
+   "Name": "Emniyet Amiri(Pilot)"
+ },
+ {
+   "Name": "Emniyet Amiri (Öğretim Görevlisi)"
+ },
+ {
+   "Name": "Emniyet Amiri"
+ },
+ {
+   "Name": "Baskomiser (Öğretim Görevlisi)"
+ },
+ {
+   "Name": "Bas Komiser"
+ },
+ {
+   "Name": "Komiser(Öğretim Görevlisi)"
+ },
+ {
+   "Name": "Komiser"
+ },
+ {
+   "Name": "Komiser Muavini"
+ },
+ {
+   "Name": "Komiser Yardimcisi (Öğretim Görevlisi)"
+ },
+ {
+   "Name": "Baskomiser(Pilot)"
+ },
+ {
+   "Name": "Komiser(Pilot)"
+ },
+ {
+   "Name": "Komiser Yardimcisi(Pilot)"
+ },
+ {
+   "Name": "Polis Memuru"
+ },
+ {
+   "Name": "Kidemli Baspolis Memuru"
+ },
+ {
+   "Name": "Baspolis Memuru"
+ },
+ {
+   "Name": "Mal Müdürü"
+ },
+ {
+   "Name": "İlçe Müftüsü"
+ },
+ {
+   "Name": "İlçe Milli Eğitim Müdürü"
+ },
+ {
+   "Name": "İlçe Sağlik Müdürü"
+ },
+ {
+   "Name": "İlçe Müdürü"
+ },
+ {
+   "Name": "Gençlik Hizmetleri ve Spor İlçe Müdürü"
+ },
+ {
+   "Name": "Nüfus Müdürü"
+ },
+ {
+   "Name": "Bucak Müdürü"
+ },
+ {
+   "Name": "Fakülte Sekreteri"
+ },
+ {
+   "Name": "Yüksekokul Sekreteri"
+ },
+ {
+   "Name": "Enstitü Sekreteri"
+ },
+ {
+   "Name": "sube Müdürü"
+ },
+ {
+   "Name": "sube Müdürü (Milli Saraylar)"
+ },
+ {
+   "Name": "Eğitim Merkezi sube Müdürü"
+ },
+ {
+   "Name": "sube Müdürü (s)"
+ },
+ {
+   "Name": "sube Müdürü (Uzman)"
+ },
+ {
+   "Name": "Basmühendis"
+ },
+ {
+   "Name": "Adli Tip sube Müdürü"
+ },
+ {
+   "Name": "Basin ve Halkla İliskiler sube Müdürü"
+ },
+ {
+   "Name": "Personel ve Eğitim subesi Müdürü"
+ },
+ {
+   "Name": "Evrak ve Arsiv subesi Müdürü"
+ },
+ {
+   "Name": "İdari ve Mali İsler subesi Müdürü"
+ },
+ {
+   "Name": "Öğretmen"
+ },
+ {
+   "Name": "Müsavir Hazine Avukati"
+ },
+ {
+   "Name": "Hazine Avukati"
+ },
+ {
+   "Name": "Müsavir Avukat"
+ },
+ {
+   "Name": "Müsavir Avukat (Ö)"
+ },
+ {
+   "Name": "Avukat"
+ },
+ {
+   "Name": "Baskanlik Vaizi"
+ },
+ {
+   "Name": "Basvaiz"
+ },
+ {
+   "Name": "Uzman Vaiz"
+ },
+ {
+   "Name": "Vaiz"
+ },
+ {
+   "Name": "Cezaevi Vaizi"
+ },
+ {
+   "Name": "Cami Rehberi"
+ },
+ {
+   "Name": "Murakip"
+ },
+ {
+   "Name": "Kuran Kursu Bas Öğreticisi"
+ },
+ {
+   "Name": "Kuran Kursu Uzman Öğreticisi"
+ },
+ {
+   "Name": "Kuran Kursu Öğreticisi"
+ },
+ {
+   "Name": "İmam"
+ },
+ {
+   "Name": "Basimam-Hatip"
+ },
+ {
+   "Name": "Uzman İmam-Hatip"
+ },
+ {
+   "Name": "İmam-Hatip"
+ },
+ {
+   "Name": "Basmüezzin"
+ },
+ {
+   "Name": "Müezzin-Kayyim"
+ },
+ {
+   "Name": "Eğitim Görevlisi"
+ },
+ {
+   "Name": "Sosyal Güvenlik Denetmeni"
+ },
+ {
+   "Name": "Sosyal Güvenlik Denetmen Yardimcisi"
+ },
+ {
+   "Name": "Bölüm Baskani"
+ },
+ {
+   "Name": "Liman Baskani"
+ },
+ {
+   "Name": "Müsavir (Ö)"
+ },
+ {
+   "Name": "Müsavir (s)"
+ },
+ {
+   "Name": "Müsavir"
+ },
+ {
+   "Name": "Kalkinma Müsaviri"
+ },
+ {
+   "Name": "İstatistik Müsaviri"
+ },
+ {
+   "Name": "İstatistik Müsaviri (s)"
+ },
+ {
+   "Name": "Kalkinma Müsavir Yardimcisi"
+ },
+ {
+   "Name": "Din Hizmetleri Müsavir Yardimcisi"
+ },
+ {
+   "Name": "Uzman"
+ },
+ {
+   "Name": "Hazine Uzmani"
+ },
+ {
+   "Name": "Dis Ticaret Uzmani"
+ },
+ {
+   "Name": "Maliye Uzmani"
+ },
+ {
+   "Name": "Patent Uzmani"
+ },
+ {
+   "Name": "Marka Uzmani"
+ },
+ {
+   "Name": "Uzman (Ö)"
+ },
+ {
+   "Name": "Mali Hizmetler Uzmani"
+ },
+ {
+   "Name": "Maliye Uzman Yardimcisi"
+ },
+ {
+   "Name": "Avrupa Birliği Uzmani"
+ },
+ {
+   "Name": "İs Sağliği ve Güvenliği Uzmani"
+ },
+ {
+   "Name": "Yurtdisi İsçi Hizmetleri Uzmani"
+ },
+ {
+   "Name": "Patent Uzman Yardimcisi"
+ },
+ {
+   "Name": "Marka Uzman Yardimcisi"
+ },
+ {
+   "Name": "Çalisma Uzmani"
+ },
+ {
+   "Name": "Kültür ve Turizm Uzmani"
+ },
+ {
+   "Name": "A.P.K. Uzmani"
+ },
+ {
+   "Name": "Eğt.Ve Ars.Mrk.Eğt.Uzmani"
+ },
+ {
+   "Name": "Avrupa Birliği İsleri Uzmani"
+ },
+ {
+   "Name": "Talim ve Terbiye Kurulu Uzmani"
+ },
+ {
+   "Name": "Diyanet İsleri Uzmani"
+ },
+ {
+   "Name": "Din İsleri Yüksek Kurulu Uzmani"
+ },
+ {
+   "Name": "İhtisas Dairesi Uzmani"
+ },
+ {
+   "Name": "Vakit Hesaplama Uzmani"
+ },
+ {
+   "Name": "Sportif Eğitim Uzmani"
+ },
+ {
+   "Name": "Eğitim Uzmani"
+ },
+ {
+   "Name": "İs ve Meslek Danismani"
+ },
+ {
+   "Name": "Eğitim Uzmani (s)"
+ },
+ {
+   "Name": "Sosyal Güvenlik Uzmani"
+ },
+ {
+   "Name": "Ölçme, Seçme ve Yerlestirme Merkezi Uzmani"
+ },
+ {
+   "Name": "Planlama Uzmani"
+ },
+ {
+   "Name": "İl Planlama ve Koordinasyon Müdürü"
+ },
+ {
+   "Name": "İl Planlama Uzmani"
+ },
+ {
+   "Name": "İl Göç Uzmani"
+ },
+ {
+   "Name": "Savunma Uzmani"
+ },
+ {
+   "Name": "Tapu ve Kadastro Uzmani"
+ },
+ {
+   "Name": "Sivil Savunma Uzmani"
+ },
+ {
+   "Name": "Mali Hizmetler Uzman Yardimcisi"
+ },
+ {
+   "Name": "Yurt Disi İsçi Hizmetleri Uzman Yardimcisi"
+ },
+ {
+   "Name": "Eğt.Ve Ars.Mrk.Eğt.Uzman Yardimcisi"
+ },
+ {
+   "Name": "İs Sağliği ve Güvenliği Uzman Yardimcisi"
+ },
+ {
+   "Name": "Çalisma Uzman Yardimcisi"
+ },
+ {
+   "Name": "Kültür ve Turizm Uzman Yardimcisi"
+ },
+ {
+   "Name": "İl Göç Uzman Yardimcisi"
+ },
+ {
+   "Name": "Arsiv Memuru"
+ },
+ {
+   "Name": "Pilot"
+ },
+ {
+   "Name": "Kaptan"
+ },
+ {
+   "Name": "Basasistan"
+ },
+ {
+   "Name": "Asistan"
+ },
+ {
+   "Name": "Kütüphaneci"
+ },
+ {
+   "Name": "Sosyal Güvenlik Kontrol Memuru"
+ },
+ {
+   "Name": "Sosyal Çalismaci"
+ },
+ {
+   "Name": "Sosyal Hiz.Uzmani"
+ },
+ {
+   "Name": "Aktüer"
+ },
+ {
+   "Name": "Aktüer Yardimcisi"
+ },
+ {
+   "Name": "Eğitim Rehberi"
+ },
+ {
+   "Name": "Film Yapimcisi"
+ },
+ {
+   "Name": "Arastirmaci"
+ },
+ {
+   "Name": "Arastirmaci (Ö)"
+ },
+ {
+   "Name": "Arastirmaci (6191)"
+ },
+ {
+   "Name": "Arastirmaci (s)"
+ },
+ {
+   "Name": "Folklor Arastirmacisi"
+ },
+ {
+   "Name": "Müze Arastirmacisi"
+ },
+ {
+   "Name": "Kitap Patologu"
+ },
+ {
+   "Name": "Rehber"
+ },
+ {
+   "Name": "Makyajci"
+ },
+ {
+   "Name": "Muhasebeci"
+ },
+ {
+   "Name": "Musahhih"
+ },
+ {
+   "Name": "Tercüman"
+ },
+ {
+   "Name": "Mütercim (Tercüman)"
+ },
+ {
+   "Name": "İsaret Dili Tercümani"
+ },
+ {
+   "Name": "Mütercim"
+ },
+ {
+   "Name": "Mütercim (Ö)"
+ },
+ {
+   "Name": "Raportör"
+ },
+ {
+   "Name": "Raportör Yardimcisi"
+ },
+ {
+   "Name": "Prodüktör"
+ },
+ {
+   "Name": "Redaktör"
+ },
+ {
+   "Name": "Spiker"
+ },
+ {
+   "Name": "Heykeltras"
+ },
+ {
+   "Name": "Restoratör"
+ },
+ {
+   "Name": "Arkeolog"
+ },
+ {
+   "Name": "Astronom"
+ },
+ {
+   "Name": "Sosyolog"
+ },
+ {
+   "Name": "Fotoğrafçi"
+ },
+ {
+   "Name": "Muhabir"
+ },
+ {
+   "Name": "Montajci"
+ },
+ {
+   "Name": "isikçi"
+ },
+ {
+   "Name": "Yönetmen"
+ },
+ {
+   "Name": "Kameraman"
+ },
+ {
+   "Name": "Ses Kayitçisi"
+ },
+ {
+   "Name": "Sinema Tv Uygulayicisi"
+ },
+ {
+   "Name": "Sistem Programcisi"
+ },
+ {
+   "Name": "Programci (Ö)"
+ },
+ {
+   "Name": "Programci"
+ },
+ {
+   "Name": "Çözümleyici"
+ },
+ {
+   "Name": "Çözümleyici (Ö)"
+ },
+ {
+   "Name": "Antrenör"
+ },
+ {
+   "Name": "Usta Öğretici"
+ },
+ {
+   "Name": "Hakim Adayi"
+ },
+ {
+   "Name": "Programci Yardimcisi"
+ },
+ {
+   "Name": "Diyanet İsleri Uzman Yardimcisi"
+ },
+ {
+   "Name": "Uzman Yardimcisi"
+ },
+ {
+   "Name": "Gelir Uzman Yardimcisi"
+ },
+ {
+   "Name": "Planlama Uzman Yardimcisi"
+ },
+ {
+   "Name": "İl Planlama Uzman Yardimcisi"
+ },
+ {
+   "Name": "Avrupa Birliği Uzman Yardimcisi"
+ },
+ {
+   "Name": "Din İsleri Yüksek Kurulu Uzman Yardimcisi"
+ },
+ {
+   "Name": "Sosyal Güvenlik Uzman Yardimcisi"
+ },
+ {
+   "Name": "Avrupa Birliği İsleri Uzman Yardimcisi"
+ },
+ {
+   "Name": "Tapu ve Kadastro Uzman Yardimcisi"
+ },
+ {
+   "Name": "Ölçme, Seçme ve Yerlestirme Merkezi Uzman Yardimcisi"
+ },
+ {
+   "Name": "Sigorta Denetleme Uzman Yardimcisi"
+ },
+ {
+   "Name": "Hazine Uzman Yardimcisi"
+ },
+ {
+   "Name": "Dis Ticaret Uzman Yardimcisi"
+ },
+ {
+   "Name": "Bölge Amiri"
+ },
+ {
+   "Name": "Vakif Uzmani"
+ },
+ {
+   "Name": "Vakif Uzman Yardimcisi"
+ },
+ {
+   "Name": "Kisim Amiri"
+ },
+ {
+   "Name": "Koruma ve Güvenlik Amiri"
+ },
+ {
+   "Name": "Koruma ve Güvenlik sefi"
+ },
+ {
+   "Name": "sef"
+ },
+ {
+   "Name": "sef (Ö)"
+ },
+ {
+   "Name": "İnfaz ve Koruma Basmemuru"
+ },
+ {
+   "Name": "Sayman"
+ },
+ {
+   "Name": "Sihhi Malzeme Saymani"
+ },
+ {
+   "Name": "Ayniyat Saymani"
+ },
+ {
+   "Name": "Fon Saymani"
+ },
+ {
+   "Name": "Teberrukat Saymani"
+ },
+ {
+   "Name": "Memur (Ö)"
+ },
+ {
+   "Name": "Spor Kontrolörü"
+ },
+ {
+   "Name": "Memur"
+ },
+ {
+   "Name": "Kadastro Üyesi"
+ },
+ {
+   "Name": "Kontrol Memuru"
+ },
+ {
+   "Name": "Ölçü ve Ayar Memuru"
+ },
+ {
+   "Name": "Anbar Memuru"
+ },
+ {
+   "Name": "Ayniyat Memuru"
+ },
+ {
+   "Name": "Bilet Kontrol Memuru"
+ },
+ {
+   "Name": "Dava Takip Memuru"
+ },
+ {
+   "Name": "Emanet Memuru"
+ },
+ {
+   "Name": "Enformasyon Memuru"
+ },
+ {
+   "Name": "Gise Memuru"
+ },
+ {
+   "Name": "Haberlesme Memuru"
+ },
+ {
+   "Name": "İcra Memuru"
+ },
+ {
+   "Name": "İdare Memuru"
+ },
+ {
+   "Name": "Sivil Savunma Memuru"
+ },
+ {
+   "Name": "Koruma ve Güvenlik Görevlisi"
+ },
+ {
+   "Name": "İnfaz ve Koruma Memuru"
+ },
+ {
+   "Name": "Orman Muhafaza Memuru"
+ },
+ {
+   "Name": "Muayene Memuru"
+ },
+ {
+   "Name": "Muhafaza Memuru"
+ },
+ {
+   "Name": "Santral Memuru"
+ },
+ {
+   "Name": "Satinalma Memuru"
+ },
+ {
+   "Name": "Satis Memuru"
+ },
+ {
+   "Name": "Sicil Memuru"
+ },
+ {
+   "Name": "Silah Muayene Memuru"
+ },
+ {
+   "Name": "Tebligat Memuru"
+ },
+ {
+   "Name": "Yoklama Memuru"
+ },
+ {
+   "Name": "Yurt Yönetim Memuru"
+ },
+ {
+   "Name": "Mutemet"
+ },
+ {
+   "Name": "Tahsildar"
+ },
+ {
+   "Name": "Daktilograf"
+ },
+ {
+   "Name": "Sekreter"
+ },
+ {
+   "Name": "Cezaevi Katibi"
+ },
+ {
+   "Name": "Zabit Katibi"
+ },
+ {
+   "Name": "İcra Katibi"
+ },
+ {
+   "Name": "Veznedar"
+ },
+ {
+   "Name": "Bilgisayar İsletmeni"
+ },
+ {
+   "Name": "Bilgisayar İsletmeni (Ö)"
+ },
+ {
+   "Name": "Veri Hazirlama ve Kontrol İsletmeni"
+ },
+ {
+   "Name": "Veri Hazirlama ve Kontrol İsletmeni (Ö)"
+ },
+ {
+   "Name": "Gemi Adami"
+ },
+ {
+   "Name": "Hazine Sayman Yardimcisi"
+ },
+ {
+   "Name": "soför"
+ },
+ {
+   "Name": "soför (Ö)"
+ },
+ {
+   "Name": "Harita Çizimcisi"
+ },
+ {
+   "Name": "Matbaaci"
+ },
+ {
+   "Name": "Anketör"
+ },
+ {
+   "Name": "Çocuk Eğiticisi"
+ },
+ {
+   "Name": "Bastabip"
+ },
+ {
+   "Name": "Bastabib Yardimcisi"
+ },
+ {
+   "Name": "Uzman (Tab.Uz.Tüz.Göre)"
+ },
+ {
+   "Name": "Uzman Tabib"
+ },
+ {
+   "Name": "Tabip"
+ },
+ {
+   "Name": "Dis Tabibi"
+ },
+ {
+   "Name": "Dis Hekimi"
+ },
+ {
+   "Name": "Daire Tabibi"
+ },
+ {
+   "Name": "Uzman Dis Tabibi"
+ },
+ {
+   "Name": "Cezaevi Tabibi"
+ },
+ {
+   "Name": "Veteriner Hekim"
+ },
+ {
+   "Name": "Biolog"
+ },
+ {
+   "Name": "Bakteriolog"
+ },
+ {
+   "Name": "Odyolog"
+ },
+ {
+   "Name": "Psikolog"
+ },
+ {
+   "Name": "Perfüzyonist"
+ },
+ {
+   "Name": "İs ve Uğrasi Terapisti (Ergoterapist)"
+ },
+ {
+   "Name": "Dil ve Konusma Terapisti"
+ },
+ {
+   "Name": "Fizyoterapist"
+ },
+ {
+   "Name": "Eczaci"
+ },
+ {
+   "Name": "Diyetisyen"
+ },
+ {
+   "Name": "Tibbi Teknolog"
+ },
+ {
+   "Name": "Sağlik Fizikçisi"
+ },
+ {
+   "Name": "Çocuk Gelisimcisi"
+ },
+ {
+   "Name": "Çocuk Eğitimcisi"
+ },
+ {
+   "Name": "Pedagog"
+ },
+ {
+   "Name": "Bashemsire"
+ },
+ {
+   "Name": "Hemsire"
+ },
+ {
+   "Name": "Ebe"
+ },
+ {
+   "Name": "Sağlik Memuru"
+ },
+ {
+   "Name": "Hayvan Sağlik Memuru"
+ },
+ {
+   "Name": "Sağlik Teknikeri"
+ },
+ {
+   "Name": "Sağlik Teknisyeni"
+ },
+ {
+   "Name": "Veteriner Sağlik Teknisyeni"
+ },
+ {
+   "Name": "Veteriner Sağlik Teknikeri"
+ },
+ {
+   "Name": "Laborant"
+ },
+ {
+   "Name": "Tibbi Sekreter"
+ },
+ {
+   "Name": "Röntgen Teknisyeni"
+ },
+ {
+   "Name": "Laboratuar Teknisyeni"
+ },
+ {
+   "Name": "Odyometrist"
+ },
+ {
+   "Name": "Hemsire Yardimcisi"
+ },
+ {
+   "Name": "Mühendis (Ö)"
+ },
+ {
+   "Name": "Mühendis"
+ },
+ {
+   "Name": "Mimar"
+ },
+ {
+   "Name": "Mimar (Ö)"
+ },
+ {
+   "Name": "Kontrol Mühendisi"
+ },
+ {
+   "Name": "sehir Plancisi"
+ },
+ {
+   "Name": "sehir Bölge Plancisi"
+ },
+ {
+   "Name": "Jeolog"
+ },
+ {
+   "Name": "Jeofizikçi"
+ },
+ {
+   "Name": "Jeomorfolog"
+ },
+ {
+   "Name": "Kimyager"
+ },
+ {
+   "Name": "Fizikçi"
+ },
+ {
+   "Name": "Matematikçi"
+ },
+ {
+   "Name": "İstatistikçi"
+ },
+ {
+   "Name": "Hidrolog"
+ },
+ {
+   "Name": "Hidrobiyolog"
+ },
+ {
+   "Name": "Ev Ekonomisti"
+ },
+ {
+   "Name": "Ekonomist"
+ },
+ {
+   "Name": "Desinatör"
+ },
+ {
+   "Name": "Dekoratör"
+ },
+ {
+   "Name": "Antropolog"
+ },
+ {
+   "Name": "Paleontolog"
+ },
+ {
+   "Name": "Dis Protez Teknisyeni"
+ },
+ {
+   "Name": "Tekniker (Ö)"
+ },
+ {
+   "Name": "Tekniker"
+ },
+ {
+   "Name": "Fen Memuru"
+ },
+ {
+   "Name": "Grafiker"
+ },
+ {
+   "Name": "Kadastro Teknisyeni"
+ },
+ {
+   "Name": "Teknisyen"
+ },
+ {
+   "Name": "Teknisyen (Ö)"
+ },
+ {
+   "Name": "Arama Kurtarma Teknisyeni"
+ },
+ {
+   "Name": "Haberlesme Teknisyeni"
+ },
+ {
+   "Name": "Sürveyan"
+ },
+ {
+   "Name": "Topoğraf"
+ },
+ {
+   "Name": "Teknik Ressam"
+ },
+ {
+   "Name": "Uçak Kontrol Makinisti"
+ },
+ {
+   "Name": "Makinist"
+ },
+ {
+   "Name": "Obzerver"
+ },
+ {
+   "Name": "Prospektör"
+ },
+ {
+   "Name": "Rasit"
+ },
+ {
+   "Name": "Rasatci"
+ },
+ {
+   "Name": "Ressam"
+ },
+ {
+   "Name": "İstidlalci"
+ },
+ {
+   "Name": "Teknisyen Yardimcisi"
+ },
+ {
+   "Name": "Sağlik Teknisyen Yardimcisi"
+ },
+ {
+   "Name": "Otopsi Teknisyen Yardimcisi"
+ },
+ {
+   "Name": "Laborant Yardimcisi"
+ },
+ {
+   "Name": "Rasatci Yardimcisi"
+ },
+ {
+   "Name": "Hademe"
+ },
+ {
+   "Name": "Hizmetli (Ö)"
+ },
+ {
+   "Name": "Hizmetli"
+ },
+ {
+   "Name": "Hastabakici"
+ },
+ {
+   "Name": "Hayvan Bakicisi"
+ },
+ {
+   "Name": "Bakici Anne"
+ },
+ {
+   "Name": "Asçi (Ö)"
+ },
+ {
+   "Name": "Asçi"
+ },
+ {
+   "Name": "Terzi"
+ },
+ {
+   "Name": "Garson"
+ },
+ {
+   "Name": "Berber"
+ },
+ {
+   "Name": "Kaloriferci"
+ },
+ {
+   "Name": "İtfaiyeci"
+ },
+ {
+   "Name": "Bahçivan"
+ },
+ {
+   "Name": "Bahçivan (Ö)"
+ },
+ {
+   "Name": "Çarsi ve Mahalle Bekçisi"
+ },
+ {
+   "Name": "Bekçi"
+ },
+ {
+   "Name": "Bekçi-Bakici"
+ },
+ {
+   "Name": "Gassal"
+ },
+ {
+   "Name": "Mübasir"
+ },
+ {
+   "Name": "Dağitici"
+ },
+ {
+   "Name": "Dağitici (Ö)"
+ },
+ {
+   "Name": "Kontrolör Yardimcisi"
+ }
+]

@@ -19,9 +19,13 @@ import { map, debounceTime, distinctUntilChanged} from 'rxjs/operators';
   styleUrls: ['./admin-toolbar.component.scss'],
 })
 export class AdminToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() inputPlaceholder: string = 'Search';
+  @Input() toolbarTitle:string="Sayfa Başlığı";
+  @Input() searchInputPlaceHolder: string = 'Search';
   @Input() filterList: IToolbarFilterList[] = [];
-  @Input() numberConfirm: number = 0;
+
+  @Input() isDisableInput:boolean=false;
+  @Input() isDisabledConfirm:boolean=false;
+  @Input() isDisabledFilterList:boolean=false;
 
   @Input() roles: string[] = [];
 
@@ -44,7 +48,7 @@ export class AdminToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
     )
       .pipe(
         map((event) => event.target.value),
-        debounceTime(4000),
+        debounceTime(400),
         distinctUntilChanged()
       )
       .subscribe((result) => {

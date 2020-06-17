@@ -7,7 +7,47 @@
    "Avatar": "avatar.jpg",
    "Email": "sukru.ozdemir@hmb.gov.tr",
    "CampusId":2,
-   "DepartmentId":10
+   "DepartmentId":10,
+   "DegreeId":2
 
- }
+
+ },
+ {
+  "FirstName": "Ömer Seyfi",
+  "LastName": "Özgür",
+  "InterPhone": "3122046533",
+  "GsmPhone": "5456924291",
+  "Avatar": "avatar.jpg",
+  "Email": "omer.ozgur@hmb.gov.tr",
+  "CampusId":2,
+  "DepartmentId":10,
+  "DegreeId":2
+
+
+},
+{
+  "FirstName": "Erdal",
+  "LastName": "Ünal",
+  "InterPhone": "3122046533",
+  "GsmPhone": "5456924291",
+  "Avatar": "avatar.jpg",
+  "Email": "erdal.unal@hmb.gov.tr",
+  "CampusId":2,
+  "DepartmentId":10,
+  "DegreeId":2
+
+
+},
+{
+  "FirstName": "Ali",
+  "LastName": "Aydın",
+  "InterPhone": "3122046533",
+  "GsmPhone": "5456924291",
+  "Avatar": "avatar.jpg",
+  "Email": "ali.aydin@hmb.gov.tr",
+  "CampusId":2,
+  "DepartmentId":10,
+  "DegreeId":2
+
+}
 ]

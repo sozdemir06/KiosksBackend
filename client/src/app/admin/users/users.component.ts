@@ -1,61 +1,43 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
-  AfterViewInit,
-  ViewChild,
-  ElementRef,
 } from '@angular/core';
-import { IUserList } from 'src/app/shared/models/IUser';
-import { UserParams } from 'src/app/shared/models/UserParams';
-import { UserService } from 'src/app/core/services/user-service';
-import { IPagination } from 'src/app/shared/models/IPagination';
-import { fromEvent } from 'rxjs';
-import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { UserStore } from 'src/app/core/services/user-store';
 import { PageEvent } from '@angular/material/paginator';
+import { IToolbarFilterList } from 'src/app/shared/models/toolbar-filter-list';
+import { MatDialog } from '@angular/material/dialog';
+import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
-  unSubscribeFromSearchEvent: any;
+export class UsersComponent implements OnInit{
 
-  filters: any[] = [
-    { id: 1, name: 'Aktif Kullanıcılar', value: true },
-    { id: 2, name: 'Pasif Kullanıcılar', value: false },
+
+  filters: IToolbarFilterList[] = [
+    { id: 1, name: 'Aktif Kullanıcılar', description:"efefef" },
+    { id: 2, name: 'Pasif Kullanıcılar', description: "bıdı bıdı" },
   ];
-  users: IUserList[];
-  userParams = new UserParams();
-  totalCount: number;
 
-  @ViewChild('searchInput', { static: true }) Input: ElementRef;
-
-  constructor(public userService: UserService) {}
+  constructor(
+    public userService: UserStore,
+    private dialog:MatDialog 
+    ) {}
 
   ngOnInit(): void {
-    this.loadAllUsers();
+   
   }
 
-  loadAllUsers() {}
 
-  ngAfterViewInit() {
-    this.unSubscribeFromSearchEvent = fromEvent<any>(
-      this.Input.nativeElement,
-      'keyup'
-    )
-      .pipe(
-        map((event) => event.target.value),
-        debounceTime(400),
-        distinctUntilChanged()
-      )
-      .subscribe((data) => {
-        const params = this.userService.getUserParams();
-        params.search = data;
-        params.pageIndex = 1;
-        this.userService.onGetUsers();
-      });
+  
+
+  onSearch(eventData:string){
+    const params = this.userService.getUserParams();
+    params.search = eventData;
+    params.pageIndex = 1;
+    this.userService.onGetUsers();
   }
 
   onPageChange(event: PageEvent) {
@@ -66,13 +48,21 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     this.userService.onGetUsers();
   }
 
-  onWaitingConfirm() {}
+  onWaitingConfirm(event) {
+    console.log(event);
+  }
 
-  onCreateNew() {}
+  onCreateNew() {
+     const dialogRef=this.dialog.open(UserEditDialogComponent,{
+       width:"50rem",
+       data:{
+         title:"Yeni Kullanıcı Ekle",
+         mode:"create"
+       }
+     });
+  }
 
   filterBy(event: boolean) {}
 
-  ngOnDestroy() {
-    this.unSubscribeFromSearchEvent.unsubscribe();
-  }
+
 }

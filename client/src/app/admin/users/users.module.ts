@@ -4,6 +4,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { UsersListCardComponent } from './users-list-card/users-list-card.component';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material/material.module';
+import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
 
 const routes:Routes=[
   {
@@ -16,7 +17,8 @@ const routes:Routes=[
 @NgModule({
   declarations: [
     UsersComponent,
-    UsersListCardComponent
+    UsersListCardComponent,
+    UserEditDialogComponent
   ],
   imports: [
     SharedModule,
@@ -28,6 +30,7 @@ const routes:Routes=[
     UsersComponent,
     UsersListCardComponent,
     RouterModule,
+    UserEditDialogComponent
   ]
 })
 export class UsersModule { }

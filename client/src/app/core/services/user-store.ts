@@ -5,11 +5,11 @@ import { IUserList } from 'src/app/shared/models/IUser';
 import { IPagination } from 'src/app/shared/models/IPagination';
 import { UserParams } from 'src/app/shared/models/UserParams';
 import { environment } from 'src/environments/environment';
-import { map, catchError, tap, finalize } from 'rxjs/operators';
+import { map, catchError, tap, finalize, delay } from 'rxjs/operators';
 import { NotifyService } from './notify-service';
 
 @Injectable({ providedIn: 'root' })
-export class UserService {
+export class UserStore {
   apiUrl = environment.apiUrl;
 
   private userSubject = new BehaviorSubject<IPagination<IUserList>>(null);
@@ -44,6 +44,7 @@ export class UserService {
     return this.httpClient
       .get<IPagination<IUserList>>(this.apiUrl + 'users', { params })
       .pipe(
+        delay(1000),
         map((result) => result),
         catchError((error) => {
           this.notificationService.notify('error', error);

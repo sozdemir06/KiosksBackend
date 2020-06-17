@@ -15,6 +15,7 @@ namespace Entities.Dtos
         public int DepartmentId { get; set; }
         public DateTime Created { get; set; }
         public string Password { get; set; }
+        public string PasswordConfirm { get; set; }
         public UserForRegisterDto()
         {
             Created=DateTime.Now;

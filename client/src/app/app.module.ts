@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
+import { ErrorMessagesService } from './core/services/error-messages.service';
 
 
 @NgModule({
@@ -20,7 +21,9 @@ import { CoreModule } from './core/core.module';
     CoreModule
    
   ],
-  providers: [],
+  providers: [
+    ErrorMessagesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

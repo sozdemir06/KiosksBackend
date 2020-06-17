@@ -1,5 +1,6 @@
 import { ICampus } from './ICampus';
 import { IDepartment } from './IDepartment';
+import { IDegree } from './IDegree';
 
 export interface IUser{
     userId:number;
@@ -22,4 +23,5 @@ export interface IUserList{
     created:Date;
     campus:ICampus;
     department:IDepartment;
+    degree:IDegree;
 }

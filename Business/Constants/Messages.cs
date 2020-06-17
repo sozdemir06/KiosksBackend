@@ -75,5 +75,8 @@ namespace Business.Constants
         public static string UserGroupDeleted => "Kullanıcı gruptan çıkarıldı.";
 
         public static string CategoryNotFound=>"Kategori bulunamadı...";
+        public static string CampusListNotFound=>"Yerleşke Listesi alınamadı veya yok...";
+        public static string DepartmentListNotFound=>"Birim Listesi alınamadı veya yok...";
+        public static string TitleListNotFound=>"Ünvan Listesi alınamadı veya yok...";
     }
 }

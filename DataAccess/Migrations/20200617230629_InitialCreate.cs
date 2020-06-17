@@ -35,6 +35,19 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Degrees",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(maxLength: 140, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Degrees", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Departments",
                 columns: table => new
                 {
@@ -116,7 +129,8 @@ namespace DataAccess.Migrations
                     Created = table.Column<DateTime>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: false),
                     CampusId = table.Column<int>(nullable: false),
-                    DepartmentId = table.Column<int>(nullable: false)
+                    DepartmentId = table.Column<int>(nullable: false),
+                    DegreeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -125,6 +139,12 @@ namespace DataAccess.Migrations
                         name: "FK_Users_Campuses_CampusId",
                         column: x => x.CampusId,
                         principalTable: "Campuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Users_Degrees_DegreeId",
+                        column: x => x.DegreeId,
+                        principalTable: "Degrees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -209,6 +229,11 @@ namespace DataAccess.Migrations
                 column: "CampusId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_DegreeId",
+                table: "Users",
+                column: "DegreeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_DepartmentId",
                 table: "Users",
                 column: "DepartmentId");
@@ -239,6 +264,9 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Campuses");
+
+            migrationBuilder.DropTable(
+                name: "Degrees");
 
             migrationBuilder.DropTable(
                 name: "Departments");

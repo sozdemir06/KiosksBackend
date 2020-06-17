@@ -14,6 +14,7 @@ namespace Business.MappingProfile
             CreateMap<UserForRegisterDto,User>();
             CreateMap<Campus,CampusForListDto>();
             CreateMap<Department,DepartmentForListDto>();
+            CreateMap<Degree,DegreeForListDto>();
         }
     }
 }

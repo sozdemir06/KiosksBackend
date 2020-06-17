@@ -4,7 +4,7 @@ using Core.Entities;
 
 namespace Core.Entities.Concrete
 {
-    public class User:IEntity
+    public class User : IEntity
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -24,6 +24,12 @@ namespace Core.Entities.Concrete
         public int CampusId { get; set; }
         public Department Department { get; set; }
         public int DepartmentId { get; set; }
+         public Degree Degree { get; set; }
+        public int DegreeId { get; set; }
+        
+       
+   
+
 
     }
 }

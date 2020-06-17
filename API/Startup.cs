@@ -1,6 +1,5 @@
 using AutoMapper;
 using Business.Handlers.Products.Query;
-using Business.ValidaitonRules.FluentValidation;
 using Core.DependencyResolvers;
 using Core.Extensions;
 using Core.Utilities.IoC;
@@ -8,7 +7,6 @@ using Core.Utilities.Security.Jwt;
 using Core.Utilities.Security.Jwt.Encryption;
 using DataAccess.Concrete.EntityFramework.Contexts;
 using DataAccess.SeedData;
-using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -80,7 +78,7 @@ namespace API
             app.UseMiddleware<ErrorHandlingMiddleware>();
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
             }
 
             //app.UseHttpsRedirection();

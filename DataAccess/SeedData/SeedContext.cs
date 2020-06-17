@@ -26,60 +26,74 @@ namespace DataAccess.SeedData
         {
             try
             {
-                if(_context.Database.GetPendingMigrations().Count()>0)
+                if (_context.Database.GetPendingMigrations().Count() > 0)
                 {
                     _context.Database.Migrate();
                 }
-
-                if(_context.Database.GetPendingMigrations().Count()==0)
+                else
                 {
-                     if (!_context.Campuses.Any())
-                {
-                    var campuseData = File.ReadAllText("../DataAccess/SeedData/Campus.json");
-                    var campuses = JsonSerializer.Deserialize<List<Campus>>(campuseData);
 
-                    foreach (var campus in campuses)
+
+                    if (!_context.Campuses.Any())
                     {
-                        _context.Campuses.Add(campus);
+                        var campuseData = File.ReadAllText("../DataAccess/SeedData/Campus.json");
+                        var campuses = JsonSerializer.Deserialize<List<Campus>>(campuseData);
 
+                        foreach (var campus in campuses)
+                        {
+                            _context.Campuses.Add(campus);
+
+                        }
                     }
-                }
 
-                if (!_context.Campuses.Any())
-                {
-                    var departmentData = File.ReadAllText("../DataAccess/SeedData/Department.json");
-                    var departments = JsonSerializer.Deserialize<List<Department>>(departmentData);
-
-                    foreach (var department in departments)
+                    if (!_context.Departments.Any())
                     {
-                        _context.Departments.Add(department);
+                        var departmentData = File.ReadAllText("../DataAccess/SeedData/Department.json");
+                        var departments = JsonSerializer.Deserialize<List<Department>>(departmentData);
+
+                        foreach (var department in departments)
+                        {
+                            _context.Departments.Add(department);
+                        }
                     }
-                }
 
-                if (!_context.Users.Any())
-                {
-                    var userData = File.ReadAllText("../DataAccess/SeedData/User.json");
-                    var users = JsonSerializer.Deserialize<List<User>>(userData);
-
-                    foreach (var user in users)
+                    if (!_context.Degrees.Any())
                     {
-                        byte[] passwordHash,passwordSalt;
+                        var degreesData = File.ReadAllText("../DataAccess/SeedData/Degree.json");
+                        var degrees = JsonSerializer.Deserialize<List<Degree>>(degreesData);
 
-                        CreatePasswordHash("466357",out passwordHash,out passwordSalt);
-                        user.PasswordHash=passwordHash;
-                        user.PasswordSalt=passwordSalt;
-                        user.IsActive=false;
-                        user.Created=DateTime.Now;
-                        user.Updated=DateTime.Now;
-                        _context.Users.Add(user);
+                        foreach (var degree in degrees)
+                        {
+                            _context.Degrees.Add(degree);
+                        }
                     }
+
+                    if (!_context.Users.Any())
+                    {
+                        var userData = File.ReadAllText("../DataAccess/SeedData/User.json");
+                        var users = JsonSerializer.Deserialize<List<User>>(userData);
+
+                        foreach (var user in users)
+                        {
+                            byte[] passwordHash, passwordSalt;
+
+                            CreatePasswordHash("466357", out passwordHash, out passwordSalt);
+                            user.PasswordHash = passwordHash;
+                            user.PasswordSalt = passwordSalt;
+                            user.IsActive = false;
+                            user.Created = DateTime.Now;
+                            user.Updated = DateTime.Now;
+                            _context.Users.Add(user);
+                        }
+                    }
+
+
+
+                    _context.SaveChanges();
+
                 }
 
-                _context.SaveChanges();
 
-                }
-
-               
             }
             catch (Exception ex)
             {
@@ -89,7 +103,7 @@ namespace DataAccess.SeedData
             }
         }
 
-         private static void CreatePasswordHash(string password, out byte[] PasswordHash, out byte[] PasswordSalt)
+        private static void CreatePasswordHash(string password, out byte[] PasswordHash, out byte[] PasswordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {

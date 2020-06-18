@@ -21,6 +21,8 @@ import { SharedModule } from '../shared/shared.module';
   exports:[
     AdminRoutingModule,
     LayoutModule,
-  ]
+  ],
+
+  
 })
 export class AdminModule { }

@@ -1,6 +1,6 @@
 <section class="container d-flex justify-content-center">
     <mat-card class="w-50">
-        <app-loading [loading]="authStore.loading$ | async"></app-loading>
+        <app-loading></app-loading>
         <mat-tab-group mat-stretch-tabs class="mt-2"> 
             <mat-tab label="Giriş Formu" >
                 <form [formGroup]="loginForm" class="d-flex flex-column w-100" (ngSubmit)="login()" autocomplete="off">

@@ -7,27 +7,30 @@ import { UserParams } from 'src/app/shared/models/UserParams';
 import { environment } from 'src/environments/environment';
 import { map, catchError, tap, finalize, delay } from 'rxjs/operators';
 import { NotifyService } from './notify-service';
+import { LoadingService } from './loading-service';
+import { ErrorMessagesService } from './error-messages.service';
+import { produce} from "immer";
 
 @Injectable({ providedIn: 'root' })
 export class UserStore {
   apiUrl = environment.apiUrl;
 
   private userSubject = new BehaviorSubject<IPagination<IUserList>>(null);
-  private loadingSubject = new BehaviorSubject<boolean>(false);
-  loading$: Observable<boolean> = this.loadingSubject.asObservable();
   users$: Observable<IPagination<IUserList>> = this.userSubject.asObservable();
 
   userParams = new UserParams();
 
   constructor(
     private httpClient: HttpClient,
-    private notificationService: NotifyService
+    private notificationService: NotifyService,
+    private loadingService:LoadingService,
+    private errorMessageService:ErrorMessagesService,
+    
   ) {
     this.getUsers(this.userParams);
   }
 
-  getUsers(userParams: UserParams) {
-    this.loadingSubject.next(true);
+ private getUsers(userParams: UserParams) {
     let params = new HttpParams();
 
     if (userParams.search) {
@@ -41,7 +44,7 @@ export class UserStore {
     params = params.append('pageIndex', userParams.pageIndex.toString());
     params = params.append('pageSize', userParams.pageSize.toString());
 
-    return this.httpClient
+    const userList$= this.httpClient
       .get<IPagination<IUserList>>(this.apiUrl + 'users', { params })
       .pipe(
         delay(1000),
@@ -51,9 +54,29 @@ export class UserStore {
           return throwError(error);
         }),
         tap((users) => this.userSubject.next(users)),
-        finalize(() => this.loadingSubject.next(false))
       )
-      .subscribe();
+       this.loadingService.showLoaderUntilCompleted(userList$).subscribe();
+  }
+
+  create(model:IUserList){
+    const create$=this.httpClient.post<IUserList>(this.apiUrl+"auth/register",model)
+                      .pipe(
+                        map((user)=>user),
+                        catchError(error=>{
+                          this.errorMessageService.showErrors(error);
+                          return throwError(error);
+                        }),
+                        tap((user)=>{
+                           const newUser=produce(this.userSubject.getValue(),(draft)=>{
+                              draft.data.push(user);
+                           });
+                           this.userSubject.next(newUser);
+                           this.notificationService.notify("success","Yeni Kallanıcı Eklendi.!!!");
+                        }),
+                      )
+
+           this.loadingService.showLoaderUntilCompleted(create$).subscribe();
+    
   }
 
   getUserParams():UserParams{

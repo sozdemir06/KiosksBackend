@@ -1,7 +1,7 @@
-<ng-container *ngIf="errors$ | async as errors">
+<ng-container *ngIf="(errors$ | async ) as errors">
   <div class="bg-danger d-flex flex-column w-100 p-3" *ngIf="showMessage">
     <p *ngFor="let error of errors" class="text-white font-weight-bold">
-      {{ error }}
+      <span class="d-block">{{ error }}</span>
     </p>
   </div>
 </ng-container>

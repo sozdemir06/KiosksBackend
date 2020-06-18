@@ -1,5 +1,6 @@
 <h1 mat-subheader class="text-center">{{ title }}</h1>
 <app-error-messages></app-error-messages>
+<app-loading></app-loading>
 <div class="container">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="d-flex flex-column w-100" autocomplete="off">
     <mat-form-field>
@@ -50,33 +51,36 @@
       />
       <mat-error *ngIf="f.gsmPhone.errors?.maxlength">Cep telefon numarası en fazla 11 karakter olmalı...</mat-error>
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Yerleşke</mat-label>
-      <mat-select formControlName="campusId">
-        <mat-option>
-          Emek
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="f.campusId.errors?.required">Kullanıcı için yerleşke seçiniz...</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Birim</mat-label>
-      <mat-select formControlName="departmentId">
-        <mat-option>
-          İdari ve Mali İşler Dairesi
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="f.departmentId.errors?.required">Kullanıcının çalıştığı birimi seçiniz...</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Ünvan</mat-label>
-      <mat-select formControlName="degreeId">
-        <mat-option>
-          İdari ve Mali İşler Dairesi
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="f.degreeId.errors?.required">Kullanıcının Ünvanını Seçiniz...</mat-error>
-    </mat-form-field>
+    <ng-container *ngIf="(data$ | async) as data">
+      <mat-form-field>
+        <mat-label>Yerleşke</mat-label>
+        <mat-select formControlName="campusId">
+          <mat-option *ngFor="let campus of data.campuses" [value]="campus.id">
+            {{campus.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.campusId.errors?.required">Kullanıcı için yerleşke seçiniz...</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Birim</mat-label>
+        <mat-select formControlName="departmentId">
+          <mat-option *ngFor="let department of data.departments" [value]="department.id">
+            {{department.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.departmentId.errors?.required">Kullanıcının çalıştığı birimi seçiniz...</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Ünvan</mat-label>
+        <mat-select formControlName="degreeId">
+          <mat-option *ngFor="let degree of data.degrees" [value]="degree.id">
+            {{degree.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.degreeId.errors?.required">Kullanıcının Ünvanını Seçiniz...</mat-error>
+      </mat-form-field>
+    </ng-container>
+
     <mat-form-field>
       <input
         matInput
@@ -99,9 +103,13 @@
       <mat-error *ngIf="f.passwordConfirm.errors?.maxlength">Şifre tekrarı en fazla 8 karakter olmalı...</mat-error>
       <mat-error *ngIf="f.passwordConfirm.errors?.mustMatch">Şifre ve Şifre tekrarı uyuşmuyor...</mat-error>
     </mat-form-field>
-
-    <button mat-raised-button color="primary" type="submit">
-      {{ mode === "create" ? "Kaydet" : "Güncelle" }}
-    </button>
+    <div class="row">
+      <button class="col" mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
+        {{ mode === "create" ? "Kaydet" : "Güncelle" }}
+      </button>
+      <button class="col" mat-raised-button color="warn" type="button" mat-dialog-close>Kapat</button>
+    </div>
+  
   </form>
 </div>
+

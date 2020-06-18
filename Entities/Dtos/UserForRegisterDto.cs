@@ -13,6 +13,7 @@ namespace Entities.Dtos
         public bool IsActive { get; set; }
         public int CampusId { get; set; }
         public int DepartmentId { get; set; }
+        public int DegreeId { get; set; }
         public DateTime Created { get; set; }
         public string Password { get; set; }
         public string PasswordConfirm { get; set; }

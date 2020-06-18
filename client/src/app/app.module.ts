@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { ErrorMessagesService } from './core/services/error-messages.service';
+import { LoadingService } from './core/services/loading-service';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ErrorMessagesService } from './core/services/error-messages.service';
    
   ],
   providers: [
-    ErrorMessagesService
+    ErrorMessagesService,
+    LoadingService
   ],
   bootstrap: [AppComponent]
 })

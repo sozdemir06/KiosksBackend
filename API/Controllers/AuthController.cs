@@ -11,31 +11,35 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService authService;
-        public AuthController(IAuthService authService)
+        private readonly IUserService userService;
+        public AuthController(IAuthService authService, IUserService userService)
         {
+            this.userService = userService;
             this.authService = authService;
+
 
         }
 
         [HttpPost("login")]
         public async Task<ActionResult<AccessToken>> Login(UserForLoginDto userForLoginDto)
         {
-            var userToLogin=await authService.Login(userForLoginDto);
+            var userToLogin = await authService.Login(userForLoginDto);
 
-            var result=await authService.CreateAccessToken(userToLogin);
+            var result = await authService.CreateAccessToken(userToLogin);
 
             return result;
 
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<AccessToken>> Register(UserForRegisterDto userForRegisterDto)
+        public async Task<ActionResult<UserForListDto>> Register(UserForRegisterDto userForRegisterDto)
         {
             await authService.UserExist(userForRegisterDto.Email);
-            var registerResult=await authService.Register(userForRegisterDto,userForRegisterDto.Password);
-            var accessToken=await authService.CreateAccessToken(registerResult);
-            return accessToken;    
+            var result = await authService.Register(userForRegisterDto, userForRegisterDto.Password);
+            return await userService.GetUserAsync(result.Email);
 
-        } 
+
+
+        }
     }
 }

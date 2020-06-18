@@ -39,6 +39,20 @@ namespace Business.Concrete
             return await userDal.GetAsync(x => x.Email == email);
         }
 
+        public async Task<UserForListDto> GetUserAsync(string email)
+        {
+            var spec=new UserWithCampusAndDepartmentAndDegreeSpecification(email);
+            var user=await userDal.GetEntityWithSpecAsync(spec);
+
+            if(user==null)
+            {
+                 throw new RestException(HttpStatusCode.BadRequest, new { UserNotFound = Messages.UserNotFound });
+            }
+
+            var userForReturn=mapper.Map<User,UserForListDto>(user);
+            return userForReturn;
+        }
+
         public async Task<Pagination<UserForListDto>> GetUserForList(UserQueryParams userQueryParams)
         {
             var spec = new UserWithTitleAndCampusSpesification(userQueryParams);

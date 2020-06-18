@@ -1,33 +1,45 @@
-
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MatDialogRef } from '@angular/material/dialog';
-import { UserEditDialogComponent } from 'src/app/admin/users/user-edit-dialog/user-edit-dialog.component';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { ICampus } from 'src/app/shared/models/ICampus';
+import { environment } from 'src/environments/environment';
+import { map, catchError, tap, shareReplay } from 'rxjs/operators';
+import { NotifyService } from './notify-service';
+import { LoadingService } from './loading-service';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class CampusStore {
+  apiUrl = environment.apiUrl;
 
-    private subject=new BehaviorSubject<ICampus[]>([]);
-    private loadingSubject=new BehaviorSubject<boolean>(false);
+  private subject = new BehaviorSubject<ICampus[]>([]);
+  private loadingSubject = new BehaviorSubject<boolean>(false);
 
-    campus$:Observable<ICampus[]>=this.subject.asObservable();
-    loading$:Observable<boolean>=this.loadingSubject.asObservable();
+  campus$: Observable<ICampus[]> = this.subject.asObservable();
+  loading$: Observable<boolean> = this.loadingSubject.asObservable();
 
-    constructor(
-        private httpClient: HttpClient,
-        private dialogRef:MatDialogRef<UserEditDialogComponent>
-        
-    ) { }
+  constructor(
+    private httpClient: HttpClient,
+    private notifyService: NotifyService,
+    private loadingService: LoadingService,
+  ) {
+    this.getList();
+  }
 
-
-    getList(){
-            
-
-    }
-
-
-    
+  private getList() {
+    const campuses$ = this.httpClient
+      .get<ICampus[]>(this.apiUrl + 'campuses')
+      .pipe(
+        map((campuses) => campuses),
+        catchError((error) => {
+          this.notifyService.notify('error', error);
+          return throwError(error);
+        }),
+        tap((campuses) => {
+          campuses.sort((a, b) => a.name.localeCompare(b.name));
+          this.subject.next(campuses);
+        }),
+        shareReplay()
+      );
+    this.loadingService.showLoaderUntilCompleted(campuses$).subscribe();
+  }
 }

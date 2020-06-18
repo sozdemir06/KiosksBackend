@@ -5,16 +5,19 @@ import {
 import { UserStore } from 'src/app/core/services/user-store';
 import { PageEvent } from '@angular/material/paginator';
 import { IToolbarFilterList } from 'src/app/shared/models/toolbar-filter-list';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
+import { LoadingService } from 'src/app/core/services/loading-service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
+ 
 })
 export class UsersComponent implements OnInit{
 
+  toolbarTitle:string="Kullanıcı adı,soyadı,birim ve ünavana göre arama...";
 
   filters: IToolbarFilterList[] = [
     { id: 1, name: 'Aktif Kullanıcılar', description:"efefef" },
@@ -54,7 +57,8 @@ export class UsersComponent implements OnInit{
 
   onCreateNew() {
      const dialogRef=this.dialog.open(UserEditDialogComponent,{
-       width:"50rem",
+       width:"45rem",
+       maxHeight:"100vh",
        data:{
          title:"Yeni Kullanıcı Ekle",
          mode:"create"

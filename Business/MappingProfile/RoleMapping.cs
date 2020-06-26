@@ -15,6 +15,10 @@ namespace Business.MappingProfile
             CreateMap<Campus,CampusForListDto>();
             CreateMap<Department,DepartmentForListDto>();
             CreateMap<Degree,DegreeForListDto>();
+            CreateMap<Role,RoleForListDto>();
+            CreateMap<RoleCategory,RoleCategoryForListDto>();
+            CreateMap<RoleForCreationAndUpdateDto,Role>();
+            CreateMap<RoleCategoryForCreationAndUpdateDto,RoleCategory>();
         }
     }
 }

@@ -2,10 +2,10 @@
   <div class="col-md-12 col-sm-12 col-lg-12">
     <div class="mat-elevation-z3 bg-white">
       <div class="row p-3 align-items-center">
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-2 col-lg-2">
           <span class="mat-h2">{{ toolbarTitle }}</span>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-6 col-sm-6 col-lg-6">
           <mat-form-field class="w-100">
             <mat-icon matPrefix>search</mat-icon>
             <input
@@ -18,12 +18,13 @@
             />
           </mat-form-field>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 col-sm-4 col-lg-4">
           <div class="">
             <button
               mat-icon-button
               (click)="onWaitingConfirm()"
               [disabled]="isDisabledConfirm"
+              *ngIf="isHiddenConfirm"
             >
               <mat-icon matBadge="0" matBadgeColor="warn" matBadgeSize="small"
                 >done_outline</mat-icon
@@ -31,6 +32,9 @@
             </button>
             <button mat-icon-button (click)="onCreateNew()">
               <mat-icon>create</mat-icon>
+            </button>
+            <button mat-icon-button (click)="onReset()">
+              <mat-icon>refresh</mat-icon>
             </button>
             <button
               mat-icon-button
@@ -43,7 +47,7 @@
               <button
                 mat-menu-item
                 *ngFor="let filter of filterList"
-                (click)="filterBy(filter?.name)"
+                (click)="filterBy(filter)"
               >
                 {{ filter?.description }}
               </button>

@@ -1,0 +1,46 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
+    <!-- Column -->
+  
+    <!-- Column -->
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef>Role Kategori Adı</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.firstName}} {{element?.name}}
+      </td>
+    </ng-container>
+  
+    <!-- Column -->
+    <ng-container matColumnDef="Description">
+      <th mat-header-cell *matHeaderCellDef>Açıklama</th>
+      <td mat-cell *matCellDef="let element">
+        <div>
+          <span>{{element?.description}}</span>
+        </div>
+      </td>
+    </ng-container>
+  
+  
+    <!--Column -->
+    <ng-container matColumnDef="Actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+         <button mat-icon-button [matMenuTriggerFor]="tableMenu">
+           <mat-icon>more_vert</mat-icon>
+         </button>
+         <mat-menu #tableMenu="matMenu">
+          <button mat-menu-item (click)="onUpdate(element)">
+            <mat-icon>update</mat-icon>
+            <span>Güncelle</span>
+          </button>
+          <button mat-menu-item (click)="onAssignUser(element)" *ngIf="isShowAddBtn">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  

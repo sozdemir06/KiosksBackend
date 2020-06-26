@@ -3,19 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { ICampus } from 'src/app/shared/models/ICampus';
 import { environment } from 'src/environments/environment';
-import { map, catchError, tap, shareReplay } from 'rxjs/operators';
-import { NotifyService } from './notify-service';
-import { LoadingService } from './loading-service';
+import { map, catchError, tap, shareReplay, delay } from 'rxjs/operators';
+import { NotifyService } from '../notify-service';
+import { LoadingService } from '../loading-service';
+
 
 @Injectable({ providedIn: 'root' })
 export class CampusStore {
   apiUrl = environment.apiUrl;
 
   private subject = new BehaviorSubject<ICampus[]>([]);
-  private loadingSubject = new BehaviorSubject<boolean>(false);
-
   campus$: Observable<ICampus[]> = this.subject.asObservable();
-  loading$: Observable<boolean> = this.loadingSubject.asObservable();
+
 
   constructor(
     private httpClient: HttpClient,

@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "User.List",
+    "Description": "Tüm kullanıcıları listeleme yetkisi",
+    "RoleCategoryId": 1
+  },
+  {
+    "Name": "User.Create",
+    "Description": "Yeni kullanıcı ekleme yetkisi",
+    "RoleCategoryId": 1
+  },
+  {
+    "Name": "User.Update",
+    "Description": "Kullanıcı bilgisini güncelleme yetkisi",
+    "RoleCategoryId": 1
+  }
+]

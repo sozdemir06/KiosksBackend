@@ -78,5 +78,12 @@ namespace Business.Constants
         public static string CampusListNotFound=>"Yerleşke Listesi alınamadı veya yok...";
         public static string DepartmentListNotFound=>"Birim Listesi alınamadı veya yok...";
         public static string TitleListNotFound=>"Ünvan Listesi alınamadı veya yok...";
+        public static string RoleListNotFound=>"Role Listesi alınamadı veya yok...";
+        public static string RoleCatgegorListListNotFound=>"Role Listesi alınamadı veya yok...";
+        public static string RoleNameAlreadyExist=>"Bu yetki ismi zaten kayıtlı...";
+        public static string AlreadyExist=>"Id veya bu isimle kayıt zaten var...";
+        public static string NotFound=>"Kayıt bulunamadı...";
+
+
     }
 }

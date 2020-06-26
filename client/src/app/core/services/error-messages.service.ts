@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+
 @Injectable()
 export class ErrorMessagesService {
 
@@ -10,7 +11,11 @@ export class ErrorMessagesService {
         filter(messages=>messages && messages.length>0)
   );
 
-  constructor() { }
+  isError$:Observable<boolean>;
+
+  constructor() {
+    this.isError$=this.errors$.pipe(map(error=>!error))
+   }
 
   showErrors(...errors:string[]){
     this.subject.next(errors);

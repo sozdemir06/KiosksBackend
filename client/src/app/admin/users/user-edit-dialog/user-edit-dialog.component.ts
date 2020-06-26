@@ -2,17 +2,17 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IUserList } from 'src/app/shared/models/IUser';
-import { ErrorMessagesService } from 'src/app/core/services/error-messages.service';
 import { MustMatch } from 'src/app/shared/helpers/password-match';
-import { DepartmentStore } from 'src/app/core/services/department-store';
-import { CampusStore } from 'src/app/core/services/campus-store';
-import { DegreeStore } from 'src/app/core/services/degree-store';
 import { IDepartment } from 'src/app/shared/models/IDepartment';
 import { ICampus } from 'src/app/shared/models/ICampus';
 import { IDegree } from 'src/app/shared/models/IDegree';
 import { Observable, combineLatest } from 'rxjs';
-import { startWith, map, tap } from 'rxjs/operators';
-import { UserStore } from 'src/app/core/services/user-store';
+import { startWith, map} from 'rxjs/operators';
+import { DepartmentStore } from 'src/app/core/services/stores/department-store';
+import { CampusStore } from 'src/app/core/services/stores/campus-store';
+import { DegreeStore } from 'src/app/core/services/stores/degree-store';
+import { UserStore } from 'src/app/core/services/stores/user-store';
+
 
 export interface ISelectOptionData {
   departments: IDepartment[];
@@ -23,10 +23,11 @@ export interface ISelectOptionData {
   selector: 'app-user-edit-dialog',
   templateUrl: './user-edit-dialog.component.html',
   styleUrls: ['./user-edit-dialog.component.scss'],
+
 })
 export class UserEditDialogComponent implements OnInit {
   title: string;
-  mode: 'create' | 'update';
+  mode: "create" | "update";
   user: IUserList;
 
   loginForm: FormGroup;
@@ -41,6 +42,7 @@ export class UserEditDialogComponent implements OnInit {
     private campuseStore: CampusStore,
     private degreeStore: DegreeStore,
     private userStore: UserStore,
+
   ) {
     this.title = data.title;
     this.mode = data.mode;
@@ -55,25 +57,41 @@ export class UserEditDialogComponent implements OnInit {
       campusId: ['', Validators.required],
       departmentId: ['', Validators.required],
       degreeId: ['', Validators.required],
-      password: [
-        '',
-        [Validators.required, Validators.minLength(4), Validators.maxLength(8)],
-      ],
-      passwordConfirm: [
-        '',
-        [Validators.required, Validators.minLength(4), Validators.maxLength(8)],
-      ],
     };
 
     if (this.mode == 'create') {
       this.loginForm = this.fb.group(
         {
           ...formControls,
+          password: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(4),
+              Validators.maxLength(8),
+            ],
+          ],
+          passwordConfirm: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(4),
+              Validators.maxLength(8),
+            ],
+          ],
         },
         {
           validator: MustMatch('password', 'passwordConfirm'),
         }
       );
+    } else if (this.mode == 'update') {
+       this.loginForm=this.fb.group(formControls);
+       this.loginForm.patchValue({
+         ...this.user,
+         campusId:this.user.campus?.id,
+         departmentId:this.user.department?.id,
+         degreeId:this.user.degree?.id 
+        });
     }
   }
 
@@ -93,16 +111,24 @@ export class UserEditDialogComponent implements OnInit {
           campuses,
           degrees,
         };
-      })
+      }),
     );
   }
 
   onSubmit() {
-    if (this.mode === 'create') {
+    if (this.mode == 'create') {
       if (this.loginForm.valid) {
         this.userStore.create(this.loginForm.value);
+        this.dialogRef.close();
       }
-      
+    }else if(this.mode=='update')
+    {
+        this.userStore.update(this.user.id,this.loginForm.value);
+        this.dialogRef.close();
+        
     }
+
+
+    
   }
 }

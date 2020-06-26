@@ -6,6 +6,8 @@ import { LayoutComponent } from './layout.component';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
 import { NotFoundComponent } from '../shared/not-found/not-found.component';
+import { UserPanelComponent } from '../admin/dashboard/panels/user-panel/user-panel.component';
+import { RolePanelComponent } from '../admin/dashboard/panels/role-panel/role-panel.component';
 
 
 const routes:Routes=[
@@ -45,7 +47,10 @@ const routes:Routes=[
   declarations: [
     HeaderComponent, 
     FooterComponent,
-    LayoutComponent
+    LayoutComponent,
+    UserPanelComponent,
+    RolePanelComponent
+
   
   ],
   imports: [
@@ -59,7 +64,9 @@ const routes:Routes=[
     FooterComponent,
     LayoutComponent,
     RouterModule,
-    MaterialModule
+    MaterialModule,
+    UserPanelComponent,
+    RolePanelComponent
   ]
 })
 export class LayoutModule { }

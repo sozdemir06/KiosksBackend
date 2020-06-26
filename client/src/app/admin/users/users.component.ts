@@ -2,12 +2,12 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { UserStore } from 'src/app/core/services/user-store';
 import { PageEvent } from '@angular/material/paginator';
 import { IToolbarFilterList } from 'src/app/shared/models/toolbar-filter-list';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
-import { LoadingService } from 'src/app/core/services/loading-service';
+import { UserParams } from 'src/app/shared/models/UserParams';
+import { UserStore } from 'src/app/core/services/stores/user-store';
 
 @Component({
   selector: 'app-users',
@@ -40,6 +40,7 @@ export class UsersComponent implements OnInit{
     const params = this.userService.getUserParams();
     params.search = eventData;
     params.pageIndex = 1;
+    this.userService.setUserParams(params);
     this.userService.onGetUsers();
   }
 
@@ -51,8 +52,12 @@ export class UsersComponent implements OnInit{
     this.userService.onGetUsers();
   }
 
-  onWaitingConfirm(event) {
-    console.log(event);
+  onWaitingConfirm() {
+    const params=this.userService.getUserParams();
+          params.statusPassive="passive";
+          params.pageIndex=1;
+          this.userService.setUserParams(params);
+          this.userService.onGetUsers();
   }
 
   onCreateNew() {
@@ -66,7 +71,16 @@ export class UsersComponent implements OnInit{
      });
   }
 
-  filterBy(event: boolean) {}
+  onReset(){
+   const params=new UserParams();
+   this.userService.setUserParams(params);
+   this.userService.onGetUsers();
+
+  }
+
+  filterBy(event: any) {
+    console.log(event)
+  }
 
 
 }

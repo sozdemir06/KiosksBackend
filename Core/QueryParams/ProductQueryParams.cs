@@ -22,5 +22,11 @@ namespace Core.QueryParams
             
         }
 
+       
+       private void test(){
+            var ben=new RoleQueryParams();
+            
+       }
+
     }
 }

@@ -29,7 +29,7 @@
   <!--Column -->
   <ng-container matColumnDef="Campus">
     <th mat-header-cell *matHeaderCellDef>Yerleşke</th>
-    <td mat-cell *matCellDef="let element">{{ element.campus.name }}</td>
+    <td mat-cell *matCellDef="let element">{{ element.campus?.name }}</td>
   </ng-container>
 
   <!--Column -->
@@ -37,8 +37,8 @@
     <th mat-header-cell *matHeaderCellDef>Durum</th>
     <td mat-cell *matCellDef="let element">
       <mat-chip-list aria-label="Fish selection">
-        <mat-chip *ngIf="element?.status" color="primary" selected>Aktif</mat-chip>
-        <mat-chip  *ngIf="!element?.status" color="accent" selected>Pasif</mat-chip>
+        <mat-chip *ngIf="element?.isActive" color="primary" selected>Aktif</mat-chip>
+        <mat-chip  *ngIf="!element?.isActive" color="accent" selected>Pasif</mat-chip>
       </mat-chip-list>
     </td>
   </ng-container>
@@ -51,8 +51,22 @@
          <mat-icon>more_vert</mat-icon>
        </button>
        <mat-menu #tableMenu="matMenu">
-        <button mat-menu-item>Settings</button>
-        <button mat-menu-item>Help</button>
+        <button mat-menu-item (click)="onUpdate(element)">
+          <mat-icon>update</mat-icon>
+          <span>Güncelle</span>
+        </button>
+        <button mat-menu-item (click)="onUserRole(element)">
+          <mat-icon>verified_user</mat-icon>
+          <span>Yetkiler</span>
+        </button> 
+        <button mat-menu-item (click)="onActivePassive(element)" [disabled]="element?.isActive">
+          <mat-icon>lock</mat-icon>
+          <span>Hesabı Kapat</span>
+        </button>
+        <button mat-menu-item (click)="onActivePassive(element)" [disabled]="!element?.isActive">
+          <mat-icon>lock_open</mat-icon>
+          <span>Hesabı Aç</span>
+        </button>
       </mat-menu>
     </td>
   </ng-container>

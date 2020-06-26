@@ -15,7 +15,8 @@ namespace DataAccess.EntitySpecification.UsersSpecification
                     || x.Campus.Name.ToLower().Contains(queryParams.Search)
                     
                     ) &&
-                (!queryParams.Status.HasValue || x.IsActive ==queryParams.Status)
+                (string.IsNullOrEmpty(queryParams.StatusPassive) || x.IsActive ==false) &&
+                (string.IsNullOrEmpty(queryParams.StatusActive) || x.IsActive==true)
             )
         {
             AddInclude(x=>x.Campus);

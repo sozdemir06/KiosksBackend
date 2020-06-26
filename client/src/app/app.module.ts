@@ -10,6 +10,7 @@ import { ErrorMessagesService } from './core/services/error-messages.service';
 import { LoadingService } from './core/services/loading-service';
 
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -24,7 +25,7 @@ import { LoadingService } from './core/services/loading-service';
   ],
   providers: [
     ErrorMessagesService,
-    LoadingService
+    LoadingService,
   ],
   bootstrap: [AppComponent]
 })

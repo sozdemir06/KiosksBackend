@@ -65,6 +65,7 @@ namespace Business.Concrete
             var user = mapper.Map<User>(userForRegisterDto);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            user.IsActive=true;
 
             await userService.Add(user);
             return user;

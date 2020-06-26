@@ -3,11 +3,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { LoadingService } from './loading-service';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { IDegree } from 'src/app/shared/models/IDegree';
 import { catchError, tap, map, shareReplay } from 'rxjs/operators';
-import { NotifyService } from './notify-service';
+import { LoadingService } from '../loading-service';
+import { NotifyService } from '../notify-service';
+
 
 @Injectable({providedIn: 'root'})
 export class DegreeStore {

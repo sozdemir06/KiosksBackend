@@ -15,5 +15,6 @@ namespace Business.Abstract
         Task<User> GetByEmail(string email);
         Task<Pagination<UserForListDto>> GetUserForList(UserQueryParams userQueryParams);
         Task<UserForListDto> GetUserAsync(string email);
+        Task<UserForListDto> Update(UserForRegisterDto userForRegisterDto);
     }
 }

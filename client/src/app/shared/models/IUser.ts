@@ -13,7 +13,7 @@ export interface IUser{
 
 
 export interface IUserList{
-    userId:number;
+    id:number;
     firstName:string;
     lastName:string;
     email:string;

@@ -90,5 +90,19 @@ namespace Business.Concrete
             var userRolesForReturn = mapper.Map<List<Role>, List<UserRoleForListDto>>(userRoles);
             return userRolesForReturn;
         }
+
+        public async  Task<UserForListDto> Update(UserForRegisterDto userForRegisterDto)
+        {
+             var userFromRepo=await userDal.GetAsync(x=>x.Email==userForRegisterDto.Email);
+             if(userFromRepo==null)
+             {
+                  throw new RestException(HttpStatusCode.BadRequest, new { UserNotFound = Messages.UserNotFound });
+             }
+
+              var userForUpdate=mapper.Map(userForRegisterDto,userFromRepo);
+
+              await userDal.Update(userForUpdate);
+              return await GetUserAsync(userFromRepo.Email);
+        }
     }
 }

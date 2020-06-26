@@ -1,0 +1,24 @@
+<div class="container mt-3">
+  <app-admin-toolbar
+  [toolbarTitle]="toolbarTitle"
+  [isHiddenConfirm]="false"
+  [searchInputPlaceHolder]="toolbarSearchInputPlaceholder"
+  [filterList]="roleCategoryStore.rolesCategories$ | async"
+  (searchKeyWord)="onSearch($event)"
+  (onFilter)="onFilters($event)"
+  (createNew)="onCreate()"
+  (reset)="onReset()"
+  ></app-admin-toolbar>
+
+  <div class="row mt-3 mb-5">
+    <div class="col-md-12 col-sm-12 col-lg-12">
+      <app-loading></app-loading>
+        <app-roles-list-card [dataSource]="(roleStore.roles$ | async)?.data"></app-roles-list-card>
+      <app-pager
+      [totalCount]="(roleStore.roles$ | async)?.count"
+        [pageSize]="roleStore.roleParams?.pageSize"
+        (pageChange)="onPageChange($event)"
+      ></app-pager>
+    </div>
+  </div>
+</div>

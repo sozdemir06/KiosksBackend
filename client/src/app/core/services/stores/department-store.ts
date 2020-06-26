@@ -5,9 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { IDepartment } from 'src/app/shared/models/IDepartment';
-import { NotifyService } from './notify-service';
 import { map, catchError, tap, delay, shareReplay } from 'rxjs/operators';
-import { LoadingService } from './loading-service';
+import { NotifyService } from '../notify-service';
+import { LoadingService } from '../loading-service';
+
 
 @Injectable({
     providedIn:"root"

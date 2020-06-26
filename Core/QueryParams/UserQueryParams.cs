@@ -2,7 +2,7 @@ namespace Core.QueryParams
 {
     public class UserQueryParams
     {
-         private const int MaxPageSize = 50;
+        private const int MaxPageSize = 50;
         public int PageIndex { get; set; } = 1;
         private int _pageSize = 6;
 
@@ -13,6 +13,8 @@ namespace Core.QueryParams
 
         }
         public bool? Status { get; set; }
+        public string StatusActive { get; set; }
+        public string StatusPassive { get; set; }
         public string Sort { get; set; }
 
         private string _search;

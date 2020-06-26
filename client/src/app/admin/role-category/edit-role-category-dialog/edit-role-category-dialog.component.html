@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content>
+    <form class="d-flex flex-column w-100" [formGroup]="roleCategoryForm" (ngSubmit)="onSubmit()" autocomplete="off">
+        <mat-form-field>
+            <input matInput type="text" placeholder="Yetki kategori adı" formControlName="name"/>
+            <mat-error *ngIf="f.name.errors?.required">Yetki adı belirtiniz...</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="text" placeholder="Yetki kategori adı" formControlName="description"/>
+            <mat-error *ngIf="f.description.errors?.required">Yetki için açıklama yazın...</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="!roleCategoryForm.valid">
+            {{mode=='create'?"Kaydet":"Güncelle"}}
+        </button>
+    </form>
+</mat-dialog-content>

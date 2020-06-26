@@ -1,0 +1,19 @@
+<div class="container mt-3">
+    <app-admin-toolbar
+    [toolbarTitle]="toolbarTitle"
+    [searchInputPlaceHolder]="toolbarSerachInputPlaceHolder"
+    [isDisableInput]="true"
+    [isDisabledConfirm]="true"
+    [isDisabledFilterList]="true"
+    [isHiddenConfirm]="false"
+    (createNew)="onCreate()"
+
+    ></app-admin-toolbar>
+  
+    <div class="row mt-3 mb-5">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <app-loading></app-loading>
+          <app-role-category-list-card [dataSource]="(roleCategoryStore.rolesCategories$ | async)"></app-role-category-list-card>
+      </div>
+    </div>
+  </div>

@@ -5,7 +5,9 @@
     [toolbarTitle]="'Kullanıcı Listesi'"
     [isDisabledFilterList]="true"
     (createNew)="onCreateNew()"
-    (filterByWaitingConfirm)="onWaitingConfirm($event)"
+    (filterByWaitingConfirm)="onWaitingConfirm()"
+    (reset)="onReset()"
+    (onFilter)="filterBy($event)"
   ></app-admin-toolbar>
 
   <div class="row mt-3 mb-5">

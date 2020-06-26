@@ -26,12 +26,15 @@ export class AdminToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() isDisableInput:boolean=false;
   @Input() isDisabledConfirm:boolean=false;
   @Input() isDisabledFilterList:boolean=false;
+  @Input() isHiddenConfirm:boolean=true;
 
   @Input() roles: string[] = [];
 
   @Output() searchKeyWord = new EventEmitter<string>();
-  @Output() filterByWaitingConfirm = new EventEmitter<string>();
+  @Output() filterByWaitingConfirm = new EventEmitter();
   @Output() createNew = new EventEmitter();
+  @Output() reset=new EventEmitter();
+  @Output() onFilter=new EventEmitter<any>();
 
   @ViewChild('searchInput', { static: true }) Input: ElementRef;
 
@@ -56,8 +59,8 @@ export class AdminToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  filterBy(filter: IToolbarFilterList) {
-    console.log(filter);
+  filterBy(filter: IToolbarFilterList | any) {
+     this.onFilter.emit(filter);
   }
 
   onWaitingConfirm() {
@@ -66,6 +69,10 @@ export class AdminToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onCreateNew() {
     this.createNew.emit();
+  }
+
+  onReset(){
+    this.reset.emit();
   }
 
   ngOnDestroy() {

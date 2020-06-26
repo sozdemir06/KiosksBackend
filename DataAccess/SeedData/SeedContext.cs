@@ -87,6 +87,28 @@ namespace DataAccess.SeedData
                         }
                     }
 
+                    if (!_context.RoleCategories.Any())
+                    {
+                        var roleCategoriesData = File.ReadAllText("../DataAccess/SeedData/RoleCategory.json");
+                        var roleCategories = JsonSerializer.Deserialize<List<RoleCategory>>(roleCategoriesData);
+
+                        foreach (var roleCategory in roleCategories)
+                        {
+                            _context.RoleCategories.Add(roleCategory);
+                        }
+                    }
+
+                    if (!_context.Roles.Any())
+                    {
+                        var rolesData = File.ReadAllText("../DataAccess/SeedData/Role.json");
+                        var roles = JsonSerializer.Deserialize<List<Role>>(rolesData);
+
+                        foreach (var role in roles)
+                        {
+                            _context.Roles.Add(role);
+                        }
+                    }
+
 
 
                     _context.SaveChanges();

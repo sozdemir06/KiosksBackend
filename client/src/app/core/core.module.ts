@@ -5,7 +5,7 @@ import { AuthInterceptors } from './interceptors/auth-token-interceptor';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotifyComponent } from './notify/notify.component';
-import { NotifyService } from './services/notify-service';
+
 
 
 
@@ -23,7 +23,8 @@ import { NotifyService } from './services/notify-service';
   ],
   providers:[
     ErrorInterceptorProvider,
-    AuthInterceptors
+    AuthInterceptors,
+    
   ],
 })
 export class CoreModule { }

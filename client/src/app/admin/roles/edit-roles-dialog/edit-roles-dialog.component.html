@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="rolesForm"
+    (ngSubmit)="onSubmitform()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Yetki adı"
+        formControlName="name"
+      />
+    <mat-error *ngIf="f.name.errors?.required">Yetki için isim belirtiniz...</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Yetki için açıklama"
+        formControlName="description"
+      />
+      <mat-error *ngIf="f.description.errors?.required">Yetki için açıklama belirtiniz...</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Yetki kategori</mat-label>
+      <mat-select formControlName="roleCategoryId">
+        <mat-option
+          *ngFor="
+            let rolecategory of roleCategoryStore?.rolesCategories$ | async
+          "
+          [value]="rolecategory?.id"
+        >
+          {{ rolecategory?.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="f.roleCategoryId.errors?.required">Yetki için kategori seçiniz...</mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!rolesForm.valid">
+      {{ this.mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>

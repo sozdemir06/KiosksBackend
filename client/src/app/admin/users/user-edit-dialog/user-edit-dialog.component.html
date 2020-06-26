@@ -1,115 +1,120 @@
 <h1 mat-subheader class="text-center">{{ title }}</h1>
 <app-error-messages></app-error-messages>
 <app-loading></app-loading>
-<div class="container">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="d-flex flex-column w-100" autocomplete="off">
-    <mat-form-field>
-      <input
-        matInput
-        type="text"
-        placeholder="Kullanıcı adı"
-        formControlName="firstName"
-      />
-      <mat-error *ngIf="f.firstName.errors?.required">Kullanıcı adını belirtiniz...</mat-error>
-      <mat-error *ngIf="f.firstName.errors?.maxlength">Kullanıcı adı en fazla 50 karakter olmalı...</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input
-        matInput
-        type="text"
-        placeholder="Kullanıcı Soyadı"
-        formControlName="lastName"
-      />
-      <mat-error *ngIf="f.lastName.errors?.required">Kullanıcı soyadını belirtiniz...</mat-error>
-      <mat-error *ngIf="f.lastName.errors?.maxlength">Kullanıcı soyadı en fazla 50 karakter olmalı...</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input
-        matInput
-        type="email"
-        placeholder="Email"
-        formControlName="email"
-      />
-      <mat-error *ngIf="f.email.errors?.required">Email belirtiniz...</mat-error>
-      <mat-error *ngIf="f.email.errors?.email">Doğru bir emial adresi belirtiniz...</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input
-        matInput
-        type="text"
-        placeholder="Dahili telefon numarası"
-        formControlName="interPhone"
-      />
-      <mat-error *ngIf="f.interPhone.errors?.maxlength">Dahili telefon en fazla 11 karakter olmalı...</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input
-        matInput
-        type="text"
-        placeholder="Cep telefon numarası"
-        formControlName="gsmPhone"
-      />
-      <mat-error *ngIf="f.gsmPhone.errors?.maxlength">Cep telefon numarası en fazla 11 karakter olmalı...</mat-error>
-    </mat-form-field>
-    <ng-container *ngIf="(data$ | async) as data">
-      <mat-form-field>
-        <mat-label>Yerleşke</mat-label>
-        <mat-select formControlName="campusId">
-          <mat-option *ngFor="let campus of data.campuses" [value]="campus.id">
-            {{campus.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="f.campusId.errors?.required">Kullanıcı için yerleşke seçiniz...</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Birim</mat-label>
-        <mat-select formControlName="departmentId">
-          <mat-option *ngFor="let department of data.departments" [value]="department.id">
-            {{department.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="f.departmentId.errors?.required">Kullanıcının çalıştığı birimi seçiniz...</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Ünvan</mat-label>
-        <mat-select formControlName="degreeId">
-          <mat-option *ngFor="let degree of data.degrees" [value]="degree.id">
-            {{degree.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="f.degreeId.errors?.required">Kullanıcının Ünvanını Seçiniz...</mat-error>
-      </mat-form-field>
-    </ng-container>
 
-    <mat-form-field>
-      <input
-        matInput
-        type="password"
-        placeholder="Kullanıcı Şifresi"
-        formControlName="password"
-      />
-      <mat-error *ngIf="f.password.errors?.required">Şifre belirleyiniz...</mat-error>
-      <mat-error *ngIf="f.password.errors?.maxlength">Şifre en fazla 8 karakter olmalı...</mat-error>
-      <mat-error *ngIf="f.password.errors?.minlength">Şifre en az 4 karakter olmalı...</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input
-        matInput
-        type="password"
-        placeholder="Kullanıcı Şifresi Tekrar"
-        formControlName="passwordConfirm"
-      />
-      <mat-error *ngIf="f.passwordConfirm.errors?.required">Şifre tekrarı belirleyiniz...</mat-error>
-      <mat-error *ngIf="f.passwordConfirm.errors?.maxlength">Şifre tekrarı en fazla 8 karakter olmalı...</mat-error>
-      <mat-error *ngIf="f.passwordConfirm.errors?.mustMatch">Şifre ve Şifre tekrarı uyuşmuyor...</mat-error>
-    </mat-form-field>
-    <div class="row">
-      <button class="col" mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
-        {{ mode === "create" ? "Kaydet" : "Güncelle" }}
-      </button>
-      <button class="col" mat-raised-button color="warn" type="button" mat-dialog-close>Kapat</button>
-    </div>
-  
-  </form>
-</div>
+  <div class="container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="d-flex flex-column w-100" autocomplete="off">
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          placeholder="Kullanıcı adı"
+          formControlName="firstName"
+        />
+        <mat-error *ngIf="f.firstName.errors?.required">Kullanıcı adını belirtiniz...</mat-error>
+        <mat-error *ngIf="f.firstName.errors?.maxlength">Kullanıcı adı en fazla 50 karakter olmalı...</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          placeholder="Kullanıcı Soyadı"
+          formControlName="lastName"
+        />
+        <mat-error *ngIf="f.lastName.errors?.required">Kullanıcı soyadını belirtiniz...</mat-error>
+        <mat-error *ngIf="f.lastName.errors?.maxlength">Kullanıcı soyadı en fazla 50 karakter olmalı...</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="email"
+          placeholder="Email"
+          formControlName="email"
+        />
+        <mat-error *ngIf="f.email.errors?.required">Email belirtiniz...</mat-error>
+        <mat-error *ngIf="f.email.errors?.email">Doğru bir emial adresi belirtiniz...</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          placeholder="Dahili telefon numarası"
+          formControlName="interPhone"
+        />
+        <mat-error *ngIf="f.interPhone.errors?.maxlength">Dahili telefon en fazla 11 karakter olmalı...</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          placeholder="Cep telefon numarası"
+          formControlName="gsmPhone"
+        />
+        <mat-error *ngIf="f.gsmPhone.errors?.maxlength">Cep telefon numarası en fazla 11 karakter olmalı...</mat-error>
+      </mat-form-field>
+      <ng-container *ngIf="(data$ | async) as data">
+        <mat-form-field>
+          <mat-label>Yerleşke</mat-label>
+          <mat-select formControlName="campusId">
+            <mat-option *ngFor="let campus of data.campuses" [value]="campus.id">
+              {{campus.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.campusId.errors?.required">Kullanıcı için yerleşke seçiniz...</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Birim</mat-label>
+          <mat-select formControlName="departmentId">
+            <mat-option *ngFor="let department of data.departments" [value]="department.id">
+              {{department.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.departmentId.errors?.required">Kullanıcının çalıştığı birimi seçiniz...</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Ünvan</mat-label>
+          <mat-select formControlName="degreeId">
+            <mat-option *ngFor="let degree of data.degrees" [value]="degree.id">
+              {{degree.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.degreeId.errors?.required">Kullanıcının Ünvanını Seçiniz...</mat-error>
+        </mat-form-field>
+      </ng-container>
+     <ng-container *ngIf="mode=='create'">
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          placeholder="Kullanıcı Şifresi"
+          formControlName="password"
+        />
+        <mat-error *ngIf="f.password.errors?.required">Şifre belirleyiniz...</mat-error>
+        <mat-error *ngIf="f.password.errors?.maxlength">Şifre en fazla 8 karakter olmalı...</mat-error>
+        <mat-error *ngIf="f.password.errors?.minlength">Şifre en az 4 karakter olmalı...</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          placeholder="Kullanıcı Şifresi Tekrar"
+          formControlName="passwordConfirm"
+        />
+        <mat-error *ngIf="f.passwordConfirm.errors?.required">Şifre tekrarı belirleyiniz...</mat-error>
+        <mat-error *ngIf="f.passwordConfirm.errors?.maxlength">Şifre tekrarı en fazla 8 karakter olmalı...</mat-error>
+        <mat-error *ngIf="f.passwordConfirm.errors?.mustMatch">Şifre ve Şifre tekrarı uyuşmuyor...</mat-error>
+      </mat-form-field>
+     </ng-container>
 
+
+      <div class="row">
+        <button class="col" mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
+          {{ mode === "create" ? "Kaydet" : "Güncelle" }}
+        </button>
+        <button class="col" mat-raised-button color="warn" type="button" mat-dialog-close>Kapat</button>
+      </div>
+    </form>
+   
+  </div>
+
+ 

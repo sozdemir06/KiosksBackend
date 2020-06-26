@@ -8,6 +8,7 @@ import { AdminToolbarComponent } from './admin-toolbar/admin-toolbar.component';
 import { MaterialModule } from '../material/material.module';
 import { PagerComponent } from './pager/pager.component';
 import { ErrorMessagesComponent } from './error-messages/error-messages.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ErrorMessagesComponent } from './error-messages/error-messages.componen
     AdminToolbarComponent,
     PagerComponent,
     ErrorMessagesComponent,
+   ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,11 @@ import { ErrorMessagesComponent } from './error-messages/error-messages.componen
     AdminToolbarComponent,
     MaterialModule,
     PagerComponent,
-    ErrorMessagesComponent
+    ErrorMessagesComponent,
+    ConfirmDialogComponent
+    
   ],
+
+ 
 })
 export class SharedModule {}

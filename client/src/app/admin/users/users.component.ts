@@ -18,11 +18,8 @@ import { UserStore } from 'src/app/core/services/stores/user-store';
 export class UsersComponent implements OnInit{
 
   toolbarTitle:string="Kullanıcı adı,soyadı,birim ve ünavana göre arama...";
-
-  filters: IToolbarFilterList[] = [
-    { id: 1, name: 'Aktif Kullanıcılar', description:"efefef" },
-    { id: 2, name: 'Pasif Kullanıcılar', description: "bıdı bıdı" },
-  ];
+  allowdRolesForCreate:string[]=["Sudo","User.Create"]
+  
 
   constructor(
     public userService: UserStore,

@@ -8,6 +8,7 @@ import { MaterialModule } from '../material/material.module';
 import { NotFoundComponent } from '../shared/not-found/not-found.component';
 import { UserPanelComponent } from '../admin/dashboard/panels/user-panel/user-panel.component';
 import { RolePanelComponent } from '../admin/dashboard/panels/role-panel/role-panel.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 const routes:Routes=[
@@ -54,7 +55,7 @@ const routes:Routes=[
   
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     RouterModule.forChild(routes),
     MaterialModule
   ],
@@ -66,7 +67,7 @@ const routes:Routes=[
     RouterModule,
     MaterialModule,
     UserPanelComponent,
-    RolePanelComponent
+    RolePanelComponent,
   ]
 })
 export class LayoutModule { }

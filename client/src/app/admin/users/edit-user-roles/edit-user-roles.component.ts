@@ -37,6 +37,7 @@ export class EditUserRolesComponent implements OnInit,AfterViewInit{
   }
 
   ngOnInit(): void {
+    console.log(this.user);
     this.userRoleStore.getUserRoles(this.user.id);
   }
 

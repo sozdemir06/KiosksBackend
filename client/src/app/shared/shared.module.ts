@@ -9,6 +9,7 @@ import { MaterialModule } from '../material/material.module';
 import { PagerComponent } from './pager/pager.component';
 import { ErrorMessagesComponent } from './error-messages/error-messages.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { HasRoleDirective } from './directives/has-role-directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     AdminToolbarComponent,
     PagerComponent,
     ErrorMessagesComponent,
-   ConfirmDialogComponent
+    ConfirmDialogComponent,
+    HasRoleDirective,
   ],
   imports: [
     CommonModule,
@@ -36,10 +38,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MaterialModule,
     PagerComponent,
     ErrorMessagesComponent,
-    ConfirmDialogComponent
-    
+    ConfirmDialogComponent,
+    HasRoleDirective,
   ],
-
- 
 })
 export class SharedModule {}

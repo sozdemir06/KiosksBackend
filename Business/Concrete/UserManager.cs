@@ -5,6 +5,7 @@ using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
 using Business.Helpers;
+using BusinessAspects.AutoFac;
 using Core.Entities;
 using Core.Entities.Concrete;
 using Core.Extensions;

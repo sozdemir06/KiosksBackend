@@ -48,7 +48,6 @@ export class AuthStore {
       this.loadingSubject.next(true);
       return this.http.post<IUser>(this.apiUrl+"auth/login",model)
       .pipe(
-          delay(3000),
           tap(user=>{
             this.subject.next(user);
             localStorage.setItem(AUTH_DATA,JSON.stringify(user));
@@ -69,17 +68,29 @@ export class AuthStore {
 
   isMatchRoles(allowedRoles:string[]):boolean{
     let isMatch:boolean=false;
-    let payLoad=JSON.parse(window.atob(localStorage.getItem(AUTH_TOKEN).split('.')[1]));
-    const userRole=payLoad.role;
+    const token=localStorage.getItem(AUTH_TOKEN);
+    if(token){
+      let payLoad=JSON.parse(window?.atob(localStorage.getItem(AUTH_TOKEN)?.split('.')[1]));
+    const userRole=payLoad.role as Array<string>;
 
     allowedRoles.forEach(element=>{
-      if(userRole==element){
+      if(userRole.includes(element)){
         isMatch=true;
         return false;
       }
     });
+    }
+    
 
     return isMatch;
 
+  }
+
+  getUserRoles():string[]{
+    let payLoad=JSON.parse(window?.atob(localStorage.getItem(AUTH_TOKEN)?.split('.')[1]));
+    const token=localStorage.getItem(AUTH_TOKEN);
+    if(token){
+      return payLoad.role as Array<string>;
+    }
   }
 }

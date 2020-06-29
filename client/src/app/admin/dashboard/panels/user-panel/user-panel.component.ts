@@ -7,6 +7,8 @@ import { Component, OnInit, Output } from '@angular/core';
 })
 export class UserPanelComponent implements OnInit {
 
+  allowedRoles:string[]=['Sudo','User.List']
+  
   constructor() { }
 
   ngOnInit(): void {

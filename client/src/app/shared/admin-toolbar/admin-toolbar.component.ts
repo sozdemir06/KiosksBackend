@@ -28,7 +28,7 @@ export class AdminToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() isDisabledFilterList:boolean=false;
   @Input() isHiddenConfirm:boolean=true;
 
-  @Input() roles: string[] = [];
+  @Input() allowedRoles: string[] = [];
 
   @Output() searchKeyWord = new EventEmitter<string>();
   @Output() filterByWaitingConfirm = new EventEmitter();

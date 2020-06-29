@@ -16,6 +16,7 @@ import { EditUserRolesComponent } from '../edit-user-roles/edit-user-roles.compo
 })
 export class UsersListCardComponent implements OnInit {
   displayedColumns: string[] = ['Avatar', 'Name', 'Phone','Campus','Status',"Actions"];
+  allowdRolesForUpdate:string[]=["Sudo","User.Update"];
   @Input() dataSource:IUserList[];
 
   constructor(

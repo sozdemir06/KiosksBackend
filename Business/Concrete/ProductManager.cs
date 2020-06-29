@@ -73,6 +73,8 @@ namespace Business.Concrete
 
         [SecuredOperation("Product.List")]
         [CacheAspect(1)]
+        [LogAspect(typeof(PgSqlLogger))]
+
         public async Task<Pagination<ProductForListDto>> GetProductListAsync(ProductQueryParams queryParams)
         {
             var spec = new ProductWithCategorySpecification(queryParams);

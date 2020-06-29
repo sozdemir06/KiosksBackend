@@ -3,6 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Constants;
+using Core.Aspects.AutoFac.Logging;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Extensions;
 using DataAccess.Abstract;
 using DataAccess.EntitySpecification.ProductSpecification;
@@ -17,6 +19,7 @@ namespace Business.Handlers.Products.Query
         public int ProductId { get; set; }
 
 
+         [LogAspect(typeof(PgSqlLogger))]
         public class ProductByIdHandler : IRequestHandler<ProductByIdQuery, ProductForListDto>
         {
             private readonly IProductDal productDal;

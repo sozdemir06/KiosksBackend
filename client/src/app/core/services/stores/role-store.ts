@@ -80,7 +80,6 @@ export class RoleStore {
           });
           this.subject.next(newRole);
           this.notifyService.notify('success', 'Yeni role eklendi...');
-          console.log(role);
         })
       );
 
@@ -98,7 +97,6 @@ export class RoleStore {
           return throwError(error);
         }),
         tap((role) => {
-          console.log("tap");
           const updatedSubject = produce(this.subject.getValue(), (draft) => {
             const index = draft.data.findIndex((x) => x.id == model.id);
 

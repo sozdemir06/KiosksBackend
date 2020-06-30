@@ -13,8 +13,9 @@ import { RoleCategorStore } from 'src/app/core/services/stores/role-category-sto
 })
 export class RolesComponent implements OnInit {
   toolbarTitle: string = 'Yetki Listesi';
-  toolbarSearchInputPlaceholder: string =
-    'Yetki adı,açıklama ve yetki kategori adına göre arama...';
+  toolbarSearchInputPlaceholder: string ='Yetki adı,açıklama ve yetki kategori adına göre arama...';
+  allowedRoles:string[]=["Sudo"];
+
 
   constructor(
     public roleStore: RoleStore,

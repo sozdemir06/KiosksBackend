@@ -27,6 +27,7 @@ export class AdminToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() isDisabledConfirm:boolean=false;
   @Input() isDisabledFilterList:boolean=false;
   @Input() isHiddenConfirm:boolean=true;
+  @Input() isDisabledReset:boolean=false;
 
   @Input() allowedRoles: string[] = [];
 

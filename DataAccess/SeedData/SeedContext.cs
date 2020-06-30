@@ -9,6 +9,7 @@ using DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Entities.Concrete;
 
 namespace DataAccess.SeedData
 {
@@ -106,6 +107,28 @@ namespace DataAccess.SeedData
                         foreach (var role in roles)
                         {
                             _context.Roles.Add(role);
+                        }
+                    }
+
+                    if (!_context.NumberOfRooms.Any())
+                    {
+                        var numberOfRoomData = File.ReadAllText("../DataAccess/SeedData/NumberOfRoom.json");
+                        var numberOfrooms = JsonSerializer.Deserialize<List<NumberOfRoom>>(numberOfRoomData);
+
+                        foreach (var rooms in numberOfrooms)
+                        {
+                            _context.NumberOfRooms.Add(rooms);
+                        }
+                    }
+
+                    if (!_context.BuildingsAge.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/BuildingAge.json");
+                        var dataList = JsonSerializer.Deserialize<List<BuildingAge>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.BuildingsAge.Add(item);
                         }
                     }
 

@@ -45,6 +45,12 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<RoleCategoryManager>().As<IRoleCategoryService>();
             builder.RegisterType<EfRoleCategoryDal>().As<IRoleCategoryDal>();
 
+            builder.RegisterType<NumberOfRoomManager>().As<INumberOfRoomService>();
+            builder.RegisterType<EfNumberOfRoomDal>().As<INumberOfRoomDal>();
+
+            builder.RegisterType<BuildignAgeManager>().As<IBuildingageService>();
+            builder.RegisterType<EfBuildingAgeDal>().As<IBuildingAgeDal>();
+
 
 
             builder.RegisterType<AuthManager>().As<IAuthService>();

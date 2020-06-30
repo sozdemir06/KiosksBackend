@@ -18,11 +18,23 @@ const routes:Routes=[
         },
         {
           path:"roles",
-          loadChildren:()=>import("../roles/roles.module").then(m=>m.RolesModule)
+          loadChildren:()=>import("../roles/roles.module").then(m=>m.RolesModule),
+          data:{roles:['Sudo']}
         },
         {
           path:"roles-category",
-          loadChildren:()=>import("../role-category/role-category.module").then(m=>m.RoleCategoryModule)
+          loadChildren:()=>import("../role-category/role-category.module").then(m=>m.RoleCategoryModule),
+          data:{roles:['Sudo']}
+        },
+        {
+          path:"number-of-rooms",
+          loadChildren:()=>import("../home-announce-options/number-of-room/number-of-room.module").then(m=>m.NumberOfRoomModule),
+          data:{roles:['Sudo']}
+        },
+        {
+          path:"buildings-age",
+          loadChildren:()=>import("../home-announce-options/building-age/building-age.module").then(m=>m.BuildingAgeModule),
+          data:{roles:['Sudo']}
         }
     ]
   }

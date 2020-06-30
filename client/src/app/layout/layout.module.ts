@@ -9,6 +9,7 @@ import { NotFoundComponent } from '../shared/not-found/not-found.component';
 import { UserPanelComponent } from '../admin/dashboard/panels/user-panel/user-panel.component';
 import { RolePanelComponent } from '../admin/dashboard/panels/role-panel/role-panel.component';
 import { SharedModule } from '../shared/shared.module';
+import { HomeAnnounceOptionListComponent } from '../admin/dashboard/panels/home-announce-option-list/home-announce-option-list.component';
 
 
 const routes:Routes=[
@@ -50,7 +51,8 @@ const routes:Routes=[
     FooterComponent,
     LayoutComponent,
     UserPanelComponent,
-    RolePanelComponent
+    RolePanelComponent,
+    HomeAnnounceOptionListComponent
 
   
   ],
@@ -68,6 +70,7 @@ const routes:Routes=[
     MaterialModule,
     UserPanelComponent,
     RolePanelComponent,
+    HomeAnnounceOptionListComponent
   ]
 })
 export class LayoutModule { }

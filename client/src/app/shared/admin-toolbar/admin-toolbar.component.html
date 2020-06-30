@@ -33,7 +33,7 @@
             <button mat-icon-button (click)="onCreateNew()" *appHasRole="allowedRoles">
               <mat-icon>create</mat-icon>
             </button>
-            <button mat-icon-button (click)="onReset()">
+            <button mat-icon-button (click)="onReset()" [disabled]="isDisabledReset">
               <mat-icon>refresh</mat-icon>
             </button>
             <button

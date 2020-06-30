@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="numberOfRoomForm"
+    (ngSubmit)="onSubmitform()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Opsiyon Adı..."
+        formControlName="name"
+      />
+    <mat-error *ngIf="f.name.errors?.required">Yetki için isim belirtiniz...</mat-error>
+    <mat-error *ngIf="f.name.errors?.maxlength">En fazla 60 karakter olmalı...</mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!numberOfRoomForm.valid">
+      {{ this.mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>
+
+

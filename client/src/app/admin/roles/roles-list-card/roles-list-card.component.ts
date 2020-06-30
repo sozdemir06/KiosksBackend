@@ -11,6 +11,7 @@ import { EditRolesDialogComponent } from '../edit-roles-dialog/edit-roles-dialog
 export class RolesListCardComponent implements OnInit {
   displayedColumns: string[] = ['RoleName', 'Description', 'CategoryName',"Actions"];
   @Input() dataSource:IRole[];
+  allowedRoles:string[]=["Sudo"];
 
   constructor(
     private dialog:MatDialog

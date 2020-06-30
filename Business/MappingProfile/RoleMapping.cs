@@ -1,6 +1,8 @@
 using AutoMapper;
+using Business.Abstract;
 using Core.Entities;
 using Core.Entities.Concrete;
+using Entities.Concrete;
 using Entities.Dtos;
 
 namespace Business.MappingProfile
@@ -19,6 +21,12 @@ namespace Business.MappingProfile
             CreateMap<RoleCategory,RoleCategoryForListDto>();
             CreateMap<RoleForCreationAndUpdateDto,Role>();
             CreateMap<RoleCategoryForCreationAndUpdateDto,RoleCategory>();
+
+            CreateMap<NumberOfRoom,NumberOfRoomForReturnDto>();
+            CreateMap<NumberOfRoomForCreateOrUpdateDto, NumberOfRoom>();
+
+            CreateMap<BuildingAge,BuildingAgeForReturnDto>();
+            CreateMap<BuildingAgeForCretationDto, BuildingAge>();
         }
     }
 }

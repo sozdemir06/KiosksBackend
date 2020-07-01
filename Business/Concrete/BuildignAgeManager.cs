@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidaitonRules.FluentValidation;
+using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Validation;
 using Core.Extensions;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -21,6 +24,9 @@ namespace Business.Concrete
             this.buildingAgeDal = buildingAgeDal;
             this.mapper = mapper;
         }
+
+        [SecuredOperation("Sudo,BuildingsAge.Create",Priority=1)]
+        [ValidationAspect(typeof(BuildingAgeValidator),Priority=2)]
         public async Task<BuildingAgeForReturnDto> Create(BuildingAgeForCretationDto createDto)
         {
             var checkByName = await buildingAgeDal.GetAsync(x => x.Name.ToLower() == createDto.Name.ToLower());
@@ -35,6 +41,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
+        [SecuredOperation("Sudo,BuildingsAge.Delete",Priority=1)]
         public async Task<BuildingAgeForReturnDto> Delete(int Id)
         {
                var checkFromDb=await buildingAgeDal.GetAsync(x=>x.Id==Id);
@@ -48,6 +55,8 @@ namespace Business.Concrete
              return mapForReturn;
         }
 
+
+        [SecuredOperation("Sudo,BuildingsAge.List",Priority=1)]
         public async Task<List<BuildingAgeForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await buildingAgeDal.GetListAsync();
@@ -60,6 +69,8 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
+         [SecuredOperation("Sudo,BuildingsAge.Update",Priority=1)]
+        [ValidationAspect(typeof(BuildingAgeValidator),Priority=2)]
         public async Task<BuildingAgeForReturnDto> Update(BuildingAgeForCretationDto updateDto)
         {
             var checkById = await buildingAgeDal.GetAsync(x => x.Id == updateDto.Id);

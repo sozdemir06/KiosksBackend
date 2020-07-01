@@ -23,5 +23,25 @@ namespace API.Controllers
         {
             return await buildingAgeService.GetListAsync();
         }
+
+        [HttpPost]
+        public async Task<ActionResult<BuildingAgeForReturnDto>> Create(BuildingAgeForCretationDto createDto)
+        {
+            return await buildingAgeService.Create(createDto);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<BuildingAgeForReturnDto>> Update(BuildingAgeForCretationDto updateDto)
+        {
+            return await buildingAgeService.Update(updateDto);
+        }
+
+        [HttpDelete("{itemId}")]
+        public async Task<ActionResult<BuildingAgeForReturnDto>> Delete(int itemId)
+        {
+            return await buildingAgeService.Delete(itemId);
+        }
+
+        
     }
 }

@@ -50,7 +50,8 @@ namespace Business.DependencyResolvers.AutoFac
 
             builder.RegisterType<BuildignAgeManager>().As<IBuildingageService>();
             builder.RegisterType<EfBuildingAgeDal>().As<IBuildingAgeDal>();
-
+            builder.RegisterType<FlatOfHomeManager>().As<IFlatOfHomeService>();
+            builder.RegisterType<EfFlatOfHomeDal>().As<IFlatOfHomeDal>();
 
 
             builder.RegisterType<AuthManager>().As<IAuthService>();

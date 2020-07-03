@@ -35,6 +35,10 @@ const routes:Routes=[
           path:"buildings-age",
           loadChildren:()=>import("../home-announce-options/building-age/building-age.module").then(m=>m.BuildingAgeModule),
           data:{roles:['Sudo']}
+        },
+        {
+          path:"flat-of-home",
+          loadChildren:()=>import("../home-announce-options/flat-of-home/flat-of-home.module").then(m=>m.FlatOfHomeModule)
         }
     ]
   }

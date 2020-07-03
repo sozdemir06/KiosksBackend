@@ -132,6 +132,17 @@ namespace DataAccess.SeedData
                         }
                     }
 
+                    if (!_context.FlatsOfHome.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/FlatOfHome.json");
+                        var dataList = JsonSerializer.Deserialize<List<FlatOfHome>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.FlatsOfHome.Add(item);
+                        }
+                    }
+
 
 
                     _context.SaveChanges();

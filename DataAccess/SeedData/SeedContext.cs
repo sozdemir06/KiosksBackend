@@ -143,6 +143,17 @@ namespace DataAccess.SeedData
                         }
                     }
 
+                    if (!_context.HeatingTypes.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/HeatingType.json");
+                        var dataList = JsonSerializer.Deserialize<List<HeatingType>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.HeatingTypes.Add(item);
+                        }
+                    }
+
 
 
                     _context.SaveChanges();

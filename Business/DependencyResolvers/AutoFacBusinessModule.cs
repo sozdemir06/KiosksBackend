@@ -52,7 +52,8 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<EfBuildingAgeDal>().As<IBuildingAgeDal>();
             builder.RegisterType<FlatOfHomeManager>().As<IFlatOfHomeService>();
             builder.RegisterType<EfFlatOfHomeDal>().As<IFlatOfHomeDal>();
-
+            builder.RegisterType<HeatingTypeManager>().As<IHeatingTypeService>();
+            builder.RegisterType<EfHeatingTypeDal>().As<IHeatingTypeDal>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();

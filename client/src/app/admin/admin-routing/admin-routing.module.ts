@@ -29,16 +29,22 @@ const routes:Routes=[
         {
           path:"number-of-rooms",
           loadChildren:()=>import("../home-announce-options/number-of-room/number-of-room.module").then(m=>m.NumberOfRoomModule),
-          data:{roles:['Sudo']}
+          data:{roles:['Sudo','NumberOfRoom.List']}
         },
         {
           path:"buildings-age",
           loadChildren:()=>import("../home-announce-options/building-age/building-age.module").then(m=>m.BuildingAgeModule),
-          data:{roles:['Sudo']}
+          data:{roles:['Sudo',"BuildingsAge.List"]}
         },
         {
           path:"flat-of-home",
-          loadChildren:()=>import("../home-announce-options/flat-of-home/flat-of-home.module").then(m=>m.FlatOfHomeModule)
+          loadChildren:()=>import("../home-announce-options/flat-of-home/flat-of-home.module").then(m=>m.FlatOfHomeModule),
+          data:{roles:['Sudo','FlatsOfHome.List']}
+        },
+        {
+          path:"heating-types",
+          loadChildren:()=>import("../home-announce-options/heating-types/heating-types.module").then(m=>m.HeatingTypesModule),
+          data:{roles:['Sudo','HeatingTypes.List']}
         }
     ]
   }

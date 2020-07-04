@@ -25,8 +25,8 @@ namespace Business.Concrete
             this.mapper = mapper;
         }
 
-        [SecuredOperation("Sudo,BuildingsAge.Create",Priority=1)]
-        [ValidationAspect(typeof(BuildingAgeValidator),Priority=2)]
+        [SecuredOperation("Sudo,BuildingsAge.Create", Priority = 1)]
+        [ValidationAspect(typeof(BuildingAgeValidator), Priority = 2)]
         public async Task<BuildingAgeForReturnDto> Create(BuildingAgeForCretationDto createDto)
         {
             var checkByName = await buildingAgeDal.GetAsync(x => x.Name.ToLower() == createDto.Name.ToLower());
@@ -41,22 +41,22 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,BuildingsAge.Delete",Priority=1)]
+        [SecuredOperation("Sudo,BuildingsAge.Delete", Priority = 1)]
         public async Task<BuildingAgeForReturnDto> Delete(int Id)
         {
-               var checkFromDb=await buildingAgeDal.GetAsync(x=>x.Id==Id);
-             if(checkFromDb==null)
-             {
-                  throw new RestException(HttpStatusCode.BadRequest,new{NotFound=Messages.NotFound});
-             }
+            var checkFromDb = await buildingAgeDal.GetAsync(x => x.Id == Id);
+            if (checkFromDb == null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
+            }
 
-             await buildingAgeDal.Delete(checkFromDb);
-             var mapForReturn=mapper.Map<BuildingAge,BuildingAgeForReturnDto>(checkFromDb);
-             return mapForReturn;
+            await buildingAgeDal.Delete(checkFromDb);
+            var mapForReturn = mapper.Map<BuildingAge, BuildingAgeForReturnDto>(checkFromDb);
+            return mapForReturn;
         }
 
 
-        [SecuredOperation("Sudo,BuildingsAge.List",Priority=1)]
+        [SecuredOperation("Sudo,BuildingsAge.List", Priority = 1)]
         public async Task<List<BuildingAgeForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await buildingAgeDal.GetListAsync();
@@ -69,8 +69,8 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-         [SecuredOperation("Sudo,BuildingsAge.Update",Priority=1)]
-        [ValidationAspect(typeof(BuildingAgeValidator),Priority=2)]
+        [SecuredOperation("Sudo,BuildingsAge.Update", Priority = 1)]
+        [ValidationAspect(typeof(BuildingAgeValidator), Priority = 2)]
         public async Task<BuildingAgeForReturnDto> Update(BuildingAgeForCretationDto updateDto)
         {
             var checkById = await buildingAgeDal.GetAsync(x => x.Id == updateDto.Id);
@@ -79,9 +79,9 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
 
-            var mapForUpdate=mapper.Map(updateDto,checkById);
+            var mapForUpdate = mapper.Map(updateDto, checkById);
             await buildingAgeDal.Update(mapForUpdate);
-            return mapper.Map<BuildingAge,BuildingAgeForReturnDto>(mapForUpdate);
+            return mapper.Map<BuildingAge, BuildingAgeForReturnDto>(mapForUpdate);
         }
     }
 }

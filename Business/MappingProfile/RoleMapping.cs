@@ -30,6 +30,9 @@ namespace Business.MappingProfile
 
             CreateMap<FlatOfHome, FlatOfHomeForReturnDto>();
             CreateMap<FlatOfHomeForCreationDto, FlatOfHome>();
+
+            CreateMap<HeatingType, HeatingTypeForReturnDto>();
+            CreateMap<HeatingTypeForCreationDto, HeatingType>();
         }
     }
 }

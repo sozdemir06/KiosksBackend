@@ -45,6 +45,11 @@ const routes:Routes=[
           path:"heating-types",
           loadChildren:()=>import("../home-announce-options/heating-types/heating-types.module").then(m=>m.HeatingTypesModule),
           data:{roles:['Sudo','HeatingTypes.List']}
+        },
+        {
+          path:"vehicle-categories",
+          loadChildren:()=>import("../vehicle-announce-options/vehicle-categories/vehicle-categories.module").then(m=>m.VehicleCategoriesModule),
+          data:{roles:['Sudo','VehicleCategories.List']}
         }
     ]
   }

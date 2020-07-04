@@ -36,5 +36,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<BuildingAge> BuildingsAge { get; set; }
         public DbSet<FlatOfHome> FlatsOfHome { get; set; }
         public DbSet<HeatingType> HeatingTypes { get; set; }
+        public DbSet<VehicleCategory> VehicleCategories { get; set; }
     }
 }

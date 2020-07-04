@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LayoutComponent } from './layout.component';
@@ -10,6 +9,7 @@ import { UserPanelComponent } from '../admin/dashboard/panels/user-panel/user-pa
 import { RolePanelComponent } from '../admin/dashboard/panels/role-panel/role-panel.component';
 import { SharedModule } from '../shared/shared.module';
 import { HomeAnnounceOptionListComponent } from '../admin/dashboard/panels/home-announce-option-list/home-announce-option-list.component';
+import { VehicleAnnounceOptionListComponent } from '../admin/dashboard/panels/vehicle-announce-option-list/vehicle-announce-option-list.component';
 
 
 const routes:Routes=[
@@ -52,7 +52,8 @@ const routes:Routes=[
     LayoutComponent,
     UserPanelComponent,
     RolePanelComponent,
-    HomeAnnounceOptionListComponent
+    HomeAnnounceOptionListComponent,
+    VehicleAnnounceOptionListComponent
 
   
   ],
@@ -70,7 +71,8 @@ const routes:Routes=[
     MaterialModule,
     UserPanelComponent,
     RolePanelComponent,
-    HomeAnnounceOptionListComponent
+    HomeAnnounceOptionListComponent,
+    VehicleAnnounceOptionListComponent
   ]
 })
 export class LayoutModule { }

@@ -33,6 +33,9 @@ namespace Business.MappingProfile
 
             CreateMap<HeatingType, HeatingTypeForReturnDto>();
             CreateMap<HeatingTypeForCreationDto, HeatingType>();
+
+            CreateMap<VehicleCategory, VehicleCategoryForReturnDto>();
+            CreateMap<VehicleCategoryForCreationDto, VehicleCategory>();
         }
     }
 }

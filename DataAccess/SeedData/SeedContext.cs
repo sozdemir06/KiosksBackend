@@ -154,6 +154,17 @@ namespace DataAccess.SeedData
                         }
                     }
 
+                     if (!_context.VehicleCategories.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/VehicleCategory.json");
+                        var dataList = JsonSerializer.Deserialize<List<VehicleCategory>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.VehicleCategories.Add(item);
+                        }
+                    }
+
 
 
                     _context.SaveChanges();

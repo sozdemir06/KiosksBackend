@@ -39,6 +39,7 @@ export class AuthStore {
 
     if (user) {
       this.subject.next(JSON.parse(user));
+      this.autoLogout();
     }
   }
 

@@ -22,7 +22,7 @@ export class AdminToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() toolbarTitle:string="Sayfa Başlığı";
   @Input() searchInputPlaceHolder: string = 'Search';
   @Input() filterList: IToolbarFilterList[] = [];
-
+  @Input() filterListType:string;
   @Input() isDisableInput:boolean=false;
   @Input() isDisabledConfirm:boolean=false;
   @Input() isDisabledFilterList:boolean=false;
@@ -43,7 +43,9 @@ export class AdminToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   ngAfterViewInit() {
     this.unSubscribeSearchInputEvent = fromEvent<any>(

@@ -54,8 +54,10 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<EfFlatOfHomeDal>().As<IFlatOfHomeDal>();
             builder.RegisterType<HeatingTypeManager>().As<IHeatingTypeService>();
             builder.RegisterType<EfHeatingTypeDal>().As<IHeatingTypeDal>();
-             builder.RegisterType<VehicleCategoryManager>().As<IVehicleCategoryService>();
+            builder.RegisterType<VehicleCategoryManager>().As<IVehicleCategoryService>();
             builder.RegisterType<EfVehicleCategoryDal>().As<IVehicleCategoryDal>();
+            builder.RegisterType<VehicleBrandManager>().As<IVehicleBrandService>();
+            builder.RegisterType<EfVehicleBrandDal>().As<IVehicleBrandDal>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();

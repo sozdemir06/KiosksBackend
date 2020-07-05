@@ -50,7 +50,13 @@ const routes:Routes=[
           path:"vehicle-categories",
           loadChildren:()=>import("../vehicle-announce-options/vehicle-categories/vehicle-categories.module").then(m=>m.VehicleCategoriesModule),
           data:{roles:['Sudo','VehicleCategories.List']}
+        },
+        {
+          path:"vehicle-brands",
+          loadChildren:()=>import("../vehicle-announce-options/vehicle-brands/vehicle-brands.module").then(m=>m.VehicleBrandsModule),
+          data:{roles:['Sudo','VehicleBrands.List']}
         }
+
     ]
   }
 ]

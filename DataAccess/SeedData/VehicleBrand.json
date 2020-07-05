@@ -1,0 +1,512 @@
+[
+  {
+    "Id": 1,
+    "BrandName": "Alfa Romeo",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 2,
+    "BrandName": "Aston Martin",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 3,
+    "BrandName": "Audi",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 4,
+    "BrandName": "Bentley",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 5,
+    "BrandName": "BMW",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 6,
+    "BrandName": "Bugatti",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 7,
+    "BrandName": "Cadillac",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 8,
+    "BrandName": "Chevrolet",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 9,
+    "BrandName": "Citroen",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 10,
+    "BrandName": "Dacia",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 11,
+    "BrandName": "Dodge",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 12,
+    "BrandName": "Ds Automobiles",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 13,
+    "BrandName": "Ferrari",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 14,
+    "BrandName": "Fiat",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 15,
+    "BrandName": "Ford",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 16,
+    "BrandName": "Honda",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 17,
+    "BrandName": "Hyundai",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 18,
+    "BrandName": "Infinite",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 19,
+    "BrandName": "Jaguar",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 20,
+    "BrandName": "Kia",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 22,
+    "BrandName": "Lamborghini",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 23,
+    "BrandName": "Lexus",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 24,
+    "BrandName": "Lotus",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 25,
+    "BrandName": "Maserati",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 27,
+    "BrandName": "Mazda",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 28,
+    "BrandName": "Mercedes-Benz",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 29,
+    "BrandName": "Mini",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 30,
+    "BrandName": "Mitsubishi",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 32,
+    "BrandName": "Nissan",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 33,
+    "BrandName": "Opel",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 34,
+    "BrandName": "Peugeot",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 35,
+    "BrandName": "Porsche",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 36,
+    "BrandName": "Renault",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 37,
+    "BrandName": "Rolls-Royce",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 38,
+    "BrandName": "Seat",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 39,
+    "BrandName": "Skoda",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 40,
+    "BrandName": "Smart",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 41,
+    "BrandName": "Subaru",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 42,
+    "BrandName": "Suziki",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 43,
+    "BrandName": "Tesla",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 44,
+    "BrandName": "Toyota",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 45,
+    "BrandName": "Volkswagen",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 46,
+    "BrandName": "Volvo",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 47,
+    "BrandName": "Anadol",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 48,
+    "BrandName": "Chery",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 49,
+    "BrandName": "Daewoo",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 50,
+    "BrandName": "Daihatsu",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 51,
+    "BrandName": "Geely",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 52,
+    "BrandName": "Lada",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 53,
+    "BrandName": "Lancia",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 54,
+    "BrandName": "Proton",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 55,
+    "BrandName": "Rover",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 56,
+    "BrandName": "Saab",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 57,
+    "BrandName": "Tata",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 58,
+    "BrandName": "Tofaş",
+    "VehicleCategoryId": 1
+  },
+  {
+    "Id": 60,
+    "BrandName": "Alfa Romeo",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 61,
+    "BrandName": "Audi",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 62,
+    "BrandName": "BMW",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 63,
+    "BrandName": "Cadillac",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 64,
+    "BrandName": "Chery",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 65,
+    "BrandName": "Chevrolet",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 66,
+    "BrandName": "Citroen",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 67,
+    "BrandName": "Dacia",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 68,
+    "BrandName": "Ds Automobiles",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 69,
+    "BrandName": "Fiat",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 70,
+    "BrandName": "Ford",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 71,
+    "BrandName": "Honda",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 72,
+    "BrandName": "Hummer",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 73,
+    "BrandName": "Hyundai",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 74,
+    "BrandName": "Infinite",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 75,
+    "BrandName": "Isuzu",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 76,
+    "BrandName": "Jaguar",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 77,
+    "BrandName": "Jeep",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 78,
+    "BrandName": "Kia",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 79,
+    "BrandName": "Lada",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 80,
+    "BrandName": "Lamborghini",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 81,
+    "BrandName": "Land Rover",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 82,
+    "BrandName": "Lexus",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 83,
+    "BrandName": "Linkoln",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 84,
+    "BrandName": "Maserati",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 85,
+    "BrandName": "Mazda",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 86,
+    "BrandName": "Mercedes-Benz",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 87,
+    "BrandName": "Mini",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 88,
+    "BrandName": "Mitsubishi",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 89,
+    "BrandName": "Nissan",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 90,
+    "BrandName": "Opel",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 91,
+    "BrandName": "Peugeot",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 92,
+    "BrandName": "Porsche",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 93,
+    "BrandName": "Renault",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 95,
+    "BrandName": "Seat",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 96,
+    "BrandName": "Skoda",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 97,
+    "BrandName": "Ssangyong",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 98,
+    "BrandName": "Subaru",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 99,
+    "BrandName": "Suzuki",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 100,
+    "BrandName": "Toyota",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 101,
+    "BrandName": "Volkswagen",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 102,
+    "BrandName": "Volvo",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 103,
+    "BrandName": "Daewoo",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 104,
+    "BrandName": "Daihatsu",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 105,
+    "BrandName": "DFM",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 106,
+    "BrandName": "Dodge",
+    "VehicleCategoryId": 2
+  },
+  {
+    "Id": 107,
+    "BrandName": "GMC",
+    "VehicleCategoryId": 2
+  }
+]

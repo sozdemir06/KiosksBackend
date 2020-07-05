@@ -60,7 +60,6 @@ const routes:Routes=[
   imports: [
     SharedModule,
     RouterModule.forChild(routes),
-    MaterialModule
   ],
 
   exports:[
@@ -68,7 +67,6 @@ const routes:Routes=[
     FooterComponent,
     LayoutComponent,
     RouterModule,
-    MaterialModule,
     UserPanelComponent,
     RolePanelComponent,
     HomeAnnounceOptionListComponent,

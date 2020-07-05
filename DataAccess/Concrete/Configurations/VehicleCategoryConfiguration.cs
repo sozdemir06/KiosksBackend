@@ -9,6 +9,7 @@ namespace DataAccess.Concrete.Configurations
         public void Configure(EntityTypeBuilder<VehicleCategory> builder)
         {
             builder.HasKey(x=>x.Id);
+            builder.Property(x=>x.Id).HasIdentityOptions(startValue:5);
             builder.Property(x=>x.CategoryName).HasMaxLength(60).IsRequired();
         }
     }

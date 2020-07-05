@@ -51,7 +51,6 @@ export class UserStore {
     const userList$ = this.httpClient
       .get<IPagination<IUserList>>(this.apiUrl + 'users', { params })
       .pipe(
-        delay(1000),
         map((result) => result),
         catchError((error) => {
           this.notificationService.notify('error', error);

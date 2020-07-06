@@ -83,6 +83,7 @@ namespace Business.Constants
         public static string RoleNameAlreadyExist=>"Bu yetki ismi zaten kayıtlı...";
         public static string AlreadyExist=>"Id veya bu isimle kayıt zaten var...";
         public static string NotFound=>"Kayıt bulunamadı...";
+        public static string BrandNotFound=>"Araç Markası bulunamadı...";
 
 
     }

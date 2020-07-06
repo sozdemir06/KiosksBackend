@@ -9,5 +9,6 @@ namespace Entities.Concrete
         public string CategoryName { get; set; }
 
         public ICollection<VehicleBrand> VehicleBrands { get; set; }
+        public ICollection<VehicleModel> VehicleModels { get; set; }
     }
 }

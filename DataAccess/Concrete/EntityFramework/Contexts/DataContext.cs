@@ -14,9 +14,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
             optionsBuilder.UseNpgsql("Host=localhost;Database=Hmkiosks;Username=postgres;Password=466357",b=>b.MigrationsAssembly("DataAccess"));
         }
 
-       
-        
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
@@ -38,5 +35,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<HeatingType> HeatingTypes { get; set; }
         public DbSet<VehicleCategory> VehicleCategories { get; set; }
         public DbSet<VehicleBrand> VehicleBrands { get; set; }
+        public DbSet<VehicleModel> VehicleModels { get; set; }
     }
 }

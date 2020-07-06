@@ -11,29 +11,40 @@
       <input
         matInput
         type="text"
-        placeholder="Yetki adı"
+        placeholder="Araç Marka Adı"
         formControlName="brandName"
       />
-    <mat-error *ngIf="f.brandName.errors?.required">Araç markası için isim belirtiniz...</mat-error>
-    <mat-error *ngIf="f.brandName.errors?.maxlength">Araç marka adı en fazla 60 karakter olmalı...</mat-error>
+      <mat-error *ngIf="f.brandName.errors?.required"
+        >Araç markası için isim belirtiniz...</mat-error
+      >
+      <mat-error *ngIf="f.brandName.errors?.maxlength"
+        >Araç marka adı en fazla 60 karakter olmalı...</mat-error
+      >
     </mat-form-field>
     <mat-form-field>
       <mat-label>Yetki kategori</mat-label>
       <mat-select formControlName="vehicleCategoryId">
         <mat-option
           *ngFor="
-            let vehicleCategory of vehicleCategoryStore?.vehicleCategories$ | async
+            let vehicleCategory of vehicleCategoryStore?.vehicleCategories$
+              | async
           "
           [value]="vehicleCategory?.id"
         >
           {{ vehicleCategory?.categoryName }}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="f.vehicleCategoryId.errors?.required">Araç markası için kategori seçiniz...</mat-error>
+      <mat-error *ngIf="f.vehicleCategoryId.errors?.required"
+        >Araç markası için kategori seçiniz...</mat-error
+      >
     </mat-form-field>
-    <button type="submit" mat-raised-button color="primary" [disabled]="!vehicleBrandForm.valid">
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="!vehicleBrandForm.valid"
+    >
       {{ this.mode == "create" ? "Kaydet" : "Güncelle" }}
     </button>
   </form>
 </mat-dialog-content>
-

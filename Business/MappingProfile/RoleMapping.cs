@@ -39,6 +39,9 @@ namespace Business.MappingProfile
 
              CreateMap<VehicleBrand, VehicleBrandForReturnDto>();
             CreateMap<VehicleBrandForCreationDto, VehicleBrand>();
+
+            CreateMap<VehicleModel, VehicleModelForReturnDto>();
+            CreateMap<VehicleModelForCreationDto, VehicleModel>();
         }
     }
 }

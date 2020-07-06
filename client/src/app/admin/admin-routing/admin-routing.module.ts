@@ -55,6 +55,11 @@ const routes:Routes=[
           path:"vehicle-brands",
           loadChildren:()=>import("../vehicle-announce-options/vehicle-brands/vehicle-brands.module").then(m=>m.VehicleBrandsModule),
           data:{roles:['Sudo','VehicleBrands.List']}
+        },
+        {
+          path:"vehicle-models",
+          loadChildren:()=>import("../vehicle-announce-options/vehicle-model/vehicle-model.module").then(m=>m.VehicleModelModule),
+          data:{roles:['Sudo','VehicleModels.List']}
         }
 
     ]

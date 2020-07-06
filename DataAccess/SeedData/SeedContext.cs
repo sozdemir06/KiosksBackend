@@ -176,6 +176,17 @@ namespace DataAccess.SeedData
                         }
                     }
 
+                    if (!_context.VehicleModels.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/VehicleModel.json");
+                        var dataList = JsonSerializer.Deserialize<List<VehicleModel>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.VehicleModels.Add(item);
+                        }
+                    }
+
 
 
                     _context.SaveChanges();

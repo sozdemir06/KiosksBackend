@@ -1,16 +1,17 @@
-using System.Collections.Generic;
 using Core.Entities;
 
 namespace Entities.Concrete
 {
-    public class VehicleBrand : IEntity
+    public class VehicleModel:IEntity
     {
         public int Id { get; set; }
-        public string BrandName { get; set; }
-
+        public string VehicleModelName { get; set; }
+        public VehicleBrand VehicleBrands { get; set; }
+        public int VehicleBrandId { get; set; }
         public VehicleCategory VehicleCategories { get; set; }
         public int VehicleCategoryId { get; set; }
-        public ICollection<VehicleModel> VehicleModels { get; set; }
 
+        
+        
     }
 }

@@ -37,11 +37,14 @@ namespace Business.MappingProfile
             CreateMap<VehicleCategory, VehicleCategoryForReturnDto>();
             CreateMap<VehicleCategoryForCreationDto, VehicleCategory>();
 
-             CreateMap<VehicleBrand, VehicleBrandForReturnDto>();
+            CreateMap<VehicleBrand, VehicleBrandForReturnDto>();
             CreateMap<VehicleBrandForCreationDto, VehicleBrand>();
 
             CreateMap<VehicleModel, VehicleModelForReturnDto>();
             CreateMap<VehicleModelForCreationDto, VehicleModel>();
+
+            CreateMap<VehicleFuelType, VehicleFuelTypeForReturnDto>();
+            CreateMap<VehicleFuelTypeForCreationDto, VehicleFuelType>();
         }
     }
 }

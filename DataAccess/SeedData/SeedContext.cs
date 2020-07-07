@@ -187,6 +187,18 @@ namespace DataAccess.SeedData
                         }
                     }
 
+                     if (!_context.VehicleFuelTypes.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/VehicleFuelType.json");
+                        var dataList = JsonSerializer.Deserialize<List<VehicleFuelType>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.VehicleFuelTypes.Add(item);
+                        }
+                    }
+
+
 
 
                     _context.SaveChanges();

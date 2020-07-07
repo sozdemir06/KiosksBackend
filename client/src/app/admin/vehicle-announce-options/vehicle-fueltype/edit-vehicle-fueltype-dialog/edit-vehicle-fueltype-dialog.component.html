@@ -1,0 +1,25 @@
+
+<h1 mat-dialog-title>{{ title }}</h1>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="vehicleFuelTypeForm"
+    (ngSubmit)="onSubmitform()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Yakıt tipi adı..."
+        formControlName="name"
+      />
+    <mat-error *ngIf="f.name.errors?.required">Yakıt tipi için isim belirtiniz...</mat-error>
+    <mat-error *ngIf="f.name.errors?.maxlength">Yakıt tipi adı En fazla 60 karakter olmalı...</mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!vehicleFuelTypeForm.valid">
+      {{ this.mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>

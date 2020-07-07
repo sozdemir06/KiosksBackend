@@ -58,8 +58,10 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<EfVehicleCategoryDal>().As<IVehicleCategoryDal>();
             builder.RegisterType<VehicleBrandManager>().As<IVehicleBrandService>();
             builder.RegisterType<EfVehicleBrandDal>().As<IVehicleBrandDal>();
-            //builder.RegisterType<VehicleModelManager>().As<IVehicleBrandService>();
+            builder.RegisterType<VehicleModelManager>().As<IVehicleModelService>();
             builder.RegisterType<EfVehicleModelDal>().As<IVehicleModelDal>();
+            builder.RegisterType<VehicleFuelTypeManager>().As<IVehicleFuelTypeService>();
+            builder.RegisterType<EfVehicleFuelTypeDal>().As<IVehicleFuelTypeDal>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();

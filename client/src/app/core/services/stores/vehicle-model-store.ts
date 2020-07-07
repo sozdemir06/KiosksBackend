@@ -122,6 +122,7 @@ export class VehicleModelStore {
           this.notifyService.notify('success', 'Araç modeli Güncellendi...');
         })
       );
+      this.loadingService.showLoaderUntilCompleted(update$).subscribe();
   }
 
   delete(model: IVehicleModel) {
@@ -147,6 +148,8 @@ export class VehicleModelStore {
           this.notifyService.notify('success', 'Araç modeli Güncellendi...');
         })
       );
+
+      this.loadingService.showLoaderUntilCompleted(delete$).subscribe();
   }
 
   getVehicleModelParams(){

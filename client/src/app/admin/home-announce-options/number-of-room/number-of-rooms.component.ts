@@ -11,7 +11,7 @@ import { EditNumberOfRoomsDialogComponent } from './edit-number-of-rooms-dialog/
 export class NumberOfRoomsComponent implements OnInit {
   toolbarTitle:string="Oda Sayısı Listesi";
   toolbarSearchInputPlaceholder:string="Arama kapalı";
-  allowedRoles:string[]=["Sudo"];
+  allowedRoles:string[]=["Sudo","NumberOfRoom.Create"];
 
   constructor(
     public numberOfRoomStore:NumberOfroomStore,

@@ -13,6 +13,9 @@ import { FlatOfHomeStore } from 'src/app/core/services/stores/flat-of-home-store
 export class FlatsOfHomeListComponent implements OnInit {
   displayedColumns: string[] = ["Id",'Name',"Actions"];
   @Input() dataSource:IFlatOfHome[];
+  allowedRoleFlatsOfHomeForUpdate:string[]=['Sudo','FlatsOfHome.Create'];
+  allowedRoleFlatsOfHomeForDelete:string[]=['Sudo','FlatsOfHome.Delete'];
+  
   constructor(
       private dialog:MatDialog,
       private flatOfHomeStore:FlatOfHomeStore

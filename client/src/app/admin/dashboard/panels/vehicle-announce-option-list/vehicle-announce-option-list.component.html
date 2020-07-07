@@ -5,13 +5,13 @@
       <span>Araç İlanı Opsiyon Listesi</span>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <mat-nav-list routerLink="/admin/vehicle-categories">
+  <mat-nav-list routerLink="/admin/vehicle-categories" *appHasRole="alloweRolesVehicleCategoriesForList">
     <a mat-list-item>Araç Kategori Listesi</a>
   </mat-nav-list>
-  <mat-nav-list routerLink="/admin/vehicle-brands">
+  <mat-nav-list routerLink="/admin/vehicle-brands" *appHasRole="alloweRolesVehicleBrandsForList">
     <a mat-list-item>Araç Marka Listesi</a>
   </mat-nav-list>
-  <mat-nav-list routerLink="/admin/vehicle-models">
+  <mat-nav-list routerLink="/admin/vehicle-models" *appHasRole="alloweRolesVehicleModelsForList">
     <a mat-list-item>Araç Model Listesi</a>
   </mat-nav-list>
   <mat-nav-list routerLink="/admin/heating-types">

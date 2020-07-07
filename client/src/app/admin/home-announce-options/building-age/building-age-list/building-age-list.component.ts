@@ -11,9 +11,10 @@ import { BuildingAgeStore } from 'src/app/core/services/stores/building-age-stor
   styleUrls: ['./building-age-list.component.scss']
 })
 export class BuildingAgeListComponent implements OnInit {
-
   displayedColumns: string[] = ["Id",'Name',"Actions"];
   @Input() dataSource:IBuildingAge[];
+  allowedRoleBuildingsAgeForUpdate:string[]=['Sudo','BuildingsAge.Update'];
+  allowedRoleBuildingsAgeForDelete:string[]=['Sudo','BuildingsAge.Delete'];
 
   constructor(
     private dialog:MatDialog,

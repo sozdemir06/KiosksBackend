@@ -18,6 +18,25 @@
         </div>
       </td>
     </ng-container>
+
+      <!-- Column -->
+      <ng-container matColumnDef="BrandName">
+        <th mat-header-cell *matHeaderCellDef>Marka</th>
+        <td mat-cell *matCellDef="let element">
+          <div>
+            <span>{{element?.vehicleBrandsBrandName}}</span>
+          </div>
+        </td>
+      </ng-container>
+           <!-- Column -->
+           <ng-container matColumnDef="CategoryName">
+            <th mat-header-cell *matHeaderCellDef>Kategori</th>
+            <td mat-cell *matCellDef="let element">
+              <div>
+                <span>{{element?.vehicleCategoriesCategoryName}}</span>
+              </div>
+            </td>
+          </ng-container>
   
     <!--Column -->
     <ng-container matColumnDef="Actions">

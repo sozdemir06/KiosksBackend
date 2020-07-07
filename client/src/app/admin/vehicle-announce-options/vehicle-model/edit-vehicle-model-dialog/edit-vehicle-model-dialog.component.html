@@ -1,1 +1,64 @@
-<p>edit-vehicle-model-dialog works!</p>
+<h1 mat-dialog-title>{{ title }}</h1>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="vehicleModelForm"
+    (ngSubmit)="onSubmitform()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Araç Model Adı"
+        formControlName="vehicleModelName"
+      />
+      <mat-error *ngIf="f.vehicleModelName.errors?.required"
+        >Araç modeli için isim belirtiniz...</mat-error
+      >
+      <mat-error *ngIf="f.vehicleModelName.errors?.maxlength"
+        >Araç model adı en fazla 60 karakter olmalı...</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Araç Kategori</mat-label>
+      <mat-select formControlName="vehicleCategoryId">
+        <mat-option
+          *ngFor="
+            let vehicleCategory of vehicleCategoryStore?.vehicleCategories$
+              | async
+          "
+          [value]="vehicleCategory?.id"
+        >
+          {{ vehicleCategory?.categoryName }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="f.vehicleCategoryId.errors?.required"
+        >Araç modeli için kategori seçiniz...</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Araç Marka</mat-label>
+      <mat-select formControlName="vehicleBrandId">
+        <mat-option
+          *ngFor="let brand of (vehicleBrandStore.vehicleBrands$ | async)?.data"
+          [value]="brand.id"
+        >
+          {{ brand.brandName }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="f.vehicleBrandId.errors?.required"
+        >Araç modeli için marka seçiniz...</mat-error
+      >
+    </mat-form-field>
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="!vehicleModelForm.valid"
+    >
+      {{ this.mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>

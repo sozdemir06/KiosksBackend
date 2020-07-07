@@ -8,7 +8,11 @@ namespace DataAccess.EntitySpecification.VehicleModelSpecification
     {
         public VehicleModelWithBrandAndCategory(VehicleModelParams queryParams)
         :base(x=>
-            (string.IsNullOrEmpty(queryParams.Search) || x.VehicleModelName.ToLower().Contains(queryParams.Search))&&
+            (
+              string.IsNullOrEmpty(queryParams.Search) || 
+              x.VehicleModelName.ToLower().Contains(queryParams.Search) ||
+              x.VehicleBrands.BrandName.ToLower().Contains(queryParams.Search)
+              )&&
             (!queryParams.VehicleBrandId.HasValue || x.VehicleBrandId==queryParams.VehicleBrandId) &&
             (!queryParams.VehicleCategoryId.HasValue || x.VehicleCategoryId==queryParams.VehicleCategoryId)
         )

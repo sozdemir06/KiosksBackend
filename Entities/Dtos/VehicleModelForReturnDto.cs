@@ -7,6 +7,9 @@ namespace Entities.Dtos
         public int Id { get; set; }
         public string VehicleModelName { get; set; }
         public int VehicleBrandId { get; set; }
+        public string VehicleBrandsBrandName { get; set; }
         public int VehicleCategoryId { get; set; }
+        public string VehicleCategoriesCategoryName { get; set; }
+
     }
 }

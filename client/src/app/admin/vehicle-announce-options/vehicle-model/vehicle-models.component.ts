@@ -7,6 +7,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { fromEvent } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { VehicleCategoryStore } from 'src/app/core/services/stores/vehicle-category-store';
 
 @Component({
   selector: 'app-vehicle-models',
@@ -14,9 +15,9 @@ import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
   styleUrls: ['./vehicle-models.component.scss'],
 })
 export class VehicleModelsComponent implements OnInit {
-  toolbarTitle: string = 'Araç Markaları';
+  toolbarTitle: string = 'Araç Modelleri';
   toolbarSearchPlaceholderText: string =
-    'Marka adı ile arama yapabilirsiniz...';
+    'Model ve Marka adı ile arama...';
   allowedRolesForCreate: string[] = ['Sudo', 'VehicleModels.Create'];
 
   unSubscribeSearchInputEvent: any;
@@ -24,6 +25,7 @@ export class VehicleModelsComponent implements OnInit {
 
   constructor(
     public vehicleModelStore: VehicleModelStore,
+    public vehicleCategoryStore:VehicleCategoryStore,
     private dialog: MatDialog
   ) {}
 

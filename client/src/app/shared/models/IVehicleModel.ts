@@ -3,4 +3,6 @@ export interface IVehicleModel{
     vehicleModelName:string;
     vehicleCategoryId:number;
     vehicleBrandId:number;
+    vehicleCategoriesCategoryName:string;
+    vehicleBrandsBrandName:string;
 }

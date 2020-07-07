@@ -27,11 +27,11 @@
            <mat-icon>more_vert</mat-icon>
          </button>
          <mat-menu #tableMenu="matMenu">
-          <button mat-menu-item (click)="onUpdate(element)">
+          <button mat-menu-item (click)="onUpdate(element)" *appHasRole="allowedRolesVehicleCatgeoriesForUpdate">
             <mat-icon>update</mat-icon>
             <span>Güncelle</span>
           </button>
-          <button mat-menu-item (click)="onDelete(element)">
+          <button mat-menu-item (click)="onDelete(element)" *appHasRole="allowedRolesVehicleCatgeoriesForDelete">
             <mat-icon>delete</mat-icon>
             <span>sil</span>
           </button>

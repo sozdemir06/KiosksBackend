@@ -63,6 +63,9 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<VehicleFuelTypeManager>().As<IVehicleFuelTypeService>();
             builder.RegisterType<EfVehicleFuelTypeDal>().As<IVehicleFuelTypeDal>();
 
+            builder.RegisterType<VehicleGearTypeManager>().As<IVehicleGearTypeService>();
+            builder.RegisterType<EfVehicleGearTypeDal>().As<IVehicleGearTypeDal>();
+
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 

@@ -10,6 +10,7 @@ alloweRolesVehicleCategoriesForList:string[]=['Sudo','VehicleCategories.List'];
 alloweRolesVehicleBrandsForList:string[]=['Sudo','VehicleCategories.List'];
 alloweRolesVehicleModelsForList:string[]=['Sudo','VehicleCategories.List'];
 alloweRolesVehicleFuelTypesForList:string[]=['Sudo','VehicleFuelTypes.List'];
+alloweRolesVehicleGearTypesForList:string[]=['Sudo','VehicleGearTypes.List'];
 
   constructor() { }
 

@@ -165,7 +165,7 @@ namespace DataAccess.SeedData
                         }
                     }
 
-                     if (!_context.VehicleBrands.Any())
+                    if (!_context.VehicleBrands.Any())
                     {
                         var data = File.ReadAllText("../DataAccess/SeedData/VehicleBrand.json");
                         var dataList = JsonSerializer.Deserialize<List<VehicleBrand>>(data);
@@ -187,7 +187,7 @@ namespace DataAccess.SeedData
                         }
                     }
 
-                     if (!_context.VehicleFuelTypes.Any())
+                    if (!_context.VehicleFuelTypes.Any())
                     {
                         var data = File.ReadAllText("../DataAccess/SeedData/VehicleFuelType.json");
                         var dataList = JsonSerializer.Deserialize<List<VehicleFuelType>>(data);
@@ -197,6 +197,18 @@ namespace DataAccess.SeedData
                             _context.VehicleFuelTypes.Add(item);
                         }
                     }
+
+                     if (!_context.VehicleGearTypes.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/VehicleGearType.json");
+                        var dataList = JsonSerializer.Deserialize<List<VehicleGearType>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.VehicleGearTypes.Add(item);
+                        }
+                    }
+
 
 
 

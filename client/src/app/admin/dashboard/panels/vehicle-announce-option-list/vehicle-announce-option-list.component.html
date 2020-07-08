@@ -5,20 +5,35 @@
       <span>Araç İlanı Opsiyon Listesi</span>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <mat-nav-list routerLink="/admin/vehicle-categories" *appHasRole="alloweRolesVehicleCategoriesForList">
+  <mat-nav-list
+    routerLink="/admin/vehicle-categories"
+    *appHasRole="alloweRolesVehicleCategoriesForList"
+  >
     <a mat-list-item>Araç Kategori Listesi</a>
   </mat-nav-list>
-  <mat-nav-list routerLink="/admin/vehicle-brands" *appHasRole="alloweRolesVehicleBrandsForList">
+  <mat-nav-list
+    routerLink="/admin/vehicle-brands"
+    *appHasRole="alloweRolesVehicleBrandsForList"
+  >
     <a mat-list-item>Araç Marka Listesi</a>
   </mat-nav-list>
-  <mat-nav-list routerLink="/admin/vehicle-models" *appHasRole="alloweRolesVehicleModelsForList">
+  <mat-nav-list
+    routerLink="/admin/vehicle-models"
+    *appHasRole="alloweRolesVehicleModelsForList"
+  >
     <a mat-list-item>Araç Model Listesi</a>
   </mat-nav-list>
-  <mat-nav-list routerLink="/admin/vehicle-fuel-types" *appHasRole="alloweRolesVehicleFuelTypesForList">
+  <mat-nav-list
+    routerLink="/admin/vehicle-fuel-types"
+    *appHasRole="alloweRolesVehicleFuelTypesForList"
+  >
     <a mat-list-item>Araç Yakıt Tipi </a>
   </mat-nav-list>
-  <mat-nav-list routerLink="/admin/heating-types">
-    <a mat-list-item>Araç Vites </a>
+  <mat-nav-list
+    routerLink="/admin/vehicle-gear-types"
+    *appHasRole="alloweRolesVehicleGearTypesForList"
+  >
+    <a mat-list-item>Araç Vites Tipi</a>
   </mat-nav-list>
   <mat-nav-list routerLink="/admin/heating-types">
     <a mat-list-item>Araç Motor Hacmi </a>

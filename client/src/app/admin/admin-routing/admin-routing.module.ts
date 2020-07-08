@@ -65,6 +65,11 @@ const routes:Routes=[
           path:"vehicle-fuel-types",
           loadChildren:()=>import("../vehicle-announce-options/vehicle-fueltype/vehicle-fueltype.module").then(m=>m.VehicleFueltypeModule),
           data:{roles:['Sudo','VehicleFuelTypes.List']}
+        },
+        {
+          path:"vehicle-gear-types",
+          loadChildren:()=>import("../vehicle-announce-options/vehicle-geartype/vehicle-geartype.module").then(m=>m.VehicleGeartypeModule),
+          data:{roles:['Sudo','VehicleGearTypes.List']}
         }
 
     ]

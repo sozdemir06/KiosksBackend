@@ -48,6 +48,9 @@ namespace Business.MappingProfile
 
             CreateMap<VehicleGearType, VehicleGearTypeForReturnDto>();
             CreateMap<VehicleGearTypeForCreationDto, VehicleGearType>();
+
+            CreateMap<VehicleEngineSize, VehicleEngineSizeForReturnDto>();
+            CreateMap<VehicleEngineSizeForCreationDto, VehicleEngineSize>();
         }
     }
 }

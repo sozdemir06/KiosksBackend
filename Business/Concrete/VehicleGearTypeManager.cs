@@ -54,7 +54,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        //[SecuredOperation("Sudo,VehicleGearTypes.List", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleGearTypes.List", Priority = 1)]
         public async Task<List<VehicleGearTypeForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await vehicleGearTypeDal.GetListAsync();

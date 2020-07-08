@@ -17,7 +17,7 @@ namespace API.Controllers
 
         }
 
-         [HttpGet]
+        [HttpGet]
         public async Task<ActionResult<List<VehicleGearTypeForReturnDto>>> List()
         {
             return await vehicleGearTypeService.GetListAsync();

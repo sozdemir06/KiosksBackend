@@ -198,7 +198,7 @@ namespace DataAccess.SeedData
                         }
                     }
 
-                     if (!_context.VehicleGearTypes.Any())
+                    if (!_context.VehicleGearTypes.Any())
                     {
                         var data = File.ReadAllText("../DataAccess/SeedData/VehicleGearType.json");
                         var dataList = JsonSerializer.Deserialize<List<VehicleGearType>>(data);
@@ -206,6 +206,17 @@ namespace DataAccess.SeedData
                         foreach (var item in dataList)
                         {
                             _context.VehicleGearTypes.Add(item);
+                        }
+                    }
+
+                     if (!_context.VehicleEngineSizes.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/VehicleEngineSize.json");
+                        var dataList = JsonSerializer.Deserialize<List<VehicleEngineSize>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.VehicleEngineSizes.Add(item);
                         }
                     }
 

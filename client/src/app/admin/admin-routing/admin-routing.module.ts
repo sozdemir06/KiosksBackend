@@ -70,6 +70,11 @@ const routes:Routes=[
           path:"vehicle-gear-types",
           loadChildren:()=>import("../vehicle-announce-options/vehicle-geartype/vehicle-geartype.module").then(m=>m.VehicleGeartypeModule),
           data:{roles:['Sudo','VehicleGearTypes.List']}
+        },
+        {
+          path:"vehicle-engine-sizes",
+          loadChildren:()=>import("../vehicle-announce-options/vehicle-engine-size/vehicle-engine-size.module").then(m=>m.VehicleEngineSizeModule),
+          data:{roles:['Sudo','VehicleEngineSizes.List']}
         }
 
     ]

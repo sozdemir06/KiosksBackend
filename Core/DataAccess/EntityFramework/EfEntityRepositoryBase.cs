@@ -125,5 +125,37 @@ namespace Core.DataAccess.EntityFramework
 
 
         }
+
+        public async Task<List<TEntity>> AddRange(List<TEntity> entities)
+        {
+            using(var context=new TContext())
+            {
+                var addedEntity = context.Set<TEntity>();
+                addedEntity.AddRange(entities);
+                await SaveChangeAsync(context);
+                return entities;
+            }
+        }
+
+        public async Task DeleteRange(List<TEntity> entities)
+        {
+           using(var context=new TContext())
+            {
+                var deleteEntity = context.Set<TEntity>();
+                deleteEntity.RemoveRange(entities);
+                await SaveChangeAsync(context);
+            }
+        }
+
+        public async Task<List<TEntity>> UpdateRange(List<TEntity> entities)
+        {
+           using(var context=new TContext())
+            {
+                var addedEntity = context.Set<TEntity>();
+                addedEntity.UpdateRange(entities);
+                await SaveChangeAsync(context);
+                return entities;
+            }
+        }
     }
 }

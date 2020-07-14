@@ -1,9 +1,9 @@
-using Entities.Concrete;
+using Entities.Dtos;
 using FluentValidation;
 
 namespace Business.ValidaitonRules.FluentValidation
 {
-    public class HeatingTypeValidator : AbstractValidator<HeatingType>
+    public class HeatingTypeValidator : AbstractValidator<HeatingTypeForCreationDto>
     {
         public HeatingTypeValidator()
         {

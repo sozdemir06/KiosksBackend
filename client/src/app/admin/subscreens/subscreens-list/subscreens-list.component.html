@@ -1,0 +1,98 @@
+<table
+  mat-table
+  class="mat-elevation-z8 w-100"
+  [dataSource]="subScreensStore.subScreens$ | async"
+>
+  <!-- Column -->
+
+  <!-- Column -->
+  <ng-container matColumnDef="Id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.firstName }} {{ element?.id }}
+    </td>
+  </ng-container>
+
+  <!-- Column -->
+  <ng-container matColumnDef="Name">
+    <th mat-header-cell *matHeaderCellDef>Ad</th>
+    <td mat-cell *matCellDef="let element">
+      <div>
+        <span>{{ element?.name }}</span>
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- Column -->
+  <ng-container matColumnDef="Position">
+    <th mat-header-cell *matHeaderCellDef>Pozisyon</th>
+    <td mat-cell *matCellDef="let element">
+      <div>
+        <span>{{ element?.position }}</span>
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- Column -->
+  <ng-container matColumnDef="Width">
+    <th mat-header-cell *matHeaderCellDef>Genişlik</th>
+    <td mat-cell *matCellDef="let element">
+      <div>
+        <span>{{ element?.width }}</span>
+      </div>
+    </td>
+  </ng-container>
+  <!-- Column -->
+  <ng-container matColumnDef="Height">
+    <th mat-header-cell *matHeaderCellDef>Yükseklik</th>
+    <td mat-cell *matCellDef="let element">
+      <div>
+        <span>{{ element?.height }}</span>
+      </div>
+    </td>
+  </ng-container>
+  <!-- Column -->
+  <ng-container matColumnDef="Status">
+    <th mat-header-cell *matHeaderCellDef>Durum</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-chip-list>
+        <mat-chip selected [color]="'primary'" *ngIf="element?.status">
+          Aktif
+        </mat-chip>
+        <mat-chip selected [color]="'warn'" *ngIf="!element?.status">
+          Pasif
+        </mat-chip>
+      </mat-chip-list>
+    </td>
+  </ng-container>
+  <!--Column -->
+  <ng-container matColumnDef="Actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button [matMenuTriggerFor]="tableMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #tableMenu="matMenu">
+        <button
+          mat-menu-item
+          (click)="onUpdate(element)"
+          *appHasRole="allowedRoleForUpdate"
+        >
+          <mat-icon>update</mat-icon>
+          <span>Güncelle</span>
+        </button>
+        <button
+          mat-menu-item
+          (click)="onDelete(element)"
+          *appHasRole="allowedRoleForDelete"
+        >
+          <mat-icon>delete</mat-icon>
+          <span>sil</span>
+        </button>
+      </mat-menu>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

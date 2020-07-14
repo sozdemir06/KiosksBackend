@@ -39,5 +39,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<VehicleFuelType> VehicleFuelTypes { get; set; }
         public DbSet<VehicleGearType> VehicleGearTypes { get; set; }
         public DbSet<VehicleEngineSize> VehicleEngineSizes { get; set; }
+        public DbSet<Screen> Screens { get; set; }
+        public DbSet<SubScreen> SubScreens { get; set; }
     }
 }

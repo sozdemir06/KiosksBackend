@@ -51,6 +51,12 @@ namespace Business.MappingProfile
 
             CreateMap<VehicleEngineSize, VehicleEngineSizeForReturnDto>();
             CreateMap<VehicleEngineSizeForCreationDto, VehicleEngineSize>();
+
+            CreateMap<Screen, ScreenForReturnDto>();
+            CreateMap<ScreenForCreationDto, Screen>();
+
+            CreateMap<SubScreen, SubScreenForReturnDto>();
+            CreateMap<SubScreenForCreationDto, SubScreen>();
         }
     }
 }

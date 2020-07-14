@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="screenForm"
+    (ngSubmit)="onSubmit()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Ekran adı"
+        formControlName="name"
+      />
+      <mat-error *ngIf="f.name.errors?.required"
+        >Ekran adı belirtiniz...</mat-error
+      >
+      <mat-error *ngIf="f.name.errors?.maxlength"
+        >Ekran adı en fazla 100 karakter olmalı...</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Ekran konumu</mat-label>
+      <mat-select formControlName="position">
+        <mat-option [value]="'Vertical'">Dikey</mat-option>
+        <mat-option [value]="'Horizontal'">Yatay</mat-option>
+      </mat-select>
+      <mat-error *ngIf="f.position.errors?.required"
+        >Ekran konumunu seçiniz...</mat-error
+      >
+    </mat-form-field>
+    <mat-checkbox formControlName="isFull" class="my-3">Tam Ekran</mat-checkbox>
+    <button mat-raised-button color="primary" [disabled]="!screenForm.valid">
+      {{ mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>

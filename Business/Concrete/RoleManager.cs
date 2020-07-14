@@ -27,7 +27,7 @@ namespace Business.Concrete
 
         public async Task<RoleForListDto> Create(RoleForCreationAndUpdateDto roleForCreationAndUpdateDto)
         {
-              var checkRoleNameFormRepo=await roleDal.GetAsync(x=>x.Name==roleForCreationAndUpdateDto.Name);
+              var checkRoleNameFormRepo=await roleDal.GetAsync(x=>x.Name.ToLower()==roleForCreationAndUpdateDto.Name.ToLower());
               if(checkRoleNameFormRepo!=null)
               {
                   throw new RestException(HttpStatusCode.BadRequest,new{RoleAlreadyExist=Messages.RoleNameAlreadyExist});

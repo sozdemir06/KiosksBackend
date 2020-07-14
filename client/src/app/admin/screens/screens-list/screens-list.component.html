@@ -1,0 +1,83 @@
+<table
+  mat-table
+  [dataSource]="screenStore.screens$ | async"
+  class="mat-elevation-z8 w-100"
+>
+  <!-- Column -->
+
+  <!-- Column -->
+  <ng-container matColumnDef="Id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.firstName }} {{ element?.id }}
+    </td>
+  </ng-container>
+
+  <!-- Column -->
+  <ng-container matColumnDef="Name">
+    <th mat-header-cell *matHeaderCellDef>Ad</th>
+    <td mat-cell *matCellDef="let element">
+      <div>
+        <span>{{ element?.name }}</span>
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- Column -->
+  <ng-container matColumnDef="Position">
+    <th mat-header-cell *matHeaderCellDef>Pozisyon</th>
+    <td mat-cell *matCellDef="let element">
+      <div>
+        <span>{{ element?.position=='Vertical'?'Dikey':'Yatay' }}</span>
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- Column -->
+  <ng-container matColumnDef="IsFull">
+    <th mat-header-cell *matHeaderCellDef>Mode</th>
+    <td mat-cell *matCellDef="let element">
+      <div>
+        <span>{{ element?.isFull ? "Tam Ekran" : "Normal" }}</span>
+      </div>
+    </td>
+  </ng-container>
+  <!--Column -->
+  <ng-container matColumnDef="Actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button [matMenuTriggerFor]="tableMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #tableMenu="matMenu">
+        <button
+          mat-menu-item
+          (click)="onUpdate(element)"
+          *appHasRole="allowedRoleForUpdate"
+        >
+          <mat-icon>update</mat-icon>
+          <span>Güncelle</span>
+        </button>
+        <button
+          mat-menu-item
+          *appHasRole="allowedroleForSubScreenList"
+          [routerLink]="['../../subscreens', element?.id]"
+        >
+          <mat-icon>link</mat-icon>
+          <span>Alt Ekranlar</span>
+        </button>
+        <button
+          mat-menu-item
+          (click)="onDelete(element)"
+          *appHasRole="allowedRoleForDelete"
+        >
+          <mat-icon>delete</mat-icon>
+          <span>sil</span>
+        </button>
+      </mat-menu>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

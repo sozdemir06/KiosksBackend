@@ -7,12 +7,15 @@ import { NotifyService } from '../notify-service';
 import { LoadingService } from '../loading-service';
 import { map, catchError, tap } from 'rxjs/operators';
 import produce from 'immer';
+import { element } from 'protractor';
 
 @Injectable({ providedIn: 'root' })
 export class HeatingTypeStore {
   apiUrl: string = environment.apiUrl;
   private subject = new BehaviorSubject<IHeatingType[]>([]);
+  private testSubject = new BehaviorSubject<IHeatingType[]>([]);
   heatingTypes$: Observable<IHeatingType[]> = this.subject.asObservable();
+  test$: Observable<IHeatingType[]> = this.testSubject.asObservable();
 
   constructor(
     private httpClient: HttpClient,
@@ -20,6 +23,7 @@ export class HeatingTypeStore {
     private loadingService: LoadingService
   ) {
     this.getList();
+    this.test();
   }
 
   private getList() {
@@ -110,5 +114,24 @@ export class HeatingTypeStore {
       );
 
     this.loadingService.showLoaderUntilCompleted(deleted$).subscribe();
+  }
+
+  private test(){
+    const heatingTypeList$ = this.httpClient
+      .get<IHeatingType[]>(this.apiUrl + 'heatingtypes')
+      .pipe(
+        map((heatingtypes) => {
+          return heatingtypes;
+        
+        }),
+        catchError((error) => {
+          this.notifyService.notify('error', error);
+          return throwError(error);
+        }),
+        tap((heatingtypes) => {
+          this.testSubject.next(heatingtypes);
+        })
+      );
+    this.loadingService.showLoaderUntilCompleted(heatingTypeList$).subscribe();
   }
 }

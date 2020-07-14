@@ -69,6 +69,12 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<VehicleEngineSizeManager>().As<IVehicleEngineSizeService>();
             builder.RegisterType<EfVehicleEngineSizeDal>().As<IVehicleEngineSizeDal>();
 
+            builder.RegisterType<ScreenManager>().As<IScreenService>();
+            builder.RegisterType<EfScreenDal>().As<IScreenDal>();
+
+            builder.RegisterType<SubScreenManager>().As<ISubScreenService>();
+            builder.RegisterType<EfSubScreenDal>().As<ISubSCreenDal>();
+
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 

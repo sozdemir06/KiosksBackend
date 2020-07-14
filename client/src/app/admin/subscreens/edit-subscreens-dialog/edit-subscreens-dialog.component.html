@@ -1,0 +1,78 @@
+<h2 mat-dialog-title>
+  {{ title }} {{ diabledInput((screen$ | async)?.position) }}
+</h2>
+<mat-dialog-content>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="subScreenForm"
+    (ngSubmit)="onSubmit()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Alt ekran adı"
+        formControlName="name"
+      />
+      <mat-error *ngIf="f.name.errors?.required"
+        >Ekran adı belirtiniz...</mat-error
+      >
+      <mat-error *ngIf="f.name.errors?.maxlength"
+        >Ekran adı en fazla 100 karakter olmalı...</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field *ngIf="screen$ | async as data">
+      <ng-container *ngIf="data.position === 'Vertical'">
+        <mat-select formControlName="position">
+          <mat-option [value]="'Top'">Üst</mat-option>
+          <mat-option [value]="'Middle'">Orta</mat-option>
+          <mat-option [value]="'Bottom'">Alt</mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.position.errors?.required"
+          >Ekran konumunu seçiniz...</mat-error
+        >
+      </ng-container>
+      <ng-container *ngIf="data.position === 'Horizontal'">
+        <mat-select formControlName="position">
+          <mat-option [value]="'Left'">Sol</mat-option>
+          <mat-option [value]="'Middle'">Orta</mat-option>
+          <mat-option [value]="'Right'">Sağ</mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.position.errors?.required"
+          >Ekran konumunu seçiniz...</mat-error
+        >
+      </ng-container>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="width"
+        type="number"
+        value="1"
+        min="0"
+        max="90"
+        step="5"
+        placeholder="Ekran Genişliği (vw)"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="height"
+        type="number"
+        min="0"
+        value="1"
+        max="90"
+        step="5"
+        placeholder="Ekran Yüksekliği (vh)"
+      />
+    </mat-form-field>
+    <mat-checkbox formControlName="status" class="my-3">{{
+      item?.status ? "Ekran Aktif" : "Ekranı Pasif"
+    }}</mat-checkbox>
+    <button mat-raised-button color="primary" [disabled]="!subScreenForm.valid">
+      {{ mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>

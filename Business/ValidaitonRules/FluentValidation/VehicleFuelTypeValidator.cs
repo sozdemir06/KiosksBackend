@@ -1,9 +1,9 @@
-using Entities.Concrete;
+using Entities.Dtos;
 using FluentValidation;
 
 namespace Business.ValidaitonRules.FluentValidation
 {
-    public class VehicleFuelTypeValidator:AbstractValidator<VehicleFuelType>
+    public class VehicleFuelTypeValidator:AbstractValidator<VehicleFuelTypeForCreationDto>
     {
         public VehicleFuelTypeValidator()
         {

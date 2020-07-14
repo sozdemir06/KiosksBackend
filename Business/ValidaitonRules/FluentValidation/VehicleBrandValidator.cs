@@ -1,9 +1,10 @@
 using Entities.Concrete;
+using Entities.Dtos;
 using FluentValidation;
 
 namespace Business.ValidaitonRules.FluentValidation
 {
-    public class VehicleBrandValidator:AbstractValidator<VehicleBrand>
+    public class VehicleBrandValidator:AbstractValidator<VehicleBrandForCreationDto>
     {
         public VehicleBrandValidator()
         {

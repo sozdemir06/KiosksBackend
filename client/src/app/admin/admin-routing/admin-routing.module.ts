@@ -75,6 +75,16 @@ const routes:Routes=[
           path:"vehicle-engine-sizes",
           loadChildren:()=>import("../vehicle-announce-options/vehicle-engine-size/vehicle-engine-size.module").then(m=>m.VehicleEngineSizeModule),
           data:{roles:['Sudo','VehicleEngineSizes.List']}
+        },
+        {
+          path:"screens",
+          loadChildren:()=>import("../screens/screens.module").then(m=>m.ScreensModule),
+          data:{roles:['Sudo','Screens.List']}
+        },
+        {
+          path:"subscreens/:id",
+          loadChildren:()=>import("../subscreens/subscreens.module").then(m=>m.SubscreensModule),
+          data:{roles:['Sudo','SubScreens.List']}
         }
 
     ]

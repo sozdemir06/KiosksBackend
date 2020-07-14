@@ -1,0 +1,20 @@
+[
+    {
+        "ScreenName":"Yemekhane",
+        "ScreenPosition":"vertical",
+        "IsFull":false
+
+    },
+    {
+        "ScreenName":"Duyuru",
+        "ScreenPosition":"horizontal",
+        "IsFull":false
+
+    },
+    {
+        "ScreenName":"ZO-Protokol",
+        "ScreenPosition":"vertical",
+        "IsFull":true
+
+    }
+]

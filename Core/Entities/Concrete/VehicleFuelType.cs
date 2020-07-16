@@ -1,8 +1,8 @@
 using Core.Entities;
 
-namespace Entities.Concrete
+namespace Core.Entities.Concrete
 {
-    public class HeatingType:IEntity
+    public class VehicleFuelType:IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,9 +7,9 @@ using Business.Constants;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
 using Core.Aspects.AutoFac.Validation;
+using Core.Entities.Concrete;
 using Core.Extensions;
 using DataAccess.Abstract;
-using Entities.Concrete;
 using Entities.Dtos;
 
 namespace Business.Concrete
@@ -49,7 +48,7 @@ namespace Business.Concrete
                     Name=screenToSave.Position=="Vertical"?screenToSave.Name+" Üst":screenToSave.Name+" Sol",
                     Position=screenToSave.Position=="Vertical"?"Top":"Left",
                     Height=screenToSave.Position=="Vertical"?30:0,
-                    Width=screenToSave.Position=="Vertical"?0:30,
+                    Width=screenToSave.Position=="Vertical"?0:100,
                     ScreenId=screenToSave.Id,
                     Status=true,
 

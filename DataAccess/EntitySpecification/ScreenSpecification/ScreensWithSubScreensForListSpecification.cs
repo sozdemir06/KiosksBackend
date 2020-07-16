@@ -1,5 +1,5 @@
 using Core.DataAccess.Specifications;
-using Entities.Concrete;
+using Core.Entities.Concrete;
 
 namespace DataAccess.EntitySpecification.ScreenSpecification
 {

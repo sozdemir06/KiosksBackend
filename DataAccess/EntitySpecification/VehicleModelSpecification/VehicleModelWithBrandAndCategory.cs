@@ -1,6 +1,7 @@
 using Core.DataAccess.Specifications;
+using Core.Entities.Concrete;
 using Core.QueryParams;
-using Entities.Concrete;
+
 
 namespace DataAccess.EntitySpecification.VehicleModelSpecification
 {

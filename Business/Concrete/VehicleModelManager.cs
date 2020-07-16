@@ -8,6 +8,7 @@ using Business.Helpers;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
 using Core.Aspects.AutoFac.Validation;
+using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.QueryParams;
 using DataAccess.Abstract;

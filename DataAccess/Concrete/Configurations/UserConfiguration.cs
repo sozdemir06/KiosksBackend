@@ -22,6 +22,8 @@ namespace DataAccess.Concrete.Configurations
                    .HasForeignKey(fk => fk.DepartmentId);
             builder.HasOne(x => x.Degree).WithMany(x => x.Users)
                    .HasForeignKey(fk => fk.DegreeId);
+
+            builder.HasMany(x=>x.HomeAnnounces).WithOne(x=>x.User).HasForeignKey(x=>x.UserId);
     
 
 

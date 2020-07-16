@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Core.Entities;
 
-namespace Entities.Concrete
+namespace Core.Entities.Concrete
 {
     public class VehicleCategory:IEntity
     {

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Core.Entities;
+
 
 namespace Core.Entities.Concrete
 {
@@ -19,16 +19,18 @@ namespace Core.Entities.Concrete
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
 
-        public ICollection<UserRole> UserRoles { get; set; }
         public Campus Campus { get; set; }
         public int CampusId { get; set; }
         public Department Department { get; set; }
         public int DepartmentId { get; set; }
-         public Degree Degree { get; set; }
+        public Degree Degree { get; set; }
         public int DegreeId { get; set; }
-        
-       
-   
+
+        public ICollection<UserRole> UserRoles { get; set; }
+        public ICollection<HomeAnnounce> HomeAnnounces { get; set; }
+
+
+
 
 
     }

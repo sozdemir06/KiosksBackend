@@ -1,0 +1,11 @@
+namespace Core.Entities.Concrete
+{
+    public class HomeAnnounceSubScreen:IEntity
+    {
+        public int Id { get; set; }
+        public SubScreen SubScreen { get; set; }
+        public int SubScreenId { get; set; }
+        public HomeAnnounce HomeAnnounce { get; set; }
+        public int HomeAnnounceId { get; set; }
+    }
+}

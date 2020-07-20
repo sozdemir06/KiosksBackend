@@ -24,4 +24,5 @@ export interface IUserList{
     campus:ICampus;
     department:IDepartment;
     degree:IDegree;
+    photoUrl:string;
 }

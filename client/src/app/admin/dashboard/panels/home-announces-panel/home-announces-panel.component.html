@@ -1,0 +1,11 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title class="d-flex align-items-center">
+        <mat-icon>home</mat-icon>
+        <span>Ev İlanları</span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-nav-list routerLink="/admin/home-announces" *appHasRole="allowedRolesForList">
+      <a mat-list-item>Ev İlan Listesi</a>
+    </mat-nav-list>
+  </mat-expansion-panel>

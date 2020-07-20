@@ -85,12 +85,16 @@ const routes:Routes=[
           path:"subscreens/:id",
           loadChildren:()=>import("../subscreens/subscreens.module").then(m=>m.SubscreensModule),
           data:{roles:['Sudo','SubScreens.List']}
+        },
+        {
+          path:"home-announces",
+          loadChildren:()=>import("../home-announces/home-announces.module").then(m=>m.HomeAnnouncesModule),
+          data:{roles:['Sudo','HomeAnnounces.List']}
         }
 
     ]
   }
 ]
-
 
 @NgModule({
   imports: [

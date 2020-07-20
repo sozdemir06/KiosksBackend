@@ -5,9 +5,9 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { IHeatingType } from 'src/app/shared/models/IHeatingType';
 import { NotifyService } from '../notify-service';
 import { LoadingService } from '../loading-service';
-import { map, catchError, tap } from 'rxjs/operators';
+import { map, catchError, tap, shareReplay } from 'rxjs/operators';
 import produce from 'immer';
-import { element } from 'protractor';
+
 
 @Injectable({ providedIn: 'root' })
 export class HeatingTypeStore {
@@ -37,7 +37,8 @@ export class HeatingTypeStore {
         }),
         tap((heatingtypes) => {
           this.subject.next(heatingtypes);
-        })
+        }),
+        shareReplay()
       );
     this.loadingService.showLoaderUntilCompleted(heatingTypeList$).subscribe();
   }

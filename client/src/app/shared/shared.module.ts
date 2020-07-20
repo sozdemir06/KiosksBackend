@@ -10,6 +10,10 @@ import { PagerComponent } from './pager/pager.component';
 import { ErrorMessagesComponent } from './error-messages/error-messages.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { HasRoleDirective } from './directives/has-role-directive';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { UserAutocompleteComponent } from './user-autocomplete/user-autocomplete.component';
+import { TimeAgoPipe } from './pipes/time-ago-pipe';
+import { AnnounceStatusComponent } from './announce-status/announce-status.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +24,17 @@ import { HasRoleDirective } from './directives/has-role-directive';
     ErrorMessagesComponent,
     ConfirmDialogComponent,
     HasRoleDirective,
+    UserAutocompleteComponent,
+    TimeAgoPipe,
+    AnnounceStatusComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MaterialModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
 
   exports: [
@@ -40,6 +49,11 @@ import { HasRoleDirective } from './directives/has-role-directive';
     ErrorMessagesComponent,
     ConfirmDialogComponent,
     HasRoleDirective,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    UserAutocompleteComponent,
+    TimeAgoPipe,
+    AnnounceStatusComponent
   ],
 })
 export class SharedModule {}

@@ -12,7 +12,7 @@ namespace Core.Entities.Concrete
         public bool IsFull { get; set; }
 
         public ICollection<SubScreen> SubScreens { get; set; }
-        public ICollection<HomeAnnounce> HomeAnnounces { get; set; }
+        public ICollection<HomeAnnounceSubScreen> HomeAnnounceSubScreens { get; set; }
        
     }
 }

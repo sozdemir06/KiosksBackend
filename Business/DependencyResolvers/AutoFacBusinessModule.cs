@@ -75,6 +75,15 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<SubScreenManager>().As<ISubScreenService>();
             builder.RegisterType<EfSubScreenDal>().As<ISubSCreenDal>();
 
+            builder.RegisterType<HomeAnnounceManager>().As<IHomeAnnounceService>();
+            builder.RegisterType<EfHomeAnnounceDal>().As<IHomeAnnounceDal>();
+
+            builder.RegisterType<HomeAnnouncePhotoManager>().As<IHomeAnnouncePhotoService>();
+            builder.RegisterType<EfHomeAnnouncePhotoDal>().As<IHomeAnnouncePhotoDal>();
+
+            builder.RegisterType<HomeAnnouncesubScreenManager>().As<IHomeAnnounceSubScreenService>();
+            builder.RegisterType<EfHomeAnnounceSubScreenDal>().As<IHomeAnnounceSubScreenDal>();
+
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 

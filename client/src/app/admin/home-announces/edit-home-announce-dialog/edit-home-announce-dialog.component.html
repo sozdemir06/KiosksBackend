@@ -1,0 +1,100 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <div class="d-flex flex-column w-100">
+    <app-user-autocomplete 
+    (getSelectedUser)="onUserSelectionChange($event)" 
+    [mode]="mode" 
+    [user]="item?.user"></app-user-autocomplete>
+  </div>
+    <form class="d-flex flex-column w-100" [formGroup]="homeAnnounceForm" (ngSubmit)="onSubmit()" autocomplete="off">
+        <mat-form-field>
+            <input matInput type="text" placeholder="İlan başlığı" formControlName="header"/>
+            <mat-error *ngIf="f.header.errors?.required">İlan başlığı boş olamaz...</mat-error>
+            <mat-error *ngIf="f.header.errors?.maxlength">İlan başlığı en fazla 140 karakter olmalı...</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput type="text" placeholder="İlan Açıklama" formControlName="description"></textarea>
+            <mat-error *ngIf="f.description.errors?.required">İlan açıklaması boş olamaz...</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput type="number" placeholder="Metrekare" formControlName="squareMeters"></textarea>
+            <mat-error *ngIf="f.squareMeters.errors?.required">Metre kare boş olamaz...</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput type="number" placeholder="Fiyat" formControlName="price"></textarea>
+            <mat-error *ngIf="f.price.errors?.required">Fiyat bilgisi boş olamaz...</mat-error>
+        </mat-form-field>
+        <ng-container *ngIf="(data$ | async) as data">
+            <mat-form-field>
+              <mat-label>Oda Sayısı</mat-label>
+              <mat-select formControlName="numberOfRoomId">
+                <mat-option *ngFor="let room of data.numberOfRooms" [value]="room.id">
+                  {{room.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="f.numberOfRoomId.errors?.required">Oda sayısı için seçim yapınız...</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Binanın Yaşı</mat-label>
+              <mat-select formControlName="buildingAgeId">
+                <mat-option *ngFor="let buildingAge of data.buildingAges" [value]="buildingAge.id">
+                  {{buildingAge.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="f.buildingAgeId.errors?.required">Bina yaşı için seçim yapınız...</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Bulunduğu Kat</mat-label>
+              <mat-select formControlName="flatOfHomeId">
+                <mat-option *ngFor="let flat of data.flatOfHomes" [value]="flat.id">
+                  {{flat.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="f.flatOfHomeId.errors?.required">Bulunduğu kat için seçim yapınız...</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Isıtma Tipi</mat-label>
+                <mat-select formControlName="heatingTypeId">
+                  <mat-option *ngFor="let heatingType of data.heatingTypes" [value]="heatingType.id">
+                    {{heatingType.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="f.heatingTypeId.errors?.required">Isıtma tipi için seçim yapınız...</mat-error>
+              </mat-form-field>
+          </ng-container>
+          <mat-form-field>
+            <mat-label>Yayın Başlangıç Tarihi ve Saati</mat-label>
+            <input
+              class="date-time"
+              [owlDateTime]="dt1"
+              [owlDateTimeTrigger]="dt1"
+              autocomplete="off"
+              formControlName="publishStartDate"
+              (dateTimeChange)="onChangeStartDate($event)"
+              matInput
+              required
+            />
+            <owl-date-time #dt1></owl-date-time>
+            <mat-error *ngIf="f.publishStartDate.errors?.required">Yayın başlangıç tarihi boş olamaz</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>İlan Bitiş Tarihi ve Saati </mat-label>
+            <input class="date-time" 
+           
+            [owlDateTime]="dt2" 
+            [owlDateTimeTrigger]="dt2"
+            autocomplete="off" 
+            formControlName="publishFinishDate"
+            (dateTimeChange)="onChangeFinishDate($event)"
+            matInput 
+            required
+            >
+            <owl-date-time #dt2></owl-date-time>
+            <mat-error *ngIf="f.publishFinishDate.errors?.required">Yayın bitiş tarihi boş olamaz</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="!homeAnnounceForm.valid">
+            {{mode=='create'?"Kaydet":"Güncelle"}}
+        </button>
+    </form>
+</mat-dialog-content>

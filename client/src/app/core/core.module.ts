@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotifyComponent } from './notify/notify.component';
 import { AuthGuard } from './guards/auth-guard';
-
+import { OWL_DATE_TIME_LOCALE } from "ng-pick-datetime";
 
 
 
@@ -25,7 +25,8 @@ import { AuthGuard } from './guards/auth-guard';
   providers:[
     ErrorInterceptorProvider,
     AuthInterceptors,
-    AuthGuard
+    AuthGuard,
+    { provide: OWL_DATE_TIME_LOCALE, useValue: "tr-TR" }
     
   ],
 })

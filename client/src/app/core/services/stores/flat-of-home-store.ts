@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IFlatOfHome } from 'src/app/shared/models/IFlatOfHome';
-import { map, catchError, tap } from 'rxjs/operators';
+import { map, catchError, tap, shareReplay } from 'rxjs/operators';
 import { NotifyService } from '../notify-service';
 import { LoadingService } from '../loading-service';
 import produce from 'immer';
@@ -34,7 +34,8 @@ export class FlatOfHomeStore {
         tap((flatsOfHome) => {
           flatsOfHome.sort((a, b) => a.name.localeCompare(b.name));
           this.subject.next(flatsOfHome);
-        })
+        }),
+        shareReplay()
       );
 
     this.loadingService.showLoaderUntilCompleted(flatsOfHomeList$).subscribe();

@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { HomeAnnounceOptionListComponent } from '../admin/dashboard/panels/home-announce-option-list/home-announce-option-list.component';
 import { VehicleAnnounceOptionListComponent } from '../admin/dashboard/panels/vehicle-announce-option-list/vehicle-announce-option-list.component';
 import { ScreenPanelComponent } from '../admin/dashboard/panels/screen-panel/screen-panel.component';
+import { HomeAnnouncesPanelComponent } from '../admin/dashboard/panels/home-announces-panel/home-announces-panel.component';
 
 
 const routes:Routes=[
@@ -55,7 +56,8 @@ const routes:Routes=[
     RolePanelComponent,
     HomeAnnounceOptionListComponent,
     VehicleAnnounceOptionListComponent,
-    ScreenPanelComponent
+    ScreenPanelComponent,
+    HomeAnnouncesPanelComponent
 
   
   ],
@@ -73,7 +75,8 @@ const routes:Routes=[
     RolePanelComponent,
     HomeAnnounceOptionListComponent,
     VehicleAnnounceOptionListComponent,
-    ScreenPanelComponent
+    ScreenPanelComponent,
+    HomeAnnouncesPanelComponent
   ]
 })
 export class LayoutModule { }

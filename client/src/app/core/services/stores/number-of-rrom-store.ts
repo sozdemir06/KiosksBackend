@@ -5,7 +5,7 @@ import { LoadingService } from '../loading-service';
 import { NotifyService } from '../notify-service';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { INumberOfRoom } from 'src/app/shared/models/INumberOFRoom';
-import { map, catchError, tap } from 'rxjs/operators';
+import { map, catchError, tap, shareReplay } from 'rxjs/operators';
 import produce from 'immer';
 import { sortByName } from 'src/app/shared/helpers/sort-by-name';
 
@@ -36,7 +36,8 @@ export class NumberOfroomStore {
         tap((rooms) => {
           rooms.sort(sortByName);
           this.subject.next(rooms)
-        })
+        }),
+        shareReplay()
       );
 
     this.loadingService.showLoaderUntilCompleted(numberOfRooms$).subscribe();

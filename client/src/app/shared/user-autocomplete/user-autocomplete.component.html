@@ -1,0 +1,37 @@
+<mat-form-field class="w-100">
+  <mat-label>İlan Sahibi</mat-label>
+  <input
+    type="text"
+    matInput
+    [formControl]="stateControl"
+    [matAutocomplete]="auto"
+  />
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option
+      *ngFor="let user of (userStore.users$ | async)?.data"
+      [value]="user.firstName + ' ' + user.lastName"
+      (onSelectionChange)="onUserSelectionChange(user)"
+    >
+      <div class="d-flex align-items-center justify-content-start">
+        <img
+          class="p-2"
+          *ngIf="user?.photoUrl; else defaultAvatar"
+          aria-hidden
+          src="assets/user/{{ user?.photoUrl }}"
+          height="35"
+        />
+        <ng-template #defaultAvatar>
+          <img
+            aria-hidden
+            src="assets/user/avatar.png"
+            height="35"
+            class="p-2"
+          />
+        </ng-template>
+        <span class="my-2">{{ user?.firstName }} {{ user?.lastName }}</span> |
+        <small>{{ user.campus?.name }}</small> |
+        <small>{{ user.department?.name }}</small>
+      </div>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

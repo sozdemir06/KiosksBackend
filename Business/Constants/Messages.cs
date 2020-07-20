@@ -84,6 +84,7 @@ namespace Business.Constants
         public static string AlreadyExist=>"Id veya bu isimle kayıt zaten var...";
         public static string NotFound=>"Kayıt bulunamadı...";
         public static string BrandNotFound=>"Araç Markası bulunamadı...";
+        public static string HomeAnnounceEmpty=>"Ev ilanları listelenemedi...";
 
 
     }

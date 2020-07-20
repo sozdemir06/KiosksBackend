@@ -16,11 +16,16 @@ namespace DataAccess.Concrete.Configurations
             builder.Property(x=>x.PublishFinishDate);
             builder.Property(x=>x.PublishStartDate);
             builder.Property(x=>x.Reject);
-            builder.Property(x=>x.ScreenId);
             builder.Property(x=>x.Updated);
             builder.Property(x=>x.UserId);
             builder.Property(x=>x.BuildingAgeId);
             builder.Property(x=>x.Created);
+
+            //Fluent Api
+            builder.HasOne(x=>x.NumberOfRoom).WithMany(x=>x.HomeAnnounces).HasForeignKey(x=>x.NumberOfRoomId);
+            builder.HasOne(x=>x.Heatingtype).WithMany(x=>x.HomeAnnounces).HasForeignKey(x=>x.HeatingTypeId);
+            builder.HasOne(x=>x.FlatOfHome).WithMany(x=>x.HomeAnnounces).HasForeignKey(x=>x.FlatOfHomeId);
+            builder.HasOne(x=>x.BuildingAge).WithMany(x=>x.HomeAnnounces).HasForeignKey(x=>x.BuildingAgeId);
 
             
 

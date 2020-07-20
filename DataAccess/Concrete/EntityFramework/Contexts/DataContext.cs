@@ -41,5 +41,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<VehicleEngineSize> VehicleEngineSizes { get; set; }
         public DbSet<Screen> Screens { get; set; }
         public DbSet<SubScreen> SubScreens { get; set; }
+        public DbSet<HomeAnnounce> HomeAnnounces { get; set; }
+        public DbSet<HomeAnnounceSubScreen> HomeAnnounceSubScreens { get; set; }
+        public DbSet<HomeAnnouncePhoto> HomeAnnouncePhotos { get; set; }
     }
 }

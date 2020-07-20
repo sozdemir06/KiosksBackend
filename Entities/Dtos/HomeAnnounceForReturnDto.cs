@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Core.Entities;
+using Core.Entities.Concrete;
 
 namespace Entities.Dtos
 {
@@ -19,14 +21,17 @@ namespace Entities.Dtos
         public string FlatOfHomeName { get; set; }
         public int FlatOfHomeId { get; set; }
         public string BuildingAgeName { get; set; }
-        public int ScreenId { get; set; }
         public int BuildingAgeId { get; set; }
-        public decimal Price { get; set; }
+        public int Price { get; set; }
         public int SquareMeters { get; set; }
         public int UserId { get; set; }
         public bool IsNew { get; set; }
         public bool Reject { get; set; }
         public bool IsPublish { get; set; }
+        public ICollection<HomeAnnouncePhoto> HomeAnnouncePhotos { get; set; }
+        public ICollection<HomeAnnounceSubScreen> HomeAnnounceSubScreens { get; set; }
+        public UserForListDto User { get; set; }
+      
 
 
     }

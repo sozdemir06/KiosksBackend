@@ -18,6 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 
@@ -42,7 +43,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatPaginatorModule,
     MatChipsModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatAutocompleteModule
     
   ],
   exports: [
@@ -63,7 +65,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatPaginatorModule,
     MatChipsModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatAutocompleteModule
   ],
 })
 export class MaterialModule {}

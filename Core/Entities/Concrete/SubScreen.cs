@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Entities;
 
 namespace Core.Entities.Concrete
@@ -13,6 +14,8 @@ namespace Core.Entities.Concrete
 
         public int ScreenId { get; set; }
         public Screen Screen { get; set; }
+
+        public ICollection<HomeAnnounceSubScreen> HomeAnnounceSubScreens { get; set; }
 
     }
 }

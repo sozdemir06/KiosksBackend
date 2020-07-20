@@ -7,5 +7,7 @@ namespace Core.Entities.Concrete
         public int SubScreenId { get; set; }
         public HomeAnnounce HomeAnnounce { get; set; }
         public int HomeAnnounceId { get; set; }
+        public Screen Screen { get; set; }
+        public int ScreenId { get; set; }
     }
 }

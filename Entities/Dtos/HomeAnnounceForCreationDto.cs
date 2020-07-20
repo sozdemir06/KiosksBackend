@@ -9,6 +9,8 @@ namespace Entities.Dtos
         public int Id { get; set; }
         public string Header { get; set; }
         public string Description { get; set; }
+        public string AnnounceType { get; set; }
+        public Guid SlideId { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
         public DateTime PublishStartDate { get; set; }
@@ -17,8 +19,7 @@ namespace Entities.Dtos
         public int HeatingTypeId { get; set; }
         public int FlatOfHomeId { get; set; }
         public int BuildingAgeId { get; set; }
-        public int ScreenId { get; set; }
-        public decimal Price { get; set; }
+        public int Price { get; set; }
         public int SquareMeters { get; set; }
         public int UserId { get; set; }
         public bool IsNew { get; set; }
@@ -28,6 +29,11 @@ namespace Entities.Dtos
         public HomeAnnounceForCreationDto()
         {
             Created=DateTime.Now;
+            AnnounceType="Home";
+            SlideId=Guid.NewGuid();
+            IsNew=true;
+            IsPublish=false;
+            Reject=false;
         }
 
 

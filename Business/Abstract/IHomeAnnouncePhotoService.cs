@@ -6,8 +6,8 @@ namespace Business.Abstract
 {
     public interface IHomeAnnouncePhotoService
     {
-         Task<List<HomeAnnouncePhotoForReturnDto>> GetListAsync();
-         Task<HomeAnnouncePhotoForReturnDto> Create(HomeAnnouncePhotoForCreationDto creationDto);
+         Task<List<HomeAnnouncePhotoForReturnDto>> GetListAsync(int announceId);
+         Task<HomeAnnouncePhotoForReturnDto> Create(FileUploadDto uploadDto);
          Task<HomeAnnouncePhotoForReturnDto> Update(HomeAnnouncePhotoForCreationDto updateDto);
          Task<HomeAnnouncePhotoForReturnDto> Delete(int Id);
     }

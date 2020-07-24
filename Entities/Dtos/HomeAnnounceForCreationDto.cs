@@ -28,12 +28,9 @@ namespace Entities.Dtos
 
         public HomeAnnounceForCreationDto()
         {
-            Created=DateTime.Now;
+
             AnnounceType="Home";
-            SlideId=Guid.NewGuid();
-            IsNew=true;
-            IsPublish=false;
-            Reject=false;
+
         }
 
 

@@ -11,6 +11,7 @@ namespace Business.Abstract
          Task<Pagination<HomeAnnounceForReturnDto>> GetListAsync(HomeAnnounceParams queryParams);
          Task<HomeAnnounceForReturnDto> Create(HomeAnnounceForCreationDto creationDto);
          Task<HomeAnnounceForReturnDto> Update(HomeAnnounceForCreationDto updateDto);
+         Task<HomeAnnounceForReturnDto> Publish(HomeAnnounceForCreationDto updateDto);
          Task<HomeAnnounceForReturnDto> Delete(int Id);
     }
 }

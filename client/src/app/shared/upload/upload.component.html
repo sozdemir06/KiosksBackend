@@ -1,0 +1,50 @@
+<div class="row" *appHasRole="roleForUpload">
+  <div class="col-md-3">
+    <mat-card>
+      <mat-card-subtitle>
+        <small>{{ selectedFile?.name }}</small>
+      </mat-card-subtitle>
+      <img
+        mat-card-image
+        src="assets/upload.png"
+        *ngIf="!url"
+        (click)="fileInput.click()"
+        alt="upload image"
+        style="cursor: pointer;"
+      />
+      <img mat-card-image src="{{ url }}" *ngIf="url && fileType == 'image'" />
+      <img
+        mat-card-image
+        src="assets/pdf.jpg"
+        *ngIf="url && fileType == 'pdf'"
+      />
+      <video *ngIf="url && fileType == 'video'" src="{{ url }}"></video>
+      <mat-divider></mat-divider>
+      <mat-card-content class="mt-3 w-100">
+        <ng-container *ngIf="progress">
+          <mat-progress-bar
+            mode="determinate"
+            value="{{ progress }}"
+          ></mat-progress-bar>
+          <p class="text-center">{{ progress }}%</p>
+        </ng-container>
+      </mat-card-content>
+      <mat-card-actions class="d-flex align-items-center justify-content-start">
+        <button mat-raised-button (click)="uploadFile()">
+            Yükle
+          </button>
+        <button mat-raised-button color="warn" (click)="cancelSelectedFile()">
+           Vazgeç
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <div>
+      <input
+        type="file"
+        class="d-none"
+        (change)="onFileSelected($event)"
+        #fileInput
+      />
+    </div>
+  </div>
+</div>

@@ -9,6 +9,7 @@ using BusinessAspects.AutoFac;
 using Core.Aspects.AutoFac.Validation;
 using Core.Entities.Concrete;
 using Core.Extensions;
+using Core.Utilities.Photos;
 using DataAccess.Abstract;
 using Entities.Dtos;
 
@@ -18,46 +19,62 @@ namespace Business.Concrete
     {
         private readonly IHomeAnnouncePhotoDal homeAnnouncePhotoDal;
         private readonly IMapper mapper;
+        private readonly IUploadFile upload;
+        private readonly IHomeAnnounceDal homeAnnounceDal;
 
-        public HomeAnnouncePhotoManager(IHomeAnnouncePhotoDal homeAnnouncePhotoDal, IMapper mapper)
+        public HomeAnnouncePhotoManager(IHomeAnnouncePhotoDal homeAnnouncePhotoDal,
+                IMapper mapper, IUploadFile upload, IHomeAnnounceDal homeAnnounceDal)
         {
+            this.homeAnnounceDal = homeAnnounceDal;
+            this.upload = upload;
             this.mapper = mapper;
             this.homeAnnouncePhotoDal = homeAnnouncePhotoDal;
 
         }
 
-        [SecuredOperation("Sudo,HomeAnnouncePhotos.Create", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnouncePhotos.Create,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnouncePhotoValidator), Priority = 2)]
-        public async Task<HomeAnnouncePhotoForReturnDto> Create(HomeAnnouncePhotoForCreationDto creationDto)
+        public async Task<HomeAnnouncePhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
-            var checkByName = await homeAnnouncePhotoDal.GetAsync(x => x.Name.ToLower().Contains(creationDto.Name.ToLower()));
-            if (checkByName != null)
+
+            var checkAnnounceById = await homeAnnounceDal.GetAsync(x =>x.Id==uploadDto.AnnounceId);
+            if (checkAnnounceById == null)
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.AlreadyExist });
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.HomeAnnounceEmpty });
             }
 
-            var mapForCreate = mapper.Map<HomeAnnouncePhoto>(creationDto);
-            var createPhoto = await homeAnnouncePhotoDal.Add(mapForCreate);
+            var uploadFile = await upload.Upload(uploadDto.File, "homeannounce");
+
+            var mapForCreate = new HomeAnnouncePhotoForCreationDto();
+            mapForCreate.Name = uploadFile.Name;
+            mapForCreate.FullPath = uploadFile.FullPath;
+            mapForCreate.HomeAnnounceId=uploadDto.AnnounceId;
+            mapForCreate.IsConfirm=true;
+            var mapForDb=mapper.Map<HomeAnnouncePhoto>(mapForCreate);
+            var createPhoto = await homeAnnouncePhotoDal.Add(mapForDb);
             return mapper.Map<HomeAnnouncePhoto, HomeAnnouncePhotoForReturnDto>(createPhoto);
         }
 
-        [SecuredOperation("Sudo,HomeAnnouncePhotos.Delete", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnouncePhotos.Delete,HomeAnnounces.All", Priority = 1)]
         public async Task<HomeAnnouncePhotoForReturnDto> Delete(int Id)
         {
+            
             var checkByIdFromRepo = await homeAnnouncePhotoDal.GetAsync(x => x.Id == Id);
             if (checkByIdFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
 
+            var deleteFileFromFolder=await upload.DeleteFile(checkByIdFromRepo.Name,"homeannounce");
+
             await homeAnnouncePhotoDal.Delete(checkByIdFromRepo);
             return mapper.Map<HomeAnnouncePhoto, HomeAnnouncePhotoForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,HomeAnnouncePhotos.List", Priority = 1)]
-        public async Task<List<HomeAnnouncePhotoForReturnDto>> GetListAsync()
+        [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
+        public async Task<List<HomeAnnouncePhotoForReturnDto>> GetListAsync(int announceId)
         {
-            var getListFromRepo = await homeAnnouncePhotoDal.GetListAsync();
+            var getListFromRepo = await homeAnnouncePhotoDal.GetListAsync(x=>x.HomeAnnounceId==announceId);
             if (getListFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
@@ -66,7 +83,7 @@ namespace Business.Concrete
             return mapper.Map<List<HomeAnnouncePhoto>, List<HomeAnnouncePhotoForReturnDto>>(getListFromRepo);
         }
 
-        [SecuredOperation("Sudo,HomeAnnouncePhotos.Update", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnouncePhotos.Update,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnouncePhotoValidator), Priority = 2)]
         public async Task<HomeAnnouncePhotoForReturnDto> Update(HomeAnnouncePhotoForCreationDto updateDto)
         {

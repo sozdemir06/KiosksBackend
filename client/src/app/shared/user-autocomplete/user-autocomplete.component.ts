@@ -6,11 +6,13 @@ import {
   Output,
   Input,
   EventEmitter,
+  ViewChild,
 } from '@angular/core';
 import { UserStore } from 'src/app/core/services/stores/user-store';
 import { IUserList } from '../models/IUser';
 import { FormControl } from '@angular/forms';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-user-autocomplete',
@@ -51,6 +53,8 @@ export class UserAutocompleteComponent
         this.userStore.onGetUsers();
       });
   }
+
+
 
   ngOnDestroy() {
     this.unsubscribeFromAutoComplete.unsubscribe();

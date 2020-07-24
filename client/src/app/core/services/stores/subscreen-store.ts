@@ -8,6 +8,7 @@ import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 import { map, catchError, tap } from 'rxjs/operators';
 import produce from 'immer';
 import { ActivatedRoute } from '@angular/router';
+import { error } from 'protractor';
 
 @Injectable({ providedIn: 'root' })
 export class SubScreenStore {
@@ -21,11 +22,11 @@ export class SubScreenStore {
     private notifyService: NotifyService,
     private route:ActivatedRoute
   ) {
+      
     
-   
   }
 
-   getList(screenId:number) {
+ getList(screenId:number) {
     const list$ = this.httpClient
       .get<ISubScreen[]>(this.apiUrl + 'subscreens/')
       .pipe(
@@ -130,5 +131,15 @@ export class SubScreenStore {
       );
 
     this.loadingservice.showLoaderUntilCompleted(list$).subscribe();
+  }
+
+  getScreenListForFilters():Observable<ISubScreen[]>{
+    return this.httpClient.get<ISubScreen[]>(this.apiUrl+"subscreens").pipe(
+      map(subscreens=>subscreens.filter(x=>x.status==true)),
+      catchError(error=>{
+        this.notifyService.notify('error', error);
+        return throwError(error);
+      })
+    )
   }
 }

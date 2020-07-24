@@ -5,11 +5,17 @@ import { HomeAnnounceListComponent } from './home-announce-list/home-announce-li
 import { EditHomeAnnounceDialogComponent } from './edit-home-announce-dialog/edit-home-announce-dialog.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { Routes, RouterModule } from '@angular/router';
+import { HomeAnnounceDetailComponent } from './home-announce-detail/home-announce-detail.component';
+import { HomeAnnouncePhotoListComponent } from './home-announce-photo-list/home-announce-photo-list.component';
 
 export const routes:Routes=[
   {
     path:"",
-    component:HomeAnnounceComponent
+    component:HomeAnnounceComponent,
+  },
+  {
+    path:"detail/:id",
+    component:HomeAnnounceDetailComponent
   }
 ]
 
@@ -18,6 +24,8 @@ export const routes:Routes=[
     HomeAnnounceComponent,
     HomeAnnounceListComponent,
     EditHomeAnnounceDialogComponent,
+    HomeAnnounceDetailComponent,
+    HomeAnnouncePhotoListComponent,
   ],
   imports: [
     SharedModule,
@@ -28,6 +36,7 @@ export const routes:Routes=[
     HomeAnnounceComponent,
     HomeAnnounceListComponent,
     EditHomeAnnounceDialogComponent,
+    HomeAnnounceDetailComponent
   ]
 })
 export class HomeAnnouncesModule {}

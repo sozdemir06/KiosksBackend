@@ -1,7 +1,9 @@
 <mat-chip-list aria-label="Fish selection">
-    <mat-chip color="warn" selected *ngIf="checkIsPublish()">Yayında...</mat-chip>
+    <mat-chip color="primary" selected *ngIf="checkIsNowPublish()">Şuan Yayında</mat-chip>
     <mat-chip color="accent" selected *ngIf="checkIsNew()">Onay bekliyor...</mat-chip>
-    <mat-chip color="primary" selected *ngIf="checkIsReject()">Rededildi...</mat-chip>
-    <mat-chip color="accent" selected *ngIf="checkExpireDate()">Yayın tarihi Geçti</mat-chip>
+    <mat-chip color="warn" selected *ngIf="checkIsReject()">Rededildi...</mat-chip>
+    <mat-chip color="warn" selected *ngIf="checkUnpublish()">Yayından kaldırıldı...</mat-chip>
+    <mat-chip color="accent" selected *ngIf="checkExpireDate()">Yayın tarihi Geçti...</mat-chip>
+    <mat-chip color="primary" selected *ngIf="checkIsNextDatePublish()">{{startDate | timeAgo}}(Yayında..)</mat-chip>
 </mat-chip-list>
 

@@ -3,4 +3,5 @@ export interface IHomeAnnouncePhoto{
     name:string;
     fullPath:string;
     isConfirm:boolean;
+    homeAnnounceId:number;
 }

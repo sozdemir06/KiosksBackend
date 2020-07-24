@@ -158,7 +158,14 @@ export class EditHomeAnnounceDialogComponent implements OnInit {
 
           this.homeAnnounceStore.create(model);
           this.dialogRef.close();
-          console.log(model);
+        }else if(this.mode=="update"){
+          const model:IHomeAnnounce={
+            ...this.homeAnnounceForm.value,
+            id:this.item?.id
+          }
+
+          this.homeAnnounceStore.update(model);
+          this.dialogRef.close();
         }
       }
     }

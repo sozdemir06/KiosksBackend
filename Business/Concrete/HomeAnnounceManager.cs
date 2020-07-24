@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,HomeAnnounces.Create", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounces.Create,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnounceValidator), Priority = 2)]
         public async Task<HomeAnnounceForReturnDto> Create(HomeAnnounceForCreationDto creationDto)
         {
@@ -39,13 +40,17 @@ namespace Business.Concrete
             }
 
             var mapForCreate = mapper.Map<HomeAnnounce>(creationDto);
+            mapForCreate.SlideId = Guid.NewGuid();
+            mapForCreate.Created = DateTime.Now;
+
             var createHomeAnnounce = await homeAnnounceDal.Add(mapForCreate);
-            var spec=new HomeAnnounceWithPhotoAndUserSpecification(createHomeAnnounce.Id);
-            var getAnnounceFromRepo=await homeAnnounceDal.GetEntityWithSpecAsync(spec);
+            var spec = new HomeAnnounceWithPhotoAndUserSpecification(createHomeAnnounce.Id);
+
+            var getAnnounceFromRepo = await homeAnnounceDal.GetEntityWithSpecAsync(spec);
             return mapper.Map<HomeAnnounce, HomeAnnounceForReturnDto>(getAnnounceFromRepo);
         }
 
-        [SecuredOperation("Sudo,HomeAnnounces.Delete", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounces.Delete,HomeAnnounces.All", Priority = 1)]
         public async Task<HomeAnnounceForReturnDto> Delete(int Id)
         {
             var getByIdFromRepo = await homeAnnounceDal.GetAsync(x => x.Id == Id);
@@ -58,7 +63,7 @@ namespace Business.Concrete
             return mapper.Map<HomeAnnounce, HomeAnnounceForReturnDto>(getByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,HomeAnnounces.List", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
         public async Task<Pagination<HomeAnnounceForReturnDto>> GetListAsync(HomeAnnounceParams queryParams)
         {
             var spec = new HomeAnnounceWithPhotoAndUserSpecification(queryParams);
@@ -82,7 +87,28 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,HomeAnnounces.Update", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounces.Publish,HomeAnnounces.All", Priority = 1)]
+        [ValidationAspect(typeof(HomeAnnounceValidator), Priority = 2)]
+        public async Task<HomeAnnounceForReturnDto> Publish(HomeAnnounceForCreationDto updateDto)
+        {
+            var checkFromRepo = await homeAnnounceDal.GetAsync(x => x.Id == updateDto.Id);
+            if (checkFromRepo == null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
+            }
+
+            var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
+                mapForUpdate.Updated=DateTime.Now;    
+            await homeAnnounceDal.Update(mapForUpdate);
+
+            var spec = new HomeAnnounceWithPhotoAndUserSpecification(updateDto.Id);
+            var getAnnounceWithUserFromRepo = await homeAnnounceDal.GetEntityWithSpecAsync(spec);
+
+            return mapper.Map<HomeAnnounce, HomeAnnounceForReturnDto>(getAnnounceWithUserFromRepo);
+
+        }
+
+        [SecuredOperation("Sudo,HomeAnnounces.Update,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnounceValidator), Priority = 2)]
         public async Task<HomeAnnounceForReturnDto> Update(HomeAnnounceForCreationDto updateDto)
         {
@@ -93,8 +119,13 @@ namespace Business.Concrete
             }
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
-            var updateHomeAnnounce = await homeAnnounceDal.Update(mapForUpdate);
-            return mapper.Map<HomeAnnounce, HomeAnnounceForReturnDto>(mapForUpdate);
+             mapForUpdate.Updated=DateTime.Now;    
+            await homeAnnounceDal.Update(mapForUpdate);
+
+            var spec = new HomeAnnounceWithPhotoAndUserSpecification(updateDto.Id);
+            var getAnnounceWithUserFromRepo = await homeAnnounceDal.GetEntityWithSpecAsync(spec);
+
+            return mapper.Map<HomeAnnounce, HomeAnnounceForReturnDto>(getAnnounceWithUserFromRepo);
         }
     }
 }

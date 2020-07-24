@@ -1,0 +1,43 @@
+<ng-container *ngIf="user">
+    <mat-list>
+        <mat-list-item *ngIf="user?.photoUrl;else defaultAvatar">
+            <img matListAvatar src="{{user?.photoUrl}}" alt="User Avatar">
+            <h3 matLine>{{user?.firstName+" "+user?.lastName}}</h3>
+            <p matLine>
+              <span class="demo-2">{{user?.degree?.name+"-"+user?.campus?.name}}</span>
+            </p>
+          </mat-list-item>
+        <ng-template #defaultAvatar>
+            <mat-list-item >
+                <img matListAvatar src="assets/user/avatar.png" alt="User Avatar">
+                <h3 matLine>{{user?.firstName+" "+user?.lastName}}</h3>
+                <p matLine>
+                  <span class="demo-2">{{user?.degree?.name+"-"+user?.campus?.name}}</span>
+                </p>
+              </mat-list-item>
+        </ng-template>
+      </mat-list>
+      <mat-list>
+        <ng-container *ngIf="user?.department">
+            <mat-list-item>{{user?.department?.name}}</mat-list-item>
+            <mat-divider></mat-divider>
+        </ng-container>
+       
+        <ng-container *ngIf="user?.email">
+            <mat-list-item>{{user?.email}}</mat-list-item>
+            <mat-divider></mat-divider>
+        </ng-container>
+      
+        <ng-container *ngIf="user?.interPhone">
+            <mat-list-item>{{user?.interPhone}}</mat-list-item>
+            <mat-divider></mat-divider>
+        </ng-container>
+       
+        <ng-container *ngIf="user?.gsmPhone">
+            <mat-list-item>{{user?.gsmPhone}}</mat-list-item>
+        </ng-container>
+      
+       </mat-list>
+</ng-container>
+
+

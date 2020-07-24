@@ -89,7 +89,7 @@ const routes:Routes=[
         {
           path:"home-announces",
           loadChildren:()=>import("../home-announces/home-announces.module").then(m=>m.HomeAnnouncesModule),
-          data:{roles:['Sudo','HomeAnnounces.List']}
+          data:{roles:['Sudo','HomeAnnounces.List,HomeAnnounces.All']}
         }
 
     ]

@@ -1,0 +1,137 @@
+<ng-container *ngIf="homeAnnounce$ | async as announce">
+  <div class="container mt-3">
+    <mat-card>
+      <div class="row">
+        <div class="col-md-6">
+          <button mat-raised-button color="primary" (click)="goBack()">
+            <mat-icon>keyboard_return</mat-icon>
+            Geri Dön
+          </button>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex align-items-center justify-content-end">
+            <div class="d-flex align-items-center">
+              <app-announce-status
+                [isNew]="announce?.isNew"
+                [isPublish]="announce?.isPublish"
+                [reject]="announce?.reject"
+                [startDate]="announce?.publishStartDate"
+                [finishDate]="announce?.publishFinishDate"
+              ></app-announce-status>
+              <app-announce-detail-menu
+                [isPublish]="announce?.isPublish"
+                [isNew]="announce?.isNew"
+                [isReject]="announce?.reject"
+                [startDate]="announce?.publishStartDate"
+                [finishDate]="announce?.publishFinishDate"
+                [roleForPublish]="roleForPublish"
+                [roleForUpdate]="roleForUpdate"
+                (onPublish)="onPublish(announce)"
+                (onReject)="onReject(announce)"
+                (onUpdate)="onUpdate(announce)"
+                (onDelete)="onDelete()"
+                (unPublish)="unPublish(announce)"
+                
+
+              >
+              </app-announce-detail-menu>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-card>
+          <app-user-card [user]="announce?.user"></app-user-card>
+        </mat-card>
+      </div>
+      <div class="col-md-4">
+        <mat-card>
+          <app-image-slider
+            [images]="(homeAnnounce$| async)?.homeAnnouncePhotos"
+          ></app-image-slider>
+        </mat-card>
+      </div>
+      <div class="col-md-4">
+        <mat-card>
+          <mat-card-subtitle>İlan Bilgileri</mat-card-subtitle>
+          <div class="d-flex p-1">
+            <small><strong>Fiyat:</strong></small>
+            <small class="ml-2 text-danger">{{
+              announce?.price | currency: "₺"
+            }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>Oda Sayısı:</strong></small>
+            <small class="ml-2">{{ announce?.numberOfRoomName }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>Isıtma Tipi:</strong></small>
+            <small class="ml-2">{{ announce?.heatingtypeName }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>Binanın Yaşı:</strong></small>
+            <small class="ml-2">{{ announce?.buildingAgeName }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>Bulundu Kat:</strong></small>
+            <small class="ml-2">{{ announce?.flatOfHomeName }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>&#13217; :</strong></small>
+            <small class="ml-2">{{ announce?.squareMeters }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>Oluşturulma Tarihi:</strong></small>
+            <small class="ml-2">{{ announce?.created | date: "short" }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2 pb-3">
+            <small><strong>Yayın Tarihleri:</strong></small>
+            <small class="ml-2">
+              {{ announce?.publishStartDate | date: "short" }}-
+              {{ announce?.publishFinishDate | date: "short" }}
+            </small>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-2">
+    <mat-card>
+      <mat-tab-group animationDuration="0ms" dynamicHeight>
+        <mat-tab label="İlan Açıklaması">
+          <p class="mt-5 w-50 text-justify">{{ announce?.description }}</p>
+        </mat-tab>
+        <mat-tab label="İlan Fotoğrafları">
+          <app-loading></app-loading>
+          <app-home-announce-photo-list
+            [images]="(homeAnnounce$ | async)?.homeAnnouncePhotos"
+            [announceId]="announceId"
+            [roleForUpdate]="roleForUpdatePhoto"
+            [roleForDelete]="roleForDeletePhoto"
+          ></app-home-announce-photo-list>
+          <app-upload
+            [apiUrl]="'http://localhost:5000/api/HomeAnnouncePhoto'"
+            [announceId]="announceId"
+            [roleForUpload]="roleForAddPhoto"
+            (uploadResult)="uploadResult($event)"
+
+          ></app-upload>
+        </mat-tab>
+        <mat-tab label="Yayın Ekranları">
+          <span>Yayın Ekranları</span>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </div>
+</ng-container>

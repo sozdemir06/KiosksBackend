@@ -1,0 +1,8 @@
+<ng-container  *ngIf="images.length>0;else defaultTemplate">
+    <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+</ng-container>
+<ng-template #defaultTemplate>
+    <ngx-gallery [options]="galleryOptions" [images]="defaultImage"></ngx-gallery>
+</ng-template>
+
+

@@ -20,12 +20,16 @@
           </div>
           <div class="col-md-4 col-sm-4 col-lg-4">
             <div class="">
-              <button mat-icon-button>
-                <mat-icon [matBadge]="(homeAnnounceStore.homeAnnounces$ | async)?.data.length" matBadgeColor="warn" matBadgeSize="small"
-                  >done_outline</mat-icon
+              <button mat-icon-button (click)="onWaitingForConfirm()">
+                <mat-icon 
+                [matBadge]="(homeAnnounceStore.getNewAnnounceLength() | async)" 
+                matBadgeColor="warn" 
+                matBadgeSize="small"
+                
+                  >hourglass_empty</mat-icon
                 >
               </button>
-              <button mat-icon-button (click)="onCreateNew()">
+              <button mat-icon-button (click)="onCreateNew()" *appHasRole="roleForCreate">
                 <mat-icon>create</mat-icon>
               </button>
               <button mat-icon-button (click)="onReset()">
@@ -35,7 +39,11 @@
                 <mat-icon>filter_list</mat-icon>
               </button>
               <mat-menu #toolbarFilterList="matMenu">
-                <button mat-menu-item></button>
+                <ng-container *ngIf="(subscreens$ | async) as subscreens">
+                  <button mat-menu-item *ngFor="let screen of subscreens" (click)="filterBySubScreen(screen?.id)">
+                    {{screen?.name}}
+                  </button>
+                </ng-container>
               </mat-menu>
             </div>
           </div>
@@ -48,7 +56,12 @@
     <div class="col-md-12 col-sm-12 col-lg-12">
       <app-loading></app-loading>
         <app-home-announce-list [dataSource]="(homeAnnounceStore.homeAnnounces$ | async)?.data"></app-home-announce-list>
-    </div>
+        <app-pager 
+        [pageSize]="(homeAnnounceStore.homeAnnounces$ | async)?.pageSize"
+        [totalCount]="(homeAnnounceStore.homeAnnounces$ | async)?.count"
+        (pageChange)="onPageChange($event)"
+        ></app-pager>
+      </div>
   </div>
 
 

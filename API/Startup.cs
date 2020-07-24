@@ -82,6 +82,7 @@ namespace API
             }
 
             //app.UseHttpsRedirection();
+            app.UseStaticFiles();
             seedData.SeedAsync();
             app.UseRouting();
             app.UseAuthentication();

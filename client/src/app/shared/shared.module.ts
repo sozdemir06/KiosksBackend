@@ -14,6 +14,13 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { UserAutocompleteComponent } from './user-autocomplete/user-autocomplete.component';
 import { TimeAgoPipe } from './pipes/time-ago-pipe';
 import { AnnounceStatusComponent } from './announce-status/announce-status.component';
+import { ShortenPipe } from './pipes/shorten-pipe';
+import { AnnounceDetailMenuComponent } from './announce-detail-menu/announce-detail-menu.component';
+import { UserCardComponent } from './user-card/user-card.component';
+import { ImageSliderComponent } from './image-slider/image-slider.component';
+import { NgxGalleryModule} from "ngx-gallery-9";
+import { UploadComponent } from './upload/upload.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +33,12 @@ import { AnnounceStatusComponent } from './announce-status/announce-status.compo
     HasRoleDirective,
     UserAutocompleteComponent,
     TimeAgoPipe,
-    AnnounceStatusComponent
+    ShortenPipe,
+    AnnounceStatusComponent,
+    AnnounceDetailMenuComponent,
+    UserCardComponent,
+    ImageSliderComponent,
+    UploadComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +46,8 @@ import { AnnounceStatusComponent } from './announce-status/announce-status.compo
     MatProgressSpinnerModule,
     MaterialModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    NgxGalleryModule
   ],
 
   exports: [
@@ -53,7 +66,12 @@ import { AnnounceStatusComponent } from './announce-status/announce-status.compo
     OwlNativeDateTimeModule,
     UserAutocompleteComponent,
     TimeAgoPipe,
-    AnnounceStatusComponent
+    ShortenPipe,
+    AnnounceStatusComponent,
+    AnnounceDetailMenuComponent,
+    UserCardComponent,
+    ImageSliderComponent,
+    UploadComponent
   ],
 })
 export class SharedModule {}

@@ -19,6 +19,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 
@@ -44,7 +45,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatChipsModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatProgressBarModule
     
   ],
   exports: [
@@ -66,7 +68,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatChipsModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatProgressBarModule
   ],
 })
 export class MaterialModule {}

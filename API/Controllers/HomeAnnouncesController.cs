@@ -37,6 +37,12 @@ namespace API.Controllers
             return await homeAnnounceService.Update(updateDto);
         }
 
+        [HttpPut("publish")]
+        public async Task<ActionResult<HomeAnnounceForReturnDto>> Publish(HomeAnnounceForCreationDto updateDto)
+        {
+            return await homeAnnounceService.Publish(updateDto);
+        }
+
         [HttpDelete("{announceId}")]
         public async Task<ActionResult<HomeAnnounceForReturnDto>> Delete(int announceId)
         {

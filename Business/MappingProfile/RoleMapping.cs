@@ -67,6 +67,16 @@ namespace Business.MappingProfile
             CreateMap<HomeAnnouncePhoto, HomeAnnouncePhotoForReturnDto>();
             CreateMap<HomeAnnouncePhotoForCreationDto, HomeAnnouncePhoto>();
 
+            CreateMap<VehicleAnnounce, VehicleAnnounceForReturnDto>();
+            CreateMap<VehicleAnnounce, VehicleAnnounceForDetailDto>();
+            CreateMap<VehicleAnnounceForCreationDto, VehicleAnnounce>();
+
+            CreateMap<VehicleAnnounceSubScreen, VehicleAnnounceSubScreenForReturnDto>();
+            CreateMap<VehicleAnnounceSubScreenForCreationDto, VehicleAnnounceSubScreen>();
+
+            CreateMap<VehicleAnnouncePhoto, VehicleAnnouncePhotoForReturnDto>();
+            CreateMap<VehicleAnnouncePhotoForCreationDto, VehicleAnnouncePhoto>();
+
         }
     }
 }

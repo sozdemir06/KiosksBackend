@@ -28,7 +28,6 @@ export interface IHomeAnnounce{
     reject:boolean;
     isPublish:boolean;
     homeAnnouncePhotos:IHomeAnnouncePhoto[];
-    homeAnnounceSubScreens:IHomeAnnounceSubScreen[];
     user:IUserList;
 
   

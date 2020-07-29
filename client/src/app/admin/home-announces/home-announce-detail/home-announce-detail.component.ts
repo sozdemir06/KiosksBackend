@@ -9,6 +9,10 @@ import { HomeAnnouncePhotoStore } from 'src/app/core/services/stores/home-announ
 import { MatDialog } from '@angular/material/dialog';
 import { EditHomeAnnounceDialogComponent } from '../edit-home-announce-dialog/edit-home-announce-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { SubScreenStore } from 'src/app/core/services/stores/subscreen-store';
+import { ISubScreen } from 'src/app/shared/models/ISubScreen';
+import { IHomeAnnounceSubScreen } from 'src/app/shared/models/IHomeAnnounceSubScreen';
+import { HomeAnnounceSubScreenStore } from 'src/app/core/services/stores/home-announce-subscreen-store';
 
 @Component({
   selector: 'app-home-announce-detail',
@@ -29,13 +33,15 @@ export class HomeAnnounceDetailComponent implements OnInit {
     private location: Location,
     public homeAnnounceStore: HomeAnnounceStore,
     public homeAnnouncePhotoStore: HomeAnnouncePhotoStore,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public homeAnnounceSubScreenStore:HomeAnnounceSubScreenStore
   ) {}
 
   ngOnInit(): void {
     const announceId: number = +this.route.snapshot.paramMap.get('id');
     this.announceId = announceId;
     this.homeAnnounce$ = this.homeAnnounceStore.getAnnounceById(announceId);
+    this.homeAnnounceSubScreenStore.getSubScreenByAnnounceId(announceId);
   }
 
   goBack() {
@@ -117,5 +123,16 @@ export class HomeAnnounceDetailComponent implements OnInit {
         this.homeAnnounceStore.publish(model);
       }
     });
+  }
+
+  onSelectSubScreen(subscreen:ISubScreen){
+    const model:Partial<IHomeAnnounceSubScreen>={
+      homeAnnounceId:this.announceId,
+      subScreenId:subscreen?.id,
+      screenId:subscreen?.screenId
+    };
+
+    this.homeAnnounceSubScreenStore.create(this.announceId,model);
+
   }
 }

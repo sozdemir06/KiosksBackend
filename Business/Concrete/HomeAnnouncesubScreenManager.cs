@@ -11,6 +11,7 @@ using Core.Aspects.AutoFac.Validation;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using DataAccess.Abstract;
+using DataAccess.EntitySpecification.HomeAnnounceSubScreenSpecification;
 using Entities.Dtos;
 
 namespace Business.Concrete
@@ -19,10 +20,22 @@ namespace Business.Concrete
     {
         private readonly IHomeAnnounceSubScreenDal homeAnnounceSubScreenDal;
         private readonly IMapper mapper;
-        public HomeAnnouncesubScreenManager(IHomeAnnounceSubScreenDal homeAnnounceSubScreenDal, IMapper mapper)
+        private readonly IHomeAnnounceDal homeAnnounceDal;
+        private readonly IScreenDal screenDal;
+        private readonly ISubSCreenDal subSCreenDal;
+
+        public HomeAnnouncesubScreenManager(IHomeAnnounceSubScreenDal homeAnnounceSubScreenDal, 
+            IMapper mapper, 
+            IHomeAnnounceDal homeAnnounceDal,IScreenDal screenDal,ISubSCreenDal subSCreenDal
+         
+            )
         {
+            this.homeAnnounceDal = homeAnnounceDal;
+            this.screenDal = screenDal;
+            this.subSCreenDal = subSCreenDal;
             this.mapper = mapper;
             this.homeAnnounceSubScreenDal = homeAnnounceSubScreenDal;
+        
 
         }
 
@@ -30,15 +43,43 @@ namespace Business.Concrete
         [ValidationAspect(typeof(HomeAnnounceSubsCreenValidator), Priority = 2)]
         public async Task<HomeAnnounceSubScreenForReturnDto> Create(HomeAnnounceSubScreenForCreationDto creationDto)
         {
-            var checkByName = await homeAnnounceSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId);
-            if (checkByName != null)
+            var checkById = await homeAnnounceSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId);
+            if (checkById != null)
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.AlreadyExist });
+                throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.SubScreenAlreadyExist });
             }
 
-            var mapForCreate = mapper.Map<HomeAnnounceSubScreen>(creationDto);
-            var createPhoto = await homeAnnounceSubScreenDal.Add(mapForCreate);
-            return mapper.Map<HomeAnnounceSubScreen, HomeAnnounceSubScreenForReturnDto>(createPhoto);
+            var subScreenFromRepo=await subSCreenDal.GetAsync(x=>x.Id==creationDto.SubScreenId);
+            if(subScreenFromRepo==null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundSubSCreen });
+ 
+            }
+
+            var checkAnnounceFromRepo = await homeAnnounceDal.GetAsync(x=>x.Id==creationDto.HomeAnnounceId);
+            if(checkAnnounceFromRepo==null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundAnnounce });
+            }
+
+            var screenFromRepo= await screenDal.GetAsync(x=>x.Id==creationDto.ScreenId);
+            if(screenFromRepo==null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundScreen });
+            }
+
+            var subScreenForReturn=new HomeAnnounceSubScreen()
+            {
+                SubScreenId=subScreenFromRepo.Id,
+                ScreenId=screenFromRepo.Id,
+                HomeAnnounceId=checkAnnounceFromRepo.Id
+            };
+
+            var createSubScreen = await homeAnnounceSubScreenDal.Add(subScreenForReturn);
+            var spec=new HomeAnnounSubScreenWithSubScreenForReturnSpecification(createSubScreen.Id);
+            var getFromRepo=await homeAnnounceSubScreenDal.GetEntityWithSpecAsync(spec);
+            
+            return mapper.Map<HomeAnnounceSubScreen, HomeAnnounceSubScreenForReturnDto>(getFromRepo);
         }
 
         public async Task<HomeAnnounceSubScreenForReturnDto> Delete(int Id)
@@ -51,6 +92,19 @@ namespace Business.Concrete
 
             await homeAnnounceSubScreenDal.Delete(checkByIdFromRepo);
             return mapper.Map<HomeAnnounceSubScreen, HomeAnnounceSubScreenForReturnDto>(checkByIdFromRepo);
+        }
+
+        public async Task<List<HomeAnnounceSubScreenForReturnDto>> GetByAnnounceId(int announceId)
+        {
+              var spec=new HomeAnnounSubScreenWithSubScreenSpecification(announceId);
+              var getHomeAnnounceSubScreenByAnnounceId=await homeAnnounceSubScreenDal.ListEntityWithSpecAsync(spec);
+              if(getHomeAnnounceSubScreenByAnnounceId==null)
+              {
+                  throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound }); 
+              }
+
+              return mapper.Map<List<HomeAnnounceSubScreen>,List<HomeAnnounceSubScreenForReturnDto>>(getHomeAnnounceSubScreenByAnnounceId);
+
         }
 
         public async Task<List<HomeAnnounceSubScreenForReturnDto>> GetListAsync()

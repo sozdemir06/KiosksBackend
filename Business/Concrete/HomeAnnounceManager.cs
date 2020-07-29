@@ -22,8 +22,10 @@ namespace Business.Concrete
     {
         private readonly IHomeAnnounceDal homeAnnounceDal;
         private readonly IMapper mapper;
-        public HomeAnnounceManager(IHomeAnnounceDal homeAnnounceDal, IMapper mapper)
+        private readonly IHomeAnnounceSubScreenDal homeAnnounceSubScreenDal;
+        public HomeAnnounceManager(IHomeAnnounceDal homeAnnounceDal, IMapper mapper, IHomeAnnounceSubScreenDal homeAnnounceSubScreenDal)
         {
+            this.homeAnnounceSubScreenDal = homeAnnounceSubScreenDal;
             this.mapper = mapper;
             this.homeAnnounceDal = homeAnnounceDal;
 
@@ -97,8 +99,14 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
 
+            var checkHomeAnnounceSubScreenForPublish = await homeAnnounceSubScreenDal.GetListAsync(x=>x.HomeAnnounceId==updateDto.Id);
+            if(checkHomeAnnounceSubScreenForPublish==null)
+            {
+               throw new RestException(HttpStatusCode.BadRequest, new { NotSelectSubScreen = Messages.NotSelectSubScreen }); 
+            }
+
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
-                mapForUpdate.Updated=DateTime.Now;    
+            mapForUpdate.Updated = DateTime.Now;
             await homeAnnounceDal.Update(mapForUpdate);
 
             var spec = new HomeAnnounceWithPhotoAndUserSpecification(updateDto.Id);
@@ -119,7 +127,7 @@ namespace Business.Concrete
             }
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
-             mapForUpdate.Updated=DateTime.Now;    
+            mapForUpdate.Updated = DateTime.Now;
             await homeAnnounceDal.Update(mapForUpdate);
 
             var spec = new HomeAnnounceWithPhotoAndUserSpecification(updateDto.Id);

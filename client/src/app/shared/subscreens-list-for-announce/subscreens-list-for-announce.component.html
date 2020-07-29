@@ -1,0 +1,57 @@
+<ng-container *ngIf="(subscreens$ | async)?.length > 0; else defaultTemplate">
+  <table
+    mat-table
+    class="mat-elevation-z8 w-100"
+    [dataSource]="subscreens$ | async"
+  >
+    <!-- Column -->
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef>Ekran Adı</th>
+      <td mat-cell *matCellDef="let element">
+        <div>
+          <span>{{ element?.name }}</span>
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="Position">
+      <th mat-header-cell *matHeaderCellDef>Pozisyon</th>
+      <td mat-cell *matCellDef="let element">
+        <div>
+          <span>{{ element?.position }}</span>
+        </div>
+      </td>
+    </ng-container> -->
+
+    <!-- Column -->
+    <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef>Durum</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-chip-list>
+          <mat-chip selected [color]="'primary'" *ngIf="element?.status">
+            Aktif
+          </mat-chip>
+          <mat-chip selected [color]="'warn'" *ngIf="!element?.status">
+            Pasif
+          </mat-chip>
+        </mat-chip-list>
+      </td>
+    </ng-container>
+    <!--Column -->
+    <ng-container matColumnDef="Actions">
+      <th mat-header-cell *matHeaderCellDef>Ekle</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="onSelectScreen(element)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</ng-container>
+
+<ng-template #defaultTemplate>
+  <h4 class="text-info">Bu ilan için henüz yayın ekranı seçilmemiş...</h4>
+</ng-template>

@@ -10,5 +10,6 @@ namespace Core.Entities.Concrete
 
         public ICollection<VehicleBrand> VehicleBrands { get; set; }
         public ICollection<VehicleModel> VehicleModels { get; set; }
+        public ICollection<VehicleAnnounce> VehicleAnnounces { get; set; }
     }
 }

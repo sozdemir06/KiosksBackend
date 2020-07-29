@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Entities;
 
 namespace Core.Entities.Concrete
@@ -10,6 +11,7 @@ namespace Core.Entities.Concrete
         public int VehicleBrandId { get; set; }
         public VehicleCategory VehicleCategories { get; set; }
         public int VehicleCategoryId { get; set; }
+         public ICollection<VehicleAnnounce> VehicleAnnounces { get; set; }
 
         
         

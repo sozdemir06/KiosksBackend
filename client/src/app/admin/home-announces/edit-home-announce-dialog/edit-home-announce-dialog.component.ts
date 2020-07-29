@@ -161,7 +161,10 @@ export class EditHomeAnnounceDialogComponent implements OnInit {
         }else if(this.mode=="update"){
           const model:IHomeAnnounce={
             ...this.homeAnnounceForm.value,
-            id:this.item?.id
+            id:this.item?.id,
+            isNew:this.item?.isNew,
+            reject:this.item?.reject,
+            isPublish:this.item?.isPublish
           }
 
           this.homeAnnounceStore.update(model);

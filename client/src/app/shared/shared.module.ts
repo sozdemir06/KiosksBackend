@@ -20,6 +20,7 @@ import { UserCardComponent } from './user-card/user-card.component';
 import { ImageSliderComponent } from './image-slider/image-slider.component';
 import { NgxGalleryModule} from "ngx-gallery-9";
 import { UploadComponent } from './upload/upload.component';
+import { SubscreensListForAnnounceComponent } from './subscreens-list-for-announce/subscreens-list-for-announce.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { UploadComponent } from './upload/upload.component';
     UserCardComponent,
     ImageSliderComponent,
     UploadComponent,
+    SubscreensListForAnnounceComponent,
   ],
   imports: [
     CommonModule,
@@ -71,7 +73,8 @@ import { UploadComponent } from './upload/upload.component';
     AnnounceDetailMenuComponent,
     UserCardComponent,
     ImageSliderComponent,
-    UploadComponent
+    UploadComponent,
+    SubscreensListForAnnounceComponent
   ],
 })
 export class SharedModule {}

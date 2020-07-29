@@ -10,6 +10,8 @@ import { map, catchError, tap, publish } from 'rxjs/operators';
 import produce from 'immer';
 import { IPagination } from 'src/app/shared/models/IPagination';
 import { IHomeAnnouncePhoto } from 'src/app/shared/models/IHomeAnnouncePhoto';
+import { ISubScreen } from 'src/app/shared/models/ISubScreen';
+import { IHomeAnnounceSubScreen } from 'src/app/shared/models/IHomeAnnounceSubScreen';
 
 @Injectable({ providedIn: 'root' })
 export class HomeAnnounceStore {
@@ -188,6 +190,7 @@ export class HomeAnnounceStore {
      this.subject.next(deletePhoto);
   }
 
+  
   //Get Announce By Id for Detail
   getAnnounceById(id: number): Observable<IHomeAnnounce> {
     return this.homeAnnounces$.pipe(

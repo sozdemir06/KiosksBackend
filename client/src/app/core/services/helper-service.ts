@@ -5,7 +5,6 @@ import { NotifyService } from './notify-service';
 @Injectable({ providedIn: 'root' })
 export class HelperService {
   constructor(
-      private httpClient: HttpClient,
       private notifyService:NotifyService
       ) {}
 
@@ -22,19 +21,24 @@ export class HelperService {
 
   checkPublishDate(dt1:Date,dt2:Date):boolean{
       let passCheck:boolean=true;
+      dt1=new Date(dt1);
+      dt2=new Date(dt2);
       if(dt1>dt2){
-          this.notifyService.notify("error","Başlangıç tarihi bitiş tarihinden büyük olamaz...")
+          this.notifyService.notify("error","Başlangıç tarihi bitiş tarihinden büyük olamaz...");
           passCheck=false;
+          return;
       }
       if(dt1==dt2){
         this.notifyService.notify("error","Başlangıç ve Bitiş tarihleri birbirine eşit olamaz...");
         passCheck=false;
+        return;
       }
       
-      const dateNow=this.dateToLocaleFormat(new Date());
+      const dateNow=new Date();
       if(dateNow>dt2){
         this.notifyService.notify("error","Yayın için ileri bir tarih seçmelisiniz...");
         passCheck=false;
+        return;
       }
       return passCheck;
   }

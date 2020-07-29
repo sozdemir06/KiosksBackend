@@ -7,6 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeAnnounceDetailComponent } from './home-announce-detail/home-announce-detail.component';
 import { HomeAnnouncePhotoListComponent } from './home-announce-photo-list/home-announce-photo-list.component';
+import { HomeAnnounceSubscreensComponent } from './home-announce-subscreens/home-announce-subscreens.component';
 
 export const routes:Routes=[
   {
@@ -26,6 +27,7 @@ export const routes:Routes=[
     EditHomeAnnounceDialogComponent,
     HomeAnnounceDetailComponent,
     HomeAnnouncePhotoListComponent,
+    HomeAnnounceSubscreensComponent,
   ],
   imports: [
     SharedModule,
@@ -36,7 +38,8 @@ export const routes:Routes=[
     HomeAnnounceComponent,
     HomeAnnounceListComponent,
     EditHomeAnnounceDialogComponent,
-    HomeAnnounceDetailComponent
+    HomeAnnounceDetailComponent,
+    HomeAnnounceSubscreensComponent
   ]
 })
 export class HomeAnnouncesModule {}

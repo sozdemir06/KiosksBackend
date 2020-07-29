@@ -462,6 +462,149 @@ namespace DataAccess.Migrations
                     b.ToTable("UserRoles");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.VehicleAnnounce", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("AnnounceType")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("character varying(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Header")
+                        .IsRequired()
+                        .HasColumnType("character varying(140)")
+                        .HasMaxLength(140);
+
+                    b.Property<bool>("IsNew")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsPublish")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("PublishFinishDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("PublishStartDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("Reject")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("SlideId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("SquareMeters")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VehicleBrandId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VehicleCategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VehicleEngineSizeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VehicleFuelTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VehicleGearTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VehicleModelId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("VehicleBrandId");
+
+                    b.HasIndex("VehicleCategoryId");
+
+                    b.HasIndex("VehicleEngineSizeId");
+
+                    b.HasIndex("VehicleFuelTypeId");
+
+                    b.HasIndex("VehicleGearTypeId");
+
+                    b.HasIndex("VehicleModelId");
+
+                    b.ToTable("VehicleAnnounces");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.VehicleAnnouncePhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("FullPath")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsConfirm")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("VehicleAnnounceId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VehicleAnnounceId");
+
+                    b.ToTable("VehicleAnnouncePhotos");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.VehicleAnnounceSubScreen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("ScreenId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SubScreenId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VehicleAnnounceId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScreenId");
+
+                    b.HasIndex("SubScreenId");
+
+                    b.HasIndex("VehicleAnnounceId");
+
+                    b.ToTable("VehicleAnnounceSubScreens");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.VehicleBrand", b =>
                 {
                     b.Property<int>("Id")
@@ -764,6 +907,81 @@ namespace DataAccess.Migrations
                     b.HasOne("Core.Entities.Concrete.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.VehicleAnnounce", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.VehicleBrand", "VehicleBrand")
+                        .WithMany("VehicleAnnounces")
+                        .HasForeignKey("VehicleBrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.VehicleCategory", "VehicleCategory")
+                        .WithMany("VehicleAnnounces")
+                        .HasForeignKey("VehicleCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.VehicleEngineSize", "VehicleEngineSize")
+                        .WithMany("VehicleAnnounces")
+                        .HasForeignKey("VehicleEngineSizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.VehicleFuelType", "VehicleFuelType")
+                        .WithMany("VehicleAnnounces")
+                        .HasForeignKey("VehicleFuelTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.VehicleGearType", "VehicleGearType")
+                        .WithMany("VehicleAnnounces")
+                        .HasForeignKey("VehicleGearTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.VehicleModel", "VehicleModel")
+                        .WithMany("VehicleAnnounces")
+                        .HasForeignKey("VehicleModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.VehicleAnnouncePhoto", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.VehicleAnnounce", "VehicleAnnounce")
+                        .WithMany("VehicleAnnouncePhotos")
+                        .HasForeignKey("VehicleAnnounceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.VehicleAnnounceSubScreen", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.Screen", "Screen")
+                        .WithMany("VehicleAnnounceSubScreens")
+                        .HasForeignKey("ScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.SubScreen", "SubScreen")
+                        .WithMany("VehicleAnnounceSubScreens")
+                        .HasForeignKey("SubScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.VehicleAnnounce", "VehicleAnnounce")
+                        .WithMany("VehicleAnnounceSubScreens")
+                        .HasForeignKey("VehicleAnnounceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

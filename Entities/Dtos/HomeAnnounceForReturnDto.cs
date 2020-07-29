@@ -29,7 +29,6 @@ namespace Entities.Dtos
         public bool Reject { get; set; }
         public bool IsPublish { get; set; }
         public ICollection<HomeAnnouncePhotoForReturnDto> HomeAnnouncePhotos { get; set; }
-        public ICollection<HomeAnnounceSubScreenForReturnDto> HomeAnnounceSubScreens { get; set; }
         public UserForListDto User { get; set; }
       
 

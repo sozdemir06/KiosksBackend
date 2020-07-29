@@ -85,6 +85,12 @@ namespace Business.Constants
         public static string NotFound=>"Kayıt bulunamadı...";
         public static string BrandNotFound=>"Araç Markası bulunamadı...";
         public static string HomeAnnounceEmpty=>"Ev ilanları listelenemedi...";
+        public static string SubScreenAlreadyExist=>"Bu İlan/Yayın için bu yayın ekranı zaten seçilmiş ...";
+        public static string NotFoundSubSCreen=>"Yayın Ekranı bulunamadı ...";
+        public static string NotFoundScreen=>"Ana Ekran bulunamadı ...";
+        public static string NotFoundAnnounce=>"İlan/Yayın bulunamadı ...";
+        public static string NotSelectSubScreen=>"İlan/Yayın'ı yayınlamak için yayın ekranı  seçmelisiniz...";
+        
 
 
     }

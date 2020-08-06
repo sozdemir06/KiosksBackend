@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IHomeAnnouncePhoto } from 'src/app/shared/models/IHomeAnnouncePhoto';
-import { HomeAnnouncePhotoStore } from 'src/app/core/services/stores/home-announce-photo-store';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { HomeAnnounceStore } from 'src/app/core/services/stores/home-announce-store';
 
 @Component({
   selector: 'app-home-announce-photo-list',
@@ -17,8 +17,8 @@ export class HomeAnnouncePhotoListComponent implements OnInit {
 @Input() roleForDelete:string[]=[];
 
   constructor(
-    private homeAnnouncePhoto:HomeAnnouncePhotoStore,
-    private dialog:MatDialog
+    private dialog:MatDialog,
+    private homeAnnounceStore:HomeAnnounceStore
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class HomeAnnouncePhotoListComponent implements OnInit {
          ...image,
          isConfirm:false
       }
-      this.homeAnnouncePhoto.update(this.announceId,photo);
+      this.homeAnnounceStore.updatePhoto(photo);
   }
 
   onConfirm(image:IHomeAnnouncePhoto){
@@ -37,7 +37,7 @@ export class HomeAnnouncePhotoListComponent implements OnInit {
       ...image,
       isConfirm:true
     }
-    this.homeAnnouncePhoto.update(this.announceId, photo);
+    this.homeAnnounceStore.updatePhoto(photo);
   }
 
   onDelete(image:IHomeAnnouncePhoto){
@@ -49,7 +49,7 @@ export class HomeAnnouncePhotoListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result=>{
       if(result){
-        this.homeAnnouncePhoto.delete(this.announceId,image);
+        this.homeAnnounceStore.deletePhoto(image);
       }
     })
       

@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 import { IHomeAnnounceSubScreen } from 'src/app/shared/models/IHomeAnnounceSubScreen';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
-import { HomeAnnounceSubScreenStore } from 'src/app/core/services/stores/home-announce-subscreen-store';
+import { HomeAnnounceStore } from 'src/app/core/services/stores/home-announce-store';
 
 @Component({
   selector: 'app-home-announce-subscreens',
@@ -11,11 +10,11 @@ import { HomeAnnounceSubScreenStore } from 'src/app/core/services/stores/home-an
   styleUrls: ['./home-announce-subscreens.component.scss']
 })
 export class HomeAnnounceSubscreensComponent implements OnInit {
-@Input() subscreens:ISubScreen[];
-displayedColumns:string[]=["Name","Status","Actions"];
+@Input() subscreens:IHomeAnnounceSubScreen[];
+displayedColumns:string[]=["Name","Actions"];
   constructor(
     private dialog:MatDialog,
-    private homeAnnounceSubscreenStore:HomeAnnounceSubScreenStore
+    private homeAnnouncestore:HomeAnnounceStore
   ) { }
 
   ngOnInit(): void {
@@ -25,12 +24,12 @@ displayedColumns:string[]=["Name","Status","Actions"];
     const dialogRef=this.dialog.open(ConfirmDialogComponent,{
       width:"45rem",
       data:{
-        message:"İlanı/Yayını bu ekrandan kaldırmak istiyormusunuz..."
+        message:`Bu Ev ilanını ${subscreen.subScreenName} adlı ekrandan kaldırmak istiyormusunuz?`
       }
     });
     dialogRef.afterClosed().subscribe(result=>{
       if(result){
-        this.homeAnnounceSubscreenStore.delete(subscreen.id);
+        this.homeAnnouncestore.removeSubScreen(subscreen);
       }
     })
   }

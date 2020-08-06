@@ -7,7 +7,6 @@ namespace DataAccess.EntitySpecification.VehicleAnnounceSpecification
 {
     public class VehicleAnnounceWithFilterForCountSpecification : BaseSpecification<VehicleAnnounce>
     {
-        private readonly VehicleAnnounceParams queryParams;
         public VehicleAnnounceWithFilterForCountSpecification(VehicleAnnounceParams queryParams)
         :base(x=>
             (

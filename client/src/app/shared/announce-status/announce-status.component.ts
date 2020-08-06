@@ -87,7 +87,7 @@ export class AnnounceStatusComponent implements OnInit {
       const dateNow = new Date();
       const finishDate = new Date(this.finishDate);
 
-      if (this.finishDate < dateNow) {
+      if (dateNow>finishDate) {
         checkMatch = true;
       }
     }

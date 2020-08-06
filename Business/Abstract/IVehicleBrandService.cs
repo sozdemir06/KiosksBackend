@@ -9,6 +9,7 @@ namespace Business.Abstract
     public interface IVehicleBrandService
     {
         Task<Pagination<VehicleBrandForReturnDto>> GetListAsync(VehicleBrandParams vehicleBrandParams);
+        Task<List<VehicleBrandForReturnDto>> GetListByCategoryId(int categoryId);
         Task<VehicleBrandForReturnDto> Create(VehicleBrandForCreationDto createDto);
         Task<VehicleBrandForReturnDto> Update(VehicleBrandForCreationDto updateDto);
         Task<VehicleBrandForReturnDto> Delete(int Id);

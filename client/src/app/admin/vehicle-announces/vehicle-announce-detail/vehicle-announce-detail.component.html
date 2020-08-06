@@ -1,0 +1,137 @@
+<ng-container *ngIf="vehicleStore.detail$ | async as announce">
+  <div class="container mt-3">
+    <mat-card>
+      <div class="row">
+        <div class="col-md-6">
+          <button mat-raised-button color="primary" (click)="goBack()">
+            <mat-icon>keyboard_return</mat-icon>
+            Geri Dön
+          </button>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex align-items-center justify-content-end">
+            <div class="d-flex align-items-center">
+              <app-announce-status
+                [isNew]="announce?.isNew"
+                [isPublish]="announce?.isPublish"
+                [reject]="announce?.reject"
+                [startDate]="announce?.publishStartDate"
+                [finishDate]="announce?.publishFinishDate"
+              ></app-announce-status>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-card>
+          <app-user-card [user]="announce?.user"></app-user-card>
+        </mat-card>
+      </div>
+      <div class="col-md-4">
+        <mat-card>
+          <app-image-slider
+            [images]="(vehicleStore.detail$ | async)?.vehicleAnnouncePhotos"
+          ></app-image-slider>
+        </mat-card>
+      </div>
+      <div class="col-md-4">
+        <mat-card>
+          <mat-card-subtitle>İlan Bilgileri</mat-card-subtitle>
+          <div class="d-flex p-1">
+            <small><strong>Fiyat:</strong></small>
+            <small class="ml-2 text-danger">{{
+              announce?.price | currency: "₺"
+            }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>Araç Kategorisi:</strong></small>
+            <small class="ml-2">{{ announce?.vehicleCategoryName }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>Marka:</strong></small>
+            <small class="ml-2">{{ announce?.vehicleBrandName }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>Model:</strong></small>
+            <small class="ml-2">{{ announce?.vehicleModelName }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>Yakıt Tipi:</strong></small>
+            <small class="ml-2">{{ announce?.vehicleFuelTypeName }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>Vites Tipi:</strong></small>
+            <small class="ml-2">{{ announce?.vehicleGearTypeName }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>Motor Hacmi:</strong></small>
+            <small class="ml-2">{{ announce?.vehicleEngineSizeName }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>Oluşturulma Tarihi:</strong></small>
+            <small class="ml-2">{{ announce?.created | date: "short" }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2 pb-3">
+            <small><strong>Yayın Tarihleri:</strong></small>
+            <small class="ml-2">
+              {{ announce?.publishStartDate | date: "short" }}-
+              {{ announce?.publishFinishDate | date: "short" }}
+            </small>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-2">
+    <mat-card>
+      <mat-tab-group animationDuration="0ms" dynamicHeight>
+        <mat-tab label="İlan Açıklaması">
+          <p class="mt-5 w-50 text-justify">{{ announce?.description }}</p>
+        </mat-tab>
+        <mat-tab label="İlan Fotoğrafları">
+          <app-loading></app-loading>
+          <app-vehicle-announce-photo-list
+            [images]="(vehicleStore.detail$ | async)?.vehicleAnnouncePhotos"
+            [announceId]="announceId"
+            [roleForUpdate]="roleForUpdatePhoto"
+            [roleForDelete]="roleForDeletePhoto"
+          ></app-vehicle-announce-photo-list>
+          <app-upload
+            [apiUrl]="'http://localhost:5000/api/VehicleAnnouncePhotos'"
+            [announceId]="announceId"
+            [roleForUpload]="roleForAddPhoto"
+            (uploadResult)="uploadResult($event)"
+          ></app-upload>
+        </mat-tab>
+        <mat-tab label="Yayın Ekranları">
+          <div class="row p-5">
+            <div class="col-md-6">
+              <h5>İlanın yayında olduğu ekranlar</h5>
+              <app-vehicle-announce-subscreens
+                [subscreens]="(vehicleStore.detail$ | async)?.vehicleAnnounceSubScreens"
+              ></app-vehicle-announce-subscreens>
+            </div>
+            <div class="col-md-6">
+              <h5>Tüm Aktif Yayın Ekranları</h5>
+              <app-subscreens-list-for-announce
+                (onSelectSubScreen)="onSelectSubScreen($event)"
+              ></app-subscreens-list-for-announce>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </div>
+</ng-container>

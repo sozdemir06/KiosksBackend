@@ -88,10 +88,10 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<VehicleAnnounceManager>().As<IVehicleAnnounceService>();
             builder.RegisterType<EfVehicleAnnounceDal>().As<IVehicleAnnounceDal>();
 
-            //builder.RegisterType<VehicleAnnouncePhotoManager>().As<IVehicleAnnouncePhotoService>();
+            builder.RegisterType<VehicleAnnouncePhotoManager>().As<IVehicleAnnouncePhotoService>();
             builder.RegisterType<EfVehicleAnnouncePhotoDal>().As<IVehicleAnnouncePhotoDal>();
 
-            //builder.RegisterType<VehicleAnnouncesubScreenManager>().As<IVehicleAnnounceSubScreenService>();
+            builder.RegisterType<VehicleAnnouncesubScreenManager>().As<IVehicleAnnounceSubScreenService>();
             builder.RegisterType<EfVehicleAnnounceSubScreenDal>().As<IVehicleAnnounceSubScreenDal>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();

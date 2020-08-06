@@ -12,6 +12,7 @@ import { IPagination } from 'src/app/shared/models/IPagination';
 import { IHomeAnnouncePhoto } from 'src/app/shared/models/IHomeAnnouncePhoto';
 import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 import { IHomeAnnounceSubScreen } from 'src/app/shared/models/IHomeAnnounceSubScreen';
+import { IHomeAnnounceDetail } from 'src/app/shared/models/IHomeAnnounceDetail';
 
 @Injectable({ providedIn: 'root' })
 export class HomeAnnounceStore {
@@ -20,6 +21,9 @@ export class HomeAnnounceStore {
   homeAnnounces$: Observable<
     IPagination<IHomeAnnounce>
   > = this.subject.asObservable();
+
+  private detailSubject = new BehaviorSubject<IHomeAnnounceDetail>(null);
+  detail$: Observable<IHomeAnnounceDetail> = this.detailSubject.asObservable();
 
   announceparams = new HomeAnnounceParams();
 
@@ -126,11 +130,10 @@ export class HomeAnnounceStore {
           this.notifyService.notify('success', 'Ev ilanı güncellendi...');
         })
       );
-       this.loadingservice.showLoaderUntilCompleted(update$).subscribe();  
-   
+    this.loadingservice.showLoaderUntilCompleted(update$).subscribe();
   }
 
-  publish(model:Partial<IHomeAnnounce>){
+  publish(model: Partial<IHomeAnnounce>) {
     const update$ = this.httpClient
       .put<IHomeAnnounce>(this.apiUrl + 'homeannounces/publish', model)
       .pipe(
@@ -152,61 +155,153 @@ export class HomeAnnounceStore {
           this.notifyService.notify('success', 'ilan yayına alındı...');
         })
       );
-      this.loadingservice.showLoaderUntilCompleted(update$).subscribe();  
+    this.loadingservice.showLoaderUntilCompleted(update$).subscribe();
+  }
+
+  getDetail(announceId: number) {
+    this.detailSubject.next(null);
+    const detail$ = this.httpClient
+      .get<IHomeAnnounceDetail>(
+        this.apiUrl + 'homeannounces/detail/' + announceId
+      )
+      .pipe(
+        map((detail) => detail),
+        catchError((error) => {
+          this.notifyService.notify('error', error);
+          return throwError(error);
+        }),
+        tap((detail) => {
+          this.detailSubject.next(detail);
+        })
+      );
+    this.loadingservice.showLoaderUntilCompleted(detail$).subscribe();
   }
 
   //Add new photo to announce
-  addPhoto(announceId:number, photo:IHomeAnnouncePhoto){
-      const addPhoto=produce(this.subject.getValue(),draft=>{
-        const index=draft.data.findIndex(x=>x.id===announceId);
-        draft.data[index].homeAnnouncePhotos.push(photo);
-      } );
-      this.subject.next(addPhoto);
+  addPhoto(photo: IHomeAnnouncePhoto) {
+    const updatePhoto = produce(this.detailSubject.getValue(), (draft) => {
+      draft.homeAnnouncePhotos.push(photo);
+    });
+    this.detailSubject.next(updatePhoto);
+    this.notifyService.notify('success', 'Resim Eklendi...');
   }
 
   //update photo for announce
-  updatePhoto(announceId:number,photo:IHomeAnnouncePhoto){
-     const updatePhoto=produce(this.subject.getValue(),draft=>{
-       const index=draft.data.findIndex(x=>x.id===announceId);
-       const photoIndex=draft.data[index].homeAnnouncePhotos.findIndex(x=>x.id===photo.id);
-
-       const update:IHomeAnnouncePhoto={
-         ...draft.data[index].homeAnnouncePhotos,
-         ...photo
-       }
-       draft.data[index].homeAnnouncePhotos[photoIndex]=update;
-     });
-     this.subject.next(updatePhoto);
-  }
-//delete photo from announce
-  deletePhoto(announceId:number,photo:IHomeAnnouncePhoto){
-     const deletePhoto=produce(this.subject.getValue(),draft=>{
-       const index=draft.data.findIndex(x=>x.id===announceId);
-       const photoIndex=draft.data[index].homeAnnouncePhotos.findIndex(x=>x.id===photo.id);
-       if(photoIndex!=-1){
-         draft.data[index].homeAnnouncePhotos.splice(photoIndex,1);
-       }
-     });
-     this.subject.next(deletePhoto);
-  }
-
-  
-  //Get Announce By Id for Detail
-  getAnnounceById(id: number): Observable<IHomeAnnounce> {
-    return this.homeAnnounces$.pipe(
-      map((announces) => announces?.data.find((x) => x.id === id))
+  updatePhoto(photo: IHomeAnnouncePhoto) {
+    const update$ = this.httpClient
+    .put<IHomeAnnouncePhoto>(this.apiUrl + 'HomeAnnouncePhoto', photo)
+    .pipe(
+      map((result) => result),
+      catchError((error) => {
+        this.notifyService.notify('error', error);
+        return throwError(error);
+      }),
+      tap((result) => {
+        const updateDetailsubject = produce(
+          this.detailSubject.getValue(),
+          (draft) => {
+            const photoIndex = draft.homeAnnouncePhotos.findIndex(
+              (x) => x.id == result.id
+            );
+            draft.homeAnnouncePhotos[photoIndex] = result;
+          }
+        );
+        this.detailSubject.next(updateDetailsubject);
+        this.notifyService.notify('success', 'Fotoğraf Güncellendi...');
+      })
     );
+    this.loadingservice.showLoaderUntilCompleted(update$).subscribe();
+  }
+  //delete photo from announce
+  deletePhoto( model: IHomeAnnouncePhoto) {
+    const deletePhoto$ = this.httpClient
+    .delete<IHomeAnnouncePhoto>(
+      this.apiUrl + 'HomeAnnouncePhoto/' + model.id
+    )
+    .pipe(
+      map((photo) => photo),
+      catchError((error) => {
+        this.notifyService.notify('error', error);
+        return throwError(error);
+      }),
+      tap((photo) => {
+        const updateDetailsubject = produce(
+          this.detailSubject.getValue(),
+          (draft) => {
+            const photoIndex = draft.homeAnnouncePhotos.findIndex(
+              (x) => x.id === photo.id
+            );
+            if (photoIndex != -1) {
+              draft.homeAnnouncePhotos.splice(photoIndex, 1);
+            }
+          }
+        );
+        this.detailSubject.next(updateDetailsubject);
+        this.notifyService.notify('success', 'Fotoğraf Silindi...');
+      })
+    );
+  this.loadingservice.showLoaderUntilCompleted(deletePhoto$).subscribe();
+  }
+  addSubScreen(model: Partial<IHomeAnnounceSubScreen>) {
+    const addSubScreen$ = this.httpClient
+      .post<IHomeAnnounceSubScreen>(
+        this.apiUrl + 'homeannouncesubscreens',
+        model
+      )
+      .pipe(
+        map((subscreen) => subscreen),
+        catchError((error) => {
+          this.notifyService.notify('error', error);
+          return throwError(error);
+        }),
+        tap((subscreen) => {
+          const updateDetailsubject = produce(
+            this.detailSubject.getValue(),
+            (draft) => {
+              draft.homeAnnounceSubScreens.push(subscreen);
+            }
+          );
+          this.detailSubject.next(updateDetailsubject);
+          this.notifyService.notify('success', 'Yayın Ekranı Eklendi...');
+        })
+      );
+    this.loadingservice.showLoaderUntilCompleted(addSubScreen$).subscribe();
   }
 
-  getHomeAnnounceParams():HomeAnnounceParams{
+  removeSubScreen(model:IHomeAnnounceSubScreen){
+    const removeSubScreen$=this.httpClient.delete<IHomeAnnounceSubScreen>(this.apiUrl+"homeannouncesubscreens/"+model.id)
+    .pipe(
+      map((subscreen) => subscreen),
+      catchError((error) => {
+        this.notifyService.notify('error', error);
+        return throwError(error);
+      }),
+      tap((subscreen) => {
+        const updateDetailsubject = produce(
+          this.detailSubject.getValue(),
+          (draft) => {
+            const index=draft.homeAnnounceSubScreens.findIndex(x=>x.id===subscreen.id);
+            if(index!=-1){
+               draft.homeAnnounceSubScreens.splice(index,1);
+            }
+          }
+        );
+        this.detailSubject.next(updateDetailsubject);
+        this.notifyService.notify('success', 'Yayın Ekranı Kaldırıldı...');
+      })
+    );
+    this.loadingservice.showLoaderUntilCompleted(removeSubScreen$).subscribe();
+  }
+
+  getHomeAnnounceParams(): HomeAnnounceParams {
     return this.announceparams;
   }
 
-  setHomeAnnounceParams(params:HomeAnnounceParams){
-    this.announceparams=params;
+  setHomeAnnounceParams(params: HomeAnnounceParams) {
+    this.announceparams = params;
   }
 
-  invokeGetlistWithParams():void{
+  invokeGetlistWithParams(): void {
     this.getList(this.announceparams);
   }
 }

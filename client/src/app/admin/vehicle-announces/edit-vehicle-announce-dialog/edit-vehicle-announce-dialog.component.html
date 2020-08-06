@@ -1,0 +1,178 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <div class="d-flex flex-column w-100">
+    <app-user-autocomplete
+      (getSelectedUser)="onUserSelectionChange($event)"
+      [mode]="mode"
+      [user]="item?.user"
+    ></app-user-autocomplete>
+  </div>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="vehicleAnnounceForm"
+    (ngSubmit)="onSubmit()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="İlan başlığı"
+        formControlName="header"
+      />
+      <mat-error *ngIf="f.header.errors?.required"
+        >İlan başlığı boş olamaz...</mat-error
+      >
+      <mat-error *ngIf="f.header.errors?.maxlength"
+        >İlan başlığı en fazla 140 karakter olmalı...</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        type="text"
+        placeholder="İlan Açıklama"
+        formControlName="description"
+      ></textarea>
+      <mat-error *ngIf="f.description.errors?.required"
+        >İlan açıklaması boş olamaz...</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        type="number"
+        placeholder="Fiyat"
+        formControlName="price"
+      ></textarea>
+      <mat-error *ngIf="f.price.errors?.required"
+        >Fiyat bilgisi boş olamaz...</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Araç Kategori</mat-label>
+      <mat-select formControlName="vehicleCategoryId">
+        <mat-option
+          *ngFor="
+            let category of vehicleCategoryStore.vehicleCategories$ | async
+          "
+          [value]="category.id"
+        >
+          {{ category.categoryName }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="f.vehicleCategoryId.errors?.required"
+        >Araç Kategori için seçim yapınız...</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Araç Markası</mat-label>
+      <mat-select formControlName="vehicleBrandId">
+        <mat-option *ngFor="let brands of (brands$ | async)" [value]="brands.id">
+          {{brands.brandName}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="f.vehicleBrandId.errors?.required"
+        >Araç Markası için seçim yapınız...</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Araç Modeli</mat-label>
+      <mat-select formControlName="vehicleModelId">
+        <mat-option *ngFor="let models of (models$ | async)" [value]="models.id">
+          {{models.vehicleModelName}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="f.vehicleModelId.errors?.required"
+        >Araç modeli için seçim yapınız...</mat-error
+      >
+    </mat-form-field>
+    <ng-container *ngIf="data$ | async as data">
+      <mat-form-field>
+        <mat-label>Araç Yakıt Tipi</mat-label>
+        <mat-select formControlName="vehicleFuelTypeId">
+          <mat-option
+            *ngFor="let fuel of data.vehicleFuelType"
+            [value]="fuel.id"
+          >
+            {{ fuel?.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.vehicleFuelTypeId.errors?.required"
+          >Araç yakıt tipi için seçim yapınız...</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Araç Vites Tipi</mat-label>
+        <mat-select formControlName="vehicleGearTypeId">
+          <mat-option
+            *ngFor="let gear of data.vehicleGearType"
+            [value]="gear.id"
+          >
+            {{ gear?.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.vehicleGearTypeId.errors?.required"
+          >Araç Vites tipi için seçim yapınız...</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Araç Motor Hacmi</mat-label>
+        <mat-select formControlName="vehicleEngineSizeId">
+          <mat-option
+            *ngFor="let enginesize of data.vehicleEngineSize"
+            [value]="enginesize.id"
+          >
+            {{ enginesize?.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.vehicleEngineSizeId.errors?.required"
+          >Araç Motor Hacmi için seçim yapınız...</mat-error
+        >
+      </mat-form-field>
+    </ng-container>
+    <mat-form-field>
+      <mat-label>Yayın Başlangıç Tarihi ve Saati</mat-label>
+      <input
+        class="date-time"
+        [owlDateTime]="dt1"
+        [owlDateTimeTrigger]="dt1"
+        autocomplete="off"
+        formControlName="publishStartDate"
+        (dateTimeChange)="onChangeStartDate($event)"
+        matInput
+        required
+      />
+      <owl-date-time #dt1></owl-date-time>
+      <mat-error *ngIf="f.publishStartDate.errors?.required"
+        >Yayın başlangıç tarihi boş olamaz</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>İlan Bitiş Tarihi ve Saati </mat-label>
+      <input
+        class="date-time"
+        [owlDateTime]="dt2"
+        [owlDateTimeTrigger]="dt2"
+        autocomplete="off"
+        formControlName="publishFinishDate"
+        (dateTimeChange)="onChangeFinishDate($event)"
+        matInput
+        required
+      />
+      <owl-date-time #dt2></owl-date-time>
+      <mat-error *ngIf="f.publishFinishDate.errors?.required"
+        >Yayın bitiş tarihi boş olamaz</mat-error
+      >
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!vehicleAnnounceForm.valid"
+    >
+      {{ mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>

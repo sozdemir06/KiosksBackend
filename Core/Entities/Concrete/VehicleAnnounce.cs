@@ -27,13 +27,11 @@ namespace Core.Entities.Concrete
         public VehicleEngineSize VehicleEngineSize { get; set; }
         public int VehicleEngineSizeId { get; set; }
         public int Price { get; set; }
-        public int SquareMeters { get; set; }
         public User User { get; set; }
         public int UserId { get; set; }
         public bool IsNew { get; set; }
         public bool Reject { get; set; }
         public bool IsPublish { get; set; }
-
         public ICollection<VehicleAnnouncePhoto> VehicleAnnouncePhotos { get; set; }
         public ICollection<VehicleAnnounceSubScreen> VehicleAnnounceSubScreens { get; set; }
 

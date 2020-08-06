@@ -42,5 +42,11 @@ namespace API.Controllers
         {
             return await vehicleBrandService.Delete(itemId);
         }
+
+        [HttpGet("getbycategory/{categoryId}")]
+        public async Task<ActionResult< List<VehicleBrandForReturnDto>>> GetByCategory(int categoryId)
+        {
+            return await vehicleBrandService.GetListByCategoryId(categoryId);
+        }
     }
 }

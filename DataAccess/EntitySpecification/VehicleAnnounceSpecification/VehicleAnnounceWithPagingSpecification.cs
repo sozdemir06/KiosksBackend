@@ -24,8 +24,14 @@ namespace DataAccess.EntitySpecification.VehicleAnnounceSpecification
              (!queryParams.IsPublish.HasValue || x.IsPublish == queryParams.IsPublish)
         )
         {
+            AddInclude(x=>x.User);
             AddOrderByDscending(x => x.IsNew);
             ApplyPaging(queryParams.PageSize * (queryParams.PageIndex - 1), queryParams.PageSize);
+        }
+
+        public VehicleAnnounceWithPagingSpecification(int announceId):base(x=>x.Id==announceId)
+        {
+            AddInclude(x=>x.User);
         }
     }
 }

@@ -36,8 +36,10 @@ namespace Business.Concrete
             }
 
             var mapForCreate = mapper.Map<VehicleAnnounce>(creationDto);
-            mapForCreate.SlideId = Guid.NewGuid();
+            var slideId=System.Guid.NewGuid();
+            mapForCreate.SlideId = slideId;
             mapForCreate.Created = DateTime.Now;
+            mapForCreate.AnnounceType="Car";
 
             var createHomeAnnounce = await vehicleAnnounceDal.Add(mapForCreate);
             return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(createHomeAnnounce);
@@ -58,16 +60,16 @@ namespace Business.Concrete
         public async Task<VehicleAnnounceForDetailDto> GetDetailAsync(int vehicleAnnounceId)
         {
 
-            var spec=new VehicleAnnounceDetailSpecification(vehicleAnnounceId);
-            var getDetailFromRepo=await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
+            var spec = new VehicleAnnounceDetailSpecification(vehicleAnnounceId);
+            var getDetailFromRepo = await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
 
             if (getDetailFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
 
-            return mapper.Map<VehicleAnnounce,VehicleAnnounceForDetailDto>(getDetailFromRepo);
-             
+            return mapper.Map<VehicleAnnounce, VehicleAnnounceForDetailDto>(getDetailFromRepo);
+
         }
 
         public async Task<Pagination<VehicleAnnounceForReturnDto>> GetListAsync(VehicleAnnounceParams queryParams)
@@ -109,7 +111,7 @@ namespace Business.Concrete
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
             var updateToDb = await vehicleAnnounceDal.Update(mapForUpdate);
-
+            
             return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(updateToDb);
         }
 
@@ -123,8 +125,10 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
-            var updateToDb = await vehicleAnnounceDal.Update(mapForUpdate);
-            return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(updateToDb);
+            await vehicleAnnounceDal.Update(mapForUpdate);
+            var spec=new VehicleAnnounceWithPagingSpecification(checkFromRepo.Id);
+            var getWithUser=await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
+            return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(getWithUser);
         }
     }
 }

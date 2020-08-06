@@ -5,7 +5,7 @@ import { LoadingService } from '../loading-service';
 import { NotifyService } from '../notify-service';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { IVehicleGearType } from 'src/app/shared/models/IVehicleGearType';
-import { map, catchError, tap } from 'rxjs/operators';
+import { map, catchError, tap, shareReplay } from 'rxjs/operators';
 import produce from 'immer';
 
 @Injectable({providedIn: 'root'})
@@ -36,7 +36,8 @@ export class VehicleGearTypeStore {
                 }),
                 tap((buildingage) => {
                   this.subject.next(buildingage);
-                })
+                }),
+                shareReplay()
               );
             this.loadingService.showLoaderUntilCompleted(buildingAgeList$).subscribe();
           }

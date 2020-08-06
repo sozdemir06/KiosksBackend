@@ -24,15 +24,7 @@ namespace DataAccess.EntitySpecification.HomeAnnounceSpecification
             (!queryParams.IsPublish.HasValue || x.IsPublish==queryParams.IsPublish)
         )
         {
-            AddInclude(x=>x.HomeAnnouncePhotos);
             AddInclude(x=>x.User);
-            AddInclude(x=>x.User.Department);
-            AddInclude(x=>x.User.Campus);
-            AddInclude(x=>x.User.Degree);
-            AddInclude(x=>x.NumberOfRoom);
-            AddInclude(x=>x.Heatingtype);
-            AddInclude(x=>x.FlatOfHome);
-            AddInclude(x=>x.BuildingAge);
             AddOrderByDscending(x=>x.IsNew);
             ApplyPaging(queryParams.PageSize*(queryParams.PageIndex-1),queryParams.PageSize);
         }

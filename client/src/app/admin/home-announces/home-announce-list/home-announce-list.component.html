@@ -69,7 +69,23 @@
       <button mat-icon-button [routerLink]="['../detail/',element?.id]" >
         <mat-icon>preview</mat-icon>
       </button>
-    
+      <app-announce-detail-menu
+      [isPublish]="element?.isPublish"
+      [isNew]="element?.isNew"
+      [isReject]="element?.reject"
+      [startDate]="element?.publishStartDate"
+      [finishDate]="element?.publishFinishDate"
+      [roleForPublish]="roleForPublish"
+      [roleForUpdate]="roleForUpdate"
+      (onPublish)="onPublish(element)"
+      (onReject)="onReject(element)"
+      (onUpdate)="onUpdate(element)"
+      (onDelete)="onDelete()"
+      (unPublish)="unPublish(element)"
+      
+
+    >
+    </app-announce-detail-menu>
     </td>
   </ng-container>
 

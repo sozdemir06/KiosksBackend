@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Helpers;
@@ -40,6 +41,12 @@ namespace API.Controllers
         public async Task<ActionResult<VehicleModelForReturnDto>> Update(VehicleModelForCreationDto updateDto)
         {
             return  await vehicleModelService.Update(updateDto);
+        }
+
+        [HttpGet("getbybrand/{brandId}")]
+        public async Task<ActionResult<List<VehicleModelForReturnDto>>> GetByBrand(int brandId)
+        {
+            return await vehicleModelService.GetListByBrandIdAsync(brandId);
         }
     }
 }

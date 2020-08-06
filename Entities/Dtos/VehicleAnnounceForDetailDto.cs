@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Entities.Concrete;
 
 namespace Entities.Dtos
 {
@@ -26,15 +25,14 @@ namespace Entities.Dtos
         public int VehicleFuelTypeId { get; set; }
         public string VehicleGearTypeName { get; set; }
         public int VehicleGearTypeId { get; set; }
-        public VehicleEngineSize VehicleEngineSizeName { get; set; }
+        public string VehicleEngineSizeName { get; set; }
         public int VehicleEngineSizeId { get; set; }
         public int Price { get; set; }
-        public int SquareMeters { get; set; }
         public bool IsNew { get; set; }
         public bool Reject { get; set; }
         public bool IsPublish { get; set; }
         public UserForListDto User { get; set; }
-        public ICollection<VehicleAnnouncePhoto> VehicleAnnouncePhotos { get; set; }
-        public ICollection<VehicleAnnounceSubScreen> VehicleAnnounceSubScreens { get; set; }
+        public ICollection<VehicleAnnouncePhotoForReturnDto> VehicleAnnouncePhotos { get; set; }
+        public ICollection<VehicleAnnounceSubScreenForReturnDto> VehicleAnnounceSubScreens { get; set; }
     }
 }

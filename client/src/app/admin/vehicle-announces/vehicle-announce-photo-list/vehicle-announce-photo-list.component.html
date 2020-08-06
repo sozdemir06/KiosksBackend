@@ -1,0 +1,45 @@
+<div class="row p-4">
+    <ng-container *ngIf="images.length>0; else dataIsEmpty">
+      <ng-container  *ngFor="let image of images">
+        <div class="col-md-2">
+          <mat-card>
+            <img
+              mat-card-image
+              src="{{ image?.fullPath }}"
+              alt="İlan Fotoğrafı"
+              height="100"
+            />
+            <mat-card-actions class="d-flex">
+              <ng-container *appHasRole="roleForUpdate">
+                <button mat-icon-button *ngIf="image.isConfirm" (click)="onUnConfirm(image)">
+                  <mat-icon>check</mat-icon>
+                </button>
+              </ng-container>
+             
+  
+              <ng-container *appHasRole="roleForUpdate"> 
+                <button mat-icon-button *ngIf="!image.isConfirm" (click)="onConfirm(image)">
+                  <mat-icon color="warn">clear</mat-icon>
+                </button>
+              </ng-container>
+             
+              <ng-container *appHasRole="roleForDelete">
+                <button mat-icon-button (click)="onDelete(image)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </ng-container>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </ng-container>
+    </ng-container>
+  
+    <div class="col-md-4">
+      <ng-template #dataIsEmpty>
+        <h4 class="text-info ml-5 p-4 h-25">
+          Bu ilan için henüz fotoğraf eklenmemiş..
+        </h4>
+      </ng-template>
+    </div>
+  </div>
+  

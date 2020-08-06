@@ -135,6 +135,10 @@ export class VehicleBrandStore {
     this.loadingService.showLoaderUntilCompleted(delete$).subscribe();
   }
 
+  getByCategory(id:number):Observable<IVehicleBrand[]>{
+    return this.httpClient.get<IVehicleBrand[]>(this.apiUrl+"vehiclebrands/getbycategory/"+id);
+  }
+
   setVehicleBrandParams(vehicleBrandParams: VehicleBrandParams) {
     this.vehicleBrandParams = vehicleBrandParams;
   }

@@ -6,13 +6,12 @@ import {
   Output,
   Input,
   EventEmitter,
-  ViewChild,
 } from '@angular/core';
 import { UserStore } from 'src/app/core/services/stores/user-store';
 import { IUserList } from '../models/IUser';
 import { FormControl } from '@angular/forms';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+
 
 @Component({
   selector: 'app-user-autocomplete',
@@ -31,8 +30,9 @@ export class UserAutocompleteComponent
 
   ngOnInit(): void {
     if(this.mode=="update"){
-      this.stateControl.setValue(this.user.firstName +" "+this.user.lastName)
+      this.stateControl.setValue(this.user?.firstName +" "+this.user?.lastName)
     }
+     
   }
 
   onUserSelectionChange(user: IUserList) {

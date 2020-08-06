@@ -21,7 +21,6 @@ namespace Entities.Dtos
         public int VehicleGearTypeId { get; set; }
         public int VehicleEngineSizeId { get; set; }
         public int Price { get; set; }
-        public int SquareMeters { get; set; }
         public int UserId { get; set; }
         public bool IsNew { get; set; }
         public bool Reject { get; set; }

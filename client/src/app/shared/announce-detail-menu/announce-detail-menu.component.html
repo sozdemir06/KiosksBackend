@@ -17,16 +17,16 @@
     </ng-container>
     
     <ng-container *ngIf="roleForPublish">
-      <button mat-menu-item *ngIf="(checkIsPublish())" (click)="onSelectUnpublish()">
+      <button mat-menu-item *ngIf="(checkIsPublish() && !checkExpireDate())" (click)="onSelectUnpublish()">
         <mat-icon>remove_circle</mat-icon>
         <span>Yayından kaldır</span>
       </button>
     </ng-container>
    
-    <button mat-menu-item (click)="onSelectDelete()">
+    <!-- <button mat-menu-item (click)="onSelectDelete()">
       <mat-icon>delete</mat-icon>
       <span>Sil</span>
-    </button>
+    </button> -->
     <button mat-menu-item *ngIf="(checkIsNew())" (click)="onSelectReject()">
       <mat-icon>clear</mat-icon>
       <span>Ret-Et</span>

@@ -81,6 +81,18 @@ namespace Business.Concrete
             );
         }
 
+        [SecuredOperation("Sudo,VehicleBrands.List", Priority = 1)]
+        public async Task<List<VehicleBrandForReturnDto>> GetListByCategoryId(int categoryId)
+        {
+             var getListByCategoryId=await vehicleBrandDal.GetListAsync(x=>x.VehicleCategoryId==categoryId);
+             if(getListByCategoryId==null)
+             {
+                  throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
+             }
+
+             return mapper.Map<List<VehicleBrand>,List<VehicleBrandForReturnDto>>(getListByCategoryId);
+        }
+
         [SecuredOperation("Sudo,VehicleBrands.Update", Priority = 1)]
         [ValidationAspect(typeof(VehicleBrandValidator), Priority = 2)]
         public async Task<VehicleBrandForReturnDto> Update(VehicleBrandForCreationDto updateDto)

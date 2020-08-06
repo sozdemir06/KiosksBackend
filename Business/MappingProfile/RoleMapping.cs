@@ -61,6 +61,8 @@ namespace Business.MappingProfile
             CreateMap<HomeAnnounce, HomeAnnounceForReturnDto>();
             CreateMap<HomeAnnounceForCreationDto, HomeAnnounce>();
 
+            CreateMap<HomeAnnounce,HomeAnnounceForDetailDto>();
+
             CreateMap<HomeAnnounceSubScreen, HomeAnnounceSubScreenForReturnDto>();
             CreateMap<HomeAnnounceSubScreenForCreationDto, HomeAnnounceSubScreen>();
 
@@ -68,7 +70,13 @@ namespace Business.MappingProfile
             CreateMap<HomeAnnouncePhotoForCreationDto, HomeAnnouncePhoto>();
 
             CreateMap<VehicleAnnounce, VehicleAnnounceForReturnDto>();
-            CreateMap<VehicleAnnounce, VehicleAnnounceForDetailDto>();
+                   
+            CreateMap<VehicleAnnounce, VehicleAnnounceForDetailDto>()
+                 .ForMember(x => x.VehicleCategoryName, o => o.MapFrom(z => z.VehicleCategory.CategoryName))
+                    .ForMember(x => x.VehicleBrandName, o => o.MapFrom(z => z.VehicleBrand.BrandName))
+                    .ForMember(x => x.VehicleModelName, o => o.MapFrom(z => z.VehicleModel.VehicleModelName));
+                    
+
             CreateMap<VehicleAnnounceForCreationDto, VehicleAnnounce>();
 
             CreateMap<VehicleAnnounceSubScreen, VehicleAnnounceSubScreenForReturnDto>();

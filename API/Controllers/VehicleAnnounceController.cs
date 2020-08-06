@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Helpers;
@@ -23,6 +22,30 @@ namespace API.Controllers
         public async Task<Pagination<VehicleAnnounceForReturnDto>> List([FromQuery]VehicleAnnounceParams queryParams)
         {
            return await vehicleAnnounceService.GetListAsync(queryParams); 
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<VehicleAnnounceForReturnDto>> Create(VehicleAnnounceForCreationDto creationDto)
+        {
+            return await vehicleAnnounceService.Create(creationDto);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<VehicleAnnounceForReturnDto>> Update(VehicleAnnounceForCreationDto creationDto)
+        {
+            return await vehicleAnnounceService.Update(creationDto);
+        }
+
+        [HttpPut("publish")]
+        public async Task<ActionResult<VehicleAnnounceForReturnDto>> Publish(VehicleAnnounceForCreationDto creationDto)
+        {
+            return await vehicleAnnounceService.Publish(creationDto);
+        }
+
+        [HttpGet("detail/{announceId}")]
+        public async Task<ActionResult<VehicleAnnounceForDetailDto>> Detail(int announceId)
+        {
+            return await vehicleAnnounceService.GetDetailAsync(announceId);
         }
     }
 }

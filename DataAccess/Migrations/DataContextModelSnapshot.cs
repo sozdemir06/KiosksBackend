@@ -240,6 +240,12 @@ namespace DataAccess.Migrations
                     b.Property<int>("SubScreenId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("SubScreenName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SubScreenPosition")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("HomeAnnounceId");
@@ -506,9 +512,6 @@ namespace DataAccess.Migrations
                     b.Property<Guid>("SlideId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("SquareMeters")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("Updated")
                         .HasColumnType("timestamp without time zone");
 
@@ -590,6 +593,12 @@ namespace DataAccess.Migrations
 
                     b.Property<int>("SubScreenId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("SubScreenName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SubScreenPosition")
+                        .HasColumnType("text");
 
                     b.Property<int>("VehicleAnnounceId")
                         .HasColumnType("integer");

@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Core.Entities;
+using Core.Entities.Concrete;
 
 namespace Entities.Dtos
 {
@@ -20,11 +22,12 @@ namespace Entities.Dtos
         public int VehicleFuelTypeId { get; set; }
         public int VehicleGearTypeId { get; set; }
         public int VehicleEngineSizeId { get; set; }
-        public int Price { get; set; }
-        public int SquareMeters { get; set; }
         public int UserId { get; set; }
+        public int Price { get; set; }
         public bool IsNew { get; set; }
         public bool Reject { get; set; }
         public bool IsPublish { get; set; }
+        public UserForListDto User { get; set; }
+
     }
 }

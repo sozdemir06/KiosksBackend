@@ -5,5 +5,6 @@ export interface IHomeAnnounceSubScreen{
    subScreenId:number;
    homeAnnounceId:number;
    screenId:number;
-   subScreen:ISubScreen;
+   subScreenName:string;
+   subScreenPosition:string;
 }

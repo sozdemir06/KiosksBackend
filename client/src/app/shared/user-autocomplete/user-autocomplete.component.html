@@ -5,8 +5,9 @@
     matInput
     [formControl]="stateControl"
     [matAutocomplete]="auto"
+  
   />
-  <mat-autocomplete #auto="matAutocomplete">
+  <mat-autocomplete #auto="matAutocomplete"   md-autofocus="false">
     <mat-option
       *ngFor="let user of (userStore.users$ | async)?.data"
       [value]="user.firstName + ' ' + user.lastName"

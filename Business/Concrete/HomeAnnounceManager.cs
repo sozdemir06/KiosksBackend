@@ -42,7 +42,8 @@ namespace Business.Concrete
             }
 
             var mapForCreate = mapper.Map<HomeAnnounce>(creationDto);
-            mapForCreate.SlideId = Guid.NewGuid();
+            var slideId=Guid.NewGuid();
+            mapForCreate.SlideId = slideId;
             mapForCreate.Created = DateTime.Now;
 
             var createHomeAnnounce = await homeAnnounceDal.Add(mapForCreate);
@@ -63,6 +64,19 @@ namespace Business.Concrete
 
             await homeAnnounceDal.Delete(getByIdFromRepo);
             return mapper.Map<HomeAnnounce, HomeAnnounceForReturnDto>(getByIdFromRepo);
+        }
+
+        public async Task<HomeAnnounceForDetailDto> GetDetailAsync(int homeAnnounceId)
+        {
+             var spec = new HomeAnnounceDetailSpecification(homeAnnounceId);
+            var getDetailFromRepo = await homeAnnounceDal.GetEntityWithSpecAsync(spec);
+
+            if (getDetailFromRepo == null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
+            }
+
+            return mapper.Map<HomeAnnounce, HomeAnnounceForDetailDto>(getDetailFromRepo); 
         }
 
         [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]

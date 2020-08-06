@@ -90,6 +90,11 @@ const routes:Routes=[
           path:"home-announces",
           loadChildren:()=>import("../home-announces/home-announces.module").then(m=>m.HomeAnnouncesModule),
           data:{roles:['Sudo','HomeAnnounces.List,HomeAnnounces.All']}
+        },
+        {
+          path:"vehicle-announces",
+          loadChildren:()=>import("../vehicle-announces/vehicle-announces.module").then(m=>m.VehicleAnnouncesModule),
+          data:{roles:['Sudo','VehicleAnnounces.List,VehicleAnnounces.All']}
         }
 
     ]

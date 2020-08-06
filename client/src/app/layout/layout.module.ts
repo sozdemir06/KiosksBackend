@@ -3,7 +3,6 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LayoutComponent } from './layout.component';
 import { Routes, RouterModule } from '@angular/router';
-import { MaterialModule } from '../material/material.module';
 import { NotFoundComponent } from '../shared/not-found/not-found.component';
 import { UserPanelComponent } from '../admin/dashboard/panels/user-panel/user-panel.component';
 import { RolePanelComponent } from '../admin/dashboard/panels/role-panel/role-panel.component';
@@ -12,6 +11,7 @@ import { HomeAnnounceOptionListComponent } from '../admin/dashboard/panels/home-
 import { VehicleAnnounceOptionListComponent } from '../admin/dashboard/panels/vehicle-announce-option-list/vehicle-announce-option-list.component';
 import { ScreenPanelComponent } from '../admin/dashboard/panels/screen-panel/screen-panel.component';
 import { HomeAnnouncesPanelComponent } from '../admin/dashboard/panels/home-announces-panel/home-announces-panel.component';
+import { VehicleAnnouncesPanelComponent } from '../admin/dashboard/vehicle-announces-panel/vehicle-announces-panel.component';
 
 
 const routes:Routes=[
@@ -57,7 +57,8 @@ const routes:Routes=[
     HomeAnnounceOptionListComponent,
     VehicleAnnounceOptionListComponent,
     ScreenPanelComponent,
-    HomeAnnouncesPanelComponent
+    HomeAnnouncesPanelComponent,
+    VehicleAnnouncesPanelComponent
 
   
   ],
@@ -76,7 +77,8 @@ const routes:Routes=[
     HomeAnnounceOptionListComponent,
     VehicleAnnounceOptionListComponent,
     ScreenPanelComponent,
-    HomeAnnouncesPanelComponent
+    HomeAnnouncesPanelComponent,
+    VehicleAnnouncesPanelComponent
   ]
 })
 export class LayoutModule { }

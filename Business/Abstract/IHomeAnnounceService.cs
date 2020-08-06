@@ -9,6 +9,7 @@ namespace Business.Abstract
     public interface IHomeAnnounceService
     {
          Task<Pagination<HomeAnnounceForReturnDto>> GetListAsync(HomeAnnounceParams queryParams);
+         Task<HomeAnnounceForDetailDto> GetDetailAsync(int homeAnnounceId);
          Task<HomeAnnounceForReturnDto> Create(HomeAnnounceForCreationDto creationDto);
          Task<HomeAnnounceForReturnDto> Update(HomeAnnounceForCreationDto updateDto);
          Task<HomeAnnounceForReturnDto> Publish(HomeAnnounceForCreationDto updateDto);

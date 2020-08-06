@@ -10,8 +10,7 @@ namespace DataAccess.EntitySpecification.VehicleAnnounceSpecification
         :base(x=>x.Id==vehicleAnnounceId)
         {
             AddInclude(x=>x.VehicleAnnouncePhotos);
-            AddInclude(x=>x.VehicleAnnounceSubScreens.Any(v=>v.SubScreen.VehicleAnnounceSubScreens.Any(z=>z.VehicleAnnounceId==vehicleAnnounceId)));
-            AddInclude(x=>x.User);
+            AddInclude(x=>x.VehicleAnnounceSubScreens);
             AddInclude(x=>x.User);
             AddInclude(x=>x.User.Department);
             AddInclude(x=>x.User.Campus);

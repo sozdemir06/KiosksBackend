@@ -152,6 +152,10 @@ export class VehicleModelStore {
       this.loadingService.showLoaderUntilCompleted(delete$).subscribe();
   }
 
+  getByBrand(id:number):Observable<IVehicleModel[]>{
+    return this.httpClient.get<IVehicleModel[]>(this.apiUrl+"vehiclemodels/getbybrand/"+id);
+  }
+
   getVehicleModelParams(){
     return this.vehicleModelParams;
   }

@@ -72,7 +72,10 @@ namespace Business.Concrete
             {
                 SubScreenId=subScreenFromRepo.Id,
                 ScreenId=screenFromRepo.Id,
-                HomeAnnounceId=checkAnnounceFromRepo.Id
+                HomeAnnounceId=checkAnnounceFromRepo.Id,
+                SubScreenName=subScreenFromRepo.Name,
+                SubScreenPosition=subScreenFromRepo.Position
+                
             };
 
             var createSubScreen = await homeAnnounceSubScreenDal.Add(subScreenForReturn);

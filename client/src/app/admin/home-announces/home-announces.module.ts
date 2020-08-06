@@ -16,7 +16,7 @@ export const routes:Routes=[
   },
   {
     path:"detail/:id",
-    component:HomeAnnounceDetailComponent
+    component:HomeAnnounceDetailComponent,
   }
 ]
 

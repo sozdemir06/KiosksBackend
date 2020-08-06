@@ -11,6 +11,7 @@ import { SubScreenStore } from 'src/app/core/services/stores/subscreen-store';
 export class SubscreensListForAnnounceComponent implements OnInit {
   subscreens$:Observable<ISubScreen[]>;
   displayedColumns:string[]=["Name","Status","Actions"];
+  @Input() roleForCreate:string[]=[];
   @Output() onSelectSubScreen=new EventEmitter<ISubScreen>();
   constructor(
     private subScreenStore:SubScreenStore

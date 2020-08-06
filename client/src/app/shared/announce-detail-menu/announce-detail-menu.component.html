@@ -2,21 +2,21 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu" xPosition="before">
-    <ng-container *ngIf="roleForUpdate">
+    <ng-container *appHasRole="roleForUpdate">
       <button mat-menu-item (click)="onSelectUpdate()">
         <mat-icon>update</mat-icon>
         <span>Güncelle</span>
       </button>
     </ng-container>
    
-    <ng-container *ngIf="roleForPublish">
+    <ng-container *appHasRole="roleForPublish">
       <button mat-menu-item *ngIf="(checkIsNew() || checkExpireDate() || checkIsReject() || checkUnpublish())" (click)="onSelectPublish()">
         <mat-icon>publish</mat-icon>
         <span>Yayınla</span>
       </button>
     </ng-container>
     
-    <ng-container *ngIf="roleForPublish">
+    <ng-container *appHasRole="roleForPublish">
       <button mat-menu-item *ngIf="(checkIsPublish() && !checkExpireDate())" (click)="onSelectUnpublish()">
         <mat-icon>remove_circle</mat-icon>
         <span>Yayından kaldır</span>

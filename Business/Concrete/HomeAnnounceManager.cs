@@ -66,6 +66,7 @@ namespace Business.Concrete
             return mapper.Map<HomeAnnounce, HomeAnnounceForReturnDto>(getByIdFromRepo);
         }
 
+        [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
         public async Task<HomeAnnounceForDetailDto> GetDetailAsync(int homeAnnounceId)
         {
              var spec = new HomeAnnounceDetailSpecification(homeAnnounceId);

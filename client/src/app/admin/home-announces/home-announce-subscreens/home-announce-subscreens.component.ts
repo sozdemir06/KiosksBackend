@@ -12,6 +12,8 @@ import { HomeAnnounceStore } from 'src/app/core/services/stores/home-announce-st
 export class HomeAnnounceSubscreensComponent implements OnInit {
 @Input() subscreens:IHomeAnnounceSubScreen[];
 displayedColumns:string[]=["Name","Actions"];
+roleForRemove:string[]=['Sudo','HomeAnnounceSubScreens.Delete','HomeAnnounces.All'];
+
   constructor(
     private dialog:MatDialog,
     private homeAnnouncestore:HomeAnnounceStore

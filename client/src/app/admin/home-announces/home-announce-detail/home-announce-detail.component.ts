@@ -32,6 +32,8 @@ export class HomeAnnounceDetailComponent implements OnInit {
     'HomeAnnounces.All',
   ];
 
+  roleForAddSubScreen:string[]=['Sudo',"HomeAnnounceSubScreens.Create",'HomeAnnounces.All'];
+
   constructor(
     private route: ActivatedRoute,
     private location: Location,

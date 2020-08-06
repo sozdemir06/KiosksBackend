@@ -21,7 +21,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #tableMenu="matMenu">
-          <button mat-menu-item (click)="onDelete(element)">
+          <button mat-menu-item (click)="onDelete(element)" *appHasRole="roleForRemove">
             <mat-icon>delete</mat-icon>
             <span>Kaldır</span>
           </button>

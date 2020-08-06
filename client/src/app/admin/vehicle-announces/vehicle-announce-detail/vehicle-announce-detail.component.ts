@@ -14,9 +14,10 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
   styleUrls: ['./vehicle-announce-detail.component.scss'],
 })
 export class VehicleAnnounceDetailComponent implements OnInit {
+  announceId: number;
   roleForAddPhoto: string[] = [
     'Sudo',
-    'VehicleAnnounces.Create',
+    'VehicleAnnouncePhotos.Create',
     'VehicleAnnounces.All',
   ];
   roleForUpdatePhoto: string[] = [
@@ -29,7 +30,13 @@ export class VehicleAnnounceDetailComponent implements OnInit {
     'VehicleAnnouncePhotos.Delete',
     'VehicleAnnounces.All',
   ];
-  announceId: number;
+
+  roleForAddSubScreen: string[] = [
+    'Sudo',
+    'VehicleAnnounceSubScreens.Create',
+    'VehicleAnnounces.All',
+  ];
+
 
   constructor(
     private route: ActivatedRoute,

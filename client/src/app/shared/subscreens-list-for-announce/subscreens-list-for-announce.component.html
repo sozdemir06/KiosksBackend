@@ -41,7 +41,7 @@
     <ng-container matColumnDef="Actions">
       <th mat-header-cell *matHeaderCellDef>Ekle</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button (click)="onSelectScreen(element)">
+        <button mat-icon-button (click)="onSelectScreen(element)" *appHasRole="roleForCreate">
           <mat-icon>add</mat-icon>
         </button>
       </td>

@@ -126,6 +126,7 @@
             <div class="col-md-6">
               <h5>Tüm Aktif Yayın Ekranları</h5>
               <app-subscreens-list-for-announce
+              [roleForCreate]="roleForAddSubScreen"
                 (onSelectSubScreen)="onSelectSubScreen($event)"
               ></app-subscreens-list-for-announce>
             </div>

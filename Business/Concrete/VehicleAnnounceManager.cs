@@ -6,6 +6,9 @@ using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
 using Business.Helpers;
+using Business.ValidaitonRules.FluentValidation;
+using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Validation;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.QueryParams;
@@ -27,6 +30,9 @@ namespace Business.Concrete
             this.vehicleAnnounceDal = vehicleAnnounceDal;
 
         }
+
+        [SecuredOperation("Sudo,VehicleAnnounces.Create,VehicleAnnounces.All", Priority = 1)]
+        [ValidationAspect(typeof(VehicleAnnounceValidator), Priority = 2)]
         public async Task<VehicleAnnounceForReturnDto> Create(VehicleAnnounceForCreationDto creationDto)
         {
             var checkByNameFromRepo = await vehicleAnnounceDal.GetAsync(x => x.Header.ToLower() == creationDto.Header.ToLower());
@@ -36,15 +42,16 @@ namespace Business.Concrete
             }
 
             var mapForCreate = mapper.Map<VehicleAnnounce>(creationDto);
-            var slideId=System.Guid.NewGuid();
+            var slideId = System.Guid.NewGuid();
             mapForCreate.SlideId = slideId;
             mapForCreate.Created = DateTime.Now;
-            mapForCreate.AnnounceType="Car";
+            mapForCreate.AnnounceType = "Car";
 
             var createHomeAnnounce = await vehicleAnnounceDal.Add(mapForCreate);
             return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(createHomeAnnounce);
         }
 
+        [SecuredOperation("Sudo,VehicleAnnounces.Delete,VehicleAnnounces.All", Priority = 1)]
         public async Task<VehicleAnnounceForReturnDto> Delete(int Id)
         {
             var getByIdFromRepo = await vehicleAnnounceDal.GetAsync(x => x.Id == Id);
@@ -72,6 +79,7 @@ namespace Business.Concrete
 
         }
 
+        [SecuredOperation("Sudo,VehicleAnnounces.List,VehicleAnnounces.All", Priority = 1)]
         public async Task<Pagination<VehicleAnnounceForReturnDto>> GetListAsync(VehicleAnnounceParams queryParams)
         {
             var spec = new VehicleAnnounceWithPagingSpecification(queryParams);
@@ -94,6 +102,8 @@ namespace Business.Concrete
             );
         }
 
+        [SecuredOperation("Sudo,VehicleAnnounces.Publish,VehicleAnnounces.All", Priority = 1)]
+        [ValidationAspect(typeof(VehicleAnnounceValidator), Priority = 2)]
         public async Task<VehicleAnnounceForReturnDto> Publish(VehicleAnnounceForCreationDto updateDto)
         {
             var checkFromRepo = await vehicleAnnounceDal.GetAsync(x => x.Id == updateDto.Id);
@@ -111,10 +121,12 @@ namespace Business.Concrete
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
             var updateToDb = await vehicleAnnounceDal.Update(mapForUpdate);
-            
+
             return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(updateToDb);
         }
 
+        [SecuredOperation("Sudo,VehicleAnnounces.Update,VehicleAnnounces.All", Priority = 1)]
+        [ValidationAspect(typeof(VehicleAnnounceValidator), Priority = 2)]
         public async Task<VehicleAnnounceForReturnDto> Update(VehicleAnnounceForCreationDto updateDto)
         {
             var checkFromRepo = await vehicleAnnounceDal.GetAsync(x => x.Id == updateDto.Id);
@@ -126,8 +138,8 @@ namespace Business.Concrete
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
             await vehicleAnnounceDal.Update(mapForUpdate);
-            var spec=new VehicleAnnounceWithPagingSpecification(checkFromRepo.Id);
-            var getWithUser=await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
+            var spec = new VehicleAnnounceWithPagingSpecification(checkFromRepo.Id);
+            var getWithUser = await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
             return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(getWithUser);
         }
     }

@@ -11,7 +11,7 @@ namespace DataAccess.Concrete.Configurations
         {
             builder.HasKey(x=>x.Id);
 
-            builder.Property(x=>x.Name).HasMaxLength(30);
+            builder.Property(x=>x.Name).HasMaxLength(60);
             builder.Property(x=>x.Description).HasMaxLength(140);
 
             builder.HasOne(x=>x.RoleCategory)

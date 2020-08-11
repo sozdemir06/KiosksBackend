@@ -1,0 +1,21 @@
+<!-- carousel -->
+<mat-card>
+    <mat-card-subtitle>Toplam:  {{slides?.length-currentSlide}}</mat-card-subtitle>
+    <ng-container *ngFor="let slide of slides; let i = index">
+      <video controls  *ngIf="i === currentSlide">
+        <source src="{{ slide?.fullPath }}" type="video/mp4" />
+        <source src="{{ slide?.fullPath}}" type="video/ogg" />
+        <source src="{{ slide?.fullPath}}" type="video/webm" />
+        Your browser does not support the video tag.
+      </video>
+    </ng-container>
+  
+    <mat-card-actions class="d-flex justify-content-center">
+        <button  mat-icon-button (click)="onPreviousClick()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          <button mat-icon-button (click)="onNextClick()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+    </mat-card-actions>
+  </mat-card>

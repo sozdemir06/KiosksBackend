@@ -64,6 +64,7 @@ namespace Business.Concrete
             return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(getByIdFromRepo);
         }
 
+         [SecuredOperation("Sudo,VehicleAnnounces.List,VehicleAnnounces.All", Priority = 1)]
         public async Task<VehicleAnnounceForDetailDto> GetDetailAsync(int vehicleAnnounceId)
         {
 

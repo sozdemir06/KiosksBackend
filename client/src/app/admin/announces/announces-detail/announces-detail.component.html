@@ -1,0 +1,126 @@
+<ng-container *ngIf="announceStore.detail$ | async as announce">
+  <div class="container mt-3">
+    <mat-card>
+      <div class="row">
+        <div class="col-md-3">
+          <button mat-raised-button color="primary" (click)="goBack()">
+            <mat-icon>keyboard_return</mat-icon>
+            Geri Dön
+          </button>
+        </div>
+        <div class="col-md-6">
+          <p class="d-flex align-items-center mt-2">
+            <span class="text-capitalize">{{ announce.header }}</span>
+          </p>
+        </div>
+        <div class="col-md-3">
+          <div class="d-flex align-items-center justify-content-end">
+            <div class="d-flex align-items-center">
+              <app-announce-status
+                [isNew]="announce?.isNew"
+                [isPublish]="announce?.isPublish"
+                [reject]="announce?.reject"
+                [startDate]="announce?.publishStartDate"
+                [finishDate]="announce?.publishFinishDate"
+              ></app-announce-status>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-card>
+          <app-user-card [user]="announce?.user"></app-user-card>
+        </mat-card>
+      </div>
+      <div class="col-md-4">
+        <mat-card *ngIf="announce?.contentType.toLowerCase() == 'image'">
+          <app-image-slider
+            [images]="(announceStore.detail$ | async)?.announcePhotos"
+          ></app-image-slider>
+        </mat-card>
+        <ng-container *ngIf="announce?.contentType.toLowerCase() == 'video'">
+          <app-custom-slider
+            [slides]="(announceStore.detail$ | async)?.announcePhotos"
+          >
+          </app-custom-slider>
+        </ng-container>
+      </div>
+      <div class="col-md-4">
+        <mat-card>
+          <mat-card-subtitle>İlan Bilgileri</mat-card-subtitle>
+          <div class="d-flex p-1">
+            <small><strong>İçerik Tipi:</strong></small>
+            <small class="ml-2 text-danger">{{ announce?.contentType }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-1">
+            <small><strong>Geçiş Süresi:</strong></small>
+            <small class="ml-2">{{ announce?.slideIntervalTime }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2">
+            <small><strong>Oluşturulma Tarihi:</strong></small>
+            <small class="ml-2">{{ announce?.created | date: "short" }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-2 pb-3">
+            <small><strong>Yayın Tarihleri:</strong></small>
+            <small class="ml-2">
+              {{ announce?.publishStartDate | date: "short" }}-
+              {{ announce?.publishFinishDate | date: "short" }}
+            </small>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-2 mb-4">
+    <mat-card>
+      <mat-tab-group animationDuration="0ms" dynamicHeight>
+        <mat-tab label="Duyuru Metni">
+          <p class="mt-5 w-50 text-justify" [innerHTML]>
+            {{ announce?.content }}
+          </p>
+        </mat-tab>
+        <mat-tab label="İlan Fotoğrafları">
+          <app-loading></app-loading>
+          <app-announces-photo-list
+            [images]="(announceStore.detail$ | async)?.announcePhotos"
+            [announceId]="announceId"
+            [roleForUpdate]="roleForUpdatePhoto"
+            [roleForDelete]="roleForDeletePhoto"
+          ></app-announces-photo-list>
+          <app-upload
+            [apiUrl]="'http://localhost:5000/api/AnnouncePhotos'"
+            [announceId]="announceId"
+            [roleForUpload]="roleForAddPhoto"
+            (uploadResult)="uploadResult($event)"
+          ></app-upload>
+        </mat-tab>
+        <mat-tab label="Yayın Ekranları">
+          <div class="row p-5">
+            <div class="col-md-6">
+              <h5>İlanın yayında olduğu ekranlar</h5>
+              <app-announces-subscreens
+                [subscreens]="
+                  (announceStore.detail$ | async)?.announceSubScreens
+                "
+              ></app-announces-subscreens>
+            </div>
+            <div class="col-md-6">
+              <h5>Tüm Aktif Yayın Ekranları</h5>
+              <app-subscreens-list-for-announce
+                [roleForCreate]="roleForAddSubScreen"
+                (onSelectSubScreen)="onSelectSubScreen($event)"
+              ></app-subscreens-list-for-announce>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </div>
+</ng-container>

@@ -1,0 +1,23 @@
+[
+    {
+        "Name":"Image",
+        "Description":"Fotoğraf"
+
+    },
+    {
+        "Name":"Video",
+        "Description":"Video"
+    },
+    {
+        "Name":"DeathAnnounce",
+        "Description":"Vefat Duyurusu"
+    },
+    {
+        "Name":"BloodAnnounce",
+        "Description":"Kan Duyurusu"
+    },
+    {
+        "Name":"GeneralAnnounce",
+        "Description":"Genel Duyuru"
+    }
+]

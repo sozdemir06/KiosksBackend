@@ -4,9 +4,10 @@ import { PageEvent } from '@angular/material/paginator';
 import { SubScreenStore } from 'src/app/core/services/stores/subscreen-store';
 import { MatDialog } from '@angular/material/dialog';
 import { EditVehicleAnnounceDialogComponent } from './edit-vehicle-announce-dialog/edit-vehicle-announce-dialog.component';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Observable } from 'rxjs';
 import { VehicleAnnounceParams } from 'src/app/shared/models/VehicleAnnounceParams';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 
 
 
@@ -19,19 +20,19 @@ export class VehicleAnnounceComponent implements OnInit,AfterViewInit,OnDestroy 
   @ViewChild('searchInput') searchInput: ElementRef;
   unSubsCribeFromSearchInput: any;
   roleForCreate:string[]=['Sudo','VehicleAnnounces.Create,VehicleAnnounces.All']
-
+  subscreens$:Observable<ISubScreen[]>;
 
 
 
   constructor(
     public vehicleStore:VehilceAnnounceStore,
-    public subscreenstore:SubScreenStore,
+    private subscreenstore:SubScreenStore,
     private dialog:MatDialog,
 
   ) { }
 
   ngOnInit(): void {
-
+    this.subscreens$=this.subscreenstore.getScreenListForFilters();
   }
 
   ngAfterViewInit() {

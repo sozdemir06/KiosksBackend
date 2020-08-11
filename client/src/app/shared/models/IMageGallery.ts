@@ -3,5 +3,7 @@ export interface IMageGallery{
     name:string;
     fullPath:string;
     isConfirm:boolean;
+    fileType?:string;
+    announceId?:number;
     
 }

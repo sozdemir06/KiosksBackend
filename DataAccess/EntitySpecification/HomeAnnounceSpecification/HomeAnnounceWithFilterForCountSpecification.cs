@@ -18,7 +18,7 @@ namespace DataAccess.EntitySpecification.HomeAnnounceSpecification
                 
             ) &&
               (!queryParams.ScreenId.HasValue || x.HomeAnnounceSubScreens.Any(y=>y.ScreenId==queryParams.ScreenId)) &&
-            (!queryParams.SubScreenId.HasValue || x.HomeAnnounceSubScreens.Any(y=>y.Id==queryParams.SubScreenId)) &&
+            (!queryParams.SubScreenId.HasValue || x.HomeAnnounceSubScreens.Any(y=>y.SubScreenId==queryParams.SubScreenId)) &&
             (!queryParams.Reject.HasValue || x.Reject==queryParams.Reject) &&
             (!queryParams.IsNew.HasValue || x.IsNew==queryParams.IsNew) &&
             (!queryParams.IsPublish.HasValue || x.IsPublish==queryParams.IsPublish)

@@ -61,7 +61,7 @@ namespace Business.MappingProfile
             CreateMap<HomeAnnounce, HomeAnnounceForReturnDto>();
             CreateMap<HomeAnnounceForCreationDto, HomeAnnounce>();
 
-            CreateMap<HomeAnnounce,HomeAnnounceForDetailDto>();
+            CreateMap<HomeAnnounce, HomeAnnounceForDetailDto>();
 
             CreateMap<HomeAnnounceSubScreen, HomeAnnounceSubScreenForReturnDto>();
             CreateMap<HomeAnnounceSubScreenForCreationDto, HomeAnnounceSubScreen>();
@@ -70,12 +70,12 @@ namespace Business.MappingProfile
             CreateMap<HomeAnnouncePhotoForCreationDto, HomeAnnouncePhoto>();
 
             CreateMap<VehicleAnnounce, VehicleAnnounceForReturnDto>();
-                   
+
             CreateMap<VehicleAnnounce, VehicleAnnounceForDetailDto>()
                  .ForMember(x => x.VehicleCategoryName, o => o.MapFrom(z => z.VehicleCategory.CategoryName))
                     .ForMember(x => x.VehicleBrandName, o => o.MapFrom(z => z.VehicleBrand.BrandName))
                     .ForMember(x => x.VehicleModelName, o => o.MapFrom(z => z.VehicleModel.VehicleModelName));
-                    
+
 
             CreateMap<VehicleAnnounceForCreationDto, VehicleAnnounce>();
 
@@ -84,6 +84,20 @@ namespace Business.MappingProfile
 
             CreateMap<VehicleAnnouncePhoto, VehicleAnnouncePhotoForReturnDto>();
             CreateMap<VehicleAnnouncePhotoForCreationDto, VehicleAnnouncePhoto>();
+
+            CreateMap<Announce, AnnounceForReturnDto>();
+            CreateMap<AnnounceForCreationDto, Announce>();
+
+            CreateMap<Announce, AnnounceForDetailDto>();
+
+            CreateMap<AnnounceSubScreen, AnnounceSubScreenForReturnDto>();
+            CreateMap<AnnounceSubScreenForCreationDto, AnnounceSubScreen>();
+
+            CreateMap<AnnouncePhoto, AnnouncePhotoForReturnDto>();
+            CreateMap<AnnouncePhotoForCretionDto, AnnouncePhoto>();
+
+            CreateMap<AnnounceContentType, AnnounceContentTypeForReturnDto>();
+            CreateMap<AnnounceContentTypeForCreationDto, AnnounceContentType>();
 
         }
     }

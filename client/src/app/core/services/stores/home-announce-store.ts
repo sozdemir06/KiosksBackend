@@ -64,7 +64,6 @@ export class HomeAnnounceStore {
 
     params = params.append('pageIndex', announceparams.pageIndex.toString());
     params = params.append('pageSize', announceparams.pageSize.toString());
-
     const announceList$ = this.httpClient
       .get<IPagination<IHomeAnnounce>>(this.apiUrl + 'homeannounces', {
         params,

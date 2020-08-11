@@ -21,7 +21,8 @@ import { ImageSliderComponent } from './image-slider/image-slider.component';
 import { NgxGalleryModule} from "ngx-gallery-9";
 import { UploadComponent } from './upload/upload.component';
 import { SubscreensListForAnnounceComponent } from './subscreens-list-for-announce/subscreens-list-for-announce.component';
-
+import { QuillModule } from "ngx-quill";
+import { CustomSliderComponent } from './custom-slider/custom-slider.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SubscreensListForAnnounceComponent } from './subscreens-list-for-announ
     ImageSliderComponent,
     UploadComponent,
     SubscreensListForAnnounceComponent,
+    CustomSliderComponent,
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { SubscreensListForAnnounceComponent } from './subscreens-list-for-announ
     MaterialModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    QuillModule.forRoot()
   ],
 
   exports: [
@@ -74,7 +77,9 @@ import { SubscreensListForAnnounceComponent } from './subscreens-list-for-announ
     UserCardComponent,
     ImageSliderComponent,
     UploadComponent,
-    SubscreensListForAnnounceComponent
+    SubscreensListForAnnounceComponent,
+    QuillModule,
+    CustomSliderComponent
   ],
 })
 export class SharedModule {}

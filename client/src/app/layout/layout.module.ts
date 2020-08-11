@@ -12,6 +12,8 @@ import { VehicleAnnounceOptionListComponent } from '../admin/dashboard/panels/ve
 import { ScreenPanelComponent } from '../admin/dashboard/panels/screen-panel/screen-panel.component';
 import { HomeAnnouncesPanelComponent } from '../admin/dashboard/panels/home-announces-panel/home-announces-panel.component';
 import { VehicleAnnouncesPanelComponent } from '../admin/dashboard/vehicle-announces-panel/vehicle-announces-panel.component';
+import { AnnouncePanelComponent } from '../admin/dashboard/announce-panel/announce-panel.component';
+import { AnnounceOptionsPanelComponent } from '../admin/dashboard/announce-options-panel/announce-options-panel.component';
 
 
 const routes:Routes=[
@@ -58,7 +60,9 @@ const routes:Routes=[
     VehicleAnnounceOptionListComponent,
     ScreenPanelComponent,
     HomeAnnouncesPanelComponent,
-    VehicleAnnouncesPanelComponent
+    VehicleAnnouncesPanelComponent,
+    AnnouncePanelComponent,
+    AnnounceOptionsPanelComponent
 
   
   ],
@@ -78,7 +82,9 @@ const routes:Routes=[
     VehicleAnnounceOptionListComponent,
     ScreenPanelComponent,
     HomeAnnouncesPanelComponent,
-    VehicleAnnouncesPanelComponent
+    VehicleAnnouncesPanelComponent,
+    AnnouncePanelComponent,
+    AnnounceOptionsPanelComponent
   ]
 })
 export class LayoutModule { }

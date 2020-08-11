@@ -94,6 +94,16 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<VehicleAnnouncesubScreenManager>().As<IVehicleAnnounceSubScreenService>();
             builder.RegisterType<EfVehicleAnnounceSubScreenDal>().As<IVehicleAnnounceSubScreenDal>();
 
+            builder.RegisterType<AnnounceManager>().As<IAnnounceService>();
+            builder.RegisterType<EfAnnounceDal>().As<IAnnounceDal>();
+            builder.RegisterType<AnnouncePhotoManager>().As<IAnnouncePhotoService>();
+            builder.RegisterType<EfAnnouncePhotoDal>().As<IAnnouncePhotoDal>();
+            builder.RegisterType<AnnounceSubScreenManager>().As<IAnnounceSubScreenService>();
+            builder.RegisterType<EfAnnounceSubScreenDal>().As<IAnnounceSubScreenDal>();
+
+            builder.RegisterType<AnnounceContentTypeManager>().As<IAnnounceContentTypeService>();
+            builder.RegisterType<EfAnnounceContentTypeDal>().As<IAnnounceContentTypeDal>();
+
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
             builder.RegisterType<UploadFile>().As<IUploadFile>();

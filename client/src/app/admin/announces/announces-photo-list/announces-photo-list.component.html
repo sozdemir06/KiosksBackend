@@ -1,0 +1,62 @@
+<div class="row p-4">
+  <ng-container *ngIf="images.length > 0; else dataIsEmpty">
+    <ng-container *ngFor="let image of images">
+      <div class="col-md-2">
+        <mat-card>
+          <ng-container *ngIf="image?.fileType.toLowerCase() == 'image'">
+            <img
+              mat-card-image
+              src="{{ image?.fullPath }}"
+              alt="İlan Fotoğrafı"
+              height="100"
+            />
+          </ng-container>
+          <ng-container *ngIf="image?.fileType.toLowerCase() == 'video'">
+            <video controls class="w-100 h-100">
+              <source src="{{ image?.fullPath }}" type="video/mp4" />
+              <source src="{{ image?.fullPath }}" type="video/ogg" />
+              <source src="{{ image?.fullPath }}" type="video/webm" />
+              Your browser does not support the video tag.
+            </video>
+          </ng-container>
+
+          <mat-card-actions class="d-flex">
+            <ng-container *appHasRole="roleForUpdate">
+              <button
+                mat-icon-button
+                *ngIf="image.isConfirm"
+                (click)="onUnConfirm(image)"
+              >
+                <mat-icon>check</mat-icon>
+              </button>
+            </ng-container>
+
+            <ng-container *appHasRole="roleForUpdate">
+              <button
+                mat-icon-button
+                *ngIf="!image.isConfirm"
+                (click)="onConfirm(image)"
+              >
+                <mat-icon color="warn">clear</mat-icon>
+              </button>
+            </ng-container>
+
+            <ng-container *appHasRole="roleForDelete">
+              <button mat-icon-button (click)="onDelete(image)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </ng-container>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <div class="col-md-4">
+    <ng-template #dataIsEmpty>
+      <h4 class="text-info ml-5 p-4 h-25">
+        Bu ilan için henüz fotoğraf eklenmemiş..
+      </h4>
+    </ng-template>
+  </div>
+</div>

@@ -9,7 +9,7 @@ using DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Entities.Concrete;
+
 
 namespace DataAccess.SeedData
 {
@@ -209,7 +209,7 @@ namespace DataAccess.SeedData
                         }
                     }
 
-                     if (!_context.VehicleEngineSizes.Any())
+                    if (!_context.VehicleEngineSizes.Any())
                     {
                         var data = File.ReadAllText("../DataAccess/SeedData/VehicleEngineSize.json");
                         var dataList = JsonSerializer.Deserialize<List<VehicleEngineSize>>(data);
@@ -217,6 +217,17 @@ namespace DataAccess.SeedData
                         foreach (var item in dataList)
                         {
                             _context.VehicleEngineSizes.Add(item);
+                        }
+                    }
+
+                    if (!_context.AnnounceContentTypes.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/AnnounceContentType.json");
+                        var dataList = JsonSerializer.Deserialize<List<AnnounceContentType>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.AnnounceContentTypes.Add(item);
                         }
                     }
 

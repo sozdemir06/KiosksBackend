@@ -47,5 +47,9 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<VehicleAnnounce> VehicleAnnounces { get; set; }
         public DbSet<VehicleAnnouncePhoto> VehicleAnnouncePhotos { get; set; }
         public DbSet<VehicleAnnounceSubScreen> VehicleAnnounceSubScreens { get; set; }
+        public DbSet<Announce> Announces { get; set; }
+        public DbSet<AnnouncePhoto> AnnouncePhotos { get; set; }
+        public DbSet<AnnounceSubScreen> AnnounceSubScreens { get; set; }
+        public DbSet<AnnounceContentType> AnnounceContentTypes { get; set; }
     }
 }

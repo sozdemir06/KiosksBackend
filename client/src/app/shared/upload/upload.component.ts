@@ -23,7 +23,7 @@ export class UploadComponent implements OnInit,OnDestroy {
   @Input() roleForUpload:string[]=[];
   @Output() uploadResult = new EventEmitter<any>();
 
-  allowedFileTypes: string[] = ['image', 'video', 'pdf'];
+  allowedFileTypes: string[] = ['image', 'video'];
   unSubscribeFromFileUploaded: any;
 
   selectedFile: any;
@@ -45,14 +45,11 @@ export class UploadComponent implements OnInit,OnDestroy {
     if (this.selectedFile) {
       var reader = new FileReader();
       reader.readAsDataURL(this.selectedFile);
-      console.log(this.selectedFile.type);
       if (this.selectedFile.type.indexOf('image') > -1) {
         this.fileType = 'image';
-      } else if (this.selectedFile.type.indexOf('vide') > -1) {
+      } else if (this.selectedFile.type.indexOf('video') > -1) {
         this.fileType = 'video';
-      } else if (this.selectedFile.type.indexOf('pdf') > -1) {
-        this.fileType = 'pdf';
-      }
+      } 
       reader.onload = (event) => {
         this.url = (<FileReader>event.target).result;
       };
@@ -74,13 +71,14 @@ export class UploadComponent implements OnInit,OnDestroy {
       if (!checkFileType) {
         this.notifyService.notify(
           'error',
-          'Video,Pdf ve Resim dışında dosya kabul edilmemektedir.'
+          'Video ve Resim dışında dosya kabul edilmemektedir.'
         );
       }
 
       const formData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
       formData.append('announceId', this.announceId.toString());
+      formData.append('fileType', this.fileType);
 
       this.unSubscribeFromFileUploaded = this.httpClient
         .post<any>(this.apiUrl, formData, {

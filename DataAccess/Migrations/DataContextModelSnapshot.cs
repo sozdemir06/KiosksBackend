@@ -19,6 +19,149 @@ namespace DataAccess.Migrations
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("Core.Entities.Concrete.Announce", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("AnnounceType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Header")
+                        .IsRequired()
+                        .HasColumnType("character varying(140)")
+                        .HasMaxLength(140);
+
+                    b.Property<bool>("IsNew")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsPublish")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("PublishFinishDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("PublishStartDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("Reject")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("SlideId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("SlideIntervalTime")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Announces");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.AnnounceContentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'40', '1', '', '', 'False', '1'")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AnnounceContentTypes");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.AnnouncePhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("AnnounceId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullPath")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsConfirm")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnnounceId");
+
+                    b.ToTable("AnnouncePhotos");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.AnnounceSubScreen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("AnnounceId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ScreenId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SubScreenId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SubScreenName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SubScreenPosition")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnnounceId");
+
+                    b.HasIndex("ScreenId");
+
+                    b.HasIndex("SubScreenId");
+
+                    b.ToTable("AnnounceSubScreens");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.BuildingAge", b =>
                 {
                     b.Property<int>("Id")
@@ -803,6 +946,45 @@ namespace DataAccess.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.Announce", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.User", "User")
+                        .WithMany("Announces")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.AnnouncePhoto", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.Announce", "Announce")
+                        .WithMany("AnnouncePhotos")
+                        .HasForeignKey("AnnounceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.AnnounceSubScreen", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.Announce", "Announce")
+                        .WithMany("AnnounceSubScreens")
+                        .HasForeignKey("AnnounceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.Screen", "Screen")
+                        .WithMany("AnnounceSubScreens")
+                        .HasForeignKey("ScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.SubScreen", "SubScreen")
+                        .WithMany("AnnounceSubScreens")
+                        .HasForeignKey("SubScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.HomeAnnounce", b =>
                 {
                     b.HasOne("Core.Entities.Concrete.BuildingAge", "BuildingAge")
@@ -923,7 +1105,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Core.Entities.Concrete.VehicleAnnounce", b =>
                 {
                     b.HasOne("Core.Entities.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("VehicleAnnounces")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

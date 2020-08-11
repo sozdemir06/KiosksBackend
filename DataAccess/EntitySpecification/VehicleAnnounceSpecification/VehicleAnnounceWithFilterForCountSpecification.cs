@@ -18,7 +18,7 @@ namespace DataAccess.EntitySpecification.VehicleAnnounceSpecification
                 
             ) &&
               (!queryParams.ScreenId.HasValue || x.VehicleAnnounceSubScreens.Any(y=>y.ScreenId==queryParams.ScreenId)) &&
-            (!queryParams.SubScreenId.HasValue || x.VehicleAnnounceSubScreens.Any(y=>y.Id==queryParams.SubScreenId)) &&
+            (!queryParams.SubScreenId.HasValue || x.VehicleAnnounceSubScreens.Any(y=>y.SubScreenId==queryParams.SubScreenId)) &&
             (!queryParams.Reject.HasValue || x.Reject==queryParams.Reject) &&
             (!queryParams.IsNew.HasValue || x.IsNew==queryParams.IsNew) &&
             (!queryParams.IsPublish.HasValue || x.IsPublish==queryParams.IsPublish)

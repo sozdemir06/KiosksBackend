@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { LoadingService } from '../loading-service';
 import { NotifyService } from '../notify-service';
-import { BehaviorSubject, Observable, throwError, pipe, AsyncSubject } from 'rxjs';
+import { BehaviorSubject, Observable, throwError} from 'rxjs';
 import { IPagination } from 'src/app/shared/models/IPagination';
 import { IVehicleAnnounceList } from 'src/app/shared/models/IVehicleAnnounceList';
 import { map, catchError, tap } from 'rxjs/operators';
@@ -12,11 +12,12 @@ import produce from 'immer';
 import { IVehicleAnnounceDetail } from 'src/app/shared/models/IVehicleAnnounceDetail';
 import { IVehicleAnnouncePhoto } from 'src/app/shared/models/IVehicleAnnouncePhoto';
 import { IVehicleAnnounceSubScreen } from 'src/app/shared/models/IVehicleAnnounceSubScreen';
+import { HomeAnnounceParams } from 'src/app/shared/models/HomeAnnounceParams';
 
 @Injectable({ providedIn: 'root' })
 export class VehilceAnnounceStore {
   apiUrl: string = environment.apiUrl;
-  vehicleAnnounceParamas = new VehicleAnnounceParams();
+  vehicleAnnounceParams = new VehicleAnnounceParams();
   private subject = new BehaviorSubject<IPagination<IVehicleAnnounceList>>(
     null
   );
@@ -33,7 +34,7 @@ export class VehilceAnnounceStore {
     private loadingService: LoadingService,
     private notifyService: NotifyService
   ) {
-    this.getList(this.vehicleAnnounceParamas);
+    this.getList(this.vehicleAnnounceParams);
     
   }
 
@@ -66,8 +67,9 @@ export class VehilceAnnounceStore {
 
     params = params.append('pageIndex', announceparams.pageIndex.toString());
     params = params.append('pageSize', announceparams.pageSize.toString());
+
     const list$ = this.httpClient
-      .get<IPagination<IVehicleAnnounceList>>(this.apiUrl + 'vehicleannounce/')
+      .get<IPagination<IVehicleAnnounceList>>(this.apiUrl + 'vehicleannounce/',{params})
       .pipe(
         map((announces) => announces),
         catchError((error) => {
@@ -286,14 +288,14 @@ export class VehilceAnnounceStore {
     this.loadingService.showLoaderUntilCompleted(removeSubScreen$).subscribe();
   }
   getParams(): VehicleAnnounceParams {
-    return this.vehicleAnnounceParamas;
+    return this.vehicleAnnounceParams;
   }
 
   setParams(params: VehicleAnnounceParams): void {
-    this.vehicleAnnounceParamas = params;
+    this.vehicleAnnounceParams = params;
   }
 
   getListByParams() {
-    this.getList(this.vehicleAnnounceParamas);
+    this.getList(this.vehicleAnnounceParams);
   }
 }

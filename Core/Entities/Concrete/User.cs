@@ -28,6 +28,8 @@ namespace Core.Entities.Concrete
 
         public ICollection<UserRole> UserRoles { get; set; }
         public ICollection<HomeAnnounce> HomeAnnounces { get; set; }
+        public ICollection<VehicleAnnounce> VehicleAnnounces { get; set; }
+        public ICollection<Announce> Announces { get; set; }
 
 
 

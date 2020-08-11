@@ -98,6 +98,7 @@ namespace Business.Concrete
             return mapper.Map<HomeAnnounceSubScreen, HomeAnnounceSubScreenForReturnDto>(checkByIdFromRepo);
         }
 
+         [SecuredOperation("Sudo,HomeAnnounceSubScreens.List,HomeAnnounces.All", Priority = 1)]
         public async Task<List<HomeAnnounceSubScreenForReturnDto>> GetByAnnounceId(int announceId)
         {
               var spec=new HomeAnnounSubScreenWithSubScreenSpecification(announceId);

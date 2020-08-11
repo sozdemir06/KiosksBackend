@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="announceContentTypeForm"
+    (ngSubmit)="onSubmitform()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Opsiyon Adı..."
+        formControlName="name"
+      />
+      <mat-error *ngIf="f.name.errors?.required"
+        >Opsiyon için isim belirtiniz...</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Opsiyon için açıklama"
+        formControlName="description"
+      />
+      <mat-error *ngIf="f.name.errors?.required"
+        >Opsiyon için açıklama giriniz...</mat-error
+      >
+    </mat-form-field>
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="!announceContentTypeForm.valid"
+    >
+      {{ this.mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>

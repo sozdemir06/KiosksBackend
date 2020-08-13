@@ -14,6 +14,7 @@ import { HomeAnnouncesPanelComponent } from '../admin/dashboard/panels/home-anno
 import { VehicleAnnouncesPanelComponent } from '../admin/dashboard/vehicle-announces-panel/vehicle-announces-panel.component';
 import { AnnouncePanelComponent } from '../admin/dashboard/announce-panel/announce-panel.component';
 import { AnnounceOptionsPanelComponent } from '../admin/dashboard/announce-options-panel/announce-options-panel.component';
+import { NewsPanelComponent } from '../admin/dashboard/news-panel/news-panel.component';
 
 
 const routes:Routes=[
@@ -62,7 +63,8 @@ const routes:Routes=[
     HomeAnnouncesPanelComponent,
     VehicleAnnouncesPanelComponent,
     AnnouncePanelComponent,
-    AnnounceOptionsPanelComponent
+    AnnounceOptionsPanelComponent,
+    NewsPanelComponent
 
   
   ],
@@ -84,7 +86,8 @@ const routes:Routes=[
     HomeAnnouncesPanelComponent,
     VehicleAnnouncesPanelComponent,
     AnnouncePanelComponent,
-    AnnounceOptionsPanelComponent
+    AnnounceOptionsPanelComponent,
+    NewsPanelComponent
   ]
 })
 export class LayoutModule { }

@@ -101,6 +101,13 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<AnnounceSubScreenManager>().As<IAnnounceSubScreenService>();
             builder.RegisterType<EfAnnounceSubScreenDal>().As<IAnnounceSubScreenDal>();
 
+            builder.RegisterType<NewsManager>().As<INewsService>();
+            builder.RegisterType<EfNewsDal>().As<INewsDal>();
+            builder.RegisterType<NewsPhotoManager>().As<INewsPhotoService>();
+            builder.RegisterType<EfNewsPhotoDal>().As<INewsPhotoDal>();
+            builder.RegisterType<NewsSubScreenManager>().As<INewsSubScreenService>();
+            builder.RegisterType<EfNewssubScreenDal>().As<INewsSubScreenDal>();
+
             builder.RegisterType<AnnounceContentTypeManager>().As<IAnnounceContentTypeService>();
             builder.RegisterType<EfAnnounceContentTypeDal>().As<IAnnounceContentTypeDal>();
 

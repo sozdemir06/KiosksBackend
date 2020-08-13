@@ -113,7 +113,7 @@ export class AnnounceStore {
             }
           });
           this.subject.next(updateSubject);
-          this.notifyService.notify('success', 'Yeni Duyuru Güncellendi...');
+          this.notifyService.notify('success', 'Duyuru Güncellendi...');
         })
       );
       this.loadingService.showLoaderUntilCompleted(update$).subscribe();

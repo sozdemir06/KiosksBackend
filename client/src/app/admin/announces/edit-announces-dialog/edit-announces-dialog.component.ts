@@ -9,6 +9,7 @@ import { AnnounceStore } from 'src/app/core/services/stores/announce-store';
 import { IUserList } from 'src/app/shared/models/IUser';
 import { AnnounceContentTypeStore } from 'src/app/core/services/stores/announce-content-type-store';
 import { Subscription } from 'rxjs';
+import { EditorChangeContent } from 'ngx-quill';
 
 @Component({
   selector: 'app-edit-announces-dialog',
@@ -59,6 +60,11 @@ export class EditAnnouncesDialogComponent implements OnInit, OnDestroy {
       this.announceForm = this.fb.group(this.formControls);
       this.announceForm.patchValue({ ...this.item });
       this.announceForm.get("contentType").disable();
+      const contentType=this.item?.contentType.toLowerCase();
+      if(contentType=='deathannounce' || 
+         contentType=='bloodannounce' || contentType=='generalannounce'){
+          this.showTextEditor=true;
+      }
     }
   }
 
@@ -118,12 +124,8 @@ export class EditAnnouncesDialogComponent implements OnInit, OnDestroy {
           this.dialogRef.close();
         } else if (this.mode == 'update') {
           const model: IAnnounce = {
+            ...this.item,
             ...this.announceForm.value,
-            id: this.item?.id,
-            isNew: this.item?.isNew,
-            reject: this.item?.reject,
-            isPublish: this.item?.isPublish,
-            contentType:this.item?.contentType
           };
           this.announceStore.update(model);
           this.dialogRef.close();

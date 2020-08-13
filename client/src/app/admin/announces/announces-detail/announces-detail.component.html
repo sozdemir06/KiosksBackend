@@ -36,18 +36,23 @@
           <app-user-card [user]="announce?.user"></app-user-card>
         </mat-card>
       </div>
-      <div class="col-md-4">
-        <mat-card *ngIf="announce?.contentType.toLowerCase() == 'image'">
+      <div class="col-md-4" [ngSwitch]="announce?.contentType.toLowerCase()">
+        <mat-card *ngSwitchCase="'image'">
           <app-image-slider
             [images]="(announceStore.detail$ | async)?.announcePhotos"
           ></app-image-slider>
         </mat-card>
-        <ng-container *ngIf="announce?.contentType.toLowerCase() == 'video'">
+        <ng-container *ngSwitchCase="'video'">
           <app-custom-slider
             [slides]="(announceStore.detail$ | async)?.announcePhotos"
           >
           </app-custom-slider>
         </ng-container>
+        <mat-card *ngSwitchDefault>
+          <app-image-slider
+            [images]="(announceStore.detail$ | async)?.announcePhotos"
+          ></app-image-slider>
+        </mat-card>
       </div>
       <div class="col-md-4">
         <mat-card>
@@ -81,12 +86,16 @@
   <div class="container mt-2 mb-4">
     <mat-card>
       <mat-tab-group animationDuration="0ms" dynamicHeight>
-        <mat-tab label="Duyuru Metni">
-          <p class="mt-5 w-50 text-justify" [innerHTML]>
-            {{ announce?.content }}
-          </p>
+        <mat-tab label="Duyuru Metni" *ngIf="announce?.content">
+          <quill-view [content]="announce?.content" format="html" theme="snow"></quill-view>
         </mat-tab>
-        <mat-tab label="İlan Fotoğrafları">
+        <mat-tab
+          label="İlan Fotoğrafları"
+          *ngIf="
+            announce?.contentType.toLowerCase() === 'image' ||
+            announce?.contentType.toLowerCase() == 'video'
+          "
+        >
           <app-loading></app-loading>
           <app-announces-photo-list
             [images]="(announceStore.detail$ | async)?.announcePhotos"

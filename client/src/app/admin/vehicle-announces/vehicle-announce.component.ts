@@ -26,13 +26,13 @@ export class VehicleAnnounceComponent implements OnInit,AfterViewInit,OnDestroy 
 
   constructor(
     public vehicleStore:VehilceAnnounceStore,
-    private subscreenstore:SubScreenStore,
+    public subScreenStore:SubScreenStore,
     private dialog:MatDialog,
 
   ) { }
 
   ngOnInit(): void {
-    this.subscreens$=this.subscreenstore.getScreenListForFilters();
+    
   }
 
   ngAfterViewInit() {

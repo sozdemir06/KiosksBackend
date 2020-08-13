@@ -4,7 +4,7 @@
         <div class="mat-elevation-z3 bg-white">
           <div class="row p-3 align-items-center">
             <div class="col-md-2 col-sm-2 col-lg-2">
-              <span class="mat-h2">Araç İlanları</span>
+              <span class="mat-h2">Duyurular</span>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6">
               <mat-form-field class="w-100">
@@ -39,7 +39,7 @@
                   <mat-icon>filter_list</mat-icon>
                 </button>
                 <mat-menu #toolbarFilterList="matMenu">
-                  <ng-container *ngIf="(subscreens$ | async) as subscreens">
+                  <ng-container *ngIf="(subScreenStore.subScreens$ | async) as subscreens">
                     <button mat-menu-item *ngFor="let screen of subscreens" (click)="filterBySubScreen(screen.id)">
                       {{screen?.name}}
                     </button>

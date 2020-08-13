@@ -157,6 +157,11 @@ const routes: Routes = [
           ).then((m) => m.AnnounceContentTypesModule),
           data: { roles: ['Sudo', 'AnnounceContentTypes.List', 'Announces.All'] },
       },
+      {
+        path:"news",
+        loadChildren:()=>import("../news/news.module").then(m=>m.NewsModule),
+        data:{roles:['Sudo','News.List','News.All']}
+      }
     ],
   },
 ];

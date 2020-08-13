@@ -1,92 +1,95 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
-    <!-- Column -->
-  
-    <!-- Column -->
-    <ng-container matColumnDef="Image">
-      <th mat-header-cell *matHeaderCellDef>Photo</th>
-      <td mat-cell *matCellDef="let element">
-        <img *ngIf="element?.photoUrl else defaultPhotoUrl" src="{{element.photoUrl}}" alt="">
-        <ng-template #defaultPhotoUrl>
-          <mat-icon>announcement</mat-icon>
-        </ng-template>
-      </td>
-    </ng-container>
-  
-    <!-- Column -->
-    <ng-container matColumnDef="Header">
-      <th mat-header-cell *matHeaderCellDef>Başlık</th>
-      <td mat-cell *matCellDef="let element">
-        <div>
-          <span>{{ element?.header | shorten }}</span>
-        </div>
-      </td>
-    </ng-container>
-  
-    <!-- Column -->
-    <ng-container matColumnDef="Created">
-      <th mat-header-cell *matHeaderCellDef>Tarih</th>
-      <td mat-cell *matCellDef="let element">
-        {{element.created | timeAgo}}
-      </td>
-    </ng-container>
-  
-    <!-- Column -->
-    <ng-container matColumnDef="PublishDates">
-      <th mat-header-cell *matHeaderCellDef>Yayın Tarihleri</th>
-      <td mat-cell *matCellDef="let element">
-        <div class="d-flex flex-column">
-          <span>{{element.publishStartDate | date:'short'}}</span>
-          <span>{{element.publishFinishDate | date:'short'}}</span>
-        </div>
-      </td>
-    </ng-container>
-    <!-- Column -->
-    <ng-container matColumnDef="Price">
-      <th mat-header-cell *matHeaderCellDef>Fiyat</th>
-      <td mat-cell *matCellDef="let element">
-        <div>
-          <span>{{ element?.price | currency:"₺"}}</span>
-        </div>
-      </td>
-    </ng-container>
-    <!-- Column -->
-    <ng-container matColumnDef="PublishStatus">
-      <th mat-header-cell *matHeaderCellDef>Durum</th>
-      <td mat-cell *matCellDef="let element">
-        <app-announce-status 
+  <!-- Column -->
+
+  <!-- Column -->
+  <ng-container matColumnDef="Image">
+    <th mat-header-cell *matHeaderCellDef>Photo</th>
+    <td mat-cell *matCellDef="let element">
+      <img
+        *ngIf="element?.photoUrl; else defaultPhotoUrl"
+        src="{{ element.photoUrl }}"
+        alt=""
+      />
+      <ng-template #defaultPhotoUrl>
+        <mat-icon>announcement</mat-icon>
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Column -->
+  <ng-container matColumnDef="Header">
+    <th mat-header-cell *matHeaderCellDef>Başlık</th>
+    <td mat-cell *matCellDef="let element">
+      <div>
+        <span>{{ element?.header | shorten }}</span>
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- Column -->
+  <ng-container matColumnDef="Created">
+    <th mat-header-cell *matHeaderCellDef>Tarih</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.created | timeAgo }}
+    </td>
+  </ng-container>
+
+  <!-- Column -->
+  <ng-container matColumnDef="PublishDates">
+    <th mat-header-cell *matHeaderCellDef>Yayın Tarihleri</th>
+    <td mat-cell *matCellDef="let element">
+      <div class="d-flex flex-column">
+        <span>{{ element.publishStartDate | date: "short" }}</span>
+        <span>{{ element.publishFinishDate | date: "short" }}</span>
+      </div>
+    </td>
+  </ng-container>
+   <!-- Column -->
+   <ng-container matColumnDef="ContentType">
+    <th mat-header-cell *matHeaderCellDef>İçerik Tipi</th>
+    <td mat-cell *matCellDef="let element">
+      {{ checkContentType(element?.contentType) }}
+    </td>
+  </ng-container>
+  <!-- Column -->
+  <ng-container matColumnDef="PublishStatus">
+    <th mat-header-cell *matHeaderCellDef>Durum</th>
+    <td mat-cell *matCellDef="let element">
+      <app-announce-status
         [isNew]="element?.isNew"
         [isPublish]="element?.isPublish"
         [reject]="element?.reject"
         [startDate]="element?.publishStartDate"
         [finishDate]="element?.publishFinishDate"
-        ></app-announce-status>
-      </td>
-    </ng-container>
-    <!--Column -->
-    <ng-container matColumnDef="Actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button [routerLink]="['../detail/',element?.id]" >
-          <mat-icon>preview</mat-icon>
-        </button>
-        <app-announce-detail-menu
-                [isPublish]="element?.isPublish"
-                [isNew]="element?.isNew"
-                [isReject]="element?.reject"
-                [startDate]="element?.publishStartDate"
-                [finishDate]="element?.publishFinishDate"
-                [roleForPublish]="roleForPublish"
-                [roleForUpdate]="roleForUpdate"
-                (onPublish)="onPublish(element)"
-                (onReject)="onReject(element)"
-                (onUpdate)="onUpdate(element)"
-                (onDelete)="onDelete(element)"
-                (unPublish)="unPublish(element)"
-              >
-              </app-announce-detail-menu>
-      </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+      ></app-announce-status>
+    </td>
+  </ng-container>
+ 
+  <!--Column -->
+  <ng-container matColumnDef="Actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button [routerLink]="['../detail/', element?.id]">
+        <mat-icon>preview</mat-icon>
+      </button>
+      <app-announce-detail-menu
+        [isPublish]="element?.isPublish"
+        [isNew]="element?.isNew"
+        [isReject]="element?.reject"
+        [startDate]="element?.publishStartDate"
+        [finishDate]="element?.publishFinishDate"
+        [roleForPublish]="roleForPublish"
+        [roleForUpdate]="roleForUpdate"
+        (onPublish)="onPublish(element)"
+        (onReject)="onReject(element)"
+        (onUpdate)="onUpdate(element)"
+        (onDelete)="onDelete(element)"
+        (unPublish)="unPublish(element)"
+      >
+      </app-announce-detail-menu>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

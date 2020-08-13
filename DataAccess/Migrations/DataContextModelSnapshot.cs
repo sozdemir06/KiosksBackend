@@ -400,6 +400,128 @@ namespace DataAccess.Migrations
                     b.ToTable("HomeAnnounceSubScreens");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.News", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("AnnounceType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Header")
+                        .IsRequired()
+                        .HasColumnType("character varying(140)")
+                        .HasMaxLength(140);
+
+                    b.Property<bool>("IsNew")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsPublish")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("PublishFinishDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("PublishStartDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("Reject")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("SlideId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("SlideIntervalTime")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("News");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.NewsPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullPath")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsConfirm")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("NewsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
+
+                    b.ToTable("NewsPhotos");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.NewsSubScreen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("NewsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ScreenId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SubScreenId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SubScreenName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SubScreenPosition")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
+
+                    b.HasIndex("ScreenId");
+
+                    b.HasIndex("SubScreenId");
+
+                    b.ToTable("NewsSubScreens");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.NumberOfRoom", b =>
                 {
                     b.Property<int>("Id")
@@ -1043,6 +1165,45 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Core.Entities.Concrete.SubScreen", "SubScreen")
                         .WithMany("HomeAnnounceSubScreens")
+                        .HasForeignKey("SubScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.News", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.NewsPhoto", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.News", "News")
+                        .WithMany("NewsPhotos")
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.NewsSubScreen", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.News", "News")
+                        .WithMany("NewsSubScreens")
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.Screen", "Screen")
+                        .WithMany("NewsSubScreens")
+                        .HasForeignKey("ScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.SubScreen", "SubScreen")
+                        .WithMany("NewsSubScreens")
                         .HasForeignKey("SubScreenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

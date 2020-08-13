@@ -1,0 +1,94 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="newsForm"
+    (ngSubmit)="onSubmit()"
+    autocomplete="off"
+  >
+  <mat-form-field>
+    <mat-label>İçerik Tipi</mat-label>
+    <mat-select formControlName="contentType">
+      <mat-option *ngFor="let item of contentType" [value]="item.name">
+        {{item.description}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="f.contentType.errors?.required"
+      >Haber içerik tipini seçiniz...</mat-error
+    >
+  </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Haber başlığı"
+        formControlName="header"
+      />
+      <mat-error *ngIf="f.header.errors?.required"
+        >Haber başlığı boş olamaz...</mat-error
+      >
+      <mat-error *ngIf="f.header.errors?.maxlength"
+        >Haber başlığı en fazla 140 karakter olmalı...</mat-error
+      >
+    </mat-form-field>
+    <ng-container>
+      <quill-editor *ngIf="showTextEditor"
+      formControlName="content"
+      [styles]="{ height: '25rem' }"
+      placeholder="Haber Metni"
+    ></quill-editor>
+    </ng-container>
+   
+    <mat-form-field>
+      <input
+        matInput
+        type="number"
+        formControlName="slideIntervalTime"
+        placeholder="Saniye cinsinden geçiş süresi"
+      />
+      <mat-error *ngIf="f.slideIntervalTime.errors?.required">
+        Geçiş süresi seçiniz...
+      </mat-error>
+    </mat-form-field>
+   
+    <mat-form-field>
+      <mat-label>Yayın Başlangıç Tarihi ve Saati</mat-label>
+      <input
+        class="date-time"
+        [owlDateTime]="dt1"
+        [owlDateTimeTrigger]="dt1"
+        autocomplete="off"
+        formControlName="publishStartDate"
+        (dateTimeChange)="onChangeStartDate($event)"
+        matInput
+        required
+      />
+      <owl-date-time #dt1></owl-date-time>
+      <mat-error *ngIf="f.publishStartDate.errors?.required"
+        >Yayın başlangıç tarihi boş olamaz</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Yayın Bitiş Tarihi ve Saati </mat-label>
+      <input
+        class="date-time"
+        [owlDateTime]="dt2"
+        [owlDateTimeTrigger]="dt2"
+        autocomplete="off"
+        formControlName="publishFinishDate"
+        (dateTimeChange)="onChangeFinishDate($event)"
+        matInput
+        required
+      />
+      <owl-date-time #dt2></owl-date-time>
+      <mat-error *ngIf="f.publishFinishDate.errors?.required"
+        >Yayın bitiş tarihi boş olamaz</mat-error
+      >
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="!newsForm.valid">
+      {{ mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>
+

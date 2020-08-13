@@ -15,6 +15,7 @@ namespace Core.Entities.Concrete
         public ICollection<HomeAnnounceSubScreen> HomeAnnounceSubScreens { get; set; }
         public ICollection<VehicleAnnounceSubScreen> VehicleAnnounceSubScreens { get; set; }
         public ICollection<AnnounceSubScreen> AnnounceSubScreens { get; set; }
+        public ICollection<NewsSubScreen> NewsSubScreens { get; set; }
        
     }
 }

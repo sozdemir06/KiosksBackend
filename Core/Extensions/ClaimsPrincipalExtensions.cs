@@ -16,5 +16,10 @@ namespace Core.Extensions
         {
             return claimsPrincipal?.Claims(ClaimTypes.Role);
         }
+
+        public static int ClaimsId(this ClaimsPrincipal claimsPrincipal)
+        {
+            return int.Parse(claimsPrincipal?.FindFirst(x=>x.Type==ClaimTypes.NameIdentifier)?.Value);
+        }
     }
 }

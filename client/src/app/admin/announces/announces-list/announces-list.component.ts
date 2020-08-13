@@ -17,7 +17,7 @@ export class AnnouncesListComponent implements OnInit {
     'Header',
     'Created',
     'PublishDates',
-    'Price',
+    'ContentType',
     'PublishStatus',
     'Actions',
   ];
@@ -39,6 +39,31 @@ export class AnnouncesListComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  checkContentType(contentType: string): string {
+    let type: string = '';
+
+    switch (contentType.toLowerCase()) {
+      case 'image':
+        type = 'Fotoğraf';
+        break;
+      case 'video':
+        type = 'Video';
+        break;
+      case 'deathannounce':
+        type = 'Vefat Duyurusu';
+        break;
+      case 'bloodannounce':
+        type = 'Kan Duyurusu';
+        break;
+      case 'generalannounce':
+        type = 'Genel Duyuru';
+        break;
+      default:
+        type = 'Yok';
+        break;
+    }
+    return type;
+  }
   onUpdate(element: IAnnounce) {
     this.dialog.open(EditAnnouncesDialogComponent,{
       width:"55rem",

@@ -51,5 +51,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<AnnouncePhoto> AnnouncePhotos { get; set; }
         public DbSet<AnnounceSubScreen> AnnounceSubScreens { get; set; }
         public DbSet<AnnounceContentType> AnnounceContentTypes { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<NewsPhoto> NewsPhotos { get; set; }
+        public DbSet<NewsSubScreen> NewsSubScreens { get; set; }
     }
 }

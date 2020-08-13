@@ -20,13 +20,12 @@ export class SubScreenStore {
     private httpClient: HttpClient,
     private loadingservice: LoadingService,
     private notifyService: NotifyService,
-    private route:ActivatedRoute
   ) {
       
-    
+    this.getList();
   }
 
- getList(screenId:number) {
+ private getList() {
     const list$ = this.httpClient
       .get<ISubScreen[]>(this.apiUrl + 'subscreens/')
       .pipe(

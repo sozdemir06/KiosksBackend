@@ -39,7 +39,7 @@
                   <mat-icon>filter_list</mat-icon>
                 </button>
                 <mat-menu #toolbarFilterList="matMenu">
-                  <ng-container *ngIf="(subscreens$ | async) as subscreens">
+                  <ng-container *ngIf="(subScreenStore.subScreens$ | async) as subscreens">
                     <button mat-menu-item *ngFor="let screen of subscreens" (click)="filterBySubScreen(screen.id)">
                       {{screen?.name}}
                     </button>

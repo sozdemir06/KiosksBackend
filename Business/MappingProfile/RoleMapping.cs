@@ -99,6 +99,17 @@ namespace Business.MappingProfile
             CreateMap<AnnounceContentType, AnnounceContentTypeForReturnDto>();
             CreateMap<AnnounceContentTypeForCreationDto, AnnounceContentType>();
 
+            CreateMap<News, NewsForReturnDto>();
+            CreateMap<NewsForCreationDto, News>();
+
+            CreateMap<News, NewsForDetailDto>();
+
+            CreateMap<NewsSubScreen, NewsSubScreenForReturnDto>();
+            CreateMap<NewsSubScreenForCreationDto, NewsSubScreen>();
+
+            CreateMap<NewsPhoto, NewsPhotoForReturnDto>();
+            CreateMap<NewsPhotoForCreationDto, NewsPhoto>();
+
         }
     }
 }

@@ -15,19 +15,20 @@ import { AnnounceParams } from 'src/app/shared/models/AnnounceParams';
   styleUrls: ['./announces.component.scss']
 })
 export class AnnouncesComponent implements OnInit,AfterViewInit,OnDestroy {
-subscreens$:Observable<ISubScreen[]>;
 unSubsCribeFromSearchInput:Subscription=Subscription.EMPTY;
 @ViewChild('searchInput') searchInput: ElementRef;
 roleForCreate:string[]=['Sudo','Announces.Create,Announces.All']
   constructor(
     public announceStore:AnnounceStore,
-    private subScreenStore:SubScreenStore,
+    public subScreenStore:SubScreenStore,
     private dialog:MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.subscreens$=this.subScreenStore.getScreenListForFilters();
+   
   }
+
+  
 
 
   ngAfterViewInit() {

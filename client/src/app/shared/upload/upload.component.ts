@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { NotifyService } from 'src/app/core/services/notify-service';
 import { HttpClient, HttpEventType } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class UploadComponent implements OnInit,OnDestroy {
   @Output() uploadResult = new EventEmitter<any>();
 
   allowedFileTypes: string[] = ['image', 'video'];
-  unSubscribeFromFileUploaded: any;
+  subscription:Subscription=Subscription.EMPTY;
 
   selectedFile: any;
   fileType: string;
@@ -80,7 +81,7 @@ export class UploadComponent implements OnInit,OnDestroy {
       formData.append('announceId', this.announceId.toString());
       formData.append('fileType', this.fileType);
 
-      this.unSubscribeFromFileUploaded = this.httpClient
+      this.subscription = this.httpClient
         .post<any>(this.apiUrl, formData, {
           reportProgress: true,
           observe: 'events',
@@ -112,6 +113,6 @@ export class UploadComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(){
-    this.unSubscribeFromFileUploaded?.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

@@ -110,6 +110,17 @@ namespace Business.MappingProfile
             CreateMap<NewsPhoto, NewsPhotoForReturnDto>();
             CreateMap<NewsPhotoForCreationDto, NewsPhoto>();
 
+            CreateMap<FoodMenu, FoodMenuForReturnDto>();
+            CreateMap<FoodMenuForCreationDto, FoodMenu>();
+
+            CreateMap<FoodMenu, FoodMenuForDetailDto>();
+
+            CreateMap<FoodMenuSubscreen, FoodMenuSubScreenForReturnDto>();
+            CreateMap<FoodMenuSubScreenForCreationDto, FoodMenuSubscreen>();
+
+            CreateMap<FoodMenuPhoto, FoodMenuPhotoForReturnDto>();
+            CreateMap<FoodMenuPhotoForCreationDto, FoodMenuPhoto>();
+
         }
     }
 }

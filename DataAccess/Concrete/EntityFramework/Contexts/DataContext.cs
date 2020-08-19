@@ -54,5 +54,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<News> News { get; set; }
         public DbSet<NewsPhoto> NewsPhotos { get; set; }
         public DbSet<NewsSubScreen> NewsSubScreens { get; set; }
+        public DbSet<FoodMenu> FoodMenus { get; set; }
+        public DbSet<FoodMenuPhoto> FoodMenuPhotos { get; set; }
+        public DbSet<FoodMenuSubscreen> FoodMenuSubscreens { get; set; }
     }
 }

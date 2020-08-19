@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NewsStore } from 'src/app/core/services/stores/news-store';
 import { EditNewsDialogComponent } from '../edit-news-dialog/edit-news-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { HelperService } from 'src/app/core/services/helper-service';
 
 @Component({
   selector: 'app-news-list',
@@ -24,29 +25,14 @@ export class NewsListComponent implements OnInit {
 
   roleForUpdate: string[] = ['Sudo', 'News.Update', 'News.All'];
   roleForPublish: string[] = ['Sudo', 'News.Publish', 'News.All'];
-  constructor(private dialog: MatDialog, private newsStore: NewsStore) {}
+  constructor(
+    private dialog: MatDialog,
+    private newsStore: NewsStore,
+    public helperService: HelperService
+  ) {}
 
   ngOnInit(): void {}
 
-  checkContentType(contentType: string): string {
-    let type: string = '';
-
-    switch (contentType.toLowerCase()) {
-      case 'image':
-        type = 'Fotoğraf';
-        break;
-      case 'textandimage':
-        type = 'Metin ve Fotoğraf';
-        break;
-      case 'text':
-        type = 'Sadece Metin';
-        break;
-      default:
-        type = 'Yok';
-        break;
-    }
-    return type;
-  }
   onUpdate(element: INews) {
     this.dialog.open(EditNewsDialogComponent, {
       width: '60vw',

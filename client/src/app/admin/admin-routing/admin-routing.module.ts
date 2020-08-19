@@ -161,6 +161,11 @@ const routes: Routes = [
         path:"news",
         loadChildren:()=>import("../news/news.module").then(m=>m.NewsModule),
         data:{roles:['Sudo','News.List','News.All']}
+      },
+      {
+        path:"foods-menu",
+        loadChildren:()=>import("../food-menu/food-menu.module").then(m=>m.FoodMenuModule),
+        data:{roles:['Sudo','FoodMenu.List','FoodMenu.All']}
       }
     ],
   },

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.Entities.Concrete
 {
-    public class Screen:IEntity
+    public class Screen : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -16,6 +16,7 @@ namespace Core.Entities.Concrete
         public ICollection<VehicleAnnounceSubScreen> VehicleAnnounceSubScreens { get; set; }
         public ICollection<AnnounceSubScreen> AnnounceSubScreens { get; set; }
         public ICollection<NewsSubScreen> NewsSubScreens { get; set; }
-       
+        public ICollection<FoodMenuSubscreen> FoodMenuSubScreens { get; set; }
+
     }
 }

@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditAnnouncesDialogComponent } from '../edit-announces-dialog/edit-announces-dialog.component';
 import { AnnounceStore } from 'src/app/core/services/stores/announce-store';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { HelperService } from 'src/app/core/services/helper-service';
 
 @Component({
   selector: 'app-announces-list',
@@ -34,39 +35,16 @@ export class AnnouncesListComponent implements OnInit {
   ];
   constructor(
     private dialog:MatDialog,
-    private announceStore:AnnounceStore
+    private announceStore:AnnounceStore,
+    public helperService:HelperService
   ) {}
 
   ngOnInit(): void {}
 
-  checkContentType(contentType: string): string {
-    let type: string = '';
-
-    switch (contentType.toLowerCase()) {
-      case 'image':
-        type = 'Fotoğraf';
-        break;
-      case 'video':
-        type = 'Video';
-        break;
-      case 'deathannounce':
-        type = 'Vefat Duyurusu';
-        break;
-      case 'bloodannounce':
-        type = 'Kan Duyurusu';
-        break;
-      case 'generalannounce':
-        type = 'Genel Duyuru';
-        break;
-      default:
-        type = 'Yok';
-        break;
-    }
-    return type;
-  }
+  
   onUpdate(element: IAnnounce) {
     this.dialog.open(EditAnnouncesDialogComponent,{
-      width:"55rem",
+      width:"65vw",
       maxHeight:"100vh",
       autoFocus:false,
       data:{

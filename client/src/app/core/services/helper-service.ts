@@ -42,4 +42,36 @@ export class HelperService {
       }
       return passCheck;
   }
+
+  checkContentType(contentType: string): string {
+    let type: string = '';
+
+    switch (contentType.toLowerCase()) {
+      case 'image':
+        type = 'Fotoğraf';
+        break;
+      case 'video':
+        type = 'Video';
+        break;
+      case 'deathannounce':
+        type = 'Vefat Duyurusu';
+        break;
+      case 'bloodannounce':
+        type = 'Kan Duyurusu';
+        break;
+      case 'generalannounce':
+        type = 'Genel Duyuru';
+        break;
+      case 'textandimage':
+        type = 'Metin ve Fotoğraf';
+        break;
+      case 'text':
+        type = 'Sadece Metin';
+        break;
+      default:
+        type = 'Yok';
+        break;
+    }
+    return type;
+  }
 }

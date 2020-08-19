@@ -15,44 +15,45 @@ import { VehicleAnnouncesPanelComponent } from '../admin/dashboard/vehicle-annou
 import { AnnouncePanelComponent } from '../admin/dashboard/announce-panel/announce-panel.component';
 import { AnnounceOptionsPanelComponent } from '../admin/dashboard/announce-options-panel/announce-options-panel.component';
 import { NewsPanelComponent } from '../admin/dashboard/news-panel/news-panel.component';
+import { FoodMenuPanelComponent } from '../admin/dashboard/food-menu-panel/food-menu-panel.component';
 
-
-const routes:Routes=[
+export const routes: Routes = [
   {
-     path:"",
-     component:LayoutComponent,
-     children:[
-        {
-          path:"",
-          loadChildren:()=>import("../public/public.module").then(m=>m.PublicModule)
-        },
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('../public/public.module').then((m) => m.PublicModule),
+      },
 
-        {
-          path:"admin",
-          loadChildren:()=>import("../admin/admin.module").then(m=>m.AdminModule)
-        },
-        {
-          path:"auth",
-          loadChildren:()=>import("../auth/auth.module").then(m=>m.AuthModule)
-        },
-        {
-          path:"not-found",
-          component:NotFoundComponent
-        },
-        {
-          path:"**",
-          component:NotFoundComponent
-        }
-
-       
-
-     ]
-  }
-]
+      {
+        path: 'admin',
+        loadChildren: () =>
+          import('../admin/admin.module').then((m) => m.AdminModule),
+      },
+      {
+        path: 'auth',
+        loadChildren: () =>
+          import('../auth/auth.module').then((m) => m.AuthModule),
+      },
+      {
+        path: 'not-found',
+        component: NotFoundComponent,
+        pathMatch:"full"
+      },
+      {
+        path: '**',
+        component: NotFoundComponent,
+      },
+    ],
+  },
+];
 
 @NgModule({
   declarations: [
-    HeaderComponent, 
+    HeaderComponent,
     FooterComponent,
     LayoutComponent,
     UserPanelComponent,
@@ -64,16 +65,12 @@ const routes:Routes=[
     VehicleAnnouncesPanelComponent,
     AnnouncePanelComponent,
     AnnounceOptionsPanelComponent,
-    NewsPanelComponent
-
-  
+    NewsPanelComponent,
+    FoodMenuPanelComponent,
   ],
-  imports: [
-    SharedModule,
-    RouterModule.forChild(routes),
-  ],
+  imports: [SharedModule, RouterModule.forChild(routes)],
 
-  exports:[
+  exports: [
     HeaderComponent,
     FooterComponent,
     LayoutComponent,
@@ -87,7 +84,8 @@ const routes:Routes=[
     VehicleAnnouncesPanelComponent,
     AnnouncePanelComponent,
     AnnounceOptionsPanelComponent,
-    NewsPanelComponent
-  ]
+    NewsPanelComponent,
+    FoodMenuPanelComponent,
+  ],
 })
-export class LayoutModule { }
+export class LayoutModule {}

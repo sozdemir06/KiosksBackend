@@ -11,9 +11,10 @@ import { LoadingService } from './core/services/loading-service';
 
 
 
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

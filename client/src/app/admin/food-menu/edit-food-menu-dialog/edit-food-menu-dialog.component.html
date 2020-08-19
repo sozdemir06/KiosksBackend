@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="foodMenuForm"
+    (ngSubmit)="onSubmit()"
+    autocomplete="off"
+  >
+   
+  <ng-container>
+    <quill-editor
+    formControlName="content"
+    [styles]="{ height: '25rem' }"
+    placeholder="Menu İçerik"
+  ></quill-editor>
+  <mat-error class="my-3" *ngIf="f?.content?.errors?.required">Menu için içerik giriniz...</mat-error>
+  </ng-container>
+    <mat-form-field>
+      <input
+      matInput
+      type="number"
+      formControlName="slideIntervalTime"
+      placeholder="Saniye cinsinden geçiş süresi"
+      />
+      <mat-error *ngIf="f.slideIntervalTime.errors?.required"
+        >Yayın geçiş süresi boş olamaz...</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Yayın Başlangıç Tarihi ve Saati</mat-label>
+      <input
+        class="date-time"
+        [owlDateTime]="dt1"
+        [owlDateTimeTrigger]="dt1"
+        autocomplete="off"
+        formControlName="publishStartDate"
+        (dateTimeChange)="onChangeStartDate($event)"
+        matInput
+        required
+      />
+      <owl-date-time #dt1></owl-date-time>
+      <mat-error *ngIf="f.publishStartDate.errors?.required"
+        >Yayın başlangıç tarihi boş olamaz</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>İlan Bitiş Tarihi ve Saati </mat-label>
+      <input
+        class="date-time"
+        [owlDateTime]="dt2"
+        [owlDateTimeTrigger]="dt2"
+        autocomplete="off"
+        formControlName="publishFinishDate"
+        (dateTimeChange)="onChangeFinishDate($event)"
+        matInput
+        required
+      />
+      <owl-date-time #dt2></owl-date-time>
+      <mat-error *ngIf="f.publishFinishDate.errors?.required"
+        >Yayın bitiş tarihi boş olamaz</mat-error
+      >
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!foodMenuForm.valid"
+    >
+      {{ mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>

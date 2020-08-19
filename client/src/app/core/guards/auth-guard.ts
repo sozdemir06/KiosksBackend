@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const routeRoles = route.firstChild.data['roles'] as Array<string>;
+    const routeRoles = route.firstChild?.data['roles'] as Array<string>;
 
     if (routeRoles) {
       let isMatch = this.authStore.isMatchRoles(routeRoles);

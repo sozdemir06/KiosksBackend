@@ -231,6 +231,29 @@ namespace DataAccess.SeedData
                         }
                     }
 
+                    if (!_context.Screens.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/Screen.json");
+                        var dataList = JsonSerializer.Deserialize<List<Screen>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.Screens.Add(item);
+                        }
+                    }
+
+                    if (!_context.SubScreens.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/SubScreen.json");
+                        var dataList = JsonSerializer.Deserialize<List<SubScreen>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.SubScreens.Add(item);
+                        }
+                    }
+
+
 
 
 

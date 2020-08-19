@@ -1,0 +1,68 @@
+<div class="container mt-3">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <div class="mat-elevation-z3 bg-white">
+          <div class="row p-3 align-items-center">
+            <div class="col-md-2 col-sm-2 col-lg-2">
+              <span class="mat-h2">Araç İlanları</span>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6">
+              <mat-form-field class="w-100">
+                <mat-icon matPrefix>search</mat-icon>
+                <input
+                  matInput
+                  type="text"
+                  #searchInput
+                  placeholder="İlanı başılığı,açıklama ve ilan sahibinin adı,soyadına göre arama..."
+                  autocomplete="off"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 col-sm-4 col-lg-4">
+              <div class="">
+                <button mat-icon-button (click)="onWaitingForConfirm()">
+                  <mat-icon 
+                  [matBadge]="0" 
+                  matBadgeColor="warn" 
+                  matBadgeSize="small"
+                  
+                    >hourglass_empty</mat-icon
+                  >
+                </button>
+                <button mat-icon-button (click)="onCreateNew()" *appHasRole="roleForCreate">
+                  <mat-icon>create</mat-icon>
+                </button>
+                <button mat-icon-button (click)="onReset()">
+                  <mat-icon>refresh</mat-icon>
+                </button>
+                <button mat-icon-button [matMenuTriggerFor]="toolbarFilterList">
+                  <mat-icon>filter_list</mat-icon>
+                </button>
+                <mat-menu #toolbarFilterList="matMenu">
+                  <ng-container *ngIf="(subScreenStore.subScreens$ | async) as subscreens">
+                    <button mat-menu-item *ngFor="let screen of subscreens" (click)="filterBySubScreen(screen.id)">
+                      {{screen?.name}}
+                    </button>
+                  </ng-container>
+                </mat-menu>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Home Announce List -->
+    <div class="row mt-3 mb-5">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <app-loading></app-loading>
+          <app-food-menu-list [dataSource]="(foodMenuStore.foodsmenu$ | async)?.data"></app-food-menu-list>
+          <app-pager 
+          [pageSize]="(foodMenuStore.foodsmenu$ | async)?.pageSize"
+          [totalCount]="(foodMenuStore.foodsmenu$ | async)?.count"
+          (pageChange)="onPageChange($event)"
+          ></app-pager>
+        </div>
+    </div>
+  
+  
+  </div>

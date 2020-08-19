@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { KiosksComponent } from './kiosks.component';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes:Routes=[
+
+export const routes:Routes=[
   {
     path:"",
-    component:KiosksComponent
+    component:KiosksComponent,
+    
   }
 ]
 

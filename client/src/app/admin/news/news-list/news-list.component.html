@@ -48,7 +48,7 @@
    <ng-container matColumnDef="ContentType">
     <th mat-header-cell *matHeaderCellDef>İçerik Tipi</th>
     <td mat-cell *matCellDef="let element">
-      {{ checkContentType(element?.contentType) }}
+      {{ helperService.checkContentType(element?.contentType) }}
     </td>
   </ng-container>
   <!-- Column -->

@@ -7,6 +7,7 @@ import { IAnnouncePhoto } from 'src/app/shared/models/IAnnouncePhoto';
 import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { IAnnounceSubScreen } from 'src/app/shared/models/IAnnounceSubScreen';
+import { HelperService } from 'src/app/core/services/helper-service';
 
 @Component({
   selector: 'app-announces-detail',
@@ -41,7 +42,8 @@ export class AnnouncesDetailComponent implements OnInit {
     private route: ActivatedRoute,
     public announceStore: AnnounceStore,
     private location: Location,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public helperService:HelperService
   ) {}
 
   goBack() {

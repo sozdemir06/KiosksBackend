@@ -1,19 +1,22 @@
 [
     {
-        "ScreenName":"Yemekhane",
-        "ScreenPosition":"vertical",
+        "Id":1,
+        "Name":"Yemekhane",
+        "Position":"vertical",
         "IsFull":false
 
     },
     {
-        "ScreenName":"Duyuru",
-        "ScreenPosition":"horizontal",
+        "Id":2,
+        "Name":"Duyuru",
+        "Position":"horizontal",
         "IsFull":false
 
     },
     {
-        "ScreenName":"ZO-Protokol",
-        "ScreenPosition":"vertical",
+        "Id":3,
+        "Name":"ZO-Protokol",
+        "Position":"vertical",
         "IsFull":true
 
     }

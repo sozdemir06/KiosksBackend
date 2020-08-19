@@ -108,6 +108,13 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<NewsSubScreenManager>().As<INewsSubScreenService>();
             builder.RegisterType<EfNewssubScreenDal>().As<INewsSubScreenDal>();
 
+            builder.RegisterType<FoodMenuManager>().As<IFoodMenuService>();
+            builder.RegisterType<EfFoodMenuDal>().As<IFoodMenuDal>();
+            builder.RegisterType<FoodMenuPhotoManager>().As<IFoodMenuPhotoService>();
+            builder.RegisterType<EfFoodMenuPhotoDal>().As<IFoodMenuPhotoDal>();
+            builder.RegisterType<FoodMenuSubScreenManager>().As<IFoodMenuSubScreenService>();
+            builder.RegisterType<EfFoodMenuSubScreenDal>().As<IFoodMenuSubScreenDal>();
+
             builder.RegisterType<AnnounceContentTypeManager>().As<IAnnounceContentTypeService>();
             builder.RegisterType<EfAnnounceContentTypeDal>().As<IAnnounceContentTypeDal>();
 

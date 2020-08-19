@@ -4,7 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { SubScreenStore } from 'src/app/core/services/stores/subscreen-store';
 import { MatDialog } from '@angular/material/dialog';
 import { EditVehicleAnnounceDialogComponent } from './edit-vehicle-announce-dialog/edit-vehicle-announce-dialog.component';
-import { fromEvent, Observable } from 'rxjs';
+import { fromEvent, Observable, Subscription } from 'rxjs';
 import { VehicleAnnounceParams } from 'src/app/shared/models/VehicleAnnounceParams';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ISubScreen } from 'src/app/shared/models/ISubScreen';
@@ -18,7 +18,8 @@ import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 })
 export class VehicleAnnounceComponent implements OnInit,AfterViewInit,OnDestroy {
   @ViewChild('searchInput') searchInput: ElementRef;
-  unSubsCribeFromSearchInput: any;
+  subscription:Subscription=Subscription.EMPTY;
+
   roleForCreate:string[]=['Sudo','VehicleAnnounces.Create,VehicleAnnounces.All']
   subscreens$:Observable<ISubScreen[]>;
 
@@ -36,7 +37,7 @@ export class VehicleAnnounceComponent implements OnInit,AfterViewInit,OnDestroy 
   }
 
   ngAfterViewInit() {
-    this.unSubsCribeFromSearchInput = fromEvent<any>(
+    this.subscription = fromEvent<any>(
       this.searchInput.nativeElement,
       'keyup'
     )
@@ -96,7 +97,7 @@ export class VehicleAnnounceComponent implements OnInit,AfterViewInit,OnDestroy 
   }
 
   ngOnDestroy(){
-    this.unSubsCribeFromSearchInput?.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
 

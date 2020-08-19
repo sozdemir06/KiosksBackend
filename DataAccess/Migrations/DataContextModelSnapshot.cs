@@ -244,6 +244,121 @@ namespace DataAccess.Migrations
                     b.ToTable("FlatsOfHome");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.FoodMenu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("AnnounceType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsNew")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsPublish")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("PublishFinishDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("PublishStartDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("Reject")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("SlideId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("SlideIntervalTime")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FoodMenus");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.FoodMenuPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("text");
+
+                    b.Property<int>("FoodMenuId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("FullPath")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsConfirm")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsSetBackground")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodMenuId");
+
+                    b.ToTable("FoodMenuPhotos");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.FoodMenuSubscreen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("FoodMenuId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ScreenId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SubScreenId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SubScreenName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SubScreenPosition")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodMenuId");
+
+                    b.HasIndex("ScreenId");
+
+                    b.HasIndex("SubScreenId");
+
+                    b.ToTable("FoodMenuSubscreens");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.HeatingType", b =>
                 {
                     b.Property<int>("Id")
@@ -1102,6 +1217,45 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Core.Entities.Concrete.SubScreen", "SubScreen")
                         .WithMany("AnnounceSubScreens")
+                        .HasForeignKey("SubScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.FoodMenu", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.FoodMenuPhoto", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.FoodMenu", "FoodMenu")
+                        .WithMany("FoodMenuPhotos")
+                        .HasForeignKey("FoodMenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.FoodMenuSubscreen", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.FoodMenu", "FoodMenu")
+                        .WithMany("FoodMenuSubScreens")
+                        .HasForeignKey("FoodMenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.Screen", "Screen")
+                        .WithMany("FoodMenuSubScreens")
+                        .HasForeignKey("ScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.SubScreen", "SubScreen")
+                        .WithMany("FoodMenuSubScreens")
                         .HasForeignKey("SubScreenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

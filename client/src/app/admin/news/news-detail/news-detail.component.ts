@@ -7,6 +7,7 @@ import { INewsPhoto } from 'src/app/shared/models/INewsPhoto';
 import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { INewsSubScreen } from 'src/app/shared/models/INewsSubScreen';
+import { HelperService } from 'src/app/core/services/helper-service';
 
 @Component({
   selector: 'app-news-detail',
@@ -41,7 +42,8 @@ export class NewsDetailComponent implements OnInit {
     private route: ActivatedRoute,
     public newsStore: NewsStore,
     private location: Location,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public helperService:HelperService
   ) {}
 
   goBack() {

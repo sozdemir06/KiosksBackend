@@ -59,12 +59,12 @@
           <mat-card-subtitle>İlan Bilgileri</mat-card-subtitle>
           <div class="d-flex p-1">
             <small><strong>İçerik Tipi:</strong></small>
-            <small class="ml-2 text-danger">{{ announce?.contentType }}</small>
+            <small class="ml-2 text-danger">{{helperService.checkContentType(announce?.contentType)}}</small>
           </div>
           <mat-divider></mat-divider>
           <div class="d-flex p-1">
             <small><strong>Geçiş Süresi:</strong></small>
-            <small class="ml-2">{{ announce?.slideIntervalTime }}</small>
+            <small class="ml-2">{{ announce?.slideIntervalTime }}-Saniye</small>
           </div>
           <mat-divider></mat-divider>
           <div class="d-flex p-2">

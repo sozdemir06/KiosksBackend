@@ -2,7 +2,7 @@ namespace Core.QueryParams
 {
     public class AnnounceParams
     {
-         private const int MaxPageSize = 50;
+        private const int MaxPageSize = 50;
         public int PageIndex { get; set; } = 1;
         private int _pageSize = 10;
 

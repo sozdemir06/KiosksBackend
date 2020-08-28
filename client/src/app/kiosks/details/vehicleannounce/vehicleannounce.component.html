@@ -1,0 +1,61 @@
+
+<div class="container-fluid">
+    <mat-card>
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-xl-12 mb-3">
+               <mat-card-title class="d-flex align-items-center">
+                   <mat-icon class="mr-5">directions_car</mat-icon>
+                   {{vehicleAnnounce?.header}}
+                </mat-card-title>
+                <mat-divider ></mat-divider>
+            </div>
+           
+            <div class="col-md-3 col-lg-4 col-xl-4">
+                <app-kiosks-user-card [user]="vehicleAnnounce.user"></app-kiosks-user-card>
+            </div>
+            <div class="col-md-4 col-lg-4 col-xl-4">
+               <app-image-slider [images]="vehicleAnnounce?.vehicleAnnouncePhotos"></app-image-slider>
+            </div>
+            <div class="col-md-4 col-lg-4 col-xl-4 text-responsive">
+               <h3 class="header-responsive">İlan Bilgileri</h3>
+               <div class="d-flex p-3">
+                <small>Fiyat:</small>
+                <small class="ml-2 text-danger"><strong>{{
+                    vehicleAnnounce?.price | currency: "₺"
+                  }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="d-flex p-3">
+                <small>Marka:</small>
+                <small class="ml-2"><strong>{{ vehicleAnnounce?.vehicleBrandName }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="d-flex p-3">
+                <small>Model:</small>
+                <small class="ml-2"><strong>{{ vehicleAnnounce?.vehicleModelName }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="d-flex p-3">
+                <small>Yakıt Tipi:</small>
+                <small class="ml-2"><strong>{{ vehicleAnnounce?.vehicleFuelTypeName }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="d-flex p-3">
+                <small>Vites Tipi:</small>
+                <small class="ml-2"><strong>{{ vehicleAnnounce?.vehicleGearTypeName }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="d-flex p-3">
+                <small>Motor Hacmi:</small>
+                <small class="ml-2"><strong>{{ vehicleAnnounce?.vehicleEngineSizeName }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="d-flex p-3">
+                <small>Tarih:</small>
+                <small class="ml-2"><strong>{{ vehicleAnnounce?.created | timeAgo }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+            </div>
+        </div>
+    </mat-card>
+</div>

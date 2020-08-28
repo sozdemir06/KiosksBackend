@@ -23,6 +23,7 @@ export interface IHomeAnnounceDetail{
     buildingAgeId:number;
     price:number;
     squareMeters:number;
+    slideIntervalTime:number;
     userId:number;
     isNew:boolean;
     reject:boolean;

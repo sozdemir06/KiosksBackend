@@ -93,7 +93,7 @@
           label="İlan Fotoğrafları"
           *ngIf="
             announce?.contentType.toLowerCase() === 'image' ||
-            announce?.contentType.toLowerCase() == 'video'
+            announce?.contentType.toLowerCase() === 'video'
           "
         >
           <app-loading></app-loading>

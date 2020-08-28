@@ -77,6 +77,7 @@ export class EditVehicleAnnounceDialogComponent implements OnInit {
       vehicleFuelTypeId: ['', Validators.required],
       vehicleGearTypeId: ['', Validators.required],
       vehicleEngineSizeId: ['', Validators.required],
+      slideIntervalTime:['',Validators.required],
       price: ['', Validators.required],
       userId: ['', Validators.required],
     };
@@ -194,11 +195,8 @@ export class EditVehicleAnnounceDialogComponent implements OnInit {
           this.dialogRef.close();
         }else if(this.mode=="update"){
           const model:IVehicleAnnounceList={
+            ...this.item,
             ...this.vehicleAnnounceForm.value,
-            id:this.item?.id,
-            isNew:this.item?.isNew,
-            reject:this.item?.reject,
-            isPublish:this.item?.isPublish
           };
           this.vehicleAnnounceStore.update(model);
           this.dialogRef.close();

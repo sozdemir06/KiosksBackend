@@ -13,6 +13,7 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 
 
+
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -24,9 +25,9 @@ export class UploadComponent implements OnInit,OnDestroy {
   @Input() roleForUpload:string[]=[];
   @Output() uploadResult = new EventEmitter<any>();
 
-  allowedFileTypes: string[] = ['image', 'video'];
+  allowedFileTypes: string[] = ['image','video','gif'];
   subscription:Subscription=Subscription.EMPTY;
-
+  videoDuration:number=0;
   selectedFile: any;
   fileType: string;
   url: any;
@@ -36,13 +37,28 @@ export class UploadComponent implements OnInit,OnDestroy {
 
   constructor(
     private notifyService: NotifyService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private elRef:ElementRef
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+     
+  }
+
+
+  onChange(){
+    const video:HTMLVideoElement=this.elRef?.nativeElement.querySelector('video');
+    const duration=Math.ceil(video?.duration);
+    this.videoDuration=duration;
+   
+  }
+
 
   onFileSelected(event) {
+  
     this.selectedFile = <File>event.target.files[0];
+    
+    console.log(this.selectedFile.type)
     if (this.selectedFile) {
       var reader = new FileReader();
       reader.readAsDataURL(this.selectedFile);
@@ -51,8 +67,10 @@ export class UploadComponent implements OnInit,OnDestroy {
       } else if (this.selectedFile.type.indexOf('video') > -1) {
         this.fileType = 'video';
       } 
+
       reader.onload = (event) => {
         this.url = (<FileReader>event.target).result;
+      
       };
     }
   }
@@ -62,6 +80,7 @@ export class UploadComponent implements OnInit,OnDestroy {
     this.fileType = null;
     this.selectedFile = null;
     this.Input.nativeElement.value = '';
+    this.videoDuration=0;
   }
 
   uploadFile() {
@@ -80,7 +99,8 @@ export class UploadComponent implements OnInit,OnDestroy {
       formData.append('file', this.selectedFile, this.selectedFile.name);
       formData.append('announceId', this.announceId.toString());
       formData.append('fileType', this.fileType);
-
+      formData.append('duration', this.videoDuration?.toString());
+    
       this.subscription = this.httpClient
         .post<any>(this.apiUrl, formData, {
           reportProgress: true,
@@ -98,6 +118,7 @@ export class UploadComponent implements OnInit,OnDestroy {
               this.fileType = null;
               this.Input.nativeElement.value = '';
               this.progress = null;
+              this.videoDuration=0;
             }
           },
           (error) => {
@@ -107,6 +128,7 @@ export class UploadComponent implements OnInit,OnDestroy {
             this.fileType = null;
             this.Input.nativeElement.value = '';
             this.progress = null;
+            this.videoDuration=0;
           },
         );
     }

@@ -1,14 +1,39 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { NotifyService } from './notify-service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { BehaviorSubject, Observable } from 'rxjs';
+import produce from 'immer';
 
 @Injectable({ providedIn: 'root' })
 export class HelperService {
-  constructor(
-      private notifyService:NotifyService
-      ) {}
+  customOptions: OwlOptions = {
+    loop: true,
+    autoplay:true,
+    navText:['',''],
+    autoHeight:true,
+    dots: false,
+    center:true,
+    navSpeed: 700,
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      }
+    },
+    nav: true
+  }
+  private subject=new BehaviorSubject<OwlOptions>(this.customOptions);
+          owlOptions$:Observable<OwlOptions>=this.subject.asObservable();
 
-
+  constructor(private notifyService: NotifyService) {}
 
   dateToLocaleFormat(date: Date): any {
     const offsetMs = date.getTimezoneOffset() * 60 * 1000;
@@ -19,28 +44,37 @@ export class HelperService {
     return isoLocal;
   }
 
-  checkPublishDate(dt1:Date,dt2:Date):boolean{
-      let passCheck:boolean=true;
-      dt1=new Date(dt1);
-      dt2=new Date(dt2);
-      if(dt1>dt2){
-          this.notifyService.notify("error","Başlangıç tarihi bitiş tarihinden büyük olamaz...");
-          passCheck=false;
-          return;
-      }
-      if(dt1==dt2){
-        this.notifyService.notify("error","Başlangıç ve Bitiş tarihleri birbirine eşit olamaz...");
-        passCheck=false;
-        return;
-      }
-      
-      const dateNow=new Date();
-      if(dateNow>dt2){
-        this.notifyService.notify("error","Yayın için ileri bir tarih seçmelisiniz...");
-        passCheck=false;
-        return;
-      }
-      return passCheck;
+  checkPublishDate(dt1: Date, dt2: Date): boolean {
+    let passCheck: boolean = true;
+    dt1 = new Date(dt1);
+    dt2 = new Date(dt2);
+    if (dt1 > dt2) {
+      this.notifyService.notify(
+        'error',
+        'Başlangıç tarihi bitiş tarihinden büyük olamaz...'
+      );
+      passCheck = false;
+      return;
+    }
+    if (dt1 == dt2) {
+      this.notifyService.notify(
+        'error',
+        'Başlangıç ve Bitiş tarihleri birbirine eşit olamaz...'
+      );
+      passCheck = false;
+      return;
+    }
+
+    const dateNow = new Date();
+    if (dateNow > dt2) {
+      this.notifyService.notify(
+        'error',
+        'Yayın için ileri bir tarih seçmelisiniz...'
+      );
+      passCheck = false;
+      return;
+    }
+    return passCheck;
   }
 
   checkContentType(contentType: string): string {
@@ -73,5 +107,65 @@ export class HelperService {
         break;
     }
     return type;
+  }
+
+  quillToolbarOptions(): object {
+    const modules = {
+      toolbar: [
+        ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+        ['blockquote', 'code-block'],
+
+        [{ header: 1 }, { header: 2 }], // custom button values
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+        [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+        [{ direction: 'rtl' }], // text direction
+
+        [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+        [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+        [{ font: [] }],
+        [{ align: [] }],
+
+        ['clean'], // remove formatting button
+      ],
+    };
+    return modules;
+  }
+
+  setSliderAutoPlayTimeout(timeout:number){
+      const updateOwlOptions=produce(this.subject.getValue(),draft=>{
+        draft.autoplayTimeout=timeout;
+      });
+      this.subject.next(updateOwlOptions);
+  }
+
+  owlSliderOptions(): OwlOptions {
+    const customOptions: OwlOptions = {
+      loop: true,
+      autoplay:true,
+      navText:['',''],
+      autoHeight:true,
+      dots: false,
+      center:true,
+      navSpeed: 700,
+      responsive: {
+        0: {
+          items: 1
+        },
+        400: {
+          items: 1
+        },
+        740: {
+          items: 1
+        },
+        940: {
+          items: 1
+        }
+      },
+      nav: true
+    }
+    return customOptions;
   }
 }

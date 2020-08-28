@@ -8,5 +8,6 @@ namespace Entities.Dtos
         public int AnnounceId { get; set; }
         public IFormFile File { get; set; }
         public string FileType { get; set; }
+        public int Duration { get; set; }
     }
 }

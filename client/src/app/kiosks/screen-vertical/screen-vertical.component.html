@@ -1,0 +1,11 @@
+<div class="vertical">
+  <div *ngIf="top" [ngStyle]="{ height: top?.height + 'vh' }">
+    <app-screen-top [kiosks]="kiosks" [subscreenid]="top?.id" [screenHeight]="top?.height" ></app-screen-top>
+  </div>
+  <div *ngIf="middle" [ngStyle]="{ height: middle?.height + 'vh' }">
+    <app-screen-middle [subscreenid]="middle?.id"></app-screen-middle>
+  </div>
+  <div *ngIf="bottom" [ngStyle]="{ height: bottom?.height + 'vh' }">
+    <app-screen-bottom [subscreenid]="bottom?.id"></app-screen-bottom>
+  </div>
+</div>

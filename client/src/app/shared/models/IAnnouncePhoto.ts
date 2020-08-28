@@ -5,4 +5,5 @@ export interface IAnnouncePhoto{
     isConfirm:boolean;
     fileType:string;
     announceId:number;
+    duration:number;
 }

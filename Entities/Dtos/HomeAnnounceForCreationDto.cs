@@ -19,6 +19,7 @@ namespace Entities.Dtos
         public int FlatOfHomeId { get; set; }
         public int BuildingAgeId { get; set; }
         public int Price { get; set; }
+        public int SlideIntervalTime { get; set; }
         public int SquareMeters { get; set; }
         public int UserId { get; set; }
         public bool IsNew { get; set; }

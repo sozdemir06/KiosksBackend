@@ -1,7 +1,7 @@
 <!-- carousel -->
 <mat-card>
     <ng-container *ngFor="let slide of slides; let i = index">
-      <video controls  *ngIf="i === currentSlide">
+      <video controls  *ngIf="i === currentSlide" style="width: 100%; height: 100%;">
         <source src="{{ slide?.fullPath }}" type="video/mp4" />
         <source src="{{ slide?.fullPath}}" type="video/ogg" />
         <source src="{{ slide?.fullPath}}" type="video/webm" />

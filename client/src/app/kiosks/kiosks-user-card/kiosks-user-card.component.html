@@ -1,0 +1,74 @@
+<ng-container *ngIf="user">
+  <mat-list>
+    <mat-list-item *ngIf="user?.photoUrl; else defaultAvatar">
+      <img matListAvatar src="{{ user?.photoUrl }}" alt="User Avatar" />
+      <h3 matLine style="font-size: 2vw;">
+        {{ user?.firstName + " " + user?.lastName }}
+      </h3>
+    </mat-list-item>
+    <ng-template #defaultAvatar>
+      <mat-list-item>
+        <img matListAvatar src="assets/user/avatar.png" alt="User Avatar" />
+        <h3 matLine style="font-size: 2vw;">
+          {{ user?.firstName + " " + user?.lastName }}
+        </h3>
+      </mat-list-item>
+    </ng-template>
+  </mat-list>
+  <mat-divider></mat-divider>
+  <div class="text-responsive">
+    <div class="d-flex p-3" *ngIf="user?.degree">
+      <small class="ml-2">{{ user?.degree?.name }}</small>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="d-flex p-3" *ngIf="user?.department">
+      <small class="ml-2">{{ user?.department?.name }}</small>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="d-flex p-3" *ngIf="user?.email">
+      <small class="ml-2">{{ user?.email }}</small>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="d-flex p-3" *ngIf="user?.interPhone">
+      <small class="ml-2">{{ user?.interPhone }}</small>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="d-flex p-3" *ngIf="user?.gsmPhone">
+      <small class="ml-2">{{ user?.gsmPhone }}</small>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="d-flex p-3" *ngIf="user?.campus">
+      <small class="ml-2">{{ user?.campus?.name }}</small>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <!-- <mat-list>
+        <ng-container *ngIf="user?.degree">
+            <mat-list-item class="text-responsive" >{{user?.degree?.name}}</mat-list-item>
+            <mat-divider></mat-divider>
+        </ng-container>
+        <ng-container *ngIf="user?.department">
+            <mat-list-item class="text-responsive" >{{user?.department?.name}}</mat-list-item>
+            <mat-divider></mat-divider>
+        </ng-container>
+       
+        <ng-container *ngIf="user?.email">
+            <mat-list-item class="text-responsive" >{{user?.email}}</mat-list-item>
+            <mat-divider></mat-divider>
+        </ng-container>
+      
+        <ng-container *ngIf="user?.interPhone">
+            <mat-list-item class="text-responsive" >{{user?.interPhone}}</mat-list-item>
+            <mat-divider></mat-divider>
+        </ng-container>
+       
+        <ng-container *ngIf="user?.gsmPhone">
+            <mat-list-item class="text-responsive" >{{user?.gsmPhone}}</mat-list-item>
+        </ng-container>
+        <ng-container *ngIf="user?.campus">
+            <mat-list-item class="text-responsive" >{{user?.campus?.name}}</mat-list-item>
+        </ng-container>
+      
+       </mat-list> -->
+</ng-container>

@@ -25,6 +25,7 @@ export interface IVehicleAnnounceDetail {
   vehicleGearTypeName:string;
   vehicleEngineSizeId: number;
   vehicleEngineSizeName:string;
+  slideIntervalTime:number;
   price: number;
   userId: number;
   isNew: boolean;

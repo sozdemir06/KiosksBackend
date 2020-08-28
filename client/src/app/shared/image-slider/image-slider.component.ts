@@ -56,7 +56,7 @@ export class ImageSliderComponent implements OnInit{
  
   getImages() {
     const imageUrls = [];
-    for (let i = 0; i < this.images.length; i++) {
+    for (let i = 0; i < this.images?.length; i++) {
       imageUrls.push({
         small: this.images[i].fullPath,
         medium: this.images[i].fullPath,

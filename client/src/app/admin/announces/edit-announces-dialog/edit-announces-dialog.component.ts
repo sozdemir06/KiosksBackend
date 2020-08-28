@@ -31,7 +31,7 @@ export class EditAnnouncesDialogComponent implements OnInit, OnDestroy {
     private announceStore: AnnounceStore,
     public announceContentTypeStore: AnnounceContentTypeStore,
     private fb: FormBuilder,
-    private helperService: HelperService,
+    public helperService: HelperService,
     public userStore: UserStore
   ) {
     this.title = data?.title;
@@ -73,7 +73,7 @@ export class EditAnnouncesDialogComponent implements OnInit, OnDestroy {
       .get('contentType')
       .valueChanges.subscribe((result: string) => {
         const res: string = result.toLowerCase();
-        if (res == 'image' || res == 'video') {
+        if (res == 'image' || res == 'video' || res=='gif') {
           this.showTextEditor = false;
         } else {
           this.showTextEditor = true;

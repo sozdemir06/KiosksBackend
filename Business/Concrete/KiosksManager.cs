@@ -42,35 +42,22 @@ namespace Business.Concrete
         {
             var screenSpec = new ScreenWithSubScreenSpecification(screenId);
             var screenFromRepo = await screenDal.GetEntityWithSpecAsync(screenSpec);
-
-            var subScreenFromRepo = await subSCreenDal.GetListAsync(x => x.ScreenId == screenId);
-
-            var announceSpec = new AnnounceWithDetailSpecification();
-            var announceFromRepo = await announceDal.ListEntityWithSpecAsync(announceSpec);
-
-            var homeAnnounceSpec = new HomeAnnounceDetailSpecification();
-            var homeAnnounceFromRepo = await homeAnnounceDal.ListEntityWithSpecAsync(homeAnnounceSpec);
-
-            var vehicleAnnouncespec=new VehicleAnnounceDetailSpecification();
-            var vehicleAnnounceFromRepo=await vehicleAnnounceDal.ListEntityWithSpecAsync(vehicleAnnouncespec);
-
-            var newsSpec=new NewsWithDetailSpecification();
-            var newsFromRepo=await newsDal.ListEntityWithSpecAsync(newsSpec);
-
-            var foodsMenuSpec=new FoodMenuWithDetailSpecification();
-            var foodsMenuFromRepo=await foodMenuDal.ListEntityWithSpecAsync(foodsMenuSpec);
+            var announceFromRepo = await announceDal.GetAnnounceForKiosksByScreenIdAsync(screenId);
+            var homeAnnounceFromRepo = await homeAnnounceDal.GetHomeAnnouncesForKiosksByScreenIdAsync(screenId);
+            var vehicleAnnounceFromRepo=await vehicleAnnounceDal.GetVehicleAnnouncesForKiosksByScreenIdAsync(screenId);
+            var newsFromRepo=await newsDal.GetNewsForKiosksByScreenIdAsync(screenId);
+            var foodsMenuFromRepo=await foodMenuDal.GetFoodsMenuForKiosksByScreenIdAsync(screenId);
 
             return new KiosksForReturnDto()
             {
                 Screen = mapper.Map<Screen, ScreenForReturnDto>(screenFromRepo),
-                SubScreens = mapper.Map<List<SubScreen>, List<SubScreenForReturnDto>>(subScreenFromRepo),
-                Announces = mapper.Map<List<Announce>, List<AnnounceForDetailDto>>(announceFromRepo),
-                HomeAnnounces = mapper.Map<List<HomeAnnounce>,List<HomeAnnounceForDetailDto>>(homeAnnounceFromRepo),
-                Vehicleannounces = mapper.Map<List<VehicleAnnounce>,List<VehicleAnnounceForDetailDto>>(vehicleAnnounceFromRepo),
-                News = mapper.Map<List<News>,List<NewsForDetailDto>>(newsFromRepo),
-                FoodsMenu = mapper.Map<List<FoodMenu>,List<FoodMenuForDetailDto>>(foodsMenuFromRepo),
-        
-                
+               
+                Announces = mapper.Map<List<Announce>, List<AnnounceForKiosksToReturnDto>>(announceFromRepo),
+                HomeAnnounces = mapper.Map<List<HomeAnnounce>,List<HomeAnnounceForKiosksForReturnDto>>(homeAnnounceFromRepo),
+                VehicleAnnounces = mapper.Map<List<VehicleAnnounce>,List<VehicleAnnounceForKiosksToReturnDto>>(vehicleAnnounceFromRepo),
+                News = mapper.Map<List<News>,List<NewsForKiosksToReturnDto>>(newsFromRepo),
+                FoodsMenu = mapper.Map<List<FoodMenu>,List<FoodMenuForKiosksToReturnDto>>(foodsMenuFromRepo),
+       
             };
 
         }

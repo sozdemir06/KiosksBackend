@@ -26,6 +26,7 @@ namespace Core.Entities.Concrete
         public int VehicleGearTypeId { get; set; }
         public VehicleEngineSize VehicleEngineSize { get; set; }
         public int VehicleEngineSizeId { get; set; }
+        public int SlideIntervalTime { get; set; }
         public int Price { get; set; }
         public User User { get; set; }
         public int UserId { get; set; }

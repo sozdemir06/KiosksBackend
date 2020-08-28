@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <mat-card>
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-xl-12 mb-3">
+               <mat-card-title class="d-flex align-items-center">
+                   <mat-icon class="mr-5">home</mat-icon>
+                   {{homeannounce?.header}}
+                </mat-card-title>
+                <mat-divider ></mat-divider>
+            </div>
+           
+            <div class="col-md-3 col-lg-4 col-xl-4">
+                <app-kiosks-user-card [user]="homeannounce.user"></app-kiosks-user-card>
+            </div>
+            <div class="col-md-4 col-lg-4 col-xl-4">
+               <app-image-slider [images]="homeannounce?.homeAnnouncePhotos"></app-image-slider>
+            </div>
+            <div class="col-md-4 col-lg-4 col-xl-4 text-responsive">
+               <h3 class="header-responsive">İlan Bilgileri</h3>
+               <div class="d-flex p-3">
+                <small>Fiyat:</small>
+                <small class="ml-2 text-danger"><strong>{{
+                    homeannounce?.price | currency: "₺"
+                  }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="d-flex p-3">
+                <small>Oda Sayısı:</small>
+                <small class="ml-2"><strong>{{ homeannounce?.numberOfRoomName }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="d-flex p-3">
+                <small>Isıtma Tipi:</small>
+                <small class="ml-2"><strong>{{ homeannounce?.heatingtypeName }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="d-flex p-3">
+                <small>Binanın Yaşı:</small>
+                <small class="ml-2"><strong>{{ homeannounce?.buildingAgeName }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="d-flex p-3">
+                <small>Bulundu Kat:</small>
+                <small class="ml-2"><strong>{{ homeannounce?.flatOfHomeName }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="d-flex p-3">
+                <small style="font-size:2vw;">&#13217;:</small>
+                <small class="ml-2"><strong>{{ homeannounce?.squareMeters }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="d-flex p-3">
+                <small>Tarih:</small>
+                <small class="ml-2"><strong>{{ homeannounce?.created | timeAgo }}</strong></small>
+              </div>
+              <mat-divider></mat-divider>
+            </div>
+        </div>
+    </mat-card>
+</div>

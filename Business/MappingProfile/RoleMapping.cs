@@ -1,8 +1,8 @@
+using System.Linq;
 using AutoMapper;
 using Business.Abstract;
 using Core.Entities;
 using Core.Entities.Concrete;
-using Entities.Concrete;
 using Entities.Dtos;
 
 namespace Business.MappingProfile
@@ -59,6 +59,8 @@ namespace Business.MappingProfile
             CreateMap<SubScreenForCreationDto, SubScreen>();
 
             CreateMap<HomeAnnounce, HomeAnnounceForReturnDto>();
+            CreateMap<HomeAnnounce, HomeAnnounceForKiosksForReturnDto>()
+                    .ForMember(x=>x.HomeAnnouncePhotos,o=>o.MapFrom(z=>z.HomeAnnouncePhotos.Where(t=>t.IsConfirm==true)));
             CreateMap<HomeAnnounceForCreationDto, HomeAnnounce>();
 
             CreateMap<HomeAnnounce, HomeAnnounceForDetailDto>();
@@ -70,6 +72,11 @@ namespace Business.MappingProfile
             CreateMap<HomeAnnouncePhotoForCreationDto, HomeAnnouncePhoto>();
 
             CreateMap<VehicleAnnounce, VehicleAnnounceForReturnDto>();
+            CreateMap<VehicleAnnounce, VehicleAnnounceForKiosksToReturnDto>()
+                 .ForMember(x=>x.VehicleAnnouncePhotos,o=>o.MapFrom(z=>z.VehicleAnnouncePhotos.Where(t=>t.IsConfirm==true)))
+                  .ForMember(x => x.VehicleCategoryName, o => o.MapFrom(z => z.VehicleCategory.CategoryName))
+                    .ForMember(x => x.VehicleBrandName, o => o.MapFrom(z => z.VehicleBrand.BrandName))
+                    .ForMember(x => x.VehicleModelName, o => o.MapFrom(z => z.VehicleModel.VehicleModelName));
 
             CreateMap<VehicleAnnounce, VehicleAnnounceForDetailDto>()
                  .ForMember(x => x.VehicleCategoryName, o => o.MapFrom(z => z.VehicleCategory.CategoryName))
@@ -86,6 +93,8 @@ namespace Business.MappingProfile
             CreateMap<VehicleAnnouncePhotoForCreationDto, VehicleAnnouncePhoto>();
 
             CreateMap<Announce, AnnounceForReturnDto>();
+            CreateMap<Announce, AnnounceForKiosksToReturnDto>()
+                     .ForMember(x=>x.AnnouncePhotos,o=>o.MapFrom(z=>z.AnnouncePhotos.Where(t=>t.IsConfirm==true)));
             CreateMap<AnnounceForCreationDto, Announce>();
 
             CreateMap<Announce, AnnounceForDetailDto>();
@@ -100,6 +109,8 @@ namespace Business.MappingProfile
             CreateMap<AnnounceContentTypeForCreationDto, AnnounceContentType>();
 
             CreateMap<News, NewsForReturnDto>();
+            CreateMap<News, NewsForKiosksToReturnDto>()
+                         .ForMember(x=>x.NewsPhotos,o=>o.MapFrom(z=>z.NewsPhotos.Where(t=>t.IsConfirm==true)));
             CreateMap<NewsForCreationDto, News>();
 
             CreateMap<News, NewsForDetailDto>();
@@ -111,6 +122,8 @@ namespace Business.MappingProfile
             CreateMap<NewsPhotoForCreationDto, NewsPhoto>();
 
             CreateMap<FoodMenu, FoodMenuForReturnDto>();
+            CreateMap<FoodMenu, FoodMenuForKiosksToReturnDto>()
+                 .ForMember(x=>x.FoodMenuPhotos,o=>o.MapFrom(z=>z.FoodMenuPhotos.Where(t=>t.IsConfirm==true)));
             CreateMap<FoodMenuForCreationDto, FoodMenu>();
 
             CreateMap<FoodMenu, FoodMenuForDetailDto>();

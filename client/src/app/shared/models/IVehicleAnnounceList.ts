@@ -18,6 +18,7 @@ export interface IVehicleAnnounceList {
   vehicleFuelTypeId?: number;
   vehicleGearTypeId: number;
   vehicleEngineSizeId: number;
+  slideIntervalTime:number;
   price: number;
   userId: number;
   isNew: boolean;

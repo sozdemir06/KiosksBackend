@@ -110,6 +110,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("AnnounceId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Duration")
+                        .HasColumnType("integer");
+
                     b.Property<string>("FileType")
                         .HasColumnType("text");
 
@@ -432,6 +435,9 @@ namespace DataAccess.Migrations
                     b.Property<Guid>("SlideId")
                         .HasColumnType("uuid");
 
+                    b.Property<int>("SlideIntervalTime")
+                        .HasColumnType("integer");
+
                     b.Property<int>("SquareMeters")
                         .HasColumnType("integer");
 
@@ -706,6 +712,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'10', '1', '', '', 'False', '1'")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<bool>("IsFull")
@@ -713,13 +720,10 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("character varying(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("text");
 
                     b.Property<string>("Position")
-                        .IsRequired()
-                        .HasColumnType("character varying(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -891,6 +895,9 @@ namespace DataAccess.Migrations
 
                     b.Property<Guid>("SlideId")
                         .HasColumnType("uuid");
+
+                    b.Property<int>("SlideIntervalTime")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("timestamp without time zone");

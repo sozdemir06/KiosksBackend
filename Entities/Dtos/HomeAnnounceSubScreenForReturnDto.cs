@@ -10,6 +10,7 @@ namespace Entities.Dtos
         public int HomeAnnounceId { get; set; }
         public string SubScreenName { get; set; }
         public string SubScreenPosition { get; set; }
+        public int ScreenId { get; set; }
        
     }
 }

@@ -40,17 +40,20 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <textarea
+      <input
         matInput
         type="number"
         placeholder="Fiyat"
         formControlName="price"
-      ></textarea>
+      />
       <mat-error *ngIf="f.price.errors?.required"
         >Fiyat bilgisi boş olamaz...</mat-error
       >
     </mat-form-field>
-
+    <mat-form-field>
+      <input matInput type="number" placeholder="Saniye cinsinden geçiş süresi" formControlName="slideIntervalTime"/>
+      <mat-error *ngIf="f.slideIntervalTime.errors?.required">Geçiş Süresi boş olamaz...</mat-error>
+   </mat-form-field>
     <mat-form-field>
       <mat-label>Araç Kategori</mat-label>
       <mat-select formControlName="vehicleCategoryId">

@@ -68,6 +68,7 @@ export class EditHomeAnnounceDialogComponent implements OnInit {
       heatingTypeId: ['', Validators.required],
       flatOfHomeId: ['', Validators.required],
       buildingAgeId: ['', Validators.required],
+      slideIntervalTime:[8,Validators.required],
       price: ['', Validators.required],
       squareMeters: ['', Validators.required],
       userId: ['', Validators.required],
@@ -160,11 +161,8 @@ export class EditHomeAnnounceDialogComponent implements OnInit {
           this.dialogRef.close();
         }else if(this.mode=="update"){
           const model:IHomeAnnounce={
+            ...this.item,
             ...this.homeAnnounceForm.value,
-            id:this.item?.id,
-            isNew:this.item?.isNew,
-            reject:this.item?.reject,
-            isPublish:this.item?.isPublish
           }
 
           this.homeAnnounceStore.update(model);

@@ -57,13 +57,12 @@ namespace Business.Concrete
                 uploadFile = await upload.UploadVideo(uploadDto.File, "announce");
             }
 
-
-
             var mapForCreate = new AnnouncePhotoForCretionDto();
             mapForCreate.Name = uploadFile.Name;
             mapForCreate.FullPath = uploadFile.FullPath;
             mapForCreate.AnnounceId = uploadDto.AnnounceId;
             mapForCreate.FileType = uploadFile.FileType;
+            mapForCreate.Duration = uploadDto.Duration;
             mapForCreate.IsConfirm = true;
             var mapForDb = mapper.Map<AnnouncePhoto>(mapForCreate);
             var createPhoto = await announcePhotoDal.Add(mapForDb);

@@ -9,5 +9,6 @@ namespace Core.Entities.Concrete
         public bool IsConfirm { get; set; }
         public Announce Announce { get; set; }
         public int AnnounceId { get; set; }
+        public int Duration { get; set; }
     }
 }

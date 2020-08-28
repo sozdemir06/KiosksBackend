@@ -32,7 +32,7 @@ export class EditNewsDialogComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<EditNewsDialogComponent>,
     private newsStore: NewsStore,
     private fb: FormBuilder,
-    private helperService: HelperService,
+    public helperService: HelperService,
     public userStore: UserStore
   ) {
     this.title = data?.title;

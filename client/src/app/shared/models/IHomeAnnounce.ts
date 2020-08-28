@@ -16,6 +16,7 @@ export interface IHomeAnnounce{
     heatingTypeId:number;
     flatOfHomeId:number;
     buildingAgeId:number;
+    slideIntervalTime:number;
     price:number;
     squareMeters:number;
     userId:number;

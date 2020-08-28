@@ -6,11 +6,10 @@ namespace Entities.Dtos
     public class KiosksForReturnDto : IDto
     {
         public ScreenForReturnDto Screen { get; set; }
-        public List<SubScreenForReturnDto> SubScreens { get; set; }
-        public List<AnnounceForDetailDto> Announces { get; set; }
-        public List<HomeAnnounceForDetailDto> HomeAnnounces { get; set; }
-        public List<VehicleAnnounceForDetailDto> Vehicleannounces { get; set; }
-        public List<NewsForDetailDto> News { get; set; }
-        public List<FoodMenuForDetailDto> FoodsMenu { get; set; }
+        public List<AnnounceForKiosksToReturnDto> Announces { get; set; }
+        public List<HomeAnnounceForKiosksForReturnDto> HomeAnnounces { get; set; }
+        public List<VehicleAnnounceForKiosksToReturnDto> VehicleAnnounces { get; set; }
+        public List<NewsForKiosksToReturnDto> News { get; set; }
+        public List<FoodMenuForKiosksToReturnDto> FoodsMenu { get; set; }
     }
 }

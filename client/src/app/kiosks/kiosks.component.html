@@ -1,1 +1,24 @@
-<h1>Kiosks Component</h1>
+<div class="screen-container bg-light">
+  <app-loading></app-loading>
+  <ng-container *ngIf="kioksStore.kiosks$ | async as kiosks">
+    <!-- İf Screen IsFull=true Start -->
+    <app-screen-isfull
+      *ngIf="kiosks.screen.isFull; else defaultTemplate"
+    ></app-screen-isfull>
+    <!-- İf Screen IsFull=true Enf -->
+    <ng-template #defaultTemplate>
+      <app-screen-header></app-screen-header>
+      <section style="height: 90vh;">
+        <app-screen-vertical
+          *ngIf="kiosks.screen.position.toLowerCase() == 'vertical'"
+          [kiosks]="kiosks"
+        ></app-screen-vertical>
+        <app-screen-horizontal
+          *ngIf="kiosks.screen.position.toLowerCase() == 'horizontal'"
+          [kiosks]="kiosks"
+        ></app-screen-horizontal>
+      </section>
+      <app-screen-footer></app-screen-footer>
+    </ng-template>
+  </ng-container>
+</div>

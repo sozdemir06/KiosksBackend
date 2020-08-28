@@ -118,6 +118,8 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<AnnounceContentTypeManager>().As<IAnnounceContentTypeService>();
             builder.RegisterType<EfAnnounceContentTypeDal>().As<IAnnounceContentTypeDal>();
 
+            builder.RegisterType<KiosksManager>().As<IKiosksService>();
+
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
             builder.RegisterType<UploadFile>().As<IUploadFile>();

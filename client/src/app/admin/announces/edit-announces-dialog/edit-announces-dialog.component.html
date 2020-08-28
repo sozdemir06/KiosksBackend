@@ -41,6 +41,7 @@
     </mat-form-field>
     <ng-container>
       <quill-editor *ngIf="showTextEditor"
+      [modules]="helperService.quillToolbarOptions()"
       formControlName="content"
       [styles]="{ height: '25rem' }"
       placeholder="Duyuru Metni"

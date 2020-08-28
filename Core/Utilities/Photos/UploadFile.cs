@@ -44,7 +44,7 @@ namespace Core.Utilities.Photos
             }
 
             var fileExtensions = Path.GetExtension(file.FileName);
-            string[] accepted_file_types = new[] { ".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG", ".pdf" };
+            string[] accepted_file_types = new[] { ".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG", ".GIF",".gif"};
             if (!accepted_file_types.Any(s => s == fileExtensions))
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { InCorrectFileTypes = "Yüklenen dosya tipi desteklenmiyor.Sadece .jpg,.jpeg,.png desteklenmektedir." });

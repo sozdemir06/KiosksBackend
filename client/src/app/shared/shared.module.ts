@@ -24,6 +24,7 @@ import { SubscreensListForAnnounceComponent } from './subscreens-list-for-announ
 import { QuillModule } from "ngx-quill";
 import { CustomSliderComponent } from './custom-slider/custom-slider.component';
 
+
 @NgModule({
   declarations: [
     LoadingComponent,
@@ -43,6 +44,7 @@ import { CustomSliderComponent } from './custom-slider/custom-slider.component';
     UploadComponent,
     SubscreensListForAnnounceComponent,
     CustomSliderComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -52,7 +54,8 @@ import { CustomSliderComponent } from './custom-slider/custom-slider.component';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgxGalleryModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    
   ],
 
   exports: [
@@ -79,7 +82,8 @@ import { CustomSliderComponent } from './custom-slider/custom-slider.component';
     UploadComponent,
     SubscreensListForAnnounceComponent,
     QuillModule,
-    CustomSliderComponent
+    CustomSliderComponent,
+    
   ],
 })
 export class SharedModule {}

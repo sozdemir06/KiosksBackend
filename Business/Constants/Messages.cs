@@ -90,6 +90,7 @@ namespace Business.Constants
         public static string NotFoundScreen=>"Ana Ekran bulunamadı ...";
         public static string NotFoundAnnounce=>"İlan/Yayın bulunamadı ...";
         public static string NotSelectSubScreen=>"İlan/Yayın'ı yayınlamak için yayın ekranı  seçmelisiniz...";
+        public static string PublishDateExpire=>"Yayın tarihlerinin süresi geçmiş yayın tarihlerini güncelleyin.";
         
 
 

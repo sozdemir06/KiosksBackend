@@ -21,6 +21,8 @@ export class FoodMenuStore {
   foodsmenu$: Observable<IPagination<IFoodMenu>> = this.subject.asObservable();
   private detailSubject = new BehaviorSubject<IFoodMenuDetail>(null);
   detail$: Observable<IFoodMenuDetail> = this.detailSubject.asObservable();
+  private bgPhotoSubject = new BehaviorSubject<IFoodMenuPhoto[]>([]);
+  bgPhotos$: Observable<IFoodMenuPhoto[]> = this.bgPhotoSubject.asObservable();
 
   foodMenuParams = new FoodMenuParams();
 
@@ -183,8 +185,6 @@ export class FoodMenuStore {
     this.loadingService.showLoaderUntilCompleted(detail$).subscribe();
   }
 
- 
-
   addPhoto(photo: IFoodMenuPhoto) {
     const updatePhoto = produce(this.detailSubject.getValue(), (draft) => {
       draft.foodMenuPhotos.push(photo);
@@ -219,34 +219,6 @@ export class FoodMenuStore {
     this.loadingService.showLoaderUntilCompleted(update$).subscribe();
   }
 
-  setPhotoAsBackground(photo:Partial<IFoodMenuPhoto>){
-    const update$ = this.httpClient
-    .put<IFoodMenuPhoto>(this.apiUrl + 'foodmenuphoto/setbackground', photo)
-    .pipe(
-      map((result) => result),
-      catchError((error) => {
-        this.notifyService.notify('error', error);
-        return throwError(error);
-      }),
-      tap((result) => {
-        const updateDetailsubject = produce(
-          this.detailSubject.getValue(),
-          (draft) => {
-            const photoIndex = draft.foodMenuPhotos.findIndex(
-              (x) => x.id == result.id
-            );
-            const currentBgIndex=draft.foodMenuPhotos.findIndex(x=>x.isSetBackground==true);
-            draft.foodMenuPhotos[currentBgIndex].isSetBackground=false;
-            
-            draft.foodMenuPhotos[photoIndex] = result;
-          }
-        );
-        this.detailSubject.next(updateDetailsubject);
-        this.notifyService.notify('success', 'Arka Plan olarak kaydedildi...');
-      })
-    );
-  this.loadingService.showLoaderUntilCompleted(update$).subscribe();
-  }
   deletePhoto(model: IFoodMenuPhoto) {
     const deletePhoto$ = this.httpClient
       .delete<IFoodMenuPhoto>(this.apiUrl + 'foodmenuphoto/' + model.id)

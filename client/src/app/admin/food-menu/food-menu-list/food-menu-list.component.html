@@ -11,7 +11,7 @@
         alt=""
       />
       <ng-template #defaultPhotoUrl>
-        <mat-icon>food_bank</mat-icon>
+        <mat-icon>restaurant_menu</mat-icon>
       </ng-template>
     </td>
   </ng-container>
@@ -29,8 +29,8 @@
     <th mat-header-cell *matHeaderCellDef>Yayın Tarihleri</th>
     <td mat-cell *matCellDef="let element">
       <div class="d-flex flex-column">
-        <span>{{ element.publishStartDate | date: "short" }}</span>
-        <span>{{ element.publishFinishDate | date: "short" }}</span>
+        <span>{{ element.publishStartDate | date: "M/d/yyyy h:m a" }}</span>
+        <span>{{ element.publishFinishDate | date: "M/d/yyyy h:m a" }}</span>
       </div>
     </td>
   </ng-container>

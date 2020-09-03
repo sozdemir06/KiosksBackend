@@ -20,10 +20,14 @@ import {
 })
 export class ImageSliderComponent implements OnInit{
   @Input() images: IMageGallery[];
+  @Input() thumbnails:boolean=true;
+  @Input() preview:boolean=false;
+  @Input() imageAutoPlay:boolean=false;
+
   defaultImage: NgxGalleryImage[];
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
-
+  
   constructor(
   
   ) {}
@@ -36,7 +40,10 @@ export class ImageSliderComponent implements OnInit{
         imagePercent: 100,
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide,
-        preview: false,
+        preview: this.preview,
+        thumbnails:this.thumbnails,
+        imageAutoPlay:this.imageAutoPlay
+
       },
     ];
 

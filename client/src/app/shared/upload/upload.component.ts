@@ -21,7 +21,7 @@ import { Subscription } from 'rxjs';
 })
 export class UploadComponent implements OnInit,OnDestroy {
   @Input() apiUrl: string;
-  @Input() announceId: number;
+  @Input() announceId: number=0;
   @Input() roleForUpload:string[]=[];
   @Output() uploadResult = new EventEmitter<any>();
 
@@ -97,7 +97,7 @@ export class UploadComponent implements OnInit,OnDestroy {
 
       const formData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
-      formData.append('announceId', this.announceId.toString());
+      formData.append('announceId', this.announceId?.toString());
       formData.append('fileType', this.fileType);
       formData.append('duration', this.videoDuration?.toString());
     

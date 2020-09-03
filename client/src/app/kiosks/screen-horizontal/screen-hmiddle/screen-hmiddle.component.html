@@ -1,0 +1,251 @@
+<ngb-carousel
+  *ngIf="data$ | async as data"
+  #ngbcarousel
+  [interval]="interval"
+  [wrap]="true"
+  (slide)="onSlideChange($event)"
+  [pauseOnHover]="false"
+>
+  <ng-container *ngFor="let homeannounce of data.homeAnnounces; let i = index">
+    <ng-template
+      ngbSlide
+      [id]="
+        homeannounce?.slideId +
+        '_' +
+        i +
+        '_' +
+        homeannounce.announceType.toLowerCase() +
+        '_' +
+        'home' +
+        '_' +
+        homeannounce.slideIntervalTime +
+        '_' +
+        'url'
+      "
+    >
+      <div [ngStyle]="{ width: screenWidth + 'vw' }">
+        <app-homeannounce [homeannounce]="homeannounce"></app-homeannounce>
+      </div>
+    </ng-template>
+  </ng-container>
+  <ng-container
+    *ngFor="let vehicleAnnounce of data.vehicleAnnounces; let i = index"
+  >
+    <ng-template
+      ngbSlide
+      [id]="
+        vehicleAnnounce?.slideId +
+        '_' +
+        i +
+        '_' +
+        vehicleAnnounce.announceType.toLowerCase() +
+        '_' +
+        'car' +
+        '_' +
+        vehicleAnnounce.slideIntervalTime +
+        '_' +
+        'url'
+      "
+    >
+      <div [ngStyle]="{ width: screenWidth + 'vw' }" style="max-width: 100%;">
+        <app-vehicleannounce
+          [vehicleAnnounce]="vehicleAnnounce"
+        ></app-vehicleannounce>
+      </div>
+    </ng-template>
+  </ng-container>
+  <ng-container *ngFor="let announce of data.announces; let ai = index">
+    <ng-container *ngIf="announce.contentType.toLowerCase() == 'image'">
+      <ng-container
+        *ngFor="let image of announce.announcePhotos; let i = index"
+      >
+        <ng-template
+          ngbSlide
+          [id]="
+            announce?.slideId +
+            '_' +
+            i +
+            '_' +
+            announce.announceType.toLowerCase() +
+            '_' +
+            announce.contentType.toLowerCase() +
+            '_' +
+            announce.slideIntervalTime +
+            '_' +
+            'url'
+          "
+        >
+          <img
+            src="{{ image.fullPath }}"
+            [ngStyle]="{ width: screenWidth + 'vw' }"
+            style="
+              max-width: 100%;
+              max-height: 90vh;
+              display: block;
+              margin: 0 auto;
+            "
+          />
+        </ng-template>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="announce?.contentType.toLowerCase() == 'video'">
+      <ng-container
+        *ngFor="let image of announce.announcePhotos; let i = index"
+      >
+        <ng-template
+          ngbSlide
+          [id]="
+            announce?.slideId +
+            '_' +
+            i +
+            '_' +
+            announce.announceType.toLowerCase() +
+            '_' +
+            announce.contentType.toLowerCase() +
+            '_' +
+            image.duration +
+            '_' +
+            image?.fullPath
+          "
+        >
+          <div [ngStyle]="{ width: screenWidth + 'vw' }" style="max-width: 100%;">
+            <video
+              #video
+              id="{{ i }}"
+              class="w-100 h-100"
+              muted
+              [muted]="'muted'"
+            >
+              <source src="{{ image?.fullPath }}" type="video/mp4" />
+              <source src="{{ image?.fullPath }}" type="video/ogg" />
+              <source src="{{ image?.fullPath }}" type="video/webm" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </ng-template>
+      </ng-container>
+    </ng-container>
+    <ng-container
+      *ngIf="
+        announce?.contentType.toLowerCase() == 'deathannounce' ||
+        announce?.contentType.toLowerCase() == 'bloodannounce' ||
+        announce?.contentType.toLowerCase() == 'generalannounce'
+      "
+    >
+      <ng-template
+        ngbSlide
+        [id]="
+          announce?.slideId +
+          '_' +
+          ai +
+          '_' +
+          announce.announceType.toLowerCase() +
+          '_' +
+          announce.contentType.toLowerCase() +
+          '_' +
+          announce.slideIntervalTime +
+          '_' +
+          'url'
+        "
+      >
+        <div [ngStyle]="{ width: screenWidth + 'vw' }" style="max-width: 100%;">
+          <app-announce [announce]="announce"></app-announce>
+        </div>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngFor="let news of data.news; let ni = index">
+    <ng-container *ngIf="news?.contentType.toLowerCase() === 'image'">
+      <ng-container *ngFor="let image of news.newsPhotos; let i = index">
+        <ng-template
+          ngbSlide
+          [id]="
+            news?.slideId +
+            '_' +
+            i +
+            '_' +
+            news.announceType.toLowerCase() +
+            '_' +
+            news.contentType.toLowerCase() +
+            '_' +
+            news.slideIntervalTime +
+            '_' +
+            'url'
+          "
+        >
+          <img
+            src="{{ image.fullPath }}"
+            [ngStyle]="{ width: screenWidth + 'vw' }"
+            style="
+              max-width: 100%;
+              max-height: 90vh;
+              display: block;
+              margin: 0 auto;
+            "
+          />
+        </ng-template>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="news.contentType.toLowerCase() == 'textandimage'">
+      <ng-template
+        ngbSlide
+        [id]="
+          news?.slideId +
+          '_' +
+          ni +
+          '_' +
+          news.announceType.toLowerCase() +
+          '_' +
+          news.contentType.toLowerCase() +
+          '_' +
+          news.slideIntervalTime +
+          '_' +
+          'url'
+        "
+      >
+        <app-news [news]="news"></app-news>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngFor="let menu of data.foodsMenu; let i = index">
+    <ng-template
+      ngbSlide
+      [id]="
+        menu?.slideId +
+        '_' +
+        i +
+        '_' +
+        menu.announceType.toLowerCase() +
+        '_' +
+        'foodmenu' +
+        '_' +
+        menu.slideIntervalTime +
+        '_' +
+        'url'
+      "
+    >
+      <div [ngStyle]="{ width: screenWidth + 'vw' }">
+        <app-food-menu [foodMenu]="menu"></app-food-menu>
+      </div>
+    </ng-template>
+  </ng-container>
+  <ng-template
+    ngbSlide
+    *ngIf="
+      data.announces?.length == 0 &&
+      data.foodsMenu?.length == 0 &&
+      data.homeAnnounces?.length == 0 &&
+      data.news?.length == 0 &&
+      data.vehicleAnnounces?.length == 0
+    "
+  >
+    <div class="d-flex flex-column align-items-center">
+      <img src="/assets/no-data.png" style="width: 15vw" />
+      <h2 class="text-info" style="font-size: 2vw">
+        Bu ekran'da şuan yayın bulunmamaktadır.
+      </h2>
+    </div>
+  </ng-template>
+</ngb-carousel>
+
+

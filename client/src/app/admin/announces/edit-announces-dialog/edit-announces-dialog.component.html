@@ -58,8 +58,11 @@
       <mat-error *ngIf="f.slideIntervalTime.errors?.required">
         Geçiş süresi seçiniz...
       </mat-error>
+      <div *ngIf="item?.contentType.toLocaleLowerCase()=='video'" class="text-danger text-small" >
+        Geçiş Süresi otomatik video süresi olarak atanacak..
+      </div>
     </mat-form-field>
-   
+    
     <mat-form-field>
       <mat-label>Duyuru Başlangıç Tarihi ve Saati</mat-label>
       <input

@@ -1,1 +1,11 @@
-<p>screen-horizontal works!</p>
+<div class="container-fluid d-flex">
+    <div *ngIf="left" [ngStyle]="{ width: left?.width + 'vw' }">
+        <app-screen-left [kiosks]="kiosks" [subscreenid]="left?.id" [screenWidth]="left?.width" ></app-screen-left>
+      </div>
+      <div *ngIf="middle" [ngStyle]="{width: middle?.width + 'vw' }">
+        <app-screen-hmiddle  [subscreenid]='middle?.id' [kiosks]="kiosks" [screenWidth]="middle?.width"></app-screen-hmiddle>
+      </div>
+      <div *ngIf="right" [ngStyle]="{width: right?.width + 'vw' }">
+        <app-screen-right [subscreenid]="right?.id"  [kiosks]="kiosks" [screenWidth]="right?.width"></app-screen-right>
+      </div>
+</div>

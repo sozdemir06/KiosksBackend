@@ -42,7 +42,8 @@ namespace Business.Concrete
             }
 
             var mapForCreate = mapper.Map<HomeAnnounce>(creationDto);
-            var slideId=Guid.NewGuid();
+            var slideId = Guid.NewGuid();
+            mapForCreate.AnnounceType = "home";
             mapForCreate.SlideId = slideId;
             mapForCreate.Created = DateTime.Now;
 
@@ -69,7 +70,7 @@ namespace Business.Concrete
         [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
         public async Task<HomeAnnounceForDetailDto> GetDetailAsync(int homeAnnounceId)
         {
-             var spec = new HomeAnnounceDetailSpecification(homeAnnounceId);
+            var spec = new HomeAnnounceDetailSpecification(homeAnnounceId);
             var getDetailFromRepo = await homeAnnounceDal.GetEntityWithSpecAsync(spec);
 
             if (getDetailFromRepo == null)
@@ -77,7 +78,7 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
 
-            return mapper.Map<HomeAnnounce, HomeAnnounceForDetailDto>(getDetailFromRepo); 
+            return mapper.Map<HomeAnnounce, HomeAnnounceForDetailDto>(getDetailFromRepo);
         }
 
         [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
@@ -114,11 +115,23 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
 
-            var checkHomeAnnounceSubScreenForPublish = await homeAnnounceSubScreenDal.GetListAsync(x=>x.HomeAnnounceId==updateDto.Id);
-            if(checkHomeAnnounceSubScreenForPublish==null)
+
+            var checkHomeAnnounceSubScreenForPublish = await homeAnnounceSubScreenDal.GetListAsync(x => x.HomeAnnounceId == updateDto.Id);
+            if (checkHomeAnnounceSubScreenForPublish.Count <= 0)
             {
-               throw new RestException(HttpStatusCode.BadRequest, new { NotSelectSubScreen = Messages.NotSelectSubScreen }); 
+                throw new RestException(HttpStatusCode.BadRequest, new { NotSelectSubScreen = Messages.NotSelectSubScreen });
             }
+
+            if (updateDto.IsPublish)
+            {
+                var checkDateExpire = DateTime.Compare(DateTime.Now, checkFromRepo.PublishFinishDate);
+                if (checkDateExpire > 0)
+                {
+                    throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.PublishDateExpire });
+                }
+
+            }
+
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;

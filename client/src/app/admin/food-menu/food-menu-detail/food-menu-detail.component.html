@@ -71,7 +71,7 @@
         <mat-tab label="Menü İçerik">
             <quill-view [content]="announce?.content" format="html" theme="snow"></quill-view>
         </mat-tab>
-        <mat-tab label="İlan Fotoğrafları">
+        <mat-tab label="Menu Fotoğrafları">
           <app-loading></app-loading>
           <app-food-menu-photo-list
             [images]="(foodMenuStore.detail$ | async)?.foodMenuPhotos"

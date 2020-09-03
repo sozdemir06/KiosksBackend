@@ -4,7 +4,7 @@
         <div class="mat-elevation-z3 bg-white">
           <div class="row p-3 align-items-center">
             <div class="col-md-2 col-sm-2 col-lg-2">
-              <span class="mat-h2">Araç İlanları</span>
+              <span class="mat-h2">Yemek Menüsü</span>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6">
               <mat-form-field class="w-100">
@@ -13,7 +13,7 @@
                   matInput
                   type="text"
                   #searchInput
-                  placeholder="İlanı başılığı,açıklama ve ilan sahibinin adı,soyadına göre arama..."
+                  placeholder=" Menu içeriğine  göre arama..."
                   autocomplete="off"
                 />
               </mat-form-field>
@@ -31,6 +31,9 @@
                 </button>
                 <button mat-icon-button (click)="onCreateNew()" *appHasRole="roleForCreate">
                   <mat-icon>create</mat-icon>
+                </button>
+                <button mat-icon-button (click)="onUploadBgImage()" *appHasRole="roleForCreate">
+                  <mat-icon>add_a_photo</mat-icon>
                 </button>
                 <button mat-icon-button (click)="onReset()">
                   <mat-icon>refresh</mat-icon>

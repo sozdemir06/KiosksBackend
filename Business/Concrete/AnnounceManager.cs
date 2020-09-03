@@ -45,7 +45,7 @@ namespace Business.Concrete
             var slideId = Guid.NewGuid();
             mapForCreate.SlideId = slideId;
             mapForCreate.Created = DateTime.Now;
-            mapForCreate.AnnounceType="announce";
+            mapForCreate.AnnounceType = "announce";
 
             var createAnnounce = await announceDal.Add(mapForCreate);
             var spec = new AnnounceWithUserSpecification(createAnnounce.Id);
@@ -115,9 +115,19 @@ namespace Business.Concrete
             }
 
             var checkHomeAnnounceSubScreenForPublish = await announceSubScreenDal.GetListAsync(x => x.AnnounceId == updateDto.Id);
-            if (checkHomeAnnounceSubScreenForPublish == null)
+            if (checkHomeAnnounceSubScreenForPublish.Count <= 0)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotSelectSubScreen = Messages.NotSelectSubScreen });
+            }
+
+            if (updateDto.IsPublish)
+            {
+                var checkDateExpire = DateTime.Compare(DateTime.Now, checkFromRepo.PublishFinishDate);
+                if (checkDateExpire > 0)
+                {
+                    throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.PublishDateExpire });
+                }
+
             }
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
@@ -132,7 +142,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Announces.Update,Announces.All", Priority = 1)]
         [ValidationAspect(typeof(AnnounceValidator), Priority = 2)]
-        public async  Task<AnnounceForReturnDto> Update(AnnounceForCreationDto updateDto)
+        public async Task<AnnounceForReturnDto> Update(AnnounceForCreationDto updateDto)
         {
             var checkFromRepo = await announceDal.GetAsync(x => x.Id == updateDto.Id);
             if (checkFromRepo == null)

@@ -7,7 +7,6 @@ import { NewsStore } from 'src/app/core/services/stores/news-store';
 import { HelperService } from 'src/app/core/services/helper-service';
 import { UserStore } from 'src/app/core/services/stores/user-store';
 
-
 @Component({
   selector: 'app-edit-news-dialog',
   templateUrl: './edit-news-dialog.component.html',
@@ -51,6 +50,12 @@ export class EditNewsDialogComponent implements OnInit, OnDestroy {
         this.helperService.dateToLocaleFormat(new Date()),
         Validators.required,
       ],
+      newsDate: [
+        this.helperService.dateToLocaleFormat(new Date()),
+        Validators.required,
+      ],
+      newsAgency: [''],
+
       slideIntervalTime: [9, Validators.required],
     };
 
@@ -60,10 +65,10 @@ export class EditNewsDialogComponent implements OnInit, OnDestroy {
       this.newsForm = this.fb.group(this.formControls);
       this.newsForm.patchValue({ ...this.item });
       this.newsForm.get('contentType').disable();
-      const contenType=this.item?.contentType.toLowerCase();
+      const contenType = this.item?.contentType.toLowerCase();
 
-      if(contenType=='text' || contenType=='textandimage'){
-          this.showTextEditor=true;
+      if (contenType == 'text' || contenType == 'textandimage') {
+        this.showTextEditor = true;
       }
     }
   }
@@ -88,6 +93,12 @@ export class EditNewsDialogComponent implements OnInit, OnDestroy {
   onChangeStartDate(event) {
     this.newsForm.patchValue({
       publishStartDate: this.helperService.dateToLocaleFormat(event.value),
+    });
+  }
+
+  onChangeNewsDate(event){
+    this.newsForm.patchValue({
+      newsDate: this.helperService.dateToLocaleFormat(event.value),
     });
   }
 

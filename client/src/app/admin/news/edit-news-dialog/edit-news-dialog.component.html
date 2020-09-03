@@ -32,6 +32,31 @@
         >Haber başlığı en fazla 140 karakter olmalı...</mat-error
       >
     </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Haber Ajansı/Haber Kaynağı"
+        formControlName="newsAgency"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Haber Tarihi</mat-label>
+      <input
+        class="date-time"
+        [owlDateTime]="dt3"
+        [owlDateTimeTrigger]="dt3"
+        autocomplete="off"
+        formControlName="newsDate"
+        (dateTimeChange)="onChangeNewsDate($event)"
+        matInput
+        required
+      />
+      <owl-date-time #dt3></owl-date-time>
+      <mat-error *ngIf="f.newsDate.errors?.required"
+        >Haber Tarihi Boş olamaz..</mat-error
+      >
+    </mat-form-field>
     <ng-container>
       <quill-editor *ngIf="showTextEditor"
       [modules]="helperService.quillToolbarOptions()"

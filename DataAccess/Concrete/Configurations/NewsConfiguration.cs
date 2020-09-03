@@ -20,6 +20,8 @@ namespace DataAccess.Concrete.Configurations
             builder.Property(x=>x.Updated);
             builder.Property(x=>x.UserId);
             builder.Property(x=>x.Created);
+            builder.Property(x=>x.NewsDate);
+            builder.Property(x=>x.NewsAgency);
         }
     }
 }

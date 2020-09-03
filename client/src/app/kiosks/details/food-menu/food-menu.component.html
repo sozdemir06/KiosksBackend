@@ -1,1 +1,51 @@
-<p>food-menu works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 col-lg-12 col-xl-12">
+      <mat-card class="d-flex justify-content-center">
+        <mat-card-title style="font-size: 1.7vw"
+          >{{ foodMenu?.publishStartDate | date: "M/d/yyyy" }} Tarihli Yemek
+          Menüsü</mat-card-title
+        >
+      </mat-card>
+    </div>
+    <div class="col-md-12 col-lg-12 col-xl-12">
+      <div class="menu-container">
+        <ng-container *ngIf="bgPhotoUrl; else defaultbg">
+          <img class="menu-bg" [src]="bgPhotoUrl" />
+        </ng-container>
+        <ng-template #defaultbg>
+          <img class="menu-bg" src="/assets/food-bg.jpg" />
+        </ng-template>
+        <div class="overlay">
+          <div class="row">
+            <div class="col-md-12 col-lg-12 col-xl-12">
+              <div
+                class="col-md-6 col-lg-6 col-xl-6 offset-md-3 offset-lg-3 offset-xl-3"
+              >
+                <quill-view
+                  style="align-self: center"
+                  [content]="foodMenu?.content"
+                  format="html"
+                  theme="snow"
+                ></quill-view>
+              </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-xl-12 mt-3">
+              <div
+                class="col-md-6 col-lg-6 col-xl-6 offset-md-3 offset-lg-3 offset-xl-3"
+              >
+                <ng-container *ngIf="foodMenu.foodMenuPhotos?.length > 0">
+                  <app-image-slider
+                    [images]="foodMenu.foodMenuPhotos"
+                    [thumbnails]="false"
+                    [imageAutoPlay]="true"
+                  ></app-image-slider>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,11 @@
-<div class="screen-container bg-light">
+<!-- <div class="screen-container bg-light">
   <app-loading></app-loading>
   <ng-container *ngIf="kioksStore.kiosks$ | async as kiosks">
-    <!-- İf Screen IsFull=true Start -->
+  
     <app-screen-isfull
       *ngIf="kiosks.screen.isFull; else defaultTemplate"
     ></app-screen-isfull>
-    <!-- İf Screen IsFull=true Enf -->
+    
     <ng-template #defaultTemplate>
       <app-screen-header></app-screen-header>
       <section style="height: 90vh;">
@@ -21,4 +21,85 @@
       <app-screen-footer></app-screen-footer>
     </ng-template>
   </ng-container>
-</div>
+</div> -->
+<main class="main" style="max-height: 100vh; max-width: 100vw;" *ngIf="(kioksStore.kiosks$ | async) as data">
+  <ng-container *ngIf="!data.screen.isFull">
+    <!-- Header Start -->
+    <header class="bg-primary text-white" style="height: 5vh; max-width: 100vw;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-3">
+            <img src="/assets/logo.jpg" alt="" style="width: 5vw;">
+          </div>
+          <div class="col-6">Logo</div>
+          <div class="col-3">Logo</div>
+        </div>
+      </div>
+   </header>
+   <!-- Header End -->
+   
+   <section style="height: 90vh; max-width:100vw;">
+    <!-- Vetical Start -->
+      <ng-container *ngIf="data?.screen?.position.toLowerCase()=='vertical'">
+        <ng-container *ngIf="(top$ | async) as top">
+          <div [ngStyle]="{height: top.height + 'vh'}">
+            <app-screen-top [kiosks]="data" [subscreenid]="top.id" [screenHeight]="top.height"></app-screen-top>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="(vmiddle$ | async) as vmiddle">
+          <div [ngStyle]="{height: vmiddle.height + 'vh'}">
+            <app-screen-middle [kiosks]="data" [subscreenid]="vmiddle.id" [screenHeight]="vmiddle.height"></app-screen-middle>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="(bottom$ | async) as bottom">
+          <div [ngStyle]="{height: bottom.height + 'vh'}">
+            <app-screen-bottom [kiosks]="data" [subscreenid]="bottom.id" [screenHeight]="bottom.height"></app-screen-bottom>
+          </div>
+        </ng-container>
+      </ng-container>
+      <!-- Vertical End -->
+
+      <!-- Horizontal Start -->
+      <div class="d-flex">
+        <ng-container *ngIf="data?.screen?.position.toLowerCase()=='horizontal'">
+          <ng-container *ngIf="(left$ | async) as left">
+            <div [ngStyle]="{width: left.width + 'vw'}">
+              <app-screen-left [kiosks]="data" [subscreenid]="left.id" [screenWidth]="left.width"></app-screen-left>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="(hmiddle$ | async) as hmiddle">
+            <div [ngStyle]="{width: hmiddle.width + 'vw'}">
+              <app-screen-hmiddle [kiosks]="data" [subscreenid]="hmiddle.id" [screenWidth]="hmiddle.width"></app-screen-hmiddle>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="(right$ | async) as right">
+            <div [ngStyle]="{width: right.width + 'vw'}">
+              <app-screen-right [kiosks]="data" [subscreenid]="right.id" [screenWidth]="right.width"></app-screen-right>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+      <!-- Horizontal End -->
+
+   </section>
+   <!-- Footer Start -->
+   <footer class="bg-primary text-white" style="height: 5vh; max-width: 100vw;">
+     <div class="container-fluid">
+       <div class="row">
+         <div class="col-3">Wheather</div>
+         <div class="col-6">Footer Text</div>
+         <div class="col-3">Stock Exchange</div>
+       </div>
+     </div>
+  </footer> 
+  <!-- Footer Enf -->
+  </ng-container>
+
+
+  <ng-container *ngIf="data.screen.isFull">
+    is full
+  </ng-container>
+</main>
+
+
+

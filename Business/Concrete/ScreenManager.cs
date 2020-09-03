@@ -56,7 +56,7 @@ namespace Business.Concrete
                 new SubScreenForCreationDto()
                 {
                     Name=screenToSave.Name+" Orta",
-                    Position="Middle",
+                    Position=screenToSave.Position=="Vertical"?"VMiddle":"HMiddle",
                     Height=screenToSave.Position=="Vertical"?30:0,
                     Width=screenToSave.Position=="Vertical"?0:30,
                     ScreenId=screenToSave.Id,

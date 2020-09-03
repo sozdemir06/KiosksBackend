@@ -15,6 +15,8 @@ export interface INewsDetail{
     photoUrl:string;
     publishStartDate:Date;
     publishFinishDate:Date;
+    newsDate:Date;
+    newsAgency:string;
     userId:number;
     isNew:boolean;
     reject:boolean;

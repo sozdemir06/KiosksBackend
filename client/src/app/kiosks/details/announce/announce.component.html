@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 col-lg-12 col-xl-12 mb-2">
+        <div class="col-md-12 col-lg-12 col-xl-12">
            <mat-card>
                <mat-card-title class="d-flex align-items-center justify-content-center text-danger">
                    <span>{{getAnnounceType(announce.contentType)}}</span>
@@ -10,7 +10,9 @@
         <div class="col-md-12 col-lg-12 col-xl-12">
             <mat-card>
                 <mat-card-content >
-                    <quill-view style="font-size: x-large;" [content]="announce?.content" format="html" theme="snow"></quill-view>
+                    <div #fitTextToHere>
+                        <quill-view style="font-size: x-large;" [content]="announce?.content" format="html" theme="snow"></quill-view>
+                    </div>
                 </mat-card-content>
             </mat-card>
         </div>

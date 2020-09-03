@@ -164,7 +164,6 @@ export class EditHomeAnnounceDialogComponent implements OnInit {
             ...this.item,
             ...this.homeAnnounceForm.value,
           }
-
           this.homeAnnounceStore.update(model);
           this.dialogRef.close();
         }

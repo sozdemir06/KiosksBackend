@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,12 +21,14 @@ import { LoadingService } from './core/services/loading-service';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    CoreModule
+    CoreModule,
+    
    
   ],
   providers: [
     ErrorMessagesService,
     LoadingService,
+    
   ],
   bootstrap: [AppComponent]
 })

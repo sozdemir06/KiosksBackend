@@ -1,17 +1,14 @@
-@import "~bootstrap/scss/bootstrap-grid.scss";
 @import "~ng-pick-datetime/assets/style/picker.min.css";
-
-
-
-
 
 //Loading Button
 @keyframes spinner {
-  to {transform: rotate(360deg);}
+  to {
+    transform: rotate(360deg);
+  }
 }
- 
+
 .spinner:before {
-  content: '';
+  content: "";
   box-sizing: border-box;
   position: absolute;
   top: 50%;
@@ -23,17 +20,60 @@
   border-radius: 50%;
   border: 2px solid #ffffff;
   border-top-color: #000000;
-  animation: spinner .8s linear infinite;
+  animation: spinner 0.8s linear infinite;
 }
 
-.mat-sidenav-container, .mat-sidenav-content, .mat-tab-body-content {
+.mat-sidenav-container,
+.mat-sidenav-content,
+.mat-tab-body-content {
   transform: none !important;
 }
 
+//Kiosks Carousel css
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+  border: none;
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: rgb(234, 234, 234);
+  border: none;
+}
+
+html,body,*{
+  &:focus{
+    outline: none !important;
+  }
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="16px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-label.ql-active[data-value="16px"]::before {
+    content: '80px';
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="10px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-label.ql-active[data-value="10px"]::before {
+    content: '80px';
+}
 
 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="18px"]::before {
+  content: 'Huge';
+  font-size: 80px !important;
+}
 
-
-
-
-
+.maxheight{
+  max-height: 90vh;
+}

@@ -6,4 +6,5 @@ export interface IFoodMenuPhoto{
     fileType:string;
     foodMenuId:number;
     isSetBackground:boolean;
+    isBackground:boolean;
 }

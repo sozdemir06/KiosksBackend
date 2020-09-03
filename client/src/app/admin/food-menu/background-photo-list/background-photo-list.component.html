@@ -1,0 +1,58 @@
+<div class="row p-4">
+    <ng-container *ngIf="(foodMenuBgStore.bgphotos$ | async)?.length>0;else dataIsEmpty">
+      <ng-container *ngFor="let image of foodMenuBgStore.bgphotos$ | async">
+        <div class="col-md-2">
+          <mat-card>
+            <img
+              mat-card-image
+              src="{{ image?.fullPath }}"
+              alt="İlan Fotoğrafı"
+              height="100"
+            />
+            <mat-card-actions class="d-flex justify-content-start align-items-center">
+              <ng-container *appHasRole="roleForUpdate">
+                <button
+                  mat-icon-button
+                  *ngIf="image.isSetBackground"
+                  (click)="onSetBackground(image)"
+                >
+                  <mat-icon color="primary">image_search</mat-icon>
+                </button>
+              </ng-container>
+              <ng-container *appHasRole="roleForUpdate">
+                <button
+                  mat-icon-button
+                  *ngIf="!image.isSetBackground"
+                  (click)="onSetBackground(image)"
+                >
+                  <mat-icon color="warn">image_search</mat-icon>
+                </button>
+              </ng-container>
+              <ng-container *appHasRole="roleForDelete">
+                <button mat-icon-button (click)="onDelete(image)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </ng-container>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </ng-container>
+    </ng-container>
+  
+    <div class="col-md-4">
+      <ng-template #dataIsEmpty>
+        <h4 class="text-info ml-5 p-4 h-25">
+          Yemek Menüsü için ana arka plan resmi belirtilmemiş.
+        </h4>
+      </ng-template>
+    </div>
+  </div>
+
+  <app-upload
+  [apiUrl]="'http://localhost:5000/api/foodmenubgphotos'"
+  [roleForUpload]="roleForCreate"
+  (uploadResult)="uploadResult($event)"
+></app-upload>
+
+
+  

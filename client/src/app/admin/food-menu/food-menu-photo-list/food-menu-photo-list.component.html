@@ -34,16 +34,6 @@
                 <mat-icon>delete</mat-icon>
               </button>
             </ng-container>
-            <ng-container *appHasRole="roleForUpdate">
-              <button
-                mat-icon-button
-                (click)="onSetBackground(image)"
-              >
-                <mat-icon *ngIf="image.isSetBackground" color="primary">photo_size_select_large</mat-icon>
-                <mat-icon *ngIf="!image.isSetBackground" color="warn">photo_size_select_large</mat-icon>
-               
-              </button>
-            </ng-container>
           </mat-card-actions>
         </mat-card>
       </div>

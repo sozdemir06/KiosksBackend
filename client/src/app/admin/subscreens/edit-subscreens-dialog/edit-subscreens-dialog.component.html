@@ -26,7 +26,7 @@
       <ng-container *ngIf="data.position === 'Vertical'">
         <mat-select formControlName="position">
           <mat-option [value]="'Top'">Üst</mat-option>
-          <mat-option [value]="'Middle'">Orta</mat-option>
+          <mat-option [value]="'VMiddle'">Orta</mat-option>
           <mat-option [value]="'Bottom'">Alt</mat-option>
         </mat-select>
         <mat-error *ngIf="f.position.errors?.required"
@@ -36,7 +36,7 @@
       <ng-container *ngIf="data.position === 'Horizontal'">
         <mat-select formControlName="position">
           <mat-option [value]="'Left'">Sol</mat-option>
-          <mat-option [value]="'Middle'">Orta</mat-option>
+          <mat-option [value]="'HMiddle'">Orta</mat-option>
           <mat-option [value]="'Right'">Sağ</mat-option>
         </mat-select>
         <mat-error *ngIf="f.position.errors?.required"
@@ -69,7 +69,7 @@
       />
     </mat-form-field>
     <mat-checkbox formControlName="status" class="my-3">{{
-      item?.status ? "Ekran Aktif" : "Ekranı Pasif"
+      item?.status ? "Ekranı pasif et" : "Ekranı aktif et"
     }}</mat-checkbox>
     <button mat-raised-button color="primary" [disabled]="!subScreenForm.valid">
       {{ mode == "create" ? "Kaydet" : "Güncelle" }}

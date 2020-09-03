@@ -1,58 +1,59 @@
-import { Component, OnInit, Input, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ElementRef,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
 import { IKiosks } from '../../models/IKiosks';
-import { SlidesOutputData, CarouselComponent } from 'ngx-owl-carousel-o';
 import { HelperService } from 'src/app/core/services/helper-service';
 import { KiosksStore } from '../../store/kiosks-store';
-import { IAnnounceForKiosks } from '../../models/IAnnounceForKiosks';
-import { IVehicleAnnounceForKiosks } from '../../models/IVehicleAnnounceForKiosks';
-import { IHomeAnnounceForKiosks } from '../../models/IHomeAnnounceForKiosks';
-import { INewsForKiosks } from '../../models/INewsForKiosks';
-import { IFoodMenuForKiosks } from '../../models/IFoodMenuForKiosks';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CarouselService } from 'ngx-owl-carousel-o/lib/services/carousel.service';
+import { NgbSlideEvent} from '@ng-bootstrap/ng-bootstrap';
+import { IKiosksSubScreenData } from 'src/app/shared/models/IKiosksSubScreenData';
 
-export interface ITopScreenData {
-  announces: IAnnounceForKiosks[];
-  vehicleAnnounces: IVehicleAnnounceForKiosks[];
-  homeAnnounces: IHomeAnnounceForKiosks[];
-  news: INewsForKiosks[];
-  foodsMenu: IFoodMenuForKiosks[];
-}
+
+
 
 @Component({
   selector: 'app-screen-top',
   templateUrl: './screen-top.component.html',
   styleUrls: ['./screen-top.component.scss'],
-  changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class ScreenTopComponent implements OnInit {
+export class ScreenTopComponent implements OnInit{
   @Input() kiosks: IKiosks;
   @Input() subscreenid: number;
   @Input() screenHeight: number = 30;
+  interval: any = 2500;
 
-  data$: Observable<ITopScreenData>;
-  @ViewChild('owlElement') owlElement: CarouselComponent
+  //@ViewChild('ngcarousel') ngCarousel: NgbCarousel;
+  @ViewChildren('video') videoInput: QueryList<ElementRef>;
+  video:HTMLVideoElement; 
+
+  data$: Observable<IKiosksSubScreenData>;
+
 
   constructor(
     public helperService: HelperService,
     private kiosksStore: KiosksStore,
-    private elRef:ElementRef,
-    private cd:ChangeDetectorRef
-  ) {}
+  ) {
+    console.log(this.subscreenid);
+  }
 
   ngOnInit(): void {
     const announces$ = this.kiosksStore.kiosks$.pipe(
       map((announces) =>
         announces.announces.filter((x) =>
-          x.announceSubScreens.filter((s) => s.subScreenId == this.subscreenid)
+          x.announceSubScreens.find((s) => s.subScreenId == this.subscreenid)
         )
       )
     );
     const vehicleAnnounces$ = this.kiosksStore.kiosks$.pipe(
       map((vehicleannounces) =>
         vehicleannounces.vehicleAnnounces.filter((x) =>
-          x.vehicleAnnounceSubScreens.filter(
+          x.vehicleAnnounceSubScreens.find(
             (x) => x.subScreenId == this.subscreenid
           )
         )
@@ -60,8 +61,8 @@ export class ScreenTopComponent implements OnInit {
     );
     const homeAnnounces$ = this.kiosksStore.kiosks$.pipe(
       map((homeannounces) =>
-      homeannounces.homeAnnounces.filter((x) =>
-          x.homeAnnounceSubScreens.filter(
+        homeannounces.homeAnnounces.filter((x) =>
+          x.homeAnnounceSubScreens.find(
             (x) => x.subScreenId == this.subscreenid
           )
         )
@@ -69,54 +70,56 @@ export class ScreenTopComponent implements OnInit {
     );
     const news$ = this.kiosksStore.kiosks$.pipe(
       map((news) =>
-      news.news.filter((x) =>
-          x.newsSubScreens.filter(
-            (x) => x.subScreenId == this.subscreenid
-          )
+        news.news.filter((x) =>
+          x.newsSubScreens.find((x) => x.subScreenId == this.subscreenid)
         )
       )
     );
     const foodsMenu$ = this.kiosksStore.kiosks$.pipe(
       map((foodsMenu) =>
-      foodsMenu.foodsMenu.filter((x) =>
-          x.foodMenuSubScreens.filter(
-            (x) => x.subScreenId == this.subscreenid
-          )
+        foodsMenu.foodsMenu.filter((x) =>
+          x.foodMenuSubScreens.find((x) => x.subScreenId == this.subscreenid)
         )
       )
     );
 
-    this.data$=combineLatest([announces$,vehicleAnnounces$,homeAnnounces$,news$,foodsMenu$])
-                .pipe(
-                  map(([announces,vehicleAnnounces,homeAnnounces,news,foodsMenu])=>{
-                    return{
-                      announces,
-                      vehicleAnnounces,
-                      homeAnnounces,
-                      news,
-                      foodsMenu
-                    }
-                  })
-                )
-  }//End Of ngOnInit()
+    this.data$ = combineLatest([
+      announces$,
+      vehicleAnnounces$,
+      homeAnnounces$,
+      news$,
+      foodsMenu$,
+    ]).pipe(
+      map(([announces, vehicleAnnounces, homeAnnounces, news, foodsMenu]) => {
+        return {
+          announces,
+          vehicleAnnounces,
+          homeAnnounces,
+          news,
+          foodsMenu,
+        };
+      })
+    );
+
+   
+  } //End Of ngOnInit()
 
 
-  translate(event: SlidesOutputData) {
-    const slideId=event.slides[0].id;
-    const splitId=slideId.split('_');
-
-    const [id,type,intervalTime]=splitId;
-    if(type.toLowerCase()==='video'){
-      //this.helperService.setSliderAutoPlayTimeout(25000);
-      this.owlElement.options.autoplayTimeout=28000;
-      this.cd.detectChanges();
+  onSlideChange(event: NgbSlideEvent) {
+    const parseId = event.current.split('_');
+    const [id, index, announceType, contentType, intervalTime,fullPath] = parseId;
+    let intervalTimeToMiliSecond = parseInt(intervalTime) * 1000;
+    
+    if(this.video?.played){
+      this.video.pause();
+      this.video.load();
+    }
+    if (contentType.toLowerCase() == 'video') {
+       this.video=this.videoInput.find(x=>x.nativeElement.id==index).nativeElement;
+       this.video.play();
     }
 
-    
-    
-  }
+    this.interval = intervalTimeToMiliSecond;
 
-  onChange(event:SlidesOutputData){
-    console.log(event)
   }
 }

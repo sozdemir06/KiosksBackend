@@ -5,7 +5,6 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, tap, shareReplay, finalize, delay } from 'rxjs/operators';
 import { IUser } from '../shared/models/IUser';
 import { IUserForLogin } from '../shared/models/IUserForLogin';
-import * as jwt from 'jwt-decode';
 import { Router } from '@angular/router';
 
 const AUTH_DATA = 'auth_data';
@@ -64,9 +63,11 @@ export class AuthStore {
     }
 
     const token = localStorage.getItem(AUTH_TOKEN);
-    const decodedToken: any = jwt(token);
+    let payLoad = JSON.parse(
+      window?.atob(localStorage.getItem(AUTH_TOKEN)?.split('.')[1])
+    );
     const now=Date.now();
-    const expireTime = decodedToken.exp * 1000 - now;
+    const expireTime = payLoad.exp * 1000 - now;
 
   this.cleartimeOut=setTimeout(() => {
       this.logOut();

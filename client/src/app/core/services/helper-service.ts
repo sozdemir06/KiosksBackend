@@ -1,38 +1,10 @@
 import { Injectable } from '@angular/core';
 import { NotifyService } from './notify-service';
-import { OwlOptions } from 'ngx-owl-carousel-o';
 import { BehaviorSubject, Observable } from 'rxjs';
 import produce from 'immer';
 
 @Injectable({ providedIn: 'root' })
 export class HelperService {
-  customOptions: OwlOptions = {
-    loop: true,
-    autoplay:true,
-    navText:['',''],
-    autoHeight:true,
-    dots: false,
-    center:true,
-    navSpeed: 700,
-    responsive: {
-      0: {
-        items: 1
-      },
-      400: {
-        items: 1
-      },
-      740: {
-        items: 1
-      },
-      940: {
-        items: 1
-      }
-    },
-    nav: true
-  }
-  private subject=new BehaviorSubject<OwlOptions>(this.customOptions);
-          owlOptions$:Observable<OwlOptions>=this.subject.asObservable();
-
   constructor(private notifyService: NotifyService) {}
 
   dateToLocaleFormat(date: Date): any {
@@ -134,38 +106,15 @@ export class HelperService {
     return modules;
   }
 
-  setSliderAutoPlayTimeout(timeout:number){
-      const updateOwlOptions=produce(this.subject.getValue(),draft=>{
-        draft.autoplayTimeout=timeout;
-      });
-      this.subject.next(updateOwlOptions);
-  }
+  checkExpire(finishDate: Date): boolean {
+    let isExpire: boolean = false;
+    const _finishDate = new Date(finishDate);
+    const dateNow = new Date();
 
-  owlSliderOptions(): OwlOptions {
-    const customOptions: OwlOptions = {
-      loop: true,
-      autoplay:true,
-      navText:['',''],
-      autoHeight:true,
-      dots: false,
-      center:true,
-      navSpeed: 700,
-      responsive: {
-        0: {
-          items: 1
-        },
-        400: {
-          items: 1
-        },
-        740: {
-          items: 1
-        },
-        940: {
-          items: 1
-        }
-      },
-      nav: true
+    if (dateNow > _finishDate) {
+      isExpire = true;
     }
-    return customOptions;
+
+    return isExpire;
   }
 }

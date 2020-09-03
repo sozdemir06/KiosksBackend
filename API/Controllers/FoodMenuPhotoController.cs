@@ -35,12 +35,6 @@ namespace API.Controllers
             return await foodMenuPhotoService.Update(creationDto);
         }
 
-        [HttpPut("setbackground")]
-        public async Task<FoodMenuPhotoForReturnDto> SetBackground(FoodMenuPhotoForCreationDto creationDto)
-        {
-            return await foodMenuPhotoService.SetAsBackground(creationDto);
-        }
-
         [HttpDelete("{photoId}")]
         public async Task<FoodMenuPhotoForReturnDto> Delete(int photoId)
         {

@@ -45,20 +45,9 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { ExceedScreenSize = "En fazla 3 alt ekran olmalı..." });
             }
 
-            var getScreenIdFromRepo = await subScreenDal.GetListAsync(x => x.ScreenId == createDto.ScreenId && x.Id != createDto.Id);
-            
-            var totalWidth=createDto.Width;
-            var totalHeight=createDto.Height;
-
-            foreach (var item in getScreenIdFromRepo)
+            if(createDto.Height>100 || createDto.Width>100)
             {
-                totalHeight+=item.Width;
-                totalHeight+=item.Height;
-            }
-
-            if(totalHeight>90 || totalWidth>90)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { ExceedScreenSize = "Alt Ekranların Genişlik/Yükseklik'lerinin toplamı en fazla 90 olmalı" });
+                throw new RestException(HttpStatusCode.BadRequest, new { ExceedScreenSize = "Alt Ekranın Genişlik/Yükseklik'lerinin toplamı en fazla 100 olmalı" });
             }
 
             var mapForCreate = mapper.Map<SubScreen>(createDto);
@@ -112,22 +101,11 @@ namespace Business.Concrete
             if (checkById == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
-            }
-
-            var getScreenIdFromRepo = await subScreenDal.GetListAsync(x => x.ScreenId == updateDto.ScreenId && x.Id != updateDto.Id);
-            
-            var totalWidth=updateDto.Width;
-            var totalHeight=updateDto.Height;
-
-            foreach (var item in getScreenIdFromRepo)
+            }            
+           
+            if(updateDto.Height>100 || updateDto.Width>100)
             {
-                totalHeight+=item.Width;
-                totalHeight+=item.Height;
-            }
-
-            if(totalHeight>90 || totalWidth>90)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { ExceedScreenSize = "Alt Ekranların Genişlik/Yükseklik'lerinin toplamı en fazla 90 olmalı" });
+                throw new RestException(HttpStatusCode.BadRequest, new { ExceedScreenSize = "Alt Ekranın Genişlik/Yükseklik'lerinin toplamı en fazla 100 olmalı" });
             }
             
 

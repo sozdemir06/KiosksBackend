@@ -13,7 +13,6 @@ namespace DataAccess.Concrete.Configurations
             builder.Property(x => x.Name);
             builder.Property(x => x.IsConfirm);
             builder.Property(x => x.FullPath);
-            builder.Property(x=>x.IsSetBackground);
 
             //Fluent Api
             builder.HasOne(x => x.FoodMenu).WithMany(x => x.FoodMenuPhotos);

@@ -4,30 +4,49 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 import { HomeAnnounceStore } from 'src/app/core/services/stores/home-announce-store';
 import { MatDialog } from '@angular/material/dialog';
 import { EditHomeAnnounceDialogComponent } from '../edit-home-announce-dialog/edit-home-announce-dialog.component';
+import { HelperService } from 'src/app/core/services/helper-service';
+import { NotifyService } from 'src/app/core/services/notify-service';
 
 @Component({
   selector: 'app-home-announce-list',
   templateUrl: './home-announce-list.component.html',
-  styleUrls: ['./home-announce-list.component.scss']
+  styleUrls: ['./home-announce-list.component.scss'],
 })
 export class HomeAnnounceListComponent implements OnInit {
-displayedColumns:string[]=['Image','Header','Created','PublishDates','Price','PublishStatus','Actions'];
-@Input() dataSource:IHomeAnnounce[];
-roleForUpdate:string[]=["Sudo","HomeAnnounces.Update","HomeAnnounces.All"]
-roleForPublish:string[]=["Sudo","HomeAnnounces.Publish","HomeAnnounces.All"]
+  displayedColumns: string[] = [
+    'Image',
+    'Header',
+    'Created',
+    'PublishDates',
+    'Price',
+    'PublishStatus',
+    'Actions',
+  ];
+  @Input() dataSource: IHomeAnnounce[];
+  roleForUpdate: string[] = [
+    'Sudo',
+    'HomeAnnounces.Update',
+    'HomeAnnounces.All',
+  ];
+  roleForPublish: string[] = [
+    'Sudo',
+    'HomeAnnounces.Publish',
+    'HomeAnnounces.All',
+  ];
   constructor(
-    private homeAnnounceStore:HomeAnnounceStore,
-    private dialog:MatDialog
-  ) { }
+    private homeAnnounceStore: HomeAnnounceStore,
+    private dialog: MatDialog,
+    private helperService: HelperService,
+    private notifyService: NotifyService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onUpdate(announce: IHomeAnnounce) {
     this.dialog.open(EditHomeAnnounceDialogComponent, {
-      width: '55rem',
+      width: '60vw',
       maxHeight: '100vh',
-      autoFocus:false,
+      autoFocus: false,
       data: {
         title: 'İlanı Güncelle',
         mode: 'update',
@@ -37,7 +56,7 @@ roleForPublish:string[]=["Sudo","HomeAnnounces.Publish","HomeAnnounces.All"]
   }
   onDelete() {}
 
-  unPublish(announce:IHomeAnnounce) {
+  unPublish(announce: IHomeAnnounce) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '45rem',
       data: {
@@ -50,7 +69,7 @@ roleForPublish:string[]=["Sudo","HomeAnnounces.Publish","HomeAnnounces.All"]
           ...announce,
           isNew: false,
           reject: false,
-          isPublish: false
+          isPublish: false,
         };
         this.homeAnnounceStore.publish(model);
       }
@@ -77,7 +96,7 @@ roleForPublish:string[]=["Sudo","HomeAnnounces.Publish","HomeAnnounces.All"]
     });
   }
 
-  onReject(announce:IHomeAnnounce) {
+  onReject(announce: IHomeAnnounce) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '45rem',
       data: {
@@ -90,12 +109,10 @@ roleForPublish:string[]=["Sudo","HomeAnnounces.Publish","HomeAnnounces.All"]
           ...announce,
           isNew: false,
           reject: true,
-          isPublish: false
+          isPublish: false,
         };
         this.homeAnnounceStore.publish(model);
       }
     });
   }
-
-
 }

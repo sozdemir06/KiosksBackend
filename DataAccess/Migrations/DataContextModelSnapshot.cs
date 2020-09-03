@@ -297,6 +297,27 @@ namespace DataAccess.Migrations
                     b.ToTable("FoodMenus");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.FoodMenuBgPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("FullPath")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsSetBackground")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FoodMenuBgPhotos");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.FoodMenuPhoto", b =>
                 {
                     b.Property<int>("Id")
@@ -314,9 +335,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.Property<bool>("IsConfirm")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsSetBackground")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
@@ -552,6 +570,12 @@ namespace DataAccess.Migrations
 
                     b.Property<bool>("IsPublish")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("NewsAgency")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("NewsDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("PublishFinishDate")
                         .HasColumnType("timestamp without time zone");

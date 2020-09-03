@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { IAnnounceDetail } from 'src/app/shared/models/IAnnounceDetail';
 
 @Component({
@@ -9,11 +9,15 @@ import { IAnnounceDetail } from 'src/app/shared/models/IAnnounceDetail';
 export class AnnounceComponent implements OnInit {
   @Input() announce: IAnnounceDetail;
 
+
   constructor() {
-    console.log("announce");
+
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+   
+      
+  }
 
   getAnnounceType(contentType: string): string {
     let returnType: string;

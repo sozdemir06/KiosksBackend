@@ -114,9 +114,20 @@ namespace Business.Concrete
             }
 
             var checkAnnounceSubScreenForPublish = await vehicleAnnounceSubScreenDal.GetListAsync(x => x.VehicleAnnounceId == updateDto.Id);
-            if (checkAnnounceSubScreenForPublish == null)
+            if (checkAnnounceSubScreenForPublish.Count<=0)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotSelectSubScreen = Messages.NotSelectSubScreen });
+            }
+
+
+            if (updateDto.IsPublish)
+            {
+                var checkDateExpire = DateTime.Compare(DateTime.Now, checkFromRepo.PublishFinishDate);
+                if (checkDateExpire > 0)
+                {
+                    throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.PublishDateExpire });
+                }
+
             }
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);

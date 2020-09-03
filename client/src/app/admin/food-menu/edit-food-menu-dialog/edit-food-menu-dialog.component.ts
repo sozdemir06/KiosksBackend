@@ -22,7 +22,7 @@ export class EditFoodMenuDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<EditFoodMenuDialogComponent>,
     private foodMenuStore: FoodMenuStore,
     private fb: FormBuilder,
-    private helperService: HelperService,
+    public helperService: HelperService,
     public userStore: UserStore
   ) {
     this.title = data?.title;
@@ -87,7 +87,7 @@ export class EditFoodMenuDialogComponent implements OnInit {
           const model: IFoodMenu = {
             ...this.foodMenuForm?.value,
             isNew: true,
-            isPublish: true,
+            isPublish: false,
             reject: false,
           };
           this.foodMenuStore.create(model);

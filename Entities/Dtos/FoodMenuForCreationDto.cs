@@ -3,7 +3,7 @@ using Core.Entities;
 
 namespace Entities.Dtos
 {
-    public class FoodMenuForCreationDto:IDto
+    public class FoodMenuForCreationDto : IDto
     {
         public int Id { get; set; }
         public string AnnounceType { get; set; }

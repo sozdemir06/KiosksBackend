@@ -56,16 +56,26 @@
             <small class="ml-2">{{ announce?.slideIntervalTime }}-Saniye</small>
           </div>
           <mat-divider></mat-divider>
+          <div class="d-flex p-1">
+            <small><strong>Haber Ajansı:</strong></small>
+            <small class="ml-2">{{ announce?.newsAgency }}</small>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="d-flex p-1">
+            <small><strong>Haber Tarihi:</strong></small>
+            <small class="ml-2">{{ announce?.newsDate | date:"M/d/yyyy h:m:s"}}</small>
+          </div>
+          <mat-divider></mat-divider>
           <div class="d-flex p-2">
             <small><strong>Oluşturulma Tarihi:</strong></small>
-            <small class="ml-2">{{ announce?.created | date: "short" }}</small>
+            <small class="ml-2">{{ announce?.created | date: "M/d/yyyy h:m:s" }}</small>
           </div>
           <mat-divider></mat-divider>
           <div class="d-flex p-2 pb-3">
             <small><strong>Yayın Tarihleri:</strong></small>
             <small class="ml-2">
-              {{ announce?.publishStartDate | date: "short" }}-
-              {{ announce?.publishFinishDate | date: "short" }}
+              {{ announce?.publishStartDate | date: "M/d/yyyy h:m:s" }}-
+              {{ announce?.publishFinishDate | date: "M/d/yyyy h:m:s" }}
             </small>
           </div>
         </mat-card>
@@ -75,10 +85,10 @@
   <div class="container mt-2 mb-4">
     <mat-card>
       <mat-tab-group animationDuration="0ms" dynamicHeight>
-        <mat-tab label="Duyuru Metni" *ngIf="announce?.content">
+        <mat-tab label="Haber Metni" *ngIf="announce?.content">
           <quill-view [content]="announce?.content" format="html" theme="snow"></quill-view>
         </mat-tab>
-        <mat-tab label="İlan Fotoğrafları" *ngIf="announce?.contentType.toLowerCase()=='image' || 'textandimage'" >
+        <mat-tab label="Haber Fotoğrafları" *ngIf="announce?.contentType.toLowerCase()=='image' || 'textandimage'" >
           <app-loading></app-loading>
           <app-news-photo-list
             [images]="(newsStore.detail$ | async)?.newsPhotos"

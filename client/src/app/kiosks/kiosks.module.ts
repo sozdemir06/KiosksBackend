@@ -15,14 +15,13 @@ import { HomeannounceComponent } from './details/homeannounce/homeannounce.compo
 import { VehicleannounceComponent } from './details/vehicleannounce/vehicleannounce.component';
 import { NewsComponent } from './details/news/news.component';
 import { FoodMenuComponent } from './details/food-menu/food-menu.component';
-import { CarouselModule } from 'ngx-owl-carousel-o';
 import { KiosksUserCardComponent } from './kiosks-user-card/kiosks-user-card.component';
-import { ImageComponent } from './details/announce/image/image.component';
-import { VideoComponent } from './details/announce/video/video.component';
-import { DeathannounceComponent } from './details/announce/deathannounce/deathannounce.component';
-import { BloodannounceComponent } from './details/announce/bloodannounce/bloodannounce.component';
-import { GeneralannounceComponent } from './details/announce/generalannounce/generalannounce.component';
-import { CarouselService } from 'ngx-owl-carousel-o/lib/services/carousel.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ScreenLeftComponent } from './screen-horizontal/screen-left/screen-left.component';
+import { ScreenHmiddleComponent } from './screen-horizontal/screen-hmiddle/screen-hmiddle.component';
+import { ScreenRightComponent } from './screen-horizontal/screen-right/screen-right.component';
+
+
 export const routes: Routes = [
   {
     path: '',
@@ -47,20 +46,23 @@ export const routes: Routes = [
     NewsComponent,
     FoodMenuComponent,
     KiosksUserCardComponent,
-    ImageComponent,
-    VideoComponent,
-    DeathannounceComponent,
-    BloodannounceComponent,
-    GeneralannounceComponent,
+    ScreenLeftComponent,
+    ScreenHmiddleComponent,
+    ScreenRightComponent,
+  
   ],
-  imports: [SharedModule, RouterModule.forChild(routes),CarouselModule],
+  imports: [
+    SharedModule, 
+    RouterModule.forChild(routes),
+    NgbModule,
+    
+  ],
   exports: [
     KiosksComponent,
     RouterModule,
     ScreenTopComponent,
     ScreenMiddleComponent,
     ScreenBottomComponent,
-   
   ],
 })
 export class KiosksModule {}

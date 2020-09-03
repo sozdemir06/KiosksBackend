@@ -14,6 +14,7 @@ namespace Entities.Dtos
         public DateTime Updated { get; set; }
         public DateTime PublishStartDate { get; set; }
         public DateTime PublishFinishDate { get; set; }
+
         public int UserId { get; set; }
         public int SlideIntervalTime { get; set; }
         public bool IsNew { get; set; }

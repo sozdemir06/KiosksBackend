@@ -65,10 +65,15 @@ export class EditAnnouncesDialogComponent implements OnInit, OnDestroy {
          contentType=='bloodannounce' || contentType=='generalannounce'){
           this.showTextEditor=true;
       }
+     
     }
   }
 
   ngOnInit(): void {
+    const contentType=this.item?.contentType.toLowerCase();
+    if(contentType=='video'){
+      this.announceForm.get('slideIntervalTime').disable();
+    }
     this.subscription = this.announceForm
       .get('contentType')
       .valueChanges.subscribe((result: string) => {

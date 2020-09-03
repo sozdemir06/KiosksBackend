@@ -35,7 +35,7 @@ export class NewsListComponent implements OnInit {
 
   onUpdate(element: INews) {
     this.dialog.open(EditNewsDialogComponent, {
-      width: '60vw',
+      width: '65vw',
       maxHeight: '100vh',
       autoFocus: false,
       data: {

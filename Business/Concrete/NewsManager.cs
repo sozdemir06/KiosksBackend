@@ -123,10 +123,20 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
 
-            var checkHomeAnnounceSubScreenForPublish = await newsSubScreenDal.GetListAsync(x => x.NewsId == updateDto.Id);
-            if (checkHomeAnnounceSubScreenForPublish == null)
+            var checkHomeNewsSubScreenForPublish = await newsSubScreenDal.GetListAsync(x => x.NewsId == updateDto.Id);
+            if (checkHomeNewsSubScreenForPublish.Count<=0)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotSelectSubScreen = Messages.NotSelectSubScreen });
+            }
+
+             if (updateDto.IsPublish)
+            {
+                var checkDateExpire = DateTime.Compare(DateTime.Now, checkFromRepo.PublishFinishDate);
+                if (checkDateExpire > 0)
+                {
+                    throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.PublishDateExpire });
+                }
+
             }
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);

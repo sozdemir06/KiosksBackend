@@ -13,6 +13,7 @@
     formControlName="content"
     [styles]="{ height: '25rem' }"
     placeholder="Menu İçerik"
+    [modules]="helperService.quillToolbarOptions()"
   ></quill-editor>
   <mat-error class="my-3" *ngIf="f?.content?.errors?.required">Menu için içerik giriniz...</mat-error>
   </ng-container>

@@ -10,6 +10,7 @@ namespace Entities.Dtos
         public int Id { get; set; }
         public string Header { get; set; }
         public string Description { get; set; }
+        public string AnnounceType { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
         public DateTime PublishStartDate { get; set; }

@@ -134,6 +134,9 @@ namespace Business.MappingProfile
             CreateMap<FoodMenuPhoto, FoodMenuPhotoForReturnDto>();
             CreateMap<FoodMenuPhotoForCreationDto, FoodMenuPhoto>();
 
+            CreateMap<FoodMenuBgPhoto, FoodMenuBgPhotoForReturnDto>();
+            CreateMap<FoodMenuBgPhotoForCreationDto, FoodMenuBgPhoto>();
+
         }
     }
 }

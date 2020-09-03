@@ -64,11 +64,6 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
 
-            if(checkByIdFromRepo.IsSetBackground)
-            {
-              throw new RestException(HttpStatusCode.BadRequest, new { NotFound ="Bu resim arka plan resmi olarak ayarlanmış silemessiniz..." });  
-            }
-
             var deleteFileFromFolder = await upload.DeleteFile(checkByIdFromRepo.Name, "foodmenu");
 
             await foodMenuPhotoDal.Delete(checkByIdFromRepo);
@@ -86,33 +81,20 @@ namespace Business.Concrete
 
             return mapper.Map<List<FoodMenuPhoto>, List<FoodMenuPhotoForReturnDto>>(getListFromRepo);
         }
-        [SecuredOperation("Sudo,FoodMenuPhotos.Update,FoodMenu.All", Priority = 1)]
-        [ValidationAspect(typeof(FoodMenuPhotoValidator), Priority = 2)]
-        public async Task<FoodMenuPhotoForReturnDto> SetAsBackground(FoodMenuPhotoForCreationDto updateDto)
+
+        [SecuredOperation("Sudo,FoodMenuPhotos.List,FoodMenu.All", Priority = 1)]
+        public async Task<List<FoodMenuPhotoForReturnDto>> GetListBackgroundAsync()
         {
-            var checkByIdFromRepo = await foodMenuPhotoDal.GetAsync(x => x.Id == updateDto.Id);
-            if (checkByIdFromRepo == null)
+              var getListFromRepo = await foodMenuPhotoDal.GetListAsync();
+            if (getListFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
-            
-            if(checkByIdFromRepo.IsSetBackground)
-            {
-                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound ="Bu Fotoğraf zaten arka plan resmi olarak ayarlı..." });
-            }
 
-            var getCurrenBgPhoto=await foodMenuPhotoDal.GetAsync(x=>x.IsSetBackground==true);
-            if(getCurrenBgPhoto!=null)
-            {
-                 getCurrenBgPhoto.IsSetBackground=false;
-                 await foodMenuPhotoDal.Update(getCurrenBgPhoto);
-            }
-               
-            var mapForUpdate = mapper.Map(updateDto, checkByIdFromRepo);
-            var updatePhoto = await foodMenuPhotoDal.Update(mapForUpdate);
-            return mapper.Map<FoodMenuPhoto, FoodMenuPhotoForReturnDto>(updatePhoto);
+            return mapper.Map<List<FoodMenuPhoto>, List<FoodMenuPhotoForReturnDto>>(getListFromRepo);
         }
 
+       
         [SecuredOperation("Sudo,FoodMenuPhotos.Update,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuPhotoValidator), Priority = 2)]
         public async Task<FoodMenuPhotoForReturnDto> Update(FoodMenuPhotoForCreationDto updateDto)
@@ -127,5 +109,6 @@ namespace Business.Concrete
             var updatePhoto = await foodMenuPhotoDal.Update(mapForUpdate);
             return mapper.Map<FoodMenuPhoto, FoodMenuPhotoForReturnDto>(updatePhoto);
         }
+
     }
 }

@@ -77,7 +77,7 @@ export class EditVehicleAnnounceDialogComponent implements OnInit {
       vehicleFuelTypeId: ['', Validators.required],
       vehicleGearTypeId: ['', Validators.required],
       vehicleEngineSizeId: ['', Validators.required],
-      slideIntervalTime:['',Validators.required],
+      slideIntervalTime:[8,Validators.required],
       price: ['', Validators.required],
       userId: ['', Validators.required],
     };
@@ -90,7 +90,7 @@ export class EditVehicleAnnounceDialogComponent implements OnInit {
       this.vehicleAnnounceForm = this.fb.group(formControls);
       this.vehicleAnnounceForm.patchValue({
         ...this.item,
-        userId: this.item?.user?.id,
+        userId: this.item?.userId,
         vehicleBrandId: this.item?.vehicleBrandId,
         vehicleModelId: this.item?.vehicleModelId,
       });

@@ -37,7 +37,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(NewsSubScreenValidator), Priority = 2)]
         public async Task<NewsSubScreenForReturnDto> Create(NewsSubScreenForCreationDto creationDto)
         {
-            var checkById = await newsSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId);
+            var checkById = await newsSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId && x.NewsId==creationDto.NewsId);
             if (checkById != null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.SubScreenAlreadyExist });

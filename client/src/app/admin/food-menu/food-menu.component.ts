@@ -8,6 +8,7 @@ import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 import { FoodMenuStore } from 'src/app/core/services/stores/food-menu-store';
 import { SubScreenStore } from 'src/app/core/services/stores/subscreen-store';
 import { MatDialog } from '@angular/material/dialog';
+import { BackgroundPhotoListComponent } from './background-photo-list/background-photo-list.component';
 
 @Component({
   selector: 'app-food-menu',
@@ -93,6 +94,13 @@ export class FoodMenuComponent implements OnInit {
     params.subScreenId =id;
     this.foodMenuStore.setParams(params);
     this.foodMenuStore.getListByParams();
+  }
+
+  onUploadBgImage(){
+    this.dialog.open(BackgroundPhotoListComponent,{
+      width:"80rem",
+      maxHeight:"100vh",
+    })
   }
 
   ngOnDestroy(){

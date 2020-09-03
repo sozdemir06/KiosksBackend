@@ -18,7 +18,7 @@ bottom:ISubScreen;
 
   ngOnInit(): void {
     this.top=this.kiosks.screen.subScreens.find(x=>x.position.toLowerCase()=='top' && x.status==true);
-    this.middle=this.kiosks.screen.subScreens.find(x=>x.position.toLowerCase()=='middle' && x.status==true);
+    this.middle=this.kiosks.screen.subScreens.find(x=>x.position.toLowerCase()=='vmiddle' && x.status==true);
     this.bottom=this.kiosks.screen.subScreens.find(x=>x.position.toLowerCase()=='bottom' && x.status==true);
   }
 

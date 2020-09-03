@@ -8,6 +8,7 @@ import { FoodMenuPhotoListComponent } from './food-menu-photo-list/food-menu-pho
 import { FoodMenuSubscreenListComponent } from './food-menu-subscreen-list/food-menu-subscreen-list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { Routes, RouterModule } from '@angular/router';
+import { BackgroundPhotoListComponent } from './background-photo-list/background-photo-list.component';
 
 export const routes:Routes=[
   {
@@ -28,6 +29,7 @@ export const routes:Routes=[
     FoodMenuDetailComponent,
     FoodMenuPhotoListComponent,
     FoodMenuSubscreenListComponent,
+    BackgroundPhotoListComponent,
   ],
   imports: [
     SharedModule,

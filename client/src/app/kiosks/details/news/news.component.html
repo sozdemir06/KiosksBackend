@@ -1,1 +1,34 @@
-<p>news works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 col-lg-12 col-xl-12">
+      <mat-card>
+        <div class="d-flex align-items-center justify-content-between">
+          <span class="news-agency">{{ news?.newsAgency }}</span>
+          <span class="news-header">{{ news.header }}</span>
+          <span class="news-date">{{ news?.newsDate | date: "M/d/yyyy" }}</span>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-md-12 col-lg-12 col-xl-12">
+      <mat-card class="mb-2">
+        <quill-view
+        [content]="news?.content"
+        format="html"
+        theme="snow"
+      ></quill-view>
+      
+      </mat-card>
+    </div>
+    <ng-container *ngIf="news.newsPhotos?.length > 0">
+      <div class="col-md-12 col-lg-12 col-xl-12">
+        <div class="col-md-6 col-lg-6 col-xl-6 offset-md-3 offset-lg-3 offset-xl-3">
+          <app-image-slider
+          [images]="news.newsPhotos"
+          [thumbnails]="false"
+          [imageAutoPlay]="true"
+        ></app-image-slider>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

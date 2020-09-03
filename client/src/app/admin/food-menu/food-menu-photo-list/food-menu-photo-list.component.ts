@@ -73,7 +73,7 @@ export class FoodMenuPhotoListComponent implements OnInit {
           ...image,
           isSetBackground: image.isSetBackground ?false:true
         };
-        this.foodMenuStore.setPhotoAsBackground(photo);
+        this.foodMenuStore.updatePhoto(photo);
       }
     });
   }

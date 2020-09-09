@@ -253,6 +253,28 @@ namespace DataAccess.SeedData
                         }
                     }
 
+                    if (!_context.Cities.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/Cities.json");
+                        var dataList = JsonSerializer.Deserialize<List<City>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.Cities.Add(item);
+                        }
+                    }
+
+                    if (!_context.Currencies.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/Currencies.json");
+                        var dataList = JsonSerializer.Deserialize<List<Currency>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.Currencies.Add(item);
+                        }
+                    }
+
 
 
 

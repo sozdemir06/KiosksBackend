@@ -8,6 +8,9 @@ import { IHomeAnnounceForKiosks } from '../../models/IHomeAnnounceForKiosks';
 })
 export class HomeannounceComponent implements OnInit {
 @Input() homeannounce:IHomeAnnounceForKiosks;
+@Input() position:string;
+@Input() height:number;
+@Input() width:number;
 
   constructor() { }
 

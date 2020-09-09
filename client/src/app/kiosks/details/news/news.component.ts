@@ -8,6 +8,9 @@ import { INewsForKiosks } from '../../models/INewsForKiosks';
 })
 export class NewsComponent implements OnInit {
 @Input() news:INewsForKiosks;
+@Input() position:string;
+@Input() height:number;
+@Input() width:number;
 
   constructor() { }
 

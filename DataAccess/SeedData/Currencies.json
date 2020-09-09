@@ -1,0 +1,56 @@
+[
+  {
+    "Name": "ABD Doları",
+    "ShorName": "USD",
+    "Selected":true,
+    "Symbol":"$"
+  },
+  {
+    "Name": "EURO",
+    "ShorName": "EUR",
+    "Selected":true,
+    "Symbol":"€"
+  },
+  {
+    "Name": "İngiliz Sterlini",
+    "ShorName": "GBP",
+    "Selected":false,
+    "Symbol":"£"
+  },
+  {
+    "Name": "Avustrlya Doları",
+    "ShorName": "AUD",
+    "Selected":false,
+    "Symbol":"A$"
+  },
+  {
+    "Name": "Danimarka Kronu",
+    "ShorName":" DKK",
+    "Selected":false,
+    "Symbol":"KR"
+  },
+  {
+    "Name": "İsviçre Frangı",
+    "ShorName": "CHF",
+    "Selected":false,
+    "Symbol":"CHF"
+  },
+  {
+    "Name": "İsveç Kronu",
+    "ShorName": "SEK",
+    "Selected":false,
+    "Symbol":"kr"
+  },
+  {
+    "Name": "Kanada Doları",
+    "ShorName": "Cad",
+    "Selected":false,
+    "Symbol":"$"
+  },
+  {
+    "Name": "Katar Riyalı",
+    "ShorName": "QAR",
+    "Selected":false,
+    "Symbol":"﷼"
+  }
+]

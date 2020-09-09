@@ -10,6 +10,7 @@ using Core.Aspects.AutoFac.Validation;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using DataAccess.Abstract;
+using DataAccess.EntitySpecification.ScreenSpecification;
 using Entities.Dtos;
 
 namespace Business.Concrete
@@ -101,7 +102,10 @@ namespace Business.Concrete
         public async Task<List<ScreenForReturnDto>> GetListAsync()
         {
 
-            var getScreenList = await screenDal.GetListAsync();
+           
+            var spec=new ScreenWithSubScreenSpecification();
+             var getScreenList = await screenDal.ListEntityWithSpecAsync(spec);
+
             if (getScreenList == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });

@@ -166,7 +166,18 @@ const routes: Routes = [
         path:"foods-menu",
         loadChildren:()=>import("../food-menu/food-menu.module").then(m=>m.FoodMenuModule),
         data:{roles:['Sudo','FoodMenu.List','FoodMenu.All']}
+      },
+      {
+        path:"cities",
+        loadChildren:()=>import("../city/city.module").then(m=>m.CityModule),
+        data:{roles:['Sudo','Cities.List','Cities.All']}
+      },
+      {
+        path:"currencies",
+        loadChildren:()=>import("../currency/currency.module").then(m=>m.CurrencyModule),
+        data:{roles:['Sudo','Currencies.List','Currencies.All']}
       }
+
     ],
   },
 ];

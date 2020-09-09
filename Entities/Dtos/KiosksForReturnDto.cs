@@ -5,7 +5,7 @@ namespace Entities.Dtos
 {
     public class KiosksForReturnDto : IDto
     {
-        public ScreenForReturnDto Screen { get; set; }
+        public ScreenForKiosksToReturnDto Screen { get; set; }
         public List<AnnounceForKiosksToReturnDto> Announces { get; set; }
         public List<HomeAnnounceForKiosksForReturnDto> HomeAnnounces { get; set; }
         public List<VehicleAnnounceForKiosksToReturnDto> VehicleAnnounces { get; set; }

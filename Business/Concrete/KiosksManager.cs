@@ -50,7 +50,7 @@ namespace Business.Concrete
 
             return new KiosksForReturnDto()
             {
-                Screen = mapper.Map<Screen, ScreenForReturnDto>(screenFromRepo),
+                Screen = mapper.Map<Screen, ScreenForKiosksToReturnDto>(screenFromRepo),
                
                 Announces = mapper.Map<List<Announce>, List<AnnounceForKiosksToReturnDto>>(announceFromRepo),
                 HomeAnnounces = mapper.Map<List<HomeAnnounce>,List<HomeAnnounceForKiosksForReturnDto>>(homeAnnounceFromRepo),

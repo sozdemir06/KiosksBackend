@@ -16,6 +16,8 @@ import { AnnouncePanelComponent } from '../admin/dashboard/announce-panel/announ
 import { AnnounceOptionsPanelComponent } from '../admin/dashboard/announce-options-panel/announce-options-panel.component';
 import { NewsPanelComponent } from '../admin/dashboard/news-panel/news-panel.component';
 import { FoodMenuPanelComponent } from '../admin/dashboard/food-menu-panel/food-menu-panel.component';
+import { CityPanelComponent } from '../admin/dashboard/city-panel/city-panel.component';
+import { CurrencyPanelComponent } from '../admin/dashboard/currency-panel/currency-panel.component';
 
 export const routes: Routes = [
   {
@@ -67,6 +69,8 @@ export const routes: Routes = [
     AnnounceOptionsPanelComponent,
     NewsPanelComponent,
     FoodMenuPanelComponent,
+    CityPanelComponent,
+    CurrencyPanelComponent
   ],
   imports: [SharedModule, RouterModule.forChild(routes)],
 

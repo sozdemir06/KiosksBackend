@@ -14,6 +14,9 @@ export class FoodMenuComponent implements OnInit,OnDestroy {
 @Input() foodMenu:IFoodMenuForKiosks;
 bgPhotoUrl:string;
 subscription:Subscription=Subscription.EMPTY;
+@Input() position: string;
+@Input() height: number;
+@Input() width: number;
 
   constructor(
     private foodMenuBgPhotoStore:FoodMenuBgPhotoStore

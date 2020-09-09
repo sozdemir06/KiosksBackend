@@ -123,6 +123,25 @@ namespace Business.DependencyResolvers.AutoFac
 
             builder.RegisterType<KiosksManager>().As<IKiosksService>();
 
+            builder.RegisterType<ScreenHeaderManager>().As<IScreenHeaderService>();
+            builder.RegisterType<EfScreenHeaderDal>().As<IScreenHeaderDal>();
+
+            builder.RegisterType<ScreenFooterManager>().As<IScreenFooterService>();
+            builder.RegisterType<EfScreenFooterDal>().As<IScreenFooterDal>();
+
+            builder.RegisterType<ScreenHeaderPhotoManager>().As<IScreenHeaderPhotoService>();
+            builder.RegisterType<EfScreenHeaderPhotoDal>().As<IScreenHeaderPhotoDal>();
+
+            builder.RegisterType<CityManager>().As<ICityService>();
+            builder.RegisterType<EfCityDal>().As<ICityDal>();
+
+            builder.RegisterType<CurrencyManager>().As<ICurrencyService>();
+            builder.RegisterType<EfCurrencyDal>().As<ICurrencyDal>();
+
+            builder.RegisterType<WheatherForecastManager>().As<IWheatherForeCastService>();
+            builder.RegisterType<ExchangeRateManager>().As<IExchangeRateService>();
+
+
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
             builder.RegisterType<UploadFile>().As<IUploadFile>();

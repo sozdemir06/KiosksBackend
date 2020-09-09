@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="screenFooterForm"
+    (ngSubmit)="onSubmit()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Alt başlık metni"
+        formControlName="footerText"
+      />
+      <mat-error *ngIf="f.footerText.errors?.required"
+        >Alt başlık boş olamaz</mat-error
+      >
+      <mat-error *ngIf="f.footerText.errors?.maxlength"
+        >Alt başlık metni en fazla 70 karakter olmalı... </mat-error
+      >
+    </mat-form-field>
+    <mat-checkbox formControlName="isShowWheatherForCast" class="my-3">Hava durumu görünsün mü?</mat-checkbox>
+    <mat-checkbox formControlName="isShowStockExchange" class="my-3">Kur bilgileri görünsün mü?</mat-checkbox>
+
+    <button mat-raised-button color="primary" [disabled]="!screenFooterForm.valid">
+      {{ mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>

@@ -3,6 +3,7 @@ using AutoMapper;
 using Business.Abstract;
 using Core.Entities;
 using Core.Entities.Concrete;
+using Entities.Concrete;
 using Entities.Dtos;
 
 namespace Business.MappingProfile
@@ -53,6 +54,7 @@ namespace Business.MappingProfile
             CreateMap<VehicleEngineSizeForCreationDto, VehicleEngineSize>();
 
             CreateMap<Screen, ScreenForReturnDto>();
+            CreateMap<Screen, ScreenForKiosksToReturnDto>();
             CreateMap<ScreenForCreationDto, Screen>();
 
             CreateMap<SubScreen, SubScreenForReturnDto>();
@@ -60,7 +62,7 @@ namespace Business.MappingProfile
 
             CreateMap<HomeAnnounce, HomeAnnounceForReturnDto>();
             CreateMap<HomeAnnounce, HomeAnnounceForKiosksForReturnDto>()
-                    .ForMember(x=>x.HomeAnnouncePhotos,o=>o.MapFrom(z=>z.HomeAnnouncePhotos.Where(t=>t.IsConfirm==true)));
+                    .ForMember(x => x.HomeAnnouncePhotos, o => o.MapFrom(z => z.HomeAnnouncePhotos.Where(t => t.IsConfirm == true)));
             CreateMap<HomeAnnounceForCreationDto, HomeAnnounce>();
 
             CreateMap<HomeAnnounce, HomeAnnounceForDetailDto>();
@@ -73,7 +75,7 @@ namespace Business.MappingProfile
 
             CreateMap<VehicleAnnounce, VehicleAnnounceForReturnDto>();
             CreateMap<VehicleAnnounce, VehicleAnnounceForKiosksToReturnDto>()
-                 .ForMember(x=>x.VehicleAnnouncePhotos,o=>o.MapFrom(z=>z.VehicleAnnouncePhotos.Where(t=>t.IsConfirm==true)))
+                 .ForMember(x => x.VehicleAnnouncePhotos, o => o.MapFrom(z => z.VehicleAnnouncePhotos.Where(t => t.IsConfirm == true)))
                   .ForMember(x => x.VehicleCategoryName, o => o.MapFrom(z => z.VehicleCategory.CategoryName))
                     .ForMember(x => x.VehicleBrandName, o => o.MapFrom(z => z.VehicleBrand.BrandName))
                     .ForMember(x => x.VehicleModelName, o => o.MapFrom(z => z.VehicleModel.VehicleModelName));
@@ -94,7 +96,7 @@ namespace Business.MappingProfile
 
             CreateMap<Announce, AnnounceForReturnDto>();
             CreateMap<Announce, AnnounceForKiosksToReturnDto>()
-                     .ForMember(x=>x.AnnouncePhotos,o=>o.MapFrom(z=>z.AnnouncePhotos.Where(t=>t.IsConfirm==true)));
+                     .ForMember(x => x.AnnouncePhotos, o => o.MapFrom(z => z.AnnouncePhotos.Where(t => t.IsConfirm == true)));
             CreateMap<AnnounceForCreationDto, Announce>();
 
             CreateMap<Announce, AnnounceForDetailDto>();
@@ -110,7 +112,7 @@ namespace Business.MappingProfile
 
             CreateMap<News, NewsForReturnDto>();
             CreateMap<News, NewsForKiosksToReturnDto>()
-                         .ForMember(x=>x.NewsPhotos,o=>o.MapFrom(z=>z.NewsPhotos.Where(t=>t.IsConfirm==true)));
+                         .ForMember(x => x.NewsPhotos, o => o.MapFrom(z => z.NewsPhotos.Where(t => t.IsConfirm == true)));
             CreateMap<NewsForCreationDto, News>();
 
             CreateMap<News, NewsForDetailDto>();
@@ -123,7 +125,7 @@ namespace Business.MappingProfile
 
             CreateMap<FoodMenu, FoodMenuForReturnDto>();
             CreateMap<FoodMenu, FoodMenuForKiosksToReturnDto>()
-                 .ForMember(x=>x.FoodMenuPhotos,o=>o.MapFrom(z=>z.FoodMenuPhotos.Where(t=>t.IsConfirm==true)));
+                 .ForMember(x => x.FoodMenuPhotos, o => o.MapFrom(z => z.FoodMenuPhotos.Where(t => t.IsConfirm == true)));
             CreateMap<FoodMenuForCreationDto, FoodMenu>();
 
             CreateMap<FoodMenu, FoodMenuForDetailDto>();
@@ -136,6 +138,35 @@ namespace Business.MappingProfile
 
             CreateMap<FoodMenuBgPhoto, FoodMenuBgPhotoForReturnDto>();
             CreateMap<FoodMenuBgPhotoForCreationDto, FoodMenuBgPhoto>();
+
+            CreateMap<ScreenHeader, ScreenHeaderForReturnDto>();
+            CreateMap<ScreenHeaderForCreationDto, ScreenHeader>();
+
+            CreateMap<ScreenFooter, ScreenFooterForReturnDto>();
+            CreateMap<ScreenFooterForCreationDto, ScreenFooter>();
+
+            CreateMap<ScreenHeaderPhoto, ScreenHeaderPhotoForReturnDto>();
+            CreateMap<ScreenHeaderPhotoForCreationDto, ScreenHeaderPhoto>();
+
+            CreateMap<City, CityForReturnDto>();
+            CreateMap<CityForCreationDto, City>();
+
+            CreateMap<Currency, CurrencyForReturnDto>();
+            CreateMap<CurrencyForCreationDto, Currency>();
+
+            CreateMap<WheatherForeCastHttpResponseDto, WheatherForeCastForReturnDto>()
+                    .ForMember(x=>x.CityName,o=>o.MapFrom(z=>z.name))
+                    .ForMember(x=>x.Temp,o=>o.MapFrom(z=>z.main.temp))
+                    .ForMember(x=>x.Icon,o=>o.MapFrom(z=>z.weather.Select(x=>x.icon).FirstOrDefault()))
+                    .ForMember(x=>x.Pressure,o=>o.MapFrom(z=>z.main.pressure))
+                    .ForMember(x=>x.Humidity,o=>o.MapFrom(z=>z.main.humidity))
+                    .ForMember(x=>x.TempMax,o=>o.MapFrom(z=>z.main.temp_max))
+                    .ForMember(x=>x.TempMin,o=>o.MapFrom(z=>z.main.temp_min))
+                    .ForMember(x=>x.WheatherImage,o=>o.MapFrom<WheatherImageUrlResolver>());
+                    
+                  
+
+
 
         }
     }

@@ -1,9 +1,7 @@
 <mat-sidenav-container>
   <!-- SideNav Start -->
   <mat-sidenav #sidenav [mode]="'side'" [(opened)]="opened">
-    <mat-toolbar color="primary">
-      DashBoard
-    </mat-toolbar>
+    <mat-toolbar color="primary"> DashBoard </mat-toolbar>
     <mat-accordion>
       <!-- User Panel -->
       <app-user-panel></app-user-panel>
@@ -13,6 +11,10 @@
       <app-home-announce-option-list></app-home-announce-option-list>
       <!-- Vehicle Announce Option List -->
       <app-vehicle-announce-option-list></app-vehicle-announce-option-list>
+      <!-- City Panel -->
+      <app-city-panel></app-city-panel>
+      <!-- Currency Panel -->
+      <app-currency-panel></app-currency-panel>
       <!-- Announce-options-panel -->
       <app-announce-options-panel></app-announce-options-panel>
       <!-- Screen Panel -->

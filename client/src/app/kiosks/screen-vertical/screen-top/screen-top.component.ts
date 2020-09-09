@@ -39,7 +39,7 @@ export class ScreenTopComponent implements OnInit{
     public helperService: HelperService,
     private kiosksStore: KiosksStore,
   ) {
-    console.log(this.subscreenid);
+
   }
 
   ngOnInit(): void {

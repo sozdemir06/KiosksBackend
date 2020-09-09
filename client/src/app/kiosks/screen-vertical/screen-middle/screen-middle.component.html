@@ -23,9 +23,11 @@
         'url'
       "
     >
-      <div [ngStyle]="{ height: screenHeight + 'vh' }">
-        <app-homeannounce [homeannounce]="homeannounce"></app-homeannounce>
-      </div>
+      <app-homeannounce
+        [homeannounce]="homeannounce"
+        [position]="kiosks.screen.position"
+        [height]="screenHeight"
+      ></app-homeannounce>
     </ng-template>
   </ng-container>
   <ng-container
@@ -47,11 +49,11 @@
         'url'
       "
     >
-      <div [ngStyle]="{ height: screenHeight + 'vh' }">
-        <app-vehicleannounce
-          [vehicleAnnounce]="vehicleAnnounce"
-        ></app-vehicleannounce>
-      </div>
+      <app-vehicleannounce
+        [vehicleAnnounce]="vehicleAnnounce"
+        [position]="kiosks.screen.position"
+        [height]="screenHeight"
+      ></app-vehicleannounce>
     </ng-template>
   </ng-container>
   <ng-container *ngFor="let announce of data.announces; let ai = index">
@@ -148,9 +150,11 @@
           'url'
         "
       >
-        <div [ngStyle]="{ height: screenHeight + 'vh' }">
-          <app-announce [announce]="announce"></app-announce>
-        </div>
+        <app-announce
+          [announce]="announce"
+          [position]="kiosks.screen.position"
+          [height]="screenHeight"
+        ></app-announce>
       </ng-template>
     </ng-container>
   </ng-container>
@@ -203,7 +207,11 @@
           'url'
         "
       >
-        <app-news [news]="news"></app-news>
+        <app-news
+          [news]="news"
+          [position]="kiosks.screen.position"
+          [height]="screenHeight"
+        ></app-news>
       </ng-template>
     </ng-container>
   </ng-container>
@@ -224,20 +232,19 @@
         'url'
       "
     >
-      <div [ngStyle]="{ height: screenHeight + 'vh' }">
-        <app-food-menu [foodMenu]="menu"></app-food-menu>
-      </div>
+     
+        <app-food-menu [foodMenu]="menu" [position]="kiosks.screen.position" [height]="screenHeight"></app-food-menu>
+      
     </ng-template>
   </ng-container>
-
   <ng-template
     ngbSlide
     *ngIf="
-      data.announces?.length==0 &&
-      data.foodsMenu?.length==0 &&
-      data.homeAnnounces?.length==0 &&
-      data.news?.length==0 &&
-      data.vehicleAnnounces?.length==0
+      data.announces?.length == 0 &&
+      data.foodsMenu?.length == 0 &&
+      data.homeAnnounces?.length == 0 &&
+      data.news?.length == 0 &&
+      data.vehicleAnnounces?.length == 0
     "
   >
     <div class="d-flex flex-column align-items-center">

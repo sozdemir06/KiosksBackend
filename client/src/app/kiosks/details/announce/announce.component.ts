@@ -8,16 +8,13 @@ import { IAnnounceDetail } from 'src/app/shared/models/IAnnounceDetail';
 })
 export class AnnounceComponent implements OnInit {
   @Input() announce: IAnnounceDetail;
+  @Input() position: string;
+  @Input() height: number;
+  @Input() width: number;
 
+  constructor() {}
 
-  constructor() {
-
-  }
-
-  ngOnInit(): void {
-   
-      
-  }
+  ngOnInit(): void {}
 
   getAnnounceType(contentType: string): string {
     let returnType: string;

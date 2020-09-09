@@ -58,5 +58,10 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<FoodMenuPhoto> FoodMenuPhotos { get; set; }
         public DbSet<FoodMenuSubscreen> FoodMenuSubscreens { get; set; }
         public DbSet<FoodMenuBgPhoto> FoodMenuBgPhotos { get; set; }
+        public DbSet<ScreenHeader> ScreenHeaders { get; set; }
+        public DbSet<ScreenFooter> ScreenFooters { get; set; }
+        public DbSet<ScreenHeaderPhoto> ScreenHeaderPhotos { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
     }
 }

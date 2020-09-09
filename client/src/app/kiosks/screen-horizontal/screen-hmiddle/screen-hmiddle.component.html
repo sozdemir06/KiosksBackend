@@ -23,9 +23,11 @@
         'url'
       "
     >
-      <div [ngStyle]="{ width: screenWidth + 'vw' }">
-        <app-homeannounce [homeannounce]="homeannounce"></app-homeannounce>
-      </div>
+      <app-homeannounce
+        [homeannounce]="homeannounce"
+        [position]="kiosks.screen.position"
+        [width]="screenWidth"
+      ></app-homeannounce>
     </ng-template>
   </ng-container>
   <ng-container
@@ -47,11 +49,11 @@
         'url'
       "
     >
-      <div [ngStyle]="{ width: screenWidth + 'vw' }" style="max-width: 100%;">
-        <app-vehicleannounce
-          [vehicleAnnounce]="vehicleAnnounce"
-        ></app-vehicleannounce>
-      </div>
+      <app-vehicleannounce
+        [vehicleAnnounce]="vehicleAnnounce"
+        [position]="kiosks.screen.position"
+        [width]="screenWidth"
+      ></app-vehicleannounce>
     </ng-template>
   </ng-container>
   <ng-container *ngFor="let announce of data.announces; let ai = index">
@@ -108,7 +110,10 @@
             image?.fullPath
           "
         >
-          <div [ngStyle]="{ width: screenWidth + 'vw' }" style="max-width: 100%;">
+          <div
+            [ngStyle]="{ width: screenWidth + 'vw' }"
+            style="max-width: 100%"
+          >
             <video
               #video
               id="{{ i }}"
@@ -148,9 +153,11 @@
           'url'
         "
       >
-        <div [ngStyle]="{ width: screenWidth + 'vw' }" style="max-width: 100%;">
-          <app-announce [announce]="announce"></app-announce>
-        </div>
+        <app-announce
+          [announce]="announce"
+          [width]="screenWidth"
+          [position]="kiosks.screen.position"
+        ></app-announce>
       </ng-template>
     </ng-container>
   </ng-container>
@@ -177,7 +184,7 @@
             src="{{ image.fullPath }}"
             [ngStyle]="{ width: screenWidth + 'vw' }"
             style="
-              max-width: 100%;
+              max-width: 100vw;
               max-height: 90vh;
               display: block;
               margin: 0 auto;
@@ -203,7 +210,11 @@
           'url'
         "
       >
-        <app-news [news]="news"></app-news>
+        <app-news
+          [news]="news"
+          [position]="kiosks.screen.position"
+          [width]="screenWidth"
+        ></app-news>
       </ng-template>
     </ng-container>
   </ng-container>
@@ -224,9 +235,11 @@
         'url'
       "
     >
-      <div [ngStyle]="{ width: screenWidth + 'vw' }">
-        <app-food-menu [foodMenu]="menu"></app-food-menu>
-      </div>
+      <app-food-menu
+        [foodMenu]="menu"
+        [position]="kiosks.screen.position"
+        [width]="screenWidth"
+      ></app-food-menu>
     </ng-template>
   </ng-container>
   <ng-template
@@ -247,5 +260,3 @@
     </div>
   </ng-template>
 </ngb-carousel>
-
-

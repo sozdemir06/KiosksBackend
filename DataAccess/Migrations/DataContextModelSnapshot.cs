@@ -198,6 +198,51 @@ namespace DataAccess.Migrations
                     b.ToTable("Campuses");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Selected")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.Currency", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Selected")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ShorName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Symbol")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Currencies");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.Degree", b =>
                 {
                     b.Property<int>("Id")
@@ -752,6 +797,88 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Screens");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.ScreenFooter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("FooterText")
+                        .HasColumnType("character varying(70)")
+                        .HasMaxLength(70);
+
+                    b.Property<bool>("IsShowStockExchange")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsShowWheatherForCast")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("ScreenId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScreenId")
+                        .IsUnique();
+
+                    b.ToTable("ScreenFooters");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.ScreenHeader", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("HeaderText")
+                        .HasColumnType("character varying(70)")
+                        .HasMaxLength(70);
+
+                    b.Property<int>("ScreenId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScreenId")
+                        .IsUnique();
+
+                    b.ToTable("ScreenHeaders");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.ScreenHeaderPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullPath")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ScreenId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScreenId");
+
+                    b.ToTable("ScreenHeaderPhotos");
                 });
 
             modelBuilder.Entity("Core.Entities.Concrete.SubScreen", b =>
@@ -1399,6 +1526,33 @@ namespace DataAccess.Migrations
                     b.HasOne("Core.Entities.Concrete.RoleCategory", "RoleCategory")
                         .WithMany("Roles")
                         .HasForeignKey("RoleCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.ScreenFooter", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.Screen", "Screen")
+                        .WithOne("ScreenFooters")
+                        .HasForeignKey("Core.Entities.Concrete.ScreenFooter", "ScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.ScreenHeader", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.Screen", "Screen")
+                        .WithOne("ScreenHeaders")
+                        .HasForeignKey("Core.Entities.Concrete.ScreenHeader", "ScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.ScreenHeaderPhoto", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.Screen", "Screen")
+                        .WithMany("ScreenHeaderPhotos")
+                        .HasForeignKey("ScreenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

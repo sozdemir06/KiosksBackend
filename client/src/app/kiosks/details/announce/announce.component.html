@@ -1,20 +1,59 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12 col-lg-12 col-xl-12">
-           <mat-card>
-               <mat-card-title class="d-flex align-items-center justify-content-center text-danger">
-                   <span>{{getAnnounceType(announce.contentType)}}</span>
-               </mat-card-title>
-           </mat-card>
+<ng-container *ngIf="position.toLowerCase()=='vertical'">
+    <mat-card style="max-width: 100vw;" [ngStyle]="{height:height+'vh'}">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12 col-lg-12 col-xl-12">
+              <mat-card-title class="d-flex align-items-center justify-content-between">
+                <span class="kiosks-font"><mat-icon color="warn">campaign</mat-icon></span>
+                <span class="text-danger kiosks-font">{{announce?.header | titlecase}}</span>
+                <span class="text-primary kiosks-font">{{announce?.created | timeAgo}}</span>
+              </mat-card-title>
+              <mat-divider></mat-divider>
+            </div>
+            <div class="col-md-12 col-lg-12 col-xl-12">
+              <mat-card-content>
+                <div #fitTextToHere>
+                  <quill-view
+                    style="font-size: x-large"
+                    [content]="announce?.content"
+                    format="html"
+                    theme="snow"
+                  ></quill-view>
+                </div>
+              </mat-card-content>
+            </div>
+          </div>
         </div>
-        <div class="col-md-12 col-lg-12 col-xl-12">
-            <mat-card>
-                <mat-card-content >
-                    <div #fitTextToHere>
-                        <quill-view style="font-size: x-large;" [content]="announce?.content" format="html" theme="snow"></quill-view>
-                    </div>
-                </mat-card-content>
-            </mat-card>
+      </mat-card>
+</ng-container>
+<ng-container *ngIf="position.toLowerCase()=='horizontal'">
+    <mat-card style="max-height: 90vh" [ngStyle]="{'max-width':width+'vw'}">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12 col-lg-12 col-xl-12">
+              <mat-card-title class="d-flex align-items-center justify-content-between">
+                <span class="kiosks-font"><mat-icon color="warn">campaign</mat-icon></span>
+                <span class="text-danger">{{announce?.header | titlecase}}</span>
+                <span class="text-primary">{{announce?.created | timeAgo}}</span>
+              </mat-card-title>
+              <mat-divider></mat-divider>
+            </div>
+            <div class="col-md-12 col-lg-12 col-xl-12">
+              <mat-card-content>
+                <div #fitTextToHere>
+                  <quill-view
+                    style="font-size: x-large"
+                    [content]="announce?.content"
+                    format="html"
+                    theme="snow"
+                  ></quill-view>
+                </div>
+              </mat-card-content>
+            </div>
+          </div>
         </div>
-    </div>
-</div>
+      </mat-card>
+</ng-container>
+
+
+

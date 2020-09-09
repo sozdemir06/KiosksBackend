@@ -11,9 +11,10 @@ import { IHomeAnnounceForKiosks } from './IHomeAnnounceForKiosks';
 import { IVehicleAnnounceForKiosks } from './IVehicleAnnounceForKiosks';
 import { INewsForKiosks } from './INewsForKiosks';
 import { IFoodMenuForKiosks } from './IFoodMenuForKiosks';
+import { IScreenForKiosks } from './IScreenForKiosks';
 
 export interface IKiosks{
-    screen:IScreen;
+    screen:IScreenForKiosks;
     announces:IAnnounceForKiosks[];
     homeAnnounces:IHomeAnnounceForKiosks[];
     vehicleAnnounces:IVehicleAnnounceForKiosks[];

@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="screenheaderForm"
+    (ngSubmit)="onSubmit()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Üst Başlık Metni"
+        formControlName="headerText"
+      />
+      <mat-error *ngIf="f.headerText?.errors?.required"
+        >Üst Başlık Metni boş olamaz.</mat-error
+      >
+      <mat-error *ngIf="f.headerText.errors?.maxlength"
+        >Üst Başlık Metni en fazla 70 karakter olmalı...</mat-error
+      >
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!screenheaderForm.valid"
+    >
+    {{ mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>

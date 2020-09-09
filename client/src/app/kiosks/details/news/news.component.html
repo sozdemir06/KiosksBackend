@@ -1,34 +1,82 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12 col-lg-12 col-xl-12">
-      <mat-card>
-        <div class="d-flex align-items-center justify-content-between">
-          <span class="news-agency">{{ news?.newsAgency }}</span>
-          <span class="news-header">{{ news.header }}</span>
-          <span class="news-date">{{ news?.newsDate | date: "M/d/yyyy" }}</span>
+<ng-container *ngIf="position.toLowerCase()=='vertical'">
+  <mat-card style="max-width: 100vw;" [ngStyle]="{height:height+'vh'}">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-xl-12">
+          <mat-card-title class="d-flex align-items-center justify-content-between">
+            <span class="kiosks-font">{{ news?.newsAgency }}</span>
+            <span class="text-danger kiosks-font">{{
+              news.header
+            }}</span>
+            <span class="kiosks-font">{{
+              news?.newsDate | date: "M/d/yyyy"
+            }}</span>
+          </mat-card-title>
+          <mat-divider></mat-divider>
         </div>
-      </mat-card>
-    </div>
-    <div class="col-md-12 col-lg-12 col-xl-12">
-      <mat-card class="mb-2">
-        <quill-view
-        [content]="news?.content"
-        format="html"
-        theme="snow"
-      ></quill-view>
-      
-      </mat-card>
-    </div>
-    <ng-container *ngIf="news.newsPhotos?.length > 0">
-      <div class="col-md-12 col-lg-12 col-xl-12">
-        <div class="col-md-6 col-lg-6 col-xl-6 offset-md-3 offset-lg-3 offset-xl-3">
-          <app-image-slider
-          [images]="news.newsPhotos"
-          [thumbnails]="false"
-          [imageAutoPlay]="true"
-        ></app-image-slider>
+        <div class="col-md-12 col-lg-12 col-xl-12">
+          <quill-view
+            [content]="news?.content"
+            format="html"
+            theme="snow"
+          ></quill-view>
         </div>
+        <ng-container *ngIf="news.newsPhotos?.length > 0">
+          <div class="col-md-12 col-lg-12 col-xl-12">
+            <div
+              class="col-md-6 col-lg-6 col-xl-6 offset-md-3 offset-lg-3 offset-xl-3"
+            >
+              <app-image-slider
+                [images]="news.newsPhotos"
+                [thumbnails]="false"
+                [imageAutoPlay]="true"
+              ></app-image-slider>
+            </div>
+          </div>
+        </ng-container>
       </div>
-    </ng-container>
-  </div>
-</div>
+    </div>
+  </mat-card>  
+</ng-container>
+
+<ng-container *ngIf="position.toLowerCase()=='horizontal'">
+  <mat-card style="max-height: 90vh" [ngStyle]="{'max-width':width+'vw'}">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-xl-12">
+          <mat-card-title class="d-flex align-items-center justify-content-between">
+            <span class="kiosks-font">{{ news?.newsAgency }}</span>
+            <span class="text-danger kiosks-font">{{
+              news.header
+            }}</span>
+            <span class="kiosks-font">{{
+              news?.newsDate | date: "M/d/yyyy"
+            }}</span>
+          </mat-card-title>
+          <mat-divider></mat-divider>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xl-12">
+          <quill-view
+            [content]="news?.content"
+            format="html"
+            theme="snow"
+          ></quill-view>
+        </div>
+        <ng-container *ngIf="news.newsPhotos?.length > 0">
+          <div class="col-md-12 col-lg-12 col-xl-12">
+            <div
+              class="col-md-6 col-lg-6 col-xl-6 offset-md-3 offset-lg-3 offset-xl-3"
+            >
+              <app-image-slider
+                [images]="news.newsPhotos"
+                [thumbnails]="false"
+                [imageAutoPlay]="true"
+              ></app-image-slider>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </mat-card>  
+</ng-container>
+

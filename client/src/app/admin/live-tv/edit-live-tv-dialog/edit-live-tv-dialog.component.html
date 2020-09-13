@@ -1,0 +1,115 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="liveTvBroadCastForm"
+    (ngSubmit)="onSubmit()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Canlı Tv yayın başlığı"
+        formControlName="header"
+      />
+      <mat-error *ngIf="f.header.errors?.required"
+        >Canlı Tv yayın başlığı boş olamaz...</mat-error
+      >
+      <mat-error *ngIf="f.header.errors?.maxlength"
+        >Canlı Tv yayın en fazla 140 karakter olmalı...</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>İçerik Tipi</mat-label>
+      <mat-select formControlName="contentType">
+        <mat-option value="tv"> Canlı Tv </mat-option>
+        <mat-option value="youtube"> Youtube Video </mat-option>
+      </mat-select>
+      <mat-error *ngIf="f.contentType.errors?.required"
+        >Yayın Tipini tipini seçiniz...</mat-error
+      >
+    </mat-form-field>
+    <ng-container *ngIf="contentType== 'tv'">
+      <mat-form-field>
+        <mat-label>Tv Listesi</mat-label>
+        <mat-select formControlName="youtubeId">
+          <mat-option
+            *ngFor="let tvlist of liveTvListStore.livetvlists$ | async"
+            [value]="tvlist.youtubeId"
+          >
+            {{ tvlist.tvName }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.youtubeId.errors?.required">Tv Seçiniz..</mat-error>
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="contentType == 'youtube'">
+      <mat-form-field>
+        <input
+        matInput
+        type="text"
+        placeholder="Yotube video ID"
+        formControlName="youtubeId"
+      />
+        <mat-error *ngIf="f.youtubeId.errors?.required"
+          >Youtube video ID belirtiniz...</mat-error
+        >
+      </mat-form-field>
+    </ng-container>
+    <mat-form-field>
+      <input
+        matInput
+        type="number"
+        formControlName="slideIntervalTime"
+        placeholder="Dakika cinsinden yayın süresi"
+      />
+      <mat-error *ngIf="f.slideIntervalTime.errors?.required"
+        >Yayın geçiş süresi boş olamaz...</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Yayın Başlangıç Tarihi ve Saati</mat-label>
+      <input
+        class="date-time"
+        [owlDateTime]="dt1"
+        [owlDateTimeTrigger]="dt1"
+        autocomplete="off"
+        formControlName="publishStartDate"
+        (dateTimeChange)="onChangeStartDate($event)"
+        matInput
+        required
+      />
+      <owl-date-time #dt1></owl-date-time>
+      <mat-error *ngIf="f.publishStartDate.errors?.required"
+        >Yayın başlangıç tarihi boş olamaz</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>İlan Bitiş Tarihi ve Saati </mat-label>
+      <input
+        class="date-time"
+        [owlDateTime]="dt2"
+        [owlDateTimeTrigger]="dt2"
+        autocomplete="off"
+        formControlName="publishFinishDate"
+        (dateTimeChange)="onChangeFinishDate($event)"
+        matInput
+        required
+      />
+      <owl-date-time #dt2></owl-date-time>
+      <mat-error *ngIf="f.publishFinishDate.errors?.required"
+        >Yayın bitiş tarihi boş olamaz</mat-error
+      >
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!liveTvBroadCastForm.valid"
+    >
+      {{ mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>

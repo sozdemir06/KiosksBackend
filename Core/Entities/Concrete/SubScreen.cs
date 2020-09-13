@@ -20,6 +20,7 @@ namespace Core.Entities.Concrete
         public ICollection<AnnounceSubScreen> AnnounceSubScreens { get; set; }
         public ICollection<NewsSubScreen> NewsSubScreens { get; set; }
         public ICollection<FoodMenuSubscreen> FoodMenuSubScreens { get; set; }
+        public ICollection<LiveTvBroadCastSubScreen> LiveTvBroadCastSubScreens { get; set; }
 
     }
 }

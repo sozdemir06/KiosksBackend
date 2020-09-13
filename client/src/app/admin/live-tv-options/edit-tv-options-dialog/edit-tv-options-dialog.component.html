@@ -1,0 +1,34 @@
+
+<h1 mat-dialog-title>{{ title }}</h1>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="liveTvListForm"
+    (ngSubmit)="onSubmitform()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Tv Adı"
+        formControlName="tvName"
+      />
+    <mat-error *ngIf="f.tvName.errors?.required">Tv Adı belirtiniz...</mat-error>
+    <mat-error *ngIf="f.tvName.errors?.maxlength">Tv adı 60 karakter olmalı...</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input
+          matInput
+          type="text"
+          placeholder="Youtube ID"
+          formControlName="youtubeId"
+        />
+      <mat-error *ngIf="f.youtubeId.errors?.required">Youtube ID boş olamaz...</mat-error>
+      </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!liveTvListForm.valid">
+      {{ this.mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>

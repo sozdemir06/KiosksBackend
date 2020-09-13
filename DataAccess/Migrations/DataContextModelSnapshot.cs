@@ -584,6 +584,116 @@ namespace DataAccess.Migrations
                     b.ToTable("HomeAnnounceSubScreens");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.LiveTvBroadCast", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("AnnounceType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContentType")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Header")
+                        .IsRequired()
+                        .HasColumnType("character varying(140)")
+                        .HasMaxLength(140);
+
+                    b.Property<bool>("IsNew")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsPublish")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("PublishFinishDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("PublishStartDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("Reject")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("SlideId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("SlideIntervalTime")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("YoutubeId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("LiveTvBroadCasts");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.LiveTvBroadCastSubScreen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("LiveTvBroadCastId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ScreenId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SubScreenId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SubScreenName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SubScreenPosition")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LiveTvBroadCastId");
+
+                    b.HasIndex("ScreenId");
+
+                    b.HasIndex("SubScreenId");
+
+                    b.ToTable("LiveTvBroadCastSubScreens");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.LiveTvList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("TvName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("YoutubeId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LiveTvLists");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.News", b =>
                 {
                     b.Property<int>("Id")
@@ -1477,6 +1587,36 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Core.Entities.Concrete.SubScreen", "SubScreen")
                         .WithMany("HomeAnnounceSubScreens")
+                        .HasForeignKey("SubScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.LiveTvBroadCast", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.User", "User")
+                        .WithMany("LiveTvBroadCasts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.LiveTvBroadCastSubScreen", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.LiveTvBroadCast", "LiveTvBroadCast")
+                        .WithMany("LiveTvBroadCastSubScreens")
+                        .HasForeignKey("LiveTvBroadCastId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.Screen", "Screen")
+                        .WithMany("LiveTvBroadCastSubScreens")
+                        .HasForeignKey("ScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.SubScreen", "SubScreen")
+                        .WithMany("LiveTvBroadCastSubScreens")
                         .HasForeignKey("SubScreenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

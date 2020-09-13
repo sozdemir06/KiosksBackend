@@ -3,7 +3,6 @@ using AutoMapper;
 using Business.Abstract;
 using Core.Entities;
 using Core.Entities.Concrete;
-using Entities.Concrete;
 using Entities.Dtos;
 
 namespace Business.MappingProfile
@@ -15,9 +14,11 @@ namespace Business.MappingProfile
             CreateMap<Role, UserRoleForListDto>();
             CreateMap<User, UserForListDto>();
             CreateMap<UserForRegisterDto, User>();
-            CreateMap<Campus, CampusForListDto>();
-            CreateMap<Department, DepartmentForListDto>();
-            CreateMap<Degree, DegreeForListDto>();
+            CreateMap<Campus, CampusForReturnDto>();
+            CreateMap<CampuseForCreationDto, Campus>();
+            CreateMap<Department, DepartmentForReturnDto>();
+            CreateMap<DepartmentForCreationDto, Department>();
+            CreateMap<Degree, DegreeForReturnDto>();
             CreateMap<Role, RoleForListDto>();
             CreateMap<RoleCategory, RoleCategoryForListDto>();
             CreateMap<RoleForCreationAndUpdateDto, Role>();
@@ -155,17 +156,26 @@ namespace Business.MappingProfile
             CreateMap<CurrencyForCreationDto, Currency>();
 
             CreateMap<WheatherForeCastHttpResponseDto, WheatherForeCastForReturnDto>()
-                    .ForMember(x=>x.CityName,o=>o.MapFrom(z=>z.name))
-                    .ForMember(x=>x.Temp,o=>o.MapFrom(z=>z.main.temp))
-                    .ForMember(x=>x.Icon,o=>o.MapFrom(z=>z.weather.Select(x=>x.icon).FirstOrDefault()))
-                    .ForMember(x=>x.Pressure,o=>o.MapFrom(z=>z.main.pressure))
-                    .ForMember(x=>x.Humidity,o=>o.MapFrom(z=>z.main.humidity))
-                    .ForMember(x=>x.TempMax,o=>o.MapFrom(z=>z.main.temp_max))
-                    .ForMember(x=>x.TempMin,o=>o.MapFrom(z=>z.main.temp_min))
-                    .ForMember(x=>x.WheatherImage,o=>o.MapFrom<WheatherImageUrlResolver>());
-                    
-                  
+                    .ForMember(x => x.CityName, o => o.MapFrom(z => z.name))
+                    .ForMember(x => x.Temp, o => o.MapFrom(z => z.main.temp))
+                    .ForMember(x => x.Icon, o => o.MapFrom(z => z.weather.Select(x => x.icon).FirstOrDefault()))
+                    .ForMember(x => x.Pressure, o => o.MapFrom(z => z.main.pressure))
+                    .ForMember(x => x.Humidity, o => o.MapFrom(z => z.main.humidity))
+                    .ForMember(x => x.TempMax, o => o.MapFrom(z => z.main.temp_max))
+                    .ForMember(x => x.TempMin, o => o.MapFrom(z => z.main.temp_min))
+                    .ForMember(x => x.WheatherImage, o => o.MapFrom<WheatherImageUrlResolver>());
 
+
+            CreateMap<LiveTvBroadCast, LiveTvBroadCastForReturnDto>();
+            CreateMap<LiveTvBroadCastForCreationDto, LiveTvBroadCast>();
+
+            CreateMap<LiveTvBroadCast, LiveTvBroadCastForDetailDto>();
+
+            CreateMap<LiveTvList, LiveTvListForReturnDto>();
+            CreateMap<LiveTvListForCreationDto, LiveTvList>();
+
+            CreateMap<LiveTvBroadCastSubScreen, LiveTvBroadCastSubScreenForReturnDto>();
+            CreateMap<LiveTvBroadCastSubScreenForCreationDto, LiveTvBroadCastSubScreen>();
 
 
         }

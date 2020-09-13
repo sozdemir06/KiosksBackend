@@ -18,6 +18,8 @@ import { NewsPanelComponent } from '../admin/dashboard/news-panel/news-panel.com
 import { FoodMenuPanelComponent } from '../admin/dashboard/food-menu-panel/food-menu-panel.component';
 import { CityPanelComponent } from '../admin/dashboard/city-panel/city-panel.component';
 import { CurrencyPanelComponent } from '../admin/dashboard/currency-panel/currency-panel.component';
+import { LiveTvPanelComponent } from '../admin/dashboard/live-tv-panel/live-tv-panel.component';
+import { LiveTvListPanelComponent } from '../admin/dashboard/live-tv-list-panel/live-tv-list-panel.component';
 
 export const routes: Routes = [
   {
@@ -70,7 +72,9 @@ export const routes: Routes = [
     NewsPanelComponent,
     FoodMenuPanelComponent,
     CityPanelComponent,
-    CurrencyPanelComponent
+    CurrencyPanelComponent,
+    LiveTvPanelComponent,
+    LiveTvListPanelComponent
   ],
   imports: [SharedModule, RouterModule.forChild(routes)],
 
@@ -90,6 +94,8 @@ export const routes: Routes = [
     AnnounceOptionsPanelComponent,
     NewsPanelComponent,
     FoodMenuPanelComponent,
+    LiveTvPanelComponent,
+    LiveTvListPanelComponent
   ],
 })
 export class LayoutModule {}

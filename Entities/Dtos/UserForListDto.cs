@@ -15,8 +15,8 @@ namespace Entities.Dtos
         public string Email { get; set; }        
         public bool IsActive { get; set; }
         public DateTime Created { get; set; }
-        public CampusForListDto Campus { get; set; }
-        public DepartmentForListDto Department { get; set; }
-        public DegreeForListDto Degree { get; set; }
+        public CampusForReturnDto Campus { get; set; }
+        public DepartmentForReturnDto Department { get; set; }
+        public DegreeForReturnDto Degree { get; set; }
     }
 }

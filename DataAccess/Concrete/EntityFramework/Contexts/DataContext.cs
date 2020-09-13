@@ -63,5 +63,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<ScreenHeaderPhoto> ScreenHeaderPhotos { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Currency> Currencies { get; set; }
+        public DbSet<LiveTvList> LiveTvLists { get; set; }
+        public DbSet<LiveTvBroadCast> LiveTvBroadCasts { get; set; }
+        public DbSet<LiveTvBroadCastSubScreen> LiveTvBroadCastSubScreens { get; set; }
     }
 }

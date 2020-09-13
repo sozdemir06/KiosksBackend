@@ -17,11 +17,28 @@ namespace API.Controllers
 
         }
 
-
         [HttpGet]
-        public async Task<ActionResult<List<CampusForListDto>>> List()
+        public async Task<ActionResult<List<CampusForReturnDto>>> List()
         {
             return await campuseService.GetCampusListAsync();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CampusForReturnDto>> Create(CampuseForCreationDto createDto)
+        {
+            return await campuseService.Create(createDto);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<CampusForReturnDto>> Update(CampuseForCreationDto updateDto)
+        {
+            return await campuseService.Update(updateDto);
+        }
+
+        [HttpDelete("{itemId}")]
+        public async Task<ActionResult<CampusForReturnDto>> Delete(int itemId)
+        {
+            return await campuseService.Delete(itemId);
         }
     }
 }

@@ -40,9 +40,9 @@ namespace Business.Concrete
         [ValidationAspect(typeof(FoodMenuValidator), Priority = 2)]
         public async Task<FoodMenuForReturnDto> Create(FoodMenuForCreationDto creationDto)
         {
-        var claimId=int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+             var claimId=int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
 
-
+              
             var mapForCreate = mapper.Map<FoodMenu>(creationDto);
             var slideId = Guid.NewGuid();
             mapForCreate.SlideId = slideId;

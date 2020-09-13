@@ -1,9 +1,10 @@
 using Core.Entities.Concrete;
+using Entities.Dtos;
 using FluentValidation;
 
 namespace Business.ValidaitonRules.FluentValidation
 {
-    public class CampusValidator:AbstractValidator<Campus>
+    public class CampusValidator:AbstractValidator<CampuseForCreationDto>
     {
         public CampusValidator()
         {

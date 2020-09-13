@@ -176,6 +176,16 @@ const routes: Routes = [
         path:"currencies",
         loadChildren:()=>import("../currency/currency.module").then(m=>m.CurrencyModule),
         data:{roles:['Sudo','Currencies.List','Currencies.All']}
+      },
+      {
+        path:"live-tv-broadcast",
+        loadChildren:()=>import("../live-tv/live-tv.module").then(m=>m.LiveTvModule),
+        data:{roles:['Sudo','LiveTvBroadCast.List','LiveTvBroadCast.All']}
+      },
+      {
+        path:"live-tv-list",
+        loadChildren:()=>import("../live-tv-options/live-tv-options.module").then(m=>m.LiveTvOptionsModule),
+        data:{roles:['Sudo','LiveTvList.List','LiveTvList.All']}
       }
 
     ],

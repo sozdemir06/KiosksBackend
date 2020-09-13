@@ -275,6 +275,18 @@ namespace DataAccess.SeedData
                         }
                     }
 
+                    if (!_context.LiveTvLists.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/Tvlist.json");
+                        var dataList = JsonSerializer.Deserialize<List<LiveTvList>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.LiveTvLists.Add(item);
+                        }
+                    }
+
+
 
 
 

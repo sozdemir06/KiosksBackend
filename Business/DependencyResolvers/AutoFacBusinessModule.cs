@@ -141,6 +141,15 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<WheatherForecastManager>().As<IWheatherForeCastService>();
             builder.RegisterType<ExchangeRateManager>().As<IExchangeRateService>();
 
+            builder.RegisterType<LiveTvListManager>().As<ILiveTvListService>();
+            builder.RegisterType<LiveTvBroadCastManager>().As<ILiveTvBroadCastService>();
+
+            builder.RegisterType<LiveTvBroadCastSubScreenManager>().As<ILiveTvBroadCastSubScreenService>();
+            builder.RegisterType<EfLiveTvListDal>().As<ILiveTvListDal>();
+
+             builder.RegisterType<EfLiveTvBroadCastSubScreenDal>().As<ILiveTvBroadCastSubScreenDal>();
+            builder.RegisterType<EfLiveTvBroadCastDal>().As<ILiveTvBroadCastDal>();
+
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();

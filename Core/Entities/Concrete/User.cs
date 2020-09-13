@@ -30,6 +30,7 @@ namespace Core.Entities.Concrete
         public ICollection<HomeAnnounce> HomeAnnounces { get; set; }
         public ICollection<VehicleAnnounce> VehicleAnnounces { get; set; }
         public ICollection<Announce> Announces { get; set; }
+        public ICollection<LiveTvBroadCast> LiveTvBroadCasts { get; set; }
 
 
 

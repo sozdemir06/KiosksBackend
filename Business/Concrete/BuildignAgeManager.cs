@@ -10,7 +10,6 @@ using Core.Aspects.AutoFac.Validation;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using DataAccess.Abstract;
-using Entities.Concrete;
 using Entities.Dtos;
 
 namespace Business.Concrete

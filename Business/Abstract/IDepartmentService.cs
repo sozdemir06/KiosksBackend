@@ -6,6 +6,9 @@ namespace Business.Abstract
 {
     public interface IDepartmentService
     {
-         Task<List<DepartmentForListDto>> GetDepartmentListAsync();
+        Task<List<DepartmentForReturnDto>> GetDepartmentListAsync();
+        Task<DepartmentForReturnDto> Create(DepartmentForCreationDto createDto);
+        Task<DepartmentForReturnDto> Update(DepartmentForCreationDto updateDto);
+        Task<DepartmentForReturnDto> Delete(int Id);
     }
 }

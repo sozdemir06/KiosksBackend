@@ -25,7 +25,7 @@ namespace Business.Concrete
             this.mapper = mapper;
 
         }
-        [SecuredOperation("Sudo,LiveTvList.Create,LiveTvBroadCasts.All", Priority = 1)]
+        [SecuredOperation("Sudo,LiveTvBroadCastsOptions.All", Priority = 1)]
         [ValidationAspect(typeof(LiveTvListValidator), Priority = 2)]
         public async Task<LiveTvListForReturnDto> Create(LiveTvListForCreationDto createDto)
         {
@@ -41,7 +41,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,LiveTvList.Delete,LiveTvBroadCasts.All", Priority = 1)]
+         [SecuredOperation("Sudo,LiveTvBroadCastsOptions.All", Priority = 1)]
         public async Task<LiveTvListForReturnDto> Delete(int Id)
         {
             var checkFromDb = await liveTvListDal.GetAsync(x => x.Id == Id);
@@ -56,7 +56,7 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("Sudo,LiveTvList.List,LiveTvBroadCasts.All", Priority = 1)]
+         [SecuredOperation("Sudo,LiveTvBroadCastsOptions.All", Priority = 1)]
         public async Task<List<LiveTvListForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await liveTvListDal.GetListAsync();
@@ -69,7 +69,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,LiveTvList.Create,LiveTvBroadCasts.All", Priority = 1)]
+        [SecuredOperation("Sudo,LiveTvBroadCastsOptions.All", Priority = 1)]
         [ValidationAspect(typeof(LiveTvListValidator), Priority = 2)]
         public async Task<LiveTvListForReturnDto> Update(LiveTvListForCreationDto updateDto)
         {

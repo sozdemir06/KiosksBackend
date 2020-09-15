@@ -28,7 +28,7 @@ namespace Business.Concrete
             this.vehicleBrandDal = vehicleBrandDal;
 
         }
-        [SecuredOperation("Sudo,VehicleBrands.Create", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleBrandValidator), Priority = 2)]
 
         public async Task<VehicleBrandForReturnDto> Create(VehicleBrandForCreationDto createDto)
@@ -44,7 +44,7 @@ namespace Business.Concrete
             var mapForReturn = mapper.Map<VehicleBrand, VehicleBrandForReturnDto>(saveToDb);
             return mapForReturn;
         }
-        [SecuredOperation("Sudo,VehicleBrands.Delete", Priority = 1)]
+      [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<VehicleBrandForReturnDto> Delete(int Id)
         {
             var checkFromDb = await vehicleBrandDal.GetAsync(x => x.Id == Id);
@@ -58,7 +58,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleBrands.List", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<Pagination<VehicleBrandForReturnDto>> GetListAsync(VehicleBrandParams vehicleBrandParams)
         {
             var spec=new VehicleBrandWithVehicleCategorySpecification(vehicleBrandParams);
@@ -81,7 +81,7 @@ namespace Business.Concrete
             );
         }
 
-        [SecuredOperation("Sudo,VehicleBrands.List", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<List<VehicleBrandForReturnDto>> GetListByCategoryId(int categoryId)
         {
              var getListByCategoryId=await vehicleBrandDal.GetListAsync(x=>x.VehicleCategoryId==categoryId);
@@ -93,7 +93,7 @@ namespace Business.Concrete
              return mapper.Map<List<VehicleBrand>,List<VehicleBrandForReturnDto>>(getListByCategoryId);
         }
 
-        [SecuredOperation("Sudo,VehicleBrands.Update", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleBrandValidator), Priority = 2)]
         public async Task<VehicleBrandForReturnDto> Update(VehicleBrandForCreationDto updateDto)
         {

@@ -15,8 +15,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 export class SubscreensListComponent implements OnInit {
 
   displayedColumns:string[]=["Id","Name","Position","Width","Height","Status","Actions"];
-  allowedRoleForUpdate:string[]=["Sudo","SubScreens.Update"];
-  allowedRoleForDelete:string[]=["Sudo","SubScreens.Delete"];
+  allowedRoles:string[]=["Sudo","SubScreens.Update",'SubScreens.All'];
+
   subScreens$:Observable<ISubScreen[]>;
   screenId:number;
   constructor(

@@ -3,6 +3,7 @@ import { IVehicleAnnounceForKiosks } from 'src/app/kiosks/models/IVehicleAnnounc
 import { IHomeAnnounceForKiosks } from 'src/app/kiosks/models/IHomeAnnounceForKiosks';
 import { INewsForKiosks } from 'src/app/kiosks/models/INewsForKiosks';
 import { IFoodMenuForKiosks } from 'src/app/kiosks/models/IFoodMenuForKiosks';
+import { ILiveTvBroadCastForKiosks } from 'src/app/kiosks/models/ILiveTvBroadCastForKiosks';
 
 export interface IKiosksSubScreenData {
     announces: IAnnounceForKiosks[];
@@ -10,5 +11,6 @@ export interface IKiosksSubScreenData {
     homeAnnounces: IHomeAnnounceForKiosks[];
     news: INewsForKiosks[];
     foodsMenu: IFoodMenuForKiosks[];
+    liveTvBroadCasts:ILiveTvBroadCastForKiosks[];
   }
   

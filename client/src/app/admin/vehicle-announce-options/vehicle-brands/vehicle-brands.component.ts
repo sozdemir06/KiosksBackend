@@ -13,7 +13,6 @@ import { EditVehicleBrandsDialogComponent } from './edit-vehicle-brands-dialog/e
 import { fromEvent } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { VehicleCategoryStore } from 'src/app/core/services/stores/vehicle-category-store';
-import { IVehicleBrand } from 'src/app/shared/models/IVehicleBrand';
 import { IVehicleCategory } from 'src/app/shared/models/IVehicleCategory';
 import { VehicleBrandParams } from 'src/app/shared/models/VehicleBrandParams';
 
@@ -27,7 +26,7 @@ export class VehicleBrandsComponent
   toolbarTitle: string = 'Araç Markaları';
   toolbarSearchPlaceholderText: string =
     'Marka adı ile arama yapabilirsiniz...';
-  allowedRolesForCreate:string[]=["Sudo","VehicleBrands.Create"];
+  allowedRolesForCreate:string[]=["Sudo","VehicleAnnounceOptions.All"];
   
 
   unSubscribeSearchInputEvent: any;

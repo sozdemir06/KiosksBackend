@@ -1,9 +1,9 @@
-using Core.Entities.Concrete;
+using Entities.Dtos;
 using FluentValidation;
 
 namespace Business.ValidaitonRules.FluentValidation
 {
-    public class FoodMenuPhotoValidator : AbstractValidator<FoodMenuPhoto>
+    public class FoodMenuPhotoValidator : AbstractValidator<FoodMenuPhotoForCreationDto>
     {
         public FoodMenuPhotoValidator()
         {

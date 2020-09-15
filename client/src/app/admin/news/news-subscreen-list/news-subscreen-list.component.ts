@@ -14,7 +14,7 @@ export class NewsSubscreenListComponent implements OnInit {
 
   @Input() subscreens:INewsSubScreen[];
   displayedColumns:string[]=["Name","Actions"];
-  roleForRemove:string[]=['Sudo','VehicleAnnounceSubScreens.Delete','VehicleAnnounces.All']
+  roleForRemove:string[]=['Sudo','News.Delete','News.All']
   constructor(
     private dialog:MatDialog,
     private newsStore:NewsStore

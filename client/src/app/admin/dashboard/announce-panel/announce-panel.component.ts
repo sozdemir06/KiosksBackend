@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./announce-panel.component.scss']
 })
 export class AnnouncePanelComponent implements OnInit {
-  allowedRolesForList:string[]=['Sudo','Announces.List','Announces.All']
+  allowedRolesForList:string[]=['Sudo','Announces.List','Announces.All',"Announces.Create","Announces.Update"]
   constructor() { }
 
   ngOnInit(): void {

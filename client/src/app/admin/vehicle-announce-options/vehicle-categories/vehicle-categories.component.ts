@@ -10,7 +10,7 @@ import { VehicleCategoryStore } from 'src/app/core/services/stores/vehicle-categ
 })
 export class VehicleCategoriesComponent implements OnInit {
 toolbarTitle:string="Araç Kategori";
-allowedRoles:string[]=["Sudo","VehicleCategories.Create"];
+allowedRoles:string[]=["Sudo","VehicleAnnounceOptions.All"];
 
   constructor(
     private dialog:MatDialog,

@@ -84,20 +84,30 @@ data$: Observable<IKiosksSubScreenData>;
       )
     );
 
+    const liveTvBroadCasts$ = this.kiosksStore.kiosks$.pipe(
+      map((liveTvBroadCasts) =>
+      liveTvBroadCasts.liveTvBroadCasts.filter((x) =>
+          x.liveTvBroadCastSubScreens.find((x) => x.subScreenId == this.kiosks.screen?.id)
+        )
+      )
+    );
+
     this.data$ = combineLatest([
       announces$,
       vehicleAnnounces$,
       homeAnnounces$,
       news$,
       foodsMenu$,
+      liveTvBroadCasts$,
     ]).pipe(
-      map(([announces, vehicleAnnounces, homeAnnounces, news, foodsMenu]) => {
+      map(([announces, vehicleAnnounces, homeAnnounces, news, foodsMenu,liveTvBroadCasts]) => {
         return {
           announces,
           vehicleAnnounces,
           homeAnnounces,
           news,
           foodsMenu,
+          liveTvBroadCasts
         };
       })
     );

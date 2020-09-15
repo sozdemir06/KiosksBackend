@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Abstract;
+using BusinessAspects.AutoFac;
 using Core.Extensions;
 using DataAccess.Abstract;
 using Entities.Concrete;

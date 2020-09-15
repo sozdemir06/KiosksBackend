@@ -10,7 +10,7 @@ import { EditAnnounceContentTypeDialogComponent } from './edit-announce-content-
 })
 export class AnnounceContentTypesComponent implements OnInit {
   toolbarTitle:string="Bulunduğu Kat";
-  allowedRoles:string[]=["Sudo","AnnounceContentTypes.List"];
+  allowedRoles:string[]=["Sudo","AnnounceOptons.All"];
   constructor(
     public announcecontentTypeStore:AnnounceContentTypeStore,
     private dialog:MatDialog

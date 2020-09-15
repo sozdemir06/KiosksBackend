@@ -28,7 +28,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,Degree.Create,Degree.All", Priority = 1)]
+        [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         [ValidationAspect(typeof(DegreeValidator), Priority = 2)]
         public async Task<DegreeForReturnDto> Create(DegreeForCreationDto createDto)
         {
@@ -44,7 +44,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,Degree.Delete,Degree.All", Priority = 1)]
+      [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         public async  Task<DegreeForReturnDto> Delete(int Id)
         {
              var checkFromDb = await titleDal.GetAsync(x => x.Id == Id);
@@ -58,7 +58,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,Degree.List,Degree.All", Priority = 1)]
+        [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         public async Task<Pagination<DegreeForReturnDto>> GetListAsync(DegreeParams queryParams)
         {
             var spec=new DegreeForPagingSpecification(queryParams);
@@ -81,7 +81,7 @@ namespace Business.Concrete
             );
         }
 
-        [SecuredOperation("Sudo,Degree.List,Degree.All", Priority = 1)]
+        [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         public async Task<List<DegreeForReturnDto>> GetListWithoutPaging(int categoryId)
         {
              var departments = await titleDal.GetListAsync();
@@ -95,7 +95,7 @@ namespace Business.Concrete
             return departmentForReturn;
         }
 
-        [SecuredOperation("Sudo,Degree.Update,Degree.All", Priority = 1)]
+        [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         [ValidationAspect(typeof(DegreeValidator), Priority = 2)]
         public async Task<DegreeForReturnDto> Update(DegreeForCreationDto updateDto)
         {

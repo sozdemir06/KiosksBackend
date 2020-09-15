@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NotifyService } from './notify-service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import produce from 'immer';
+
 
 @Injectable({ providedIn: 'root' })
 export class HelperService {
-  constructor(private notifyService: NotifyService) {}
+  constructor(
+    private notifyService: NotifyService,
+    private sanitizer: DomSanitizer
+    
+    ) {}
 
   dateToLocaleFormat(date: Date): any {
     const offsetMs = date.getTimezoneOffset() * 60 * 1000;
@@ -116,5 +120,9 @@ export class HelperService {
     }
 
     return isExpire;
+  }
+
+  safeURL(youtubeId:string){
+    return this.sanitizer.bypassSecurityTrustResourceUrl (`https://www.youtube.com/embed/${youtubeId}?rel=0`);
   }
 }

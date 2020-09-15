@@ -13,8 +13,8 @@ export class NewsPhotoListComponent implements OnInit {
   @Input() images: INewsPhoto[];
   @Input() announceId: number;
 
-  @Input() roleForUpdate: string[] = [];
-  @Input() roleForDelete: string[] = [];
+  @Input() roleForUpdate: string[] = ["Sudo","News.Update","News.All"];
+  @Input() roleForDelete: string[] = ["Sudo","News.Delete","News.All"];
   constructor(
     private dialog: MatDialog,
     private newsStore: NewsStore

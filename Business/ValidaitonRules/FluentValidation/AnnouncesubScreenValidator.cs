@@ -1,9 +1,9 @@
-using Core.Entities.Concrete;
+using Entities.Dtos;
 using FluentValidation;
 
 namespace Business.ValidaitonRules.FluentValidation
 {
-    public class AnnouncesubScreenValidator : AbstractValidator<AnnounceSubScreen>
+    public class AnnouncesubScreenValidator : AbstractValidator<AnnounceSubScreenForCreationDto>
     {
         public AnnouncesubScreenValidator()
         {

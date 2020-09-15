@@ -13,7 +13,6 @@ using Core.Extensions;
 using Core.QueryParams;
 using DataAccess.Abstract;
 using DataAccess.EntitySpecification.VehicleModelSpecification;
-using Entities.Concrete;
 using Entities.Dtos;
 
 namespace Business.Concrete
@@ -31,7 +30,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,VehicleModels.Create", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleModelValidator), Priority = 2)]
         public async Task<VehicleModelForReturnDto> Create(VehicleModelForCreationDto createDto)
         {
@@ -53,7 +52,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-         [SecuredOperation("Sudo,VehicleModels.Delete", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<VehicleModelForReturnDto> Delete(int Id)
         {
             var checkFromDb = await vehicleModelDal.GetAsync(x => x.Id == Id);
@@ -67,7 +66,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleModels.List", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<Pagination<VehicleModelForReturnDto>> GetListAsync(VehicleModelParams vehicleModelParams)
         {
             var spec = new VehicleModelWithBrandAndCategory(vehicleModelParams);
@@ -92,18 +91,18 @@ namespace Business.Concrete
             );
         }
 
-        [SecuredOperation("Sudo,VehicleModels.List", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<List<VehicleModelForReturnDto>> GetListByBrandIdAsync(int brandId)
         {
-            var getListByVehicleModel=await vehicleModelDal.GetListAsync(x=>x.VehicleBrandId==brandId);
-             if (getListByVehicleModel == null)
+            var getListByVehicleModel = await vehicleModelDal.GetListAsync(x => x.VehicleBrandId == brandId);
+            if (getListByVehicleModel == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
-            return mapper.Map<List<VehicleModel>,List<VehicleModelForReturnDto>>(getListByVehicleModel);
+            return mapper.Map<List<VehicleModel>, List<VehicleModelForReturnDto>>(getListByVehicleModel);
         }
 
-        [SecuredOperation("Sudo,VehicleModels.Update", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleModelValidator), Priority = 2)]
         public async Task<VehicleModelForReturnDto> Update(VehicleModelForCreationDto updateDto)
         {

@@ -24,7 +24,7 @@ namespace Business.Concrete
             this.currencyDal = currencyDal;
 
         }
-        [SecuredOperation("Sudo,Currency.Create", Priority = 1)]
+        [SecuredOperation("Sudo,AddMoneyForExchangeRate", Priority = 1)]
         [ValidationAspect(typeof(CurrencyValidator), Priority = 2)]
         public async Task<CurrencyForReturnDto> Create(CurrencyForCreationDto createDto)
         {
@@ -41,7 +41,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,Currency.Delete", Priority = 1)]
+        [SecuredOperation("Sudo,AddMoneyForExchangeRate", Priority = 1)]
         public async Task<CurrencyForReturnDto> Delete(int Id)
         {
             var checkFromDb = await currencyDal.GetAsync(x => x.Id == Id);
@@ -55,7 +55,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,Currency.List", Priority = 1)]
+        [SecuredOperation("Sudo,AddMoneyForExchangeRate", Priority = 1)]
         public async Task<List<CurrencyForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await currencyDal.GetListAsync();
@@ -68,7 +68,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,Currency.Create", Priority = 1)]
+         [SecuredOperation("Sudo,AddMoneyForExchangeRate", Priority = 1)]
         [ValidationAspect(typeof(CurrencyValidator), Priority = 2)]
         public async Task<CurrencyForReturnDto> Update(CurrencyForCreationDto updateDto)
         {

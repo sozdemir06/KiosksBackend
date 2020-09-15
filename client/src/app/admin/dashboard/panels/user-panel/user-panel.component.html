@@ -1,11 +1,11 @@
-<mat-expansion-panel>
+<mat-expansion-panel *appHasRole="allowedRoles">
   <mat-expansion-panel-header>
     <mat-panel-title>
       <mat-icon>person</mat-icon>
        <span>Kullanıcı işlemleri</span>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <mat-nav-list routerLink="/app/admin/users" *appHasRole="allowedRoles">
+  <mat-nav-list routerLink="/app/admin/users">
     <a mat-list-item>Kullanıcı Listesi</a>
   </mat-nav-list>
 </mat-expansion-panel>

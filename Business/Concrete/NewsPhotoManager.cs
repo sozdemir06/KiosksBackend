@@ -31,7 +31,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,NewsPhotos.Create,News.All", Priority = 1)]
+        [SecuredOperation("Sudo,News.Create,News.All", Priority = 1)]
         [ValidationAspect(typeof(NewsPhotoValidator), Priority = 2)]
         public async Task<NewsPhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
@@ -60,7 +60,7 @@ namespace Business.Concrete
             return mapper.Map<NewsPhoto, NewsPhotoForReturnDto>(createPhoto);
         }
 
-        [SecuredOperation("Sudo,NewsPhotos.Delete,News.All", Priority = 1)]
+        [SecuredOperation("Sudo,News.Delete,News.All", Priority = 1)]
         public async Task<NewsPhotoForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await newsPhotoDal.GetAsync(x => x.Id == Id);
@@ -75,7 +75,7 @@ namespace Business.Concrete
             return mapper.Map<NewsPhoto, NewsPhotoForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,NewsPhotos.List,News.All", Priority = 1)]
+        [SecuredOperation("Sudo,News.List,News.All", Priority = 1)]
         public async Task<List<NewsPhotoForReturnDto>> GetListAsync(int announceId)
         {
             var getListFromRepo = await newsPhotoDal.GetListAsync(x => x.NewsId == announceId);
@@ -87,7 +87,7 @@ namespace Business.Concrete
             return mapper.Map<List<NewsPhoto>, List<NewsPhotoForReturnDto>>(getListFromRepo);
         }
 
-        [SecuredOperation("Sudo,NewsPhotos.Update,News.All", Priority = 1)]
+         [SecuredOperation("Sudo,News.Update,News.All", Priority = 1)]
         [ValidationAspect(typeof(NewsPhotoValidator), Priority = 2)]
         public async Task<NewsPhotoForReturnDto> Update(NewsPhotoForCreationDto updateDto)
         {

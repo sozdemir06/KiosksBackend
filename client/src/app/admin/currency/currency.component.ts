@@ -9,7 +9,7 @@ import { CurrencyStore } from 'src/app/core/services/stores/currency-store';
 export class CurrencyComponent implements OnInit {
   toolbarTitle:string="Para Listesi"
   toolbarSearchInputPlaceholder:string="Para adına göre ara..";
-  allowedRoles:string[]=["Sudo","Cities.Create"];
+  allowedRoles:string[]=["Sudo","AddMoneyForExchangeRate"];
   
   constructor(
     public currencyStore$:CurrencyStore

@@ -12,7 +12,7 @@ import { ILiveTvBroadCastSubScreen } from 'src/app/shared/models/ILiveTvBroadCas
 export class EditLiveTvSubscreensComponent implements OnInit {
   @Input() subscreens:ILiveTvBroadCastSubScreen[];
   displayedColumns:string[]=["Name","Actions"];
-  roleForRemove:string[]=['Sudo','LiveTvBroadCastSubScreens.Delete','LiveTvBroadCast.All'];
+  roleForRemove:string[]=['Sudo','LiveTvBroadCasts.Delete','LiveTvBroadCasts.All'];
   
     constructor(
       private dialog:MatDialog,

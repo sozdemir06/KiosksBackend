@@ -11,7 +11,7 @@ import { EditBuildingAgeDialogComponent } from './edit-building-age-dialog/edit-
 export class BuildingAgeComponent implements OnInit {
   toolbarTitle:string="Binanın Yaşı";
   toolbarSearchInputPlaceholder:string="Arama kapalı";
-  allowedRoles:string[]=["Sudo","BuildingsAge.Create"];
+  allowedRoles:string[]=["Sudo","HomeAnnounceOptions.All"];
 
   constructor(
     public buildingAgeStore:BuildingAgeStore,

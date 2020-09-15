@@ -9,7 +9,7 @@ import { CityStore } from 'src/app/core/services/stores/city-store';
 export class CityComponent implements OnInit {
 toolbarTitle:string="Hava Durumu Şehir Seç"
 toolbarSearchInputPlaceholder:string="Şehir Adına Göre ara";
-allowedRoles:string[]=["Sudo","Cities.Create"];
+allowedRoles:string[]=["Sudo","AddCityForWheatherForeCast"];
 
   constructor(
     public cityStore$:CityStore

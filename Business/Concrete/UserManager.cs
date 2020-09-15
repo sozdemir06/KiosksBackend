@@ -5,7 +5,9 @@ using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
 using Business.Helpers;
+using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Validation;
 using Core.Entities;
 using Core.Entities.Concrete;
 using Core.Extensions;
@@ -29,6 +31,9 @@ namespace Business.Concrete
             this.userDal = userDal;
 
         }
+
+        [SecuredOperation("Sudo,User.Create,User.All", Priority = 1)]
+        [ValidationAspect(typeof(UserValidator), Priority = 2)]
         public async Task Add(User user)
         {
             await userDal.Add(user);
@@ -40,26 +45,29 @@ namespace Business.Concrete
             return await userDal.GetAsync(x => x.Email == email);
         }
 
+
         public async Task<UserForListDto> GetUserAsync(string email)
         {
-            var spec=new UserWithCampusAndDepartmentAndDegreeSpecification(email);
-            var user=await userDal.GetEntityWithSpecAsync(spec);
+            var spec = new UserWithCampusAndDepartmentAndDegreeSpecification(email);
+            var user = await userDal.GetEntityWithSpecAsync(spec);
 
-            if(user==null)
+            if (user == null)
             {
-                 throw new RestException(HttpStatusCode.BadRequest, new { UserNotFound = Messages.UserNotFound });
+                throw new RestException(HttpStatusCode.BadRequest, new { UserNotFound = Messages.UserNotFound });
             }
 
-            var userForReturn=mapper.Map<User,UserForListDto>(user);
+            var userForReturn = mapper.Map<User, UserForListDto>(user);
             return userForReturn;
         }
+
+
 
         public async Task<Pagination<UserForListDto>> GetUserForList(UserQueryParams userQueryParams)
         {
             var spec = new UserWithTitleAndCampusSpesification(userQueryParams);
             var users = await userDal.ListEntityWithSpecAsync(spec);
-            var countSpec=new UserWithFilterForCaountSpecification(userQueryParams);
-            var totalItems=await userDal.CountAsync(countSpec);
+            var countSpec = new UserWithFilterForCaountSpecification(userQueryParams);
+            var totalItems = await userDal.CountAsync(countSpec);
 
             if (users == null)
             {
@@ -79,6 +87,7 @@ namespace Business.Concrete
 
         }
 
+  
         public async Task<List<UserRoleForListDto>> GetUserRoles(User user)
         {
             var spec = new UserWithRoleSpecification(user);
@@ -92,18 +101,20 @@ namespace Business.Concrete
             return userRolesForReturn;
         }
 
-        public async  Task<UserForListDto> Update(UserForRegisterDto userForRegisterDto)
+        [SecuredOperation("Sudo,User.Update,User.All", Priority = 1)]
+        [ValidationAspect(typeof(UserValidator), Priority = 2)]
+        public async Task<UserForListDto> Update(UserForRegisterDto userForRegisterDto)
         {
-             var userFromRepo=await userDal.GetAsync(x=>x.Email==userForRegisterDto.Email);
-             if(userFromRepo==null)
-             {
-                  throw new RestException(HttpStatusCode.BadRequest, new { UserNotFound = Messages.UserNotFound });
-             }
+            var userFromRepo = await userDal.GetAsync(x => x.Email == userForRegisterDto.Email);
+            if (userFromRepo == null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { UserNotFound = Messages.UserNotFound });
+            }
 
-              var userForUpdate=mapper.Map(userForRegisterDto,userFromRepo);
+            var userForUpdate = mapper.Map(userForRegisterDto, userFromRepo);
 
-              await userDal.Update(userForUpdate);
-              return await GetUserAsync(userFromRepo.Email);
+            await userDal.Update(userForUpdate);
+            return await GetUserAsync(userFromRepo.Email);
         }
     }
 }

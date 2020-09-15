@@ -11,7 +11,7 @@ import { EditRoleCategoryDialogComponent } from './edit-role-category-dialog/edi
 export class RolesCategoriesComponent implements OnInit {
 toolbarTitle:string="Yetki Kategori Listesi";
 toolbarSerachInputPlaceHolder:string="Role Kategori için arama yok";
-allowedRoles:string[]=["Sudo"];
+allowedRoles:string[]=["Sudo","Roles.Create","Roles.All"];
   constructor(
     public roleCategoryStore:RoleCategorStore,
     private dialog:MatDialog

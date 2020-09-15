@@ -31,7 +31,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,ScreenHeaderPhotos.Create,Screen.All", Priority = 1)]
+        [SecuredOperation("Sudo,Screens.Create,Screens.All", Priority = 1)]
         [ValidationAspect(typeof(ScreenHeaderPhotoValidator), Priority = 2)]
         public async Task<ScreenHeaderPhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
@@ -55,7 +55,7 @@ namespace Business.Concrete
             return mapper.Map<ScreenHeaderPhoto, ScreenHeaderPhotoForReturnDto>(createPhoto);
         }
 
-        [SecuredOperation("Sudo,ScreenHeaderPhotos.Delete,Screen.All", Priority = 1)]
+        [SecuredOperation("Sudo,Screens.Delete,Screens.All", Priority = 1)]
         public async Task<ScreenHeaderPhotoForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await screenHeaderPhotoDal.GetAsync(x => x.Id == Id);
@@ -70,7 +70,7 @@ namespace Business.Concrete
             return mapper.Map<ScreenHeaderPhoto, ScreenHeaderPhotoForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,ScreenHeaderPhotos.List,Screen.All", Priority = 1)]
+        [SecuredOperation("Sudo,Screens.List,Screens.All", Priority = 1)]
         public async Task<List<ScreenHeaderPhotoForReturnDto>> GetListAsync(int announceId)
         {
             var getListFromRepo = await screenHeaderPhotoDal.GetListAsync(x => x.ScreenId == announceId);
@@ -82,7 +82,7 @@ namespace Business.Concrete
             return mapper.Map<List<ScreenHeaderPhoto>, List<ScreenHeaderPhotoForReturnDto>>(getListFromRepo);
         }
 
-        [SecuredOperation("Sudo,ScreenHeaderPhotos.Update,Screen.All", Priority = 1)]
+        [SecuredOperation("Sudo,Screens.Update,Screens.All", Priority = 1)]
         [ValidationAspect(typeof(ScreenHeaderPhotoValidator), Priority = 2)]
 
         public async Task<ScreenHeaderPhotoForReturnDto> SetMain(ScreenHeaderPhotoForCreationDto updateDto)
@@ -92,20 +92,20 @@ namespace Business.Concrete
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
-                var getAlreadyIsMain=await screenHeaderPhotoDal.GetAsync(x=>x.IsMain==true);
-                if(getAlreadyIsMain!=null)
-                {
-                    getAlreadyIsMain.IsMain=false;
-                    await screenHeaderPhotoDal.Update(getAlreadyIsMain);
-                }
-                   
-            
+            var getAlreadyIsMain = await screenHeaderPhotoDal.GetAsync(x => x.IsMain == true);
+            if (getAlreadyIsMain != null)
+            {
+                getAlreadyIsMain.IsMain = false;
+                await screenHeaderPhotoDal.Update(getAlreadyIsMain);
+            }
+
+
             var mapForUpdate = mapper.Map(updateDto, checkByIdFromRepo);
             var updatePhoto = await screenHeaderPhotoDal.Update(mapForUpdate);
             return mapper.Map<ScreenHeaderPhoto, ScreenHeaderPhotoForReturnDto>(updatePhoto);
         }
 
-        [SecuredOperation("Sudo,ScreenHeaderPhotos.Update,Screen.All", Priority = 1)]
+        [SecuredOperation("Sudo,Screens.Update,Screens.All", Priority = 1)]
         [ValidationAspect(typeof(ScreenHeaderPhotoValidator), Priority = 2)]
         public async Task<ScreenHeaderPhotoForReturnDto> Update(ScreenHeaderPhotoForCreationDto updateDto)
         {

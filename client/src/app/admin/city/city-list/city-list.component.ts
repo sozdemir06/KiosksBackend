@@ -12,8 +12,8 @@ import { CityStore } from 'src/app/core/services/stores/city-store';
 export class CityListComponent implements OnInit {
   displayedColumns: string[] = ["Id",'Name',"Selected","Actions"];
   @Input() dataSource:ICity[];
-  allowedRoleCityForUpdate:string[]=['Sudo','Cities.Update'];
-  allowedRoleCityForDelete:string[]=['Sudo','Cities.Delete'];
+  allowedRoles:string[]=['Sudo','AddCityForWheatherForeCast'];
+
 
   constructor(
     private dialog:MatDialog,

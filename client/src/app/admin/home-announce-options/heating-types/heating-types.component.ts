@@ -10,7 +10,7 @@ import { HeatingTypeStore } from 'src/app/core/services/stores/heating-type-stor
 })
 export class HeatingTypesComponent implements OnInit {
 toolbarTitle:string="Isıtma Tipi";
-allowedRoles:string[]=["Sudo","HeatingTypes.Create"];
+allowedRoles:string[]=["Sudo","HomeAnnounceOptions.All"];
 
   constructor(
     private dialog:MatDialog,

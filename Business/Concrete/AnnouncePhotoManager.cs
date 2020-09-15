@@ -31,7 +31,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,AnnouncePhotos.Create,Announces.All", Priority = 1)]
+         [SecuredOperation("Sudo,Announces.Create,Announces.All", Priority = 1)]
         [ValidationAspect(typeof(AnnouncePhotoValidator), Priority = 2)]
         public async Task<AnnouncePhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
@@ -69,7 +69,7 @@ namespace Business.Concrete
             return mapper.Map<AnnouncePhoto, AnnouncePhotoForReturnDto>(createPhoto);
         }
 
-        [SecuredOperation("Sudo,AnnouncePhotos.Delete,Announces.All", Priority = 1)]
+        [SecuredOperation("Sudo,Announces.Delete,Announces.All", Priority = 1)]
         public async Task<AnnouncePhotoForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await announcePhotoDal.GetAsync(x => x.Id == Id);
@@ -84,7 +84,7 @@ namespace Business.Concrete
             return mapper.Map<AnnouncePhoto, AnnouncePhotoForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,Announces.List,Announces.All", Priority = 1)]
+         [SecuredOperation("Sudo,Announces.List,Announces.All", Priority = 1)]
         public async Task<List<AnnouncePhotoForReturnDto>> GetListAsync(int announceId)
         {
             var getListFromRepo = await announcePhotoDal.GetListAsync(x => x.AnnounceId == announceId);
@@ -96,7 +96,7 @@ namespace Business.Concrete
             return mapper.Map<List<AnnouncePhoto>, List<AnnouncePhotoForReturnDto>>(getListFromRepo);
         }
 
-        [SecuredOperation("Sudo,AnnouncePhotos.Update,Announces.All", Priority = 1)]
+         [SecuredOperation("Sudo,Announces.Update,Announces.All", Priority = 1)]
         [ValidationAspect(typeof(AnnouncePhotoValidator), Priority = 2)]
         public async Task<AnnouncePhotoForReturnDto> Update(AnnouncePhotoForCretionDto updateDto)
         {

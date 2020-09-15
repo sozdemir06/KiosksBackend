@@ -12,8 +12,8 @@ import { MatDialog } from '@angular/material/dialog';
 export class CurrencyListComponent implements OnInit {
   displayedColumns: string[] = ["Id",'Name',"Selected","Actions"];
   @Input() dataSource:ICurrency[];
-  allowedRoleCityForUpdate:string[]=['Sudo','Currencies.Update'];
-  allowedRoleCityForDelete:string[]=['Sudo','Currencies.Delete'];
+  allowedRoles:string[]=['Sudo','AddMoneyForExchangeRate'];
+
 
   constructor(
     private dialog:MatDialog,

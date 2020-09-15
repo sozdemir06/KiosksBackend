@@ -12,7 +12,7 @@ import { EditTvOptionsDialogComponent } from './edit-tv-options-dialog/edit-tv-o
 export class LiveTvOptionsComponent implements OnInit {
   toolbarTitle:string="Tv Listesi";
   toolbarSearchInputPlaceholder:string="Arama kapalı";
-  allowedRoles:string[]=["Sudo","BuildingsAge.Create"];
+  allowedRoles:string[]=["Sudo","LiveTvBroadCastsOptions.All"];
 
   constructor(
     public liveTvListStore:LiveTvListStore,

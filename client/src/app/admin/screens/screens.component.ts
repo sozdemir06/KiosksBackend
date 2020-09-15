@@ -9,13 +9,14 @@ import { EditScreensDialogComponent } from './edit-screens-dialog/edit-screens-d
 })
 export class ScreensComponent implements OnInit {
 toolbarTitle:string="Ekranlar";
-allowedRoles:string[]=['Sudo','Screens.Create'];
+allowedRoles:string[]=['Sudo','Screens.Create','Screens.All'];
 
   constructor(
     private dialog:MatDialog
   ) { }
 
   ngOnInit(): void {
+    
   }
 
 

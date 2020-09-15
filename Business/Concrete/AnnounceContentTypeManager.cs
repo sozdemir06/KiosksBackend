@@ -26,7 +26,7 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("Sudo,AnnounceContentType.Create,AnnounceContentType.All", Priority = 1)]
+        [SecuredOperation("Sudo,AnnounceOptons.All", Priority = 1)]
         [ValidationAspect(typeof(AnnounceContentTypeValidator), Priority = 2)]
 
         public async Task<AnnounceContentTypeForReturnDto> Create(AnnounceContentTypeForCreationDto createDto)
@@ -43,7 +43,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,AnnounceContentType.Delete,AnnounceContentType.All", Priority = 1)]
+        [SecuredOperation("Sudo,AnnounceOptons.All", Priority = 1)]
         public async Task<AnnounceContentTypeForReturnDto> Delete(int Id)
         {
             var checkFromDb = await announceConetntTypeDal.GetAsync(x => x.Id == Id);
@@ -57,7 +57,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,AnnounceContentType.List,AnnounceContentType.All", Priority = 1)]
+       [SecuredOperation("Sudo,AnnounceOptons.All", Priority = 1)]
         public async Task<List<AnnounceContentTypeForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await announceConetntTypeDal.GetListAsync();
@@ -70,7 +70,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-         [SecuredOperation("Sudo,AnnounceContentType.Update,AnnounceContentType.All", Priority = 1)]
+         [SecuredOperation("Sudo,AnnounceOptons.All", Priority = 1)]
         public async Task<AnnounceContentTypeForReturnDto> Update(AnnounceContentTypeForCreationDto updateDto)
         {
             var checkById = await announceConetntTypeDal.GetAsync(x => x.Id == updateDto.Id);

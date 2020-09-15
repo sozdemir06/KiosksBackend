@@ -33,7 +33,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,FoodMenuSubScreens.Create,FoodMenu.All", Priority = 1)]
+        [SecuredOperation("Sudo,FoodMenu.Create,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuSubScreenValidator), Priority = 2)]
         public async Task<FoodMenuSubScreenForReturnDto> Create(FoodMenuSubScreenForCreationDto creationDto)
         {
@@ -79,7 +79,7 @@ namespace Business.Concrete
             return mapper.Map<FoodMenuSubscreen, FoodMenuSubScreenForReturnDto>(getFromRepo);
         }
 
-        [SecuredOperation("Sudo,FoodMenuSubScreens.Delete,FoodMenu.All", Priority = 1)]
+      [SecuredOperation("Sudo,FoodMenu.Delete,FoodMenu.All", Priority = 1)]
         public async Task<FoodMenuSubScreenForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await foodMenuSubScreenDal.GetAsync(x => x.Id == Id);
@@ -92,7 +92,7 @@ namespace Business.Concrete
             return mapper.Map<FoodMenuSubscreen, FoodMenuSubScreenForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,FoodMenuSubScreens.List,FoodMenu.All", Priority = 1)]
+         [SecuredOperation("Sudo,FoodMenu.List,FoodMenu.All", Priority = 1)]
         public async Task<List<FoodMenuSubScreenForReturnDto>> GetByAnnounceId(int announceId)
         {
             var spec = new FoodMenuSubScreenWithSubScreenSpecification(announceId);
@@ -105,7 +105,7 @@ namespace Business.Concrete
             return mapper.Map<List<FoodMenuSubscreen>, List<FoodMenuSubScreenForReturnDto>>(getHomeAnnounceSubScreenByAnnounceId);
         }
 
-        [SecuredOperation("Sudo,FoodMenuSubScreens.List,FoodMenu.All", Priority = 1)]
+        [SecuredOperation("Sudo,FoodMenu.List,FoodMenu.All", Priority = 1)]
         public async Task<List<FoodMenuSubScreenForReturnDto>> GetListAsync()
         {
             var getListFromRepo = await foodMenuSubScreenDal.GetListAsync();
@@ -116,7 +116,9 @@ namespace Business.Concrete
 
             return mapper.Map<List<FoodMenuSubscreen>, List<FoodMenuSubScreenForReturnDto>>(getListFromRepo);
         }
-        [SecuredOperation("Sudo,FoodMenuSubScreens.Update,FoodMenu.All", Priority = 1)]
+
+
+        [SecuredOperation("Sudo,FoodMenu.Update,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuSubScreenValidator), Priority = 2)]
         public async Task<FoodMenuSubScreenForReturnDto> Update(FoodMenuSubScreenForCreationDto updateDto)
         {

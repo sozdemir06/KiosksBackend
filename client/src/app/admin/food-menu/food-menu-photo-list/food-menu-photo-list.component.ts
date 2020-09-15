@@ -13,8 +13,8 @@ export class FoodMenuPhotoListComponent implements OnInit {
   @Input() images: IFoodMenuPhoto[];
   @Input() announceId: number;
 
-  @Input() roleForUpdate: string[] = [];
-  @Input() roleForDelete: string[] = [];
+  @Input() roleForUpdate: string[] = ["Sudo","FoodMenu.Update","FoodMenu.All"];
+  @Input() roleForDelete: string[] = ["Sudo","FoodMenu.Delete","FoodMenu.All"];
   constructor(
     private dialog: MatDialog,
     private foodMenuStore: FoodMenuStore

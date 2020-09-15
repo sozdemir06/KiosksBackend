@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./screen-panel.component.scss']
 })
 export class ScreenPanelComponent implements OnInit {
-  allowedRolesForList:string[]=['Sudo','Screens.List'];
+  allowedRolesForList:string[]=['Sudo','Screens.List','Screens.Update','Screens.Create','Screens.All'];
   
   constructor() { }
 

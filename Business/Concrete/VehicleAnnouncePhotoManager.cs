@@ -31,7 +31,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,VehicleAnnouncePhotos.Create,VehicleAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounces.Create,VehicleAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnouncePhotoValidator), Priority = 2)]
         public async Task<VehicleAnnouncePhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
@@ -53,7 +53,7 @@ namespace Business.Concrete
             return mapper.Map<VehicleAnnouncePhoto, VehicleAnnouncePhotoForReturnDto>(createPhoto);
         }
 
-        [SecuredOperation("Sudo,VehicleAnnouncePhotos.Delete,VehicleAnnounces.All", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounces.Delete,VehicleAnnounces.All", Priority = 1)]
         public async Task<VehicleAnnouncePhotoForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await vehicleAnnouncePhotoDal.GetAsync(x => x.Id == Id);
@@ -68,7 +68,7 @@ namespace Business.Concrete
             return mapper.Map<VehicleAnnouncePhoto, VehicleAnnouncePhotoForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,VehicleAnnouncePhotos.List,VehicleAnnounces.All", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounces.List,VehicleAnnounces.All", Priority = 1)]
         public async Task<List<VehicleAnnouncePhotoForReturnDto>> GetListAsync(int announceId)
         {
             var getListFromRepo = await vehicleAnnouncePhotoDal.GetListAsync(x => x.VehicleAnnounceId == announceId);
@@ -80,7 +80,7 @@ namespace Business.Concrete
             return mapper.Map<List<VehicleAnnouncePhoto>, List<VehicleAnnouncePhotoForReturnDto>>(getListFromRepo);
         }
 
-        [SecuredOperation("Sudo,VehicleAnnouncePhotos.Update,VehicleAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounces.Update,VehicleAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnouncePhotoValidator), Priority = 2)]
         public async Task<VehicleAnnouncePhotoForReturnDto> Update(VehicleAnnouncePhotoForCreationDto updateDto)
         {

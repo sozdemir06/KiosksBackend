@@ -1,0 +1,17 @@
+<mat-expansion-panel *appHasRole="allowedRolesForList">
+  <mat-expansion-panel-header>
+    <mat-panel-title class="d-flex align-items-center">
+      <mat-icon>view_list</mat-icon>
+      <span>Kullanıcı Opsiyon Listesi</span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-nav-list routerLink="/app/admin/campuses">
+    <a mat-list-item>Kampus Listesi</a>
+  </mat-nav-list>
+  <mat-nav-list routerLink="/app/admin/departments">
+    <a mat-list-item>Birim Listesi</a>
+  </mat-nav-list>
+  <mat-nav-list routerLink="/app/admin/degrees">
+    <a mat-list-item>Unvan Listesi</a>
+  </mat-nav-list>
+</mat-expansion-panel>

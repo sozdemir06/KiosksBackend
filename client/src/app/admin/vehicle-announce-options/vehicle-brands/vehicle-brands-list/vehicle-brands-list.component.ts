@@ -13,8 +13,8 @@ import { VehicleBrandStore } from 'src/app/core/services/stores/vehicle-brand-st
 export class VehicleBrandsListComponent implements OnInit {
 displayedColumns:string[]=["Id","BrandName","Actions"];
 @Input() dataSource:IVehicleBrand[];
-allowedRolesForUpdate:string[]=["Sudo","VehicleBrands.Update"];
-allowedRolesForDelete:string[]=["Sudo","VehicleBrands.Delete"];
+allowedRoles:string[]=["Sudo","VehicleAnnounceOptions.All"];
+
   constructor(
     private dialog:MatDialog,
     private vehicleBrandStore:VehicleBrandStore

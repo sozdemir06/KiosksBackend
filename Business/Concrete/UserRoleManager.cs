@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
+using BusinessAspects.AutoFac;
 using Core.Entities;
 using Core.Entities.Concrete;
 using Core.Extensions;
@@ -31,6 +32,7 @@ namespace Business.Concrete
 
         }
 
+        [SecuredOperation("Sudo,User.Create,User.All", Priority = 1)]
         public async Task<RoleForListDto> AddRoleToUser(int userId, int roleId)
         {
             var userRole=await userRoleDal.GetAsync(x=>x.UserId==userId && x.RoleId==roleId);
@@ -62,6 +64,7 @@ namespace Business.Concrete
 
         }
 
+         [SecuredOperation("Sudo,User.Delete,User.All", Priority = 1)]
         public async Task<RoleForListDto> DeleteRoleFromUser(int userId,int roleId)
         {
              var role=await roleDal.GetAsync(x=>x.Id==roleId);
@@ -87,6 +90,7 @@ namespace Business.Concrete
              return mapper.Map<Role,RoleForListDto>(role);
         }
 
+        [SecuredOperation("Sudo,User.List,User.All", Priority = 1)]
         public async Task<List<UserRoleForListDto>> GetUserRoles(int userId)
         {
             var user = await userDal.GetAsync(x => x.Id == userId);

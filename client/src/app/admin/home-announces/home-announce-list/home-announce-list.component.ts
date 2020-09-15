@@ -36,8 +36,7 @@ export class HomeAnnounceListComponent implements OnInit {
   constructor(
     private homeAnnounceStore: HomeAnnounceStore,
     private dialog: MatDialog,
-    private helperService: HelperService,
-    private notifyService: NotifyService
+
   ) {}
 
   ngOnInit(): void {}

@@ -14,8 +14,8 @@ export class AnnouncesPhotoListComponent implements OnInit {
   @Input() images: IAnnouncePhoto[];
   @Input() announceId: number;
 
-  @Input() roleForUpdate: string[] = [];
-  @Input() roleForDelete: string[] = [];
+  @Input() roleForUpdate: string[] = ["Sudo","Announces.Update","Announces.All"];
+  @Input() roleForDelete: string[] = ["Sudo","Announces.Delete","Announces.All"];
   constructor(
     private dialog: MatDialog,
     private announceStore: AnnounceStore

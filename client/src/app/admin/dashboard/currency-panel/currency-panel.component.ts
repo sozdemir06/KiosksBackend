@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./currency-panel.component.scss']
 })
 export class CurrencyPanelComponent implements OnInit {
-  allowedRolesForList:string[]=['Sudo','Currencies.List','Currencies.All']
+  allowedRolesForList:string[]=['Sudo','AddMoneyForExchangeRate']
   constructor() { }
 
   ngOnInit(): void {

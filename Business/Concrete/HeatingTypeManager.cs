@@ -25,7 +25,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,HeatingTypes.Create", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]        
         [ValidationAspect(typeof(HeatingTypeValidator), Priority = 2)]
         public async Task<HeatingTypeForReturnDto> Create(HeatingTypeForCreationDto createDto)
         {
@@ -41,7 +41,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,HeatingTypes.Delete", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]        
         public async Task<HeatingTypeForReturnDto> Delete(int Id)
         {
             var checkFromDb = await heatingTypeDal.GetAsync(x => x.Id == Id);
@@ -55,7 +55,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,HeatingTypes.List", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]        
         public async Task<List<HeatingTypeForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await heatingTypeDal.GetListAsync();
@@ -68,7 +68,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,HeatingTypes.Update", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]        
         [ValidationAspect(typeof(HeatingTypeValidator), Priority = 2)]
         public async Task<HeatingTypeForReturnDto> Update(HeatingTypeForCreationDto updateDto)
         {

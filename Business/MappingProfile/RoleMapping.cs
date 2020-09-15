@@ -19,6 +19,7 @@ namespace Business.MappingProfile
             CreateMap<Department, DepartmentForReturnDto>();
             CreateMap<DepartmentForCreationDto, Department>();
             CreateMap<Degree, DegreeForReturnDto>();
+            CreateMap<DegreeForCreationDto, Degree>();
             CreateMap<Role, RoleForListDto>();
             CreateMap<RoleCategory, RoleCategoryForListDto>();
             CreateMap<RoleForCreationAndUpdateDto, Role>();
@@ -170,7 +171,8 @@ namespace Business.MappingProfile
             CreateMap<LiveTvBroadCastForCreationDto, LiveTvBroadCast>();
 
             CreateMap<LiveTvBroadCast, LiveTvBroadCastForDetailDto>();
-
+            CreateMap<LiveTvBroadCast, LiveTvBroadCastForKiosksToReturnDto>();
+            
             CreateMap<LiveTvList, LiveTvListForReturnDto>();
             CreateMap<LiveTvListForCreationDto, LiveTvList>();
 

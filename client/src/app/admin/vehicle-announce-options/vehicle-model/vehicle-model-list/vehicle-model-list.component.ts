@@ -13,8 +13,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 export class VehicleModelListComponent implements OnInit {
   displayedColumns: string[] = ['Id', 'VehicleModelName','BrandName',"CategoryName", 'Actions'];
   @Input() dataSource: IVehicleModel[];
-  allowedRolesForUpdate: string[] = ['Sudo', 'VehicleModels.Update'];
-  allowedRolesForDelete: string[] = ['Sudo', 'VehicleModels.Delete'];
+  allowedRoles:string[]=["Sudo","VehicleAnnounceOptions.All"];
+
 
 
   constructor(

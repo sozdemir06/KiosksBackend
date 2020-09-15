@@ -25,7 +25,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,ScreenHeader.Create,Screen.All", Priority = 1)]
+        [SecuredOperation("Sudo,Screens.Create,Screens.All", Priority = 1)]
         [ValidationAspect(typeof(ScreenHeaderValidator), Priority = 2)]
         public async Task<ScreenHeaderForReturnDto> Create(ScreenHeaderForCreationDto createDto)
         {
@@ -35,7 +35,7 @@ namespace Business.Concrete
             return mapper.Map<ScreenHeader, ScreenHeaderForReturnDto>(screenHeaderForCreate);
         }
 
-        [SecuredOperation("Sudo,ScreenHeader.Delete,Screen.All", Priority = 1)]
+       [SecuredOperation("Sudo,Screens.Delete,Screens.All", Priority = 1)]
         public async Task<ScreenHeaderForReturnDto> Delete(int Id)
         {
             var checkFromDb = await screenHeaderDal.GetAsync(x => x.Id == Id);
@@ -49,7 +49,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,ScreenHeader.List,Screen.All", Priority = 1)]
+        [SecuredOperation("Sudo,Screens.List,Screens.All", Priority = 1)]
         public async Task<List<ScreenHeaderForReturnDto>> GetListAsync()
         {
             var numberOfRoomsList = await screenHeaderDal.GetListAsync();
@@ -62,7 +62,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,ScreenHeader.Update,Screen.All", Priority = 1)]
+       [SecuredOperation("Sudo,Screens.Update,Screens.All", Priority = 1)]
         [ValidationAspect(typeof(ScreenHeaderValidator), Priority = 2)]
         public async Task<ScreenHeaderForReturnDto> Update(ScreenHeaderForCreationDto updateDto)
         {

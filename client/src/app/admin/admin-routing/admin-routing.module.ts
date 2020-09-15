@@ -15,13 +15,13 @@ const routes: Routes = [
         path: 'users',
         loadChildren: () =>
           import('../users/users.module').then((m) => m.UsersModule),
-        data: { roles: ['Sudo'] },
+        data: { roles: ['Sudo','User.List','User.All'] },
       },
       {
         path: 'roles',
         loadChildren: () =>
           import('../roles/roles.module').then((m) => m.RolesModule),
-        data: { roles: ['Sudo'] },
+        data: { roles: ['Sudo','Roles.List','Roles.All'] },
       },
       {
         path: 'roles-category',
@@ -29,7 +29,7 @@ const routes: Routes = [
           import('../role-category/role-category.module').then(
             (m) => m.RoleCategoryModule
           ),
-        data: { roles: ['Sudo'] },
+          data: { roles: ['Sudo','Roles.List','Roles.All'] },
       },
       {
         path: 'number-of-rooms',
@@ -37,7 +37,7 @@ const routes: Routes = [
           import(
             '../home-announce-options/number-of-room/number-of-room.module'
           ).then((m) => m.NumberOfRoomModule),
-        data: { roles: ['Sudo', 'NumberOfRoom.List'] },
+        data: { roles: ['Sudo', 'HomeAnnounceOptions.All'] },
       },
       {
         path: 'buildings-age',
@@ -45,7 +45,7 @@ const routes: Routes = [
           import(
             '../home-announce-options/building-age/building-age.module'
           ).then((m) => m.BuildingAgeModule),
-        data: { roles: ['Sudo', 'BuildingsAge.List'] },
+          data: { roles: ['Sudo', 'HomeAnnounceOptions.All'] },
       },
       {
         path: 'flat-of-home',
@@ -53,7 +53,7 @@ const routes: Routes = [
           import(
             '../home-announce-options/flat-of-home/flat-of-home.module'
           ).then((m) => m.FlatOfHomeModule),
-        data: { roles: ['Sudo', 'FlatsOfHome.List'] },
+          data: { roles: ['Sudo', 'HomeAnnounceOptions.All'] },
       },
       {
         path: 'heating-types',
@@ -61,7 +61,7 @@ const routes: Routes = [
           import(
             '../home-announce-options/heating-types/heating-types.module'
           ).then((m) => m.HeatingTypesModule),
-        data: { roles: ['Sudo', 'HeatingTypes.List'] },
+          data: { roles: ['Sudo', 'HomeAnnounceOptions.All'] },
       },
       {
         path: 'vehicle-categories',
@@ -69,7 +69,7 @@ const routes: Routes = [
           import(
             '../vehicle-announce-options/vehicle-categories/vehicle-categories.module'
           ).then((m) => m.VehicleCategoriesModule),
-        data: { roles: ['Sudo', 'VehicleCategories.List'] },
+        data: { roles: ['Sudo', 'VehicleAnnounceOptions.All'] },
       },
       {
         path: 'vehicle-brands',
@@ -77,7 +77,7 @@ const routes: Routes = [
           import(
             '../vehicle-announce-options/vehicle-brands/vehicle-brands.module'
           ).then((m) => m.VehicleBrandsModule),
-        data: { roles: ['Sudo', 'VehicleBrands.List'] },
+          data: { roles: ['Sudo', 'VehicleAnnounceOptions.All'] },
       },
       {
         path: 'vehicle-models',
@@ -85,7 +85,7 @@ const routes: Routes = [
           import(
             '../vehicle-announce-options/vehicle-model/vehicle-model.module'
           ).then((m) => m.VehicleModelModule),
-        data: { roles: ['Sudo', 'VehicleModels.List'] },
+          data: { roles: ['Sudo', 'VehicleAnnounceOptions.All'] },
       },
       {
         path: 'vehicle-fuel-types',
@@ -93,7 +93,7 @@ const routes: Routes = [
           import(
             '../vehicle-announce-options/vehicle-fueltype/vehicle-fueltype.module'
           ).then((m) => m.VehicleFueltypeModule),
-        data: { roles: ['Sudo', 'VehicleFuelTypes.List'] },
+          data: { roles: ['Sudo', 'VehicleAnnounceOptions.All'] },
       },
       {
         path: 'vehicle-gear-types',
@@ -101,7 +101,7 @@ const routes: Routes = [
           import(
             '../vehicle-announce-options/vehicle-geartype/vehicle-geartype.module'
           ).then((m) => m.VehicleGeartypeModule),
-        data: { roles: ['Sudo', 'VehicleGearTypes.List'] },
+          data: { roles: ['Sudo', 'VehicleAnnounceOptions.All'] },
       },
       {
         path: 'vehicle-engine-sizes',
@@ -109,13 +109,13 @@ const routes: Routes = [
           import(
             '../vehicle-announce-options/vehicle-engine-size/vehicle-engine-size.module'
           ).then((m) => m.VehicleEngineSizeModule),
-        data: { roles: ['Sudo', 'VehicleEngineSizes.List'] },
+          data: { roles: ['Sudo', 'VehicleAnnounceOptions.All'] },
       },
       {
         path: 'screens',
         loadChildren: () =>
           import('../screens/screens.module').then((m) => m.ScreensModule),
-        data: { roles: ['Sudo', 'Screens.List'] },
+        data: { roles: ['Sudo', 'Screens.List','Screens.All'] },
       },
       {
         path: 'subscreens/:id',
@@ -123,7 +123,7 @@ const routes: Routes = [
           import('../subscreens/subscreens.module').then(
             (m) => m.SubscreensModule
           ),
-        data: { roles: ['Sudo', 'SubScreens.List'] },
+        data: { roles: ['Sudo', 'SubScreens.List','SubScreens.All'] },
       },
       {
         path: 'home-announces',
@@ -155,7 +155,7 @@ const routes: Routes = [
           import(
             '../announces-options/announce-content-types/announce-content-types.module'
           ).then((m) => m.AnnounceContentTypesModule),
-          data: { roles: ['Sudo', 'AnnounceContentTypes.List', 'Announces.All'] },
+          data: { roles: ['Sudo', 'Announces.List', 'Announces.All'] },
       },
       {
         path:"news",
@@ -170,24 +170,38 @@ const routes: Routes = [
       {
         path:"cities",
         loadChildren:()=>import("../city/city.module").then(m=>m.CityModule),
-        data:{roles:['Sudo','Cities.List','Cities.All']}
+        data:{roles:['Sudo','AddCityForWheatherForeCast']}
       },
       {
         path:"currencies",
         loadChildren:()=>import("../currency/currency.module").then(m=>m.CurrencyModule),
-        data:{roles:['Sudo','Currencies.List','Currencies.All']}
+        data:{roles:['Sudo','AddMoneyForExchangeRate']}
       },
       {
         path:"live-tv-broadcast",
         loadChildren:()=>import("../live-tv/live-tv.module").then(m=>m.LiveTvModule),
-        data:{roles:['Sudo','LiveTvBroadCast.List','LiveTvBroadCast.All']}
+        data:{roles:['Sudo','LiveTvBroadCasts.List','LiveTvBroadCasts.All']}
       },
       {
         path:"live-tv-list",
         loadChildren:()=>import("../live-tv-options/live-tv-options.module").then(m=>m.LiveTvOptionsModule),
-        data:{roles:['Sudo','LiveTvList.List','LiveTvList.All']}
+        data:{roles:['Sudo','LiveTvBroadCastsOptions.All']}
+      },
+      {
+        path:"campuses",
+        loadChildren:()=>import("../user-options/campus/campus.module").then(m=>m.CampusModule),
+        data:{roles:['Sudo','UserOptions.All']}
+      },
+      {
+        path:"departments",
+        loadChildren:()=>import("../user-options/department/department.module").then(m=>m.DepartmentModule),
+        data:{roles:['Sudo','UserOptions.All']}
+      },
+      {
+        path:"degrees",
+        loadChildren:()=>import("../user-options/degree/degree.module").then(m=>m.DegreeModule),
+        data:{roles:['Sudo','UserOptions.All']}
       }
-
     ],
   },
 ];

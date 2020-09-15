@@ -10,7 +10,7 @@ import { EditVehicleFueltypeDialogComponent } from './edit-vehicle-fueltype-dial
 })
 export class VehicleFueltypeComponent implements OnInit {
 toolbarTitle:string="Yakıt Tipi";
-allowedRolesForCreate:string[]=['Sudo','VehicleFuelTypes.Create']
+allowedRoles:string[]=["Sudo","VehicleAnnounceOptions.All"];
   constructor(
     public vehicleFuelTypeStore:VehicleFuelTypeStore,
     private dialog:MatDialog

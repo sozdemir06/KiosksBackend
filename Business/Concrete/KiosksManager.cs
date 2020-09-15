@@ -18,13 +18,16 @@ namespace Business.Concrete
     {
         private readonly IMapper mapper;
         private readonly IScreenDal screenDal;
+        private readonly ILiveTvBroadCastDal liveTvBroadCastDal;
         private readonly ISubSCreenDal subSCreenDal;
         private readonly IAnnounceDal announceDal;
         private readonly IHomeAnnounceDal homeAnnounceDal;
         private readonly IVehicleAnnounceDal vehicleAnnounceDal;
         private readonly INewsDal newsDal;
         private readonly IFoodMenuDal foodMenuDal;
-        public KiosksManager(IMapper mapper, IScreenDal screenDal, INewsDal newsDal, IFoodMenuDal foodMenuDal,
+        public KiosksManager(IMapper mapper, IScreenDal screenDal,ILiveTvBroadCastDal liveTvBroadCastDal, 
+            INewsDal newsDal,
+            IFoodMenuDal foodMenuDal,
             IHomeAnnounceDal homeAnnounceDal, IVehicleAnnounceDal vehicleAnnounceDal,
             ISubSCreenDal subSCreenDal, IAnnounceDal announceDal)
         {
@@ -33,6 +36,7 @@ namespace Business.Concrete
             this.announceDal = announceDal;
             this.subSCreenDal = subSCreenDal;
             this.screenDal = screenDal;
+            this.liveTvBroadCastDal = liveTvBroadCastDal;
             this.mapper = mapper;
             this.newsDal = newsDal;
             this.foodMenuDal = foodMenuDal;
@@ -47,6 +51,7 @@ namespace Business.Concrete
             var vehicleAnnounceFromRepo=await vehicleAnnounceDal.GetVehicleAnnouncesForKiosksByScreenIdAsync(screenId);
             var newsFromRepo=await newsDal.GetNewsForKiosksByScreenIdAsync(screenId);
             var foodsMenuFromRepo=await foodMenuDal.GetFoodsMenuForKiosksByScreenIdAsync(screenId);
+            var liveTvBroadCasts=await liveTvBroadCastDal.GetLiveTvBroadCastForKiosksByScreenIdAsync(screenId);
 
             return new KiosksForReturnDto()
             {
@@ -57,6 +62,7 @@ namespace Business.Concrete
                 VehicleAnnounces = mapper.Map<List<VehicleAnnounce>,List<VehicleAnnounceForKiosksToReturnDto>>(vehicleAnnounceFromRepo),
                 News = mapper.Map<List<News>,List<NewsForKiosksToReturnDto>>(newsFromRepo),
                 FoodsMenu = mapper.Map<List<FoodMenu>,List<FoodMenuForKiosksToReturnDto>>(foodsMenuFromRepo),
+                LiveTvBroadCasts=mapper.Map<List<LiveTvBroadCast>,List<LiveTvBroadCastForKiosksToReturnDto>>(liveTvBroadCasts)
        
             };
 

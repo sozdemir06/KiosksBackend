@@ -13,8 +13,8 @@ import { NumberOfroomStore } from 'src/app/core/services/stores/number-of-rrom-s
 export class NumberOfRoomsListComponent implements OnInit {
   displayedColumns: string[] = ["Id",'Name',"Actions"];
   @Input() dataSource:INumberOfRoom[];
-  allowedRoleNumberOfRoomForUpdate:string[]=['Sudo','NumberOfRoom.Update'];
-  allowedRoleNumberOfRoomForDelete:string[]=['Sudo','NumberOfRoom.Delete'];
+  allowedRoleNumberOfRoomForUpdate:string[]=['Sudo','HomeAnnounceOptions.All'];
+  allowedRoleNumberOfRoomForDelete:string[]=['Sudo','HomeAnnounceOptions.All'];
   constructor(
     private dialog:MatDialog,
     private numberOfRoomStore:NumberOfroomStore

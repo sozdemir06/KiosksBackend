@@ -59,11 +59,11 @@
           <mat-icon>verified_user</mat-icon>
           <span>Yetkiler</span>
         </button> 
-        <button mat-menu-item (click)="onActivePassive(element)" [disabled]="element?.isActive">
+        <button mat-menu-item (click)="onActivePassive(element)" [disabled]="!element?.isActive">
           <mat-icon>lock</mat-icon>
           <span>Hesabı Kapat</span>
         </button>
-        <button mat-menu-item (click)="onActivePassive(element)" [disabled]="!element?.isActive">
+        <button mat-menu-item (click)="onActivePassive(element)" [disabled]="element?.isActive">
           <mat-icon>lock_open</mat-icon>
           <span>Hesabı Aç</span>
         </button>

@@ -13,7 +13,7 @@ export class AnnouncesSubscreensComponent implements OnInit {
 
   @Input() subscreens:IAnnounceSubScreen[];
   displayedColumns:string[]=["Name","Actions"];
-  roleForRemove:string[]=['Sudo','VehicleAnnounceSubScreens.Delete','VehicleAnnounces.All']
+  roleForRemove:string[]=['Sudo','Announces.Delete','Announces.All']
   constructor(
     private dialog:MatDialog,
     private announceStore:AnnounceStore

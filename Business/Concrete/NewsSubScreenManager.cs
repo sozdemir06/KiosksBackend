@@ -33,7 +33,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,NewsSubScreens.Create,News.All", Priority = 1)]
+        [SecuredOperation("Sudo,News.Create,News.All", Priority = 1)]
         [ValidationAspect(typeof(NewsSubScreenValidator), Priority = 2)]
         public async Task<NewsSubScreenForReturnDto> Create(NewsSubScreenForCreationDto creationDto)
         {
@@ -79,7 +79,7 @@ namespace Business.Concrete
             return mapper.Map<NewsSubScreen, NewsSubScreenForReturnDto>(getFromRepo);
         }
 
-        [SecuredOperation("Sudo,NewsSubScreens.Delete,News.All", Priority = 1)]
+        [SecuredOperation("Sudo,News.Delete,News.All", Priority = 1)]
         public async Task<NewsSubScreenForReturnDto> Delete(int Id)
         {
              var checkByIdFromRepo = await newsSubScreenDal.GetAsync(x => x.Id == Id);
@@ -92,7 +92,7 @@ namespace Business.Concrete
             return mapper.Map<NewsSubScreen, NewsSubScreenForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,NewsSubScreens.List,News.All", Priority = 1)]
+        [SecuredOperation("Sudo,News.List,News.All", Priority = 1)]
         public async Task<List<NewsSubScreenForReturnDto>> GetByAnnounceId(int announceId)
         {
              var spec = new NewsSubScreenWithSubScreenByNewsId(announceId);
@@ -105,7 +105,7 @@ namespace Business.Concrete
             return mapper.Map<List<NewsSubScreen>, List<NewsSubScreenForReturnDto>>(getHomeAnnounceSubScreenByAnnounceId);
         }
 
-        [SecuredOperation("Sudo,NewsSubScreens.List,News.All", Priority = 1)]
+         [SecuredOperation("Sudo,News.List,News.All", Priority = 1)]
         public async Task<List<NewsSubScreenForReturnDto>> GetListAsync()
         {
              var getListFromRepo = await newsSubScreenDal.GetListAsync();
@@ -117,7 +117,7 @@ namespace Business.Concrete
             return mapper.Map<List<NewsSubScreen>, List<NewsSubScreenForReturnDto>>(getListFromRepo);
         }
 
-        [SecuredOperation("Sudo,NewsSubScreens.Update,News.All", Priority = 1)]
+        [SecuredOperation("Sudo,News.Update,News.All", Priority = 1)]
         [ValidationAspect(typeof(NewsSubScreenValidator), Priority = 2)]
         public async  Task<NewsSubScreenForReturnDto> Update(NewsSubScreenForCreationDto updateDto)
         {

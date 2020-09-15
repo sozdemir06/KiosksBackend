@@ -14,8 +14,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 export class VehicleCategoryListComponent implements OnInit {
   displayedColumns: string[] = ['Id', 'Name', 'Actions'];
   @Input() dataSource: IVehicleCategory[];
- allowedRolesVehicleCatgeoriesForUpdate:string[]=['Sudo','VehicleCategories.Update'];
- allowedRolesVehicleCatgeoriesForDelete:string[]=['Sudo','VehicleCategories.Delete'];
+  allowedRoles:string[]=["Sudo","VehicleAnnounceOptions.All"];
+
  
   constructor(
     private dialog: MatDialog,

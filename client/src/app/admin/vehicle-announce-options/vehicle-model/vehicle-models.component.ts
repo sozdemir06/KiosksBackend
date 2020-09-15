@@ -18,7 +18,7 @@ export class VehicleModelsComponent implements OnInit {
   toolbarTitle: string = 'Araç Modelleri';
   toolbarSearchPlaceholderText: string =
     'Model ve Marka adı ile arama...';
-  allowedRolesForCreate: string[] = ['Sudo', 'VehicleModels.Create'];
+    allowedRoles:string[]=["Sudo","VehicleAnnounceOptions.All"];
 
   unSubscribeSearchInputEvent: any;
   @ViewChild('searchInput') Input: ElementRef;

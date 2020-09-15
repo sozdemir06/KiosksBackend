@@ -10,6 +10,7 @@ namespace Business.Constants
         public static string Updated = "Başarıyla güncellendi.";
 
         public static string UserNotFound = "Kimlik Bilgileri Doğrulanamadı. Lütfen Yeni Kayıt Ekranını Kullanınız.";
+        public static string UserNotApprovedProfile = "Profiliniz onaylanmamış Sistem Yöneticisi ile iletişime geçiniz.";
         public static string PasswordError = "Kimlik Bilgileri Doğrulanamadı, Kullanıcı adı ve/veya parola hatalı.";
         public static string SuccessfulLogin = "Sisteme giriş başarılı.";
         public static string UserAlreadyExists = "Bu kullanıcı zaten mevcut.";

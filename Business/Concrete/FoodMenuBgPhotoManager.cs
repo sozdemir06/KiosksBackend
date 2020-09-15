@@ -28,7 +28,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,FoodMenuPhotos.Create,FoodMenu.All", Priority = 1)]
+         [SecuredOperation("Sudo,FoodMenu.Create,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuBgPhotoValidator), Priority = 2)]
         public async Task<FoodMenuBgPhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
@@ -45,7 +45,7 @@ namespace Business.Concrete
             return mapper.Map<FoodMenuBgPhoto, FoodMenuBgPhotoForReturnDto>(createPhoto);
         }
 
-        [SecuredOperation("Sudo,FoodMenuPhotos.Delete,FoodMenu.All", Priority = 1)]
+       [SecuredOperation("Sudo,FoodMenu.Delete,FoodMenu.All", Priority = 1)]
         public async Task<FoodMenuBgPhotoForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await foodMenuBgPhotoDal.GetAsync(x => x.Id == Id);
@@ -60,7 +60,7 @@ namespace Business.Concrete
             return mapper.Map<FoodMenuBgPhoto, FoodMenuBgPhotoForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,FoodMenuPhotos.List,FoodMenu.All", Priority = 1)]
+        [SecuredOperation("Sudo,FoodMenu.List,FoodMenu.All", Priority = 1)]
         public async Task<List<FoodMenuBgPhotoForReturnDto>> GetListAsync()
         {
             var getListFromRepo = await foodMenuBgPhotoDal.GetListAsync();
@@ -72,7 +72,7 @@ namespace Business.Concrete
             return mapper.Map<List<FoodMenuBgPhoto>, List<FoodMenuBgPhotoForReturnDto>>(getListFromRepo);
         }
 
-        [SecuredOperation("Sudo,FoodMenuPhotos.Update,FoodMenu.All", Priority = 1)]
+         [SecuredOperation("Sudo,FoodMenu.Update,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuBgPhotoValidator), Priority = 2)]
         public async Task<FoodMenuBgPhotoForReturnDto> SetBackgroundPhoto(FoodMenuBgPhotoForCreationDto updateDto)
         {
@@ -94,7 +94,7 @@ namespace Business.Concrete
             return mapper.Map<FoodMenuBgPhoto, FoodMenuBgPhotoForReturnDto>(updatePhoto);
         }
 
-        [SecuredOperation("Sudo,FoodMenuPhotos.Update,FoodMenu.All", Priority = 1)]
+        [SecuredOperation("Sudo,FoodMenu.Update,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuBgPhotoValidator), Priority = 2)]
         public async Task<FoodMenuBgPhotoForReturnDto> Update(FoodMenuBgPhotoForCreationDto updateDto)
         {

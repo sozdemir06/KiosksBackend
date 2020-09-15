@@ -17,12 +17,8 @@ import { IScreenHeader } from 'src/app/shared/models/IScreenHeader';
 export class ScreensListComponent implements OnInit {
   panelOpenState: boolean = false;
   displayedColumns: string[] = ['Id', 'Name', 'Position', 'IsFull', 'Actions'];
-  allowedRoleForUpdate: string[] = ['Sudo', 'Screens.Update','Screen.All'];
-  allowedRoleForDelete: string[] = ['Sudo', 'Screens.Delete','Screen.All'];
-  allowedroleForSubScreenList: string[] = ['Sudo', 'SubScreens.List'];
-  allowedroleForHeader: string[] = ['Sudo', 'ScreenHeader.List','Screen.All'];
-  allowedroleForFooter: string[] = ['Sudo', 'ScreenHeader.List','Screen.All'];
-  allowedroleForScreenPhoto: string[] = ['Sudo', 'ScreenHeaderPhotos.List','Screen.All'];
+  allowedRoleForUpdate: string[] = ['Sudo', 'Screens.Update','Screens.All'];
+
 
   constructor(public screenStore: ScreenStore, private dialog: MatDialog) {}
 

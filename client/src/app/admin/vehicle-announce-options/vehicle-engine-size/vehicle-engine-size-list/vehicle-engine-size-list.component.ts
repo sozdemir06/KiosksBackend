@@ -14,8 +14,8 @@ export class VehicleEngineSizeListComponent implements OnInit {
 @Input() dataSource:IVehicleEngineSize[];
 
 displayedColumns:string[]=['Id','Name','Actions'];
-allowedRolesVehicleEngineSizeForUpdate:string[]=['Sudo','VehicleEngineSizes.Update'];
-allowedRolesVehicleEngineSizeForDelete:string[]=['Sudo','VehicleEngineSizes.Delete'];
+allowedRoles:string[]=["Sudo","VehicleAnnounceOptions.All"];
+
 
   constructor(
     private dialog:MatDialog,

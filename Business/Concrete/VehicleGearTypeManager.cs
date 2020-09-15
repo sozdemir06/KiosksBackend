@@ -10,7 +10,6 @@ using Core.Aspects.AutoFac.Validation;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using DataAccess.Abstract;
-using Entities.Concrete;
 using Entities.Dtos;
 
 namespace Business.Concrete
@@ -25,7 +24,7 @@ namespace Business.Concrete
             this.vehicleGearTypeDal = vehicleGearTypeDal;
 
         }
-        [SecuredOperation("Sudo,VehicleGearTypes.Create", Priority = 1)]
+      [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleGearTypeValidator), Priority = 2)]
         public async Task<VehicleGearTypeForReturnDto> Create(VehicleGearTypeForCreationDto createDto)
         {
@@ -41,7 +40,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleGearTypes.Delete", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<VehicleGearTypeForReturnDto> Delete(int Id)
         {
             var checkFromDb = await vehicleGearTypeDal.GetAsync(x => x.Id == Id);
@@ -55,7 +54,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleGearTypes.List", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<List<VehicleGearTypeForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await vehicleGearTypeDal.GetListAsync();
@@ -68,7 +67,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleGearTypes.Update", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleGearTypeValidator), Priority = 2)]
         public async Task<VehicleGearTypeForReturnDto> Update(VehicleGearTypeForCreationDto updateDto)
         {

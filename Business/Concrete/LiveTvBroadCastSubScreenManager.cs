@@ -35,7 +35,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,LiveTvBroadCastSubScreens.Create,LiveTvBroadCast.All", Priority = 1)]
+        [SecuredOperation("Sudo,LiveTvBroadCasts.Create,LiveTvBroadCasts.All", Priority = 1)]
         [ValidationAspect(typeof(LiveTvBroadCastSubsCreenValidator), Priority = 2)]
         public async Task<LiveTvBroadCastSubScreenForReturnDto> Create(LiveTvBroadCastSubScreenForCreationDto creationDto)
         {
@@ -81,7 +81,7 @@ namespace Business.Concrete
             return mapper.Map<LiveTvBroadCastSubScreen, LiveTvBroadCastSubScreenForReturnDto>(getFromRepo);
         }
 
-        [SecuredOperation("Sudo,LiveTvBroadCastSubScreens.List,LiveTvBroadCast.All", Priority = 1)]
+        [SecuredOperation("Sudo,LiveTvBroadCasts.Delete,LiveTvBroadCasts.All", Priority = 1)]
         public async Task<LiveTvBroadCastSubScreenForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await liveTvBroadCastSubScreenDal.GetAsync(x => x.Id == Id);
@@ -94,7 +94,7 @@ namespace Business.Concrete
             return mapper.Map<LiveTvBroadCastSubScreen, LiveTvBroadCastSubScreenForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,LiveTvBroadCastSubScreens.List,LiveTvBroadCast.All", Priority = 1)]
+       [SecuredOperation("Sudo,LiveTvBroadCasts.List,LiveTvBroadCasts.All", Priority = 1)]
         public async Task<List<LiveTvBroadCastSubScreenForReturnDto>> GetByAnnounceId(int announceId)
         {
             var spec = new LiveTvBroadCastSubScreenWithSubScreenSpecification(announceId);
@@ -107,7 +107,7 @@ namespace Business.Concrete
             return mapper.Map<List<LiveTvBroadCastSubScreen>, List<LiveTvBroadCastSubScreenForReturnDto>>(getHomeAnnounceSubScreenByAnnounceId);
         }
 
-        [SecuredOperation("Sudo,LiveTvBroadCastSubScreens.List,LiveTvBroadCast.All", Priority = 1)]
+        [SecuredOperation("Sudo,LiveTvBroadCasts.List,LiveTvBroadCasts.All", Priority = 1)]
         public async Task<List<LiveTvBroadCastSubScreenForReturnDto>> GetListAsync()
         {
             var getListFromRepo = await liveTvBroadCastSubScreenDal.GetListAsync();
@@ -119,7 +119,7 @@ namespace Business.Concrete
             return mapper.Map<List<LiveTvBroadCastSubScreen>, List<LiveTvBroadCastSubScreenForReturnDto>>(getListFromRepo);
         }
 
-        [SecuredOperation("Sudo,LiveTvBroadCastSubScreens.Update,LiveTvBroadCast.All", Priority = 1)]
+       [SecuredOperation("Sudo,LiveTvBroadCasts.Update,LiveTvBroadCasts.All", Priority = 1)]
         [ValidationAspect(typeof(LiveTvBroadCastSubsCreenValidator), Priority = 2)]
         public async Task<LiveTvBroadCastSubScreenForReturnDto> Update(LiveTvBroadCastSubScreenForCreationDto updateDto)
         {

@@ -25,7 +25,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,Department.Create,Department.All", Priority = 1)]
+       [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         [ValidationAspect(typeof(DepartmentValidator), Priority = 2)]
         public async Task<DepartmentForReturnDto> Create(DepartmentForCreationDto createDto)
         {
@@ -41,7 +41,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,Department.Delete,Department.All", Priority = 1)]
+       [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         public async Task<DepartmentForReturnDto> Delete(int Id)
         {
             var checkFromDb = await departmentDal.GetAsync(x => x.Id == Id);
@@ -55,7 +55,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,Department.List,Department.All", Priority = 1)]
+        [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         public async Task<List<DepartmentForReturnDto>> GetDepartmentListAsync()
         {
             var departments = await departmentDal.GetListAsync();
@@ -70,7 +70,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,Department.Update,Department.All", Priority = 1)]
+        [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         [ValidationAspect(typeof(DepartmentValidator), Priority = 2)]
         public async Task<DepartmentForReturnDto> Update(DepartmentForCreationDto updateDto)
         {

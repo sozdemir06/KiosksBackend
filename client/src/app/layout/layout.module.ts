@@ -20,6 +20,7 @@ import { CityPanelComponent } from '../admin/dashboard/city-panel/city-panel.com
 import { CurrencyPanelComponent } from '../admin/dashboard/currency-panel/currency-panel.component';
 import { LiveTvPanelComponent } from '../admin/dashboard/live-tv-panel/live-tv-panel.component';
 import { LiveTvListPanelComponent } from '../admin/dashboard/live-tv-list-panel/live-tv-list-panel.component';
+import { UserOptionsPanelComponent } from '../admin/dashboard/user-options-panel/user-options-panel.component';
 
 export const routes: Routes = [
   {
@@ -74,7 +75,8 @@ export const routes: Routes = [
     CityPanelComponent,
     CurrencyPanelComponent,
     LiveTvPanelComponent,
-    LiveTvListPanelComponent
+    LiveTvListPanelComponent,
+    UserOptionsPanelComponent
   ],
   imports: [SharedModule, RouterModule.forChild(routes)],
 
@@ -95,7 +97,8 @@ export const routes: Routes = [
     NewsPanelComponent,
     FoodMenuPanelComponent,
     LiveTvPanelComponent,
-    LiveTvListPanelComponent
+    LiveTvListPanelComponent,
+    UserOptionsPanelComponent
   ],
 })
 export class LayoutModule {}

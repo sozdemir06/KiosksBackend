@@ -13,7 +13,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 export class VehicleAnnounceSubscreensComponent implements OnInit {
   @Input() subscreens:IVehicleAnnounceSubScreen[];
   displayedColumns:string[]=["Name","Actions"];
-  roleForRemove:string[]=['Sudo','VehicleAnnounceSubScreens.Delete','VehicleAnnounces.All']
+  roleForRemove:string[]=['Sudo','VehicleAnnounces.Delete','VehicleAnnounces.All']
   constructor(
     private dialog:MatDialog,
     private vehicleStore:VehilceAnnounceStore

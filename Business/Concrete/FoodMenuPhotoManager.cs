@@ -32,7 +32,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,FoodMenuPhotos.Create,FoodMenu.All", Priority = 1)]
+        [SecuredOperation("Sudo,FoodMenu.Create,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuPhotoValidator), Priority = 2)]
         public async Task<FoodMenuPhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
@@ -55,7 +55,7 @@ namespace Business.Concrete
             return mapper.Map<FoodMenuPhoto, FoodMenuPhotoForReturnDto>(createPhoto);
         }
 
-        [SecuredOperation("Sudo,FoodMenuPhotos.Delete,FoodMenu.All", Priority = 1)]
+        [SecuredOperation("Sudo,FoodMenu.Delete,FoodMenu.All", Priority = 1)]
         public async Task<FoodMenuPhotoForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await foodMenuPhotoDal.GetAsync(x => x.Id == Id);
@@ -70,7 +70,7 @@ namespace Business.Concrete
             return mapper.Map<FoodMenuPhoto, FoodMenuPhotoForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,FoodMenuPhotos.List,FoodMenu.All", Priority = 1)]
+        [SecuredOperation("Sudo,FoodMenu.List,FoodMenu.All", Priority = 1)]
         public async Task<List<FoodMenuPhotoForReturnDto>> GetListAsync(int announceId)
         {
             var getListFromRepo = await foodMenuPhotoDal.GetListAsync(x => x.FoodMenuId == announceId);
@@ -82,10 +82,10 @@ namespace Business.Concrete
             return mapper.Map<List<FoodMenuPhoto>, List<FoodMenuPhotoForReturnDto>>(getListFromRepo);
         }
 
-        [SecuredOperation("Sudo,FoodMenuPhotos.List,FoodMenu.All", Priority = 1)]
+        [SecuredOperation("Sudo,FoodMenu.List,FoodMenu.All", Priority = 1)]
         public async Task<List<FoodMenuPhotoForReturnDto>> GetListBackgroundAsync()
         {
-              var getListFromRepo = await foodMenuPhotoDal.GetListAsync();
+            var getListFromRepo = await foodMenuPhotoDal.GetListAsync();
             if (getListFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
@@ -94,8 +94,8 @@ namespace Business.Concrete
             return mapper.Map<List<FoodMenuPhoto>, List<FoodMenuPhotoForReturnDto>>(getListFromRepo);
         }
 
-       
-        [SecuredOperation("Sudo,FoodMenuPhotos.Update,FoodMenu.All", Priority = 1)]
+
+        [SecuredOperation("Sudo,FoodMenu.Update,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuPhotoValidator), Priority = 2)]
         public async Task<FoodMenuPhotoForReturnDto> Update(FoodMenuPhotoForCreationDto updateDto)
         {

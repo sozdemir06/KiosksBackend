@@ -11,5 +11,6 @@ namespace Entities.Dtos
         public List<VehicleAnnounceForKiosksToReturnDto> VehicleAnnounces { get; set; }
         public List<NewsForKiosksToReturnDto> News { get; set; }
         public List<FoodMenuForKiosksToReturnDto> FoodsMenu { get; set; }
+        public List<LiveTvBroadCastForKiosksToReturnDto> LiveTvBroadCasts { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,Cities.Create", Priority = 1)]
+        [SecuredOperation("Sudo,AddCityForWheatherForeCast", Priority = 1)]
         [ValidationAspect(typeof(CityValidator), Priority = 2)]
         public async Task<CityForReturnDto> Create(CityForCreationDto createDto)
         {
@@ -41,7 +41,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,Cities.Delete", Priority = 1)]
+        [SecuredOperation("Sudo,AddCityForWheatherForeCast", Priority = 1)]
         public async Task<CityForReturnDto> Delete(int Id)
         {
             var checkFromDb = await cityDal.GetAsync(x => x.Id == Id);
@@ -55,7 +55,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,Cities.List", Priority = 1)]
+        [SecuredOperation("Sudo,AddCityForWheatherForeCast", Priority = 1)]
         public async Task<List<CityForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await cityDal.GetListAsync();
@@ -68,7 +68,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,Cities.Update", Priority = 1)]
+        [SecuredOperation("Sudo,AddCityForWheatherForeCast", Priority = 1)]
         [ValidationAspect(typeof(CityValidator), Priority = 2)]
         public async Task<CityForReturnDto> Update(CityForCreationDto updateDto)
         {

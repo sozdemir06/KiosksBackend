@@ -13,8 +13,8 @@ export class HomeAnnouncePhotoListComponent implements OnInit {
 @Input() images:IHomeAnnouncePhoto[];
 @Input() announceId:number;
 
-@Input() roleForUpdate:string[]=[];
-@Input() roleForDelete:string[]=[];
+@Input() roleForUpdate:string[]=["Sudo","HomeAnnounces.Update","HomeAnnounces.All"];
+@Input() roleForDelete:string[]=["Sudo","HomeAnnounces.Delete","HomeAnnounces.All"];
 
   constructor(
     private dialog:MatDialog,

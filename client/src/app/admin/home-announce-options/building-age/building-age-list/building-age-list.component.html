@@ -30,7 +30,7 @@
         <button
           mat-menu-item
           (click)="onUpdate(element)"
-          *appHasRole="allowedRoleBuildingsAgeForUpdate"
+          *appHasRole="allowedRoles"
         >
           <mat-icon>update</mat-icon>
           <span>Güncelle</span>
@@ -38,7 +38,7 @@
         <button
           mat-menu-item
           (click)="onDelete(element)"
-          *appHasRole="allowedRoleBuildingsAgeForDelete"
+          *appHasRole="allowedRoles"
         >
           <mat-icon>delete</mat-icon>
           <span>sil</span>

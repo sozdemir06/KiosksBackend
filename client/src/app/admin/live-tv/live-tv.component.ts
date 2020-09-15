@@ -20,7 +20,7 @@ export class LiveTvComponent implements OnInit {
 
   roleForCreate: string[] = [
     'Sudo',
-    'LiveTvBroadCast.Create,LiveTvBroadCast.All',
+    'LiveTvBroadCasts.Create,LiveTvBroadCasts.All',
   ];
   subscreens$: Observable<ISubScreen[]>;
 

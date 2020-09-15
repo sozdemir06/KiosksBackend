@@ -46,6 +46,11 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { Blaaaa = Messages.UserNotFound });
             }
 
+            if(!user.IsActive)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotApprovedProfile = Messages.UserNotApprovedProfile });
+            }
+
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, user.PasswordHash, user.PasswordSalt))
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { CantAccess = Messages.WrongPassword });

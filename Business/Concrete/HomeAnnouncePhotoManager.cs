@@ -32,12 +32,12 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,HomeAnnouncePhotos.Create,HomeAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounces.Create,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnouncePhotoValidator), Priority = 2)]
         public async Task<HomeAnnouncePhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
 
-            var checkAnnounceById = await homeAnnounceDal.GetAsync(x =>x.Id==uploadDto.AnnounceId);
+            var checkAnnounceById = await homeAnnounceDal.GetAsync(x => x.Id == uploadDto.AnnounceId);
             if (checkAnnounceById == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.HomeAnnounceEmpty });
@@ -48,24 +48,24 @@ namespace Business.Concrete
             var mapForCreate = new HomeAnnouncePhotoForCreationDto();
             mapForCreate.Name = uploadFile.Name;
             mapForCreate.FullPath = uploadFile.FullPath;
-            mapForCreate.HomeAnnounceId=uploadDto.AnnounceId;
-            mapForCreate.IsConfirm=true;
-            var mapForDb=mapper.Map<HomeAnnouncePhoto>(mapForCreate);
+            mapForCreate.HomeAnnounceId = uploadDto.AnnounceId;
+            mapForCreate.IsConfirm = true;
+            var mapForDb = mapper.Map<HomeAnnouncePhoto>(mapForCreate);
             var createPhoto = await homeAnnouncePhotoDal.Add(mapForDb);
             return mapper.Map<HomeAnnouncePhoto, HomeAnnouncePhotoForReturnDto>(createPhoto);
         }
 
-        [SecuredOperation("Sudo,HomeAnnouncePhotos.Delete,HomeAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounces.Delete,HomeAnnounces.All", Priority = 1)]
         public async Task<HomeAnnouncePhotoForReturnDto> Delete(int Id)
         {
-            
+
             var checkByIdFromRepo = await homeAnnouncePhotoDal.GetAsync(x => x.Id == Id);
             if (checkByIdFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
 
-            var deleteFileFromFolder=await upload.DeleteFile(checkByIdFromRepo.Name,"homeannounce");
+            var deleteFileFromFolder = await upload.DeleteFile(checkByIdFromRepo.Name, "homeannounce");
 
             await homeAnnouncePhotoDal.Delete(checkByIdFromRepo);
             return mapper.Map<HomeAnnouncePhoto, HomeAnnouncePhotoForReturnDto>(checkByIdFromRepo);
@@ -74,7 +74,7 @@ namespace Business.Concrete
         [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
         public async Task<List<HomeAnnouncePhotoForReturnDto>> GetListAsync(int announceId)
         {
-            var getListFromRepo = await homeAnnouncePhotoDal.GetListAsync(x=>x.HomeAnnounceId==announceId);
+            var getListFromRepo = await homeAnnouncePhotoDal.GetListAsync(x => x.HomeAnnounceId == announceId);
             if (getListFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
@@ -83,7 +83,7 @@ namespace Business.Concrete
             return mapper.Map<List<HomeAnnouncePhoto>, List<HomeAnnouncePhotoForReturnDto>>(getListFromRepo);
         }
 
-        [SecuredOperation("Sudo,HomeAnnouncePhotos.Update,HomeAnnounces.All", Priority = 1)]
+         [SecuredOperation("Sudo,HomeAnnounces.Update,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnouncePhotoValidator), Priority = 2)]
         public async Task<HomeAnnouncePhotoForReturnDto> Update(HomeAnnouncePhotoForCreationDto updateDto)
         {

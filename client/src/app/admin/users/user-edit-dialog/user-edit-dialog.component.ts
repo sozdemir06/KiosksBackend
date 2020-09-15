@@ -102,7 +102,7 @@ export class UserEditDialogComponent implements OnInit {
   ngOnInit(): void {
     const departments$ = this.departmentStore.departments$.pipe(startWith([]));
     const campuses$ = this.campuseStore.campus$.pipe(startWith([]));
-    const degrees$ = this.degreeStore.degrees$.pipe(startWith([]));
+    const degrees$ = this.degreeStore.getDegreeList().pipe(startWith([]));
 
     this.data$ = combineLatest([departments$, campuses$, degrees$]).pipe(
       map(([departments, campuses, degrees]) => {

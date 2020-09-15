@@ -26,7 +26,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,VehicleFuelTypes.Create", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleFuelTypeValidator), Priority = 2)]
         public async Task<VehicleFuelTypeForReturnDto> Create(VehicleFuelTypeForCreationDto createDto)
         {
@@ -42,7 +42,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleFuelTypes.Delete", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<VehicleFuelTypeForReturnDto> Delete(int Id)
         {
             var checkFromDb = await vehicleFuelTypeDal.GetAsync(x => x.Id == Id);
@@ -56,7 +56,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleFuelTypes.List", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<List<VehicleFuelTypeForReturnDto>> GetListAsync()
         {
            var buildingsAgeList = await vehicleFuelTypeDal.GetListAsync();
@@ -69,7 +69,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleFuelTypes.Update", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleFuelTypeValidator), Priority = 2)]
         public async Task<VehicleFuelTypeForReturnDto> Update(VehicleFuelTypeForCreationDto updateDto)
         {

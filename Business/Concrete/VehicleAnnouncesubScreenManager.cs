@@ -10,7 +10,6 @@ using Core.Aspects.AutoFac.Validation;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using DataAccess.Abstract;
-using DataAccess.EntitySpecification.HomeAnnounceSubScreenSpecification;
 using DataAccess.EntitySpecification.VehicleAnnounceSubScreenSpecification;
 using Entities.Dtos;
 
@@ -35,7 +34,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,VehicleAnnounceSubScreens.Create,VehicleAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounces.Create,VehicleAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnounceSubScreenValidator), Priority = 2)]
         public async Task<VehicleAnnounceSubScreenForReturnDto> Create(VehicleAnnounceSubScreenForCreationDto creationDto)
         {
@@ -81,7 +80,7 @@ namespace Business.Concrete
             return mapper.Map<VehicleAnnounceSubScreen, VehicleAnnounceSubScreenForReturnDto>(getFromRepo);
         }
 
-        [SecuredOperation("Sudo,VehicleAnnounceSubScreens.Delete,VehicleAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounces.Delete,VehicleAnnounces.All", Priority = 1)]
         public async Task<VehicleAnnounceSubScreenForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await vehicleAnnounceSubScreenDal.GetAsync(x => x.Id == Id);
@@ -94,7 +93,7 @@ namespace Business.Concrete
             return mapper.Map<VehicleAnnounceSubScreen, VehicleAnnounceSubScreenForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,VehicleAnnounceSubScreens.List,VehicleAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounces.List,VehicleAnnounces.All", Priority = 1)]
         public async Task<List<VehicleAnnounceSubScreenForReturnDto>> GetByAnnounceId(int announceId)
         {
             var spec = new VehicleAnnounSubScreenWithSubScreenSpecification(announceId);
@@ -107,7 +106,7 @@ namespace Business.Concrete
             return mapper.Map<List<VehicleAnnounceSubScreen>, List<VehicleAnnounceSubScreenForReturnDto>>(getVehicleAnnounceSubScreenByAnnounceId);
         }
 
-        [SecuredOperation("Sudo,VehicleAnnounceSubScreens.List,VehicleAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounces.List,VehicleAnnounces.All", Priority = 1)]
         public async Task<List<VehicleAnnounceSubScreenForReturnDto>> GetListAsync()
         {
             var getListFromRepo = await vehicleAnnounceSubScreenDal.GetListAsync();
@@ -119,7 +118,7 @@ namespace Business.Concrete
             return mapper.Map<List<VehicleAnnounceSubScreen>, List<VehicleAnnounceSubScreenForReturnDto>>(getListFromRepo);
         }
 
-        [SecuredOperation("Sudo,VehicleAnnounceSubScreens.Update,VehicleAnnounces.All", Priority = 1)]
+         [SecuredOperation("Sudo,VehicleAnnounces.Update,VehicleAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnounceSubScreenValidator), Priority = 2)]
         public async Task<VehicleAnnounceSubScreenForReturnDto> Update(VehicleAnnounceSubScreenForCreationDto updateDto)
         {

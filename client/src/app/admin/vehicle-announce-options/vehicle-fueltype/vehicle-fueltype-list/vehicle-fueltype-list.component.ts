@@ -14,8 +14,8 @@ export class VehicleFueltypeListComponent implements OnInit {
   displayedColumns:string[]=['Id','FuelTypeName','Actions'];
 
 @Input() dataSource:IVehicleFuelType[];
-allowedRolesVehicleCatgeoriesForUpdate:string[]=['Sudo','VehicleFuelTypes.Update'];
-allowedRolesVehicleCatgeoriesForDelete:string[]=['Sudo','VehicleFuelTypes.Delete'];
+allowedRoles:string[]=["Sudo","VehicleAnnounceOptions.All"];
+
 
   constructor(
     private dialog:MatDialog,

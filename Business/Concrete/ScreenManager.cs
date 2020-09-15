@@ -29,7 +29,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,Screens.Create", Priority = 1)]
+        [SecuredOperation("Sudo,Screens.Create,Screens.All", Priority = 1)]
         [ValidationAspect(typeof(ScreenValidator), Priority = 2)]
         public async Task<ScreenForReturnDto> Create(ScreenForCreationDto createDto)
         {
@@ -83,7 +83,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,Screens.Delete", Priority = 1)]
+        [SecuredOperation("Sudo,Screens.Delete,Screens.All", Priority = 1)]
         public async Task<ScreenForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await screenDal.GetAsync(x => x.Id == Id);
@@ -98,7 +98,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,Screens.List", Priority = 1)]
+        [SecuredOperation("Sudo,Screens.List,Screens.All", Priority = 1)]
         public async Task<List<ScreenForReturnDto>> GetListAsync()
         {
 
@@ -115,7 +115,7 @@ namespace Business.Concrete
             return screenForReturn;
         }
 
-        [SecuredOperation("Sudo,Screens.Update", Priority = 1)]
+        [SecuredOperation("Sudo,Screens.Update,Screens.All", Priority = 1)]
         [ValidationAspect(typeof(ScreenValidator), Priority = 2)]
         public async Task<ScreenForReturnDto> Update(ScreenForCreationDto updateDto)
         {

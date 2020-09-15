@@ -77,7 +77,14 @@ export class ScreenBottomComponent implements OnInit {
         )
       )
     ).pipe(startWith([]));
-
+    
+    const liveTvBroadCasts$ = this.kiosksStore.kiosks$.pipe(
+      map((liveTvBroadCasts) =>
+      liveTvBroadCasts.liveTvBroadCasts.filter((x) =>
+          x.liveTvBroadCastSubScreens.find((x) => x.subScreenId == this.subscreenid)
+        )
+      )
+    );
 
     this.data$ = combineLatest([
       announces$,
@@ -85,17 +92,21 @@ export class ScreenBottomComponent implements OnInit {
       homeAnnounces$,
       news$,
       foodsMenu$,
+      liveTvBroadCasts$,
     ]).pipe(
-      map(([announces, vehicleAnnounces, homeAnnounces, news, foodsMenu]) => {
+      map(([announces, vehicleAnnounces, homeAnnounces, news, foodsMenu,liveTvBroadCasts]) => {
         return {
           announces,
           vehicleAnnounces,
           homeAnnounces,
           news,
           foodsMenu,
+          liveTvBroadCasts
         };
       })
-    );   
+    );
+
+    
 
     
   } //End Of ngOnInit()

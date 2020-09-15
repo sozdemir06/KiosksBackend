@@ -13,7 +13,7 @@ export class FoodMenuSubscreenListComponent implements OnInit {
 
   @Input() subscreens:IFoodMenuSubScreen[];
   displayedColumns:string[]=["Name","Actions"];
-  roleForRemove:string[]=['Sudo','FoodMenuSubScreens.Delete','FoodMenu.All']
+  roleForRemove:string[]=['Sudo','FoodMenu.Delete','FoodMenu.All']
   constructor(
     private dialog:MatDialog,
     private foodMenuStore:FoodMenuStore

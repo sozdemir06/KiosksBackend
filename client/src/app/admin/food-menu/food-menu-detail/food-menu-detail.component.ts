@@ -17,23 +17,23 @@ export class FoodMenuDetailComponent implements OnInit {
   announceId: number;
   roleForAddPhoto: string[] = [
     'Sudo',
-    'FoodMenuPhotos.Create',
-    'FoodMenuPhotos.All',
+    'FoodMenu.Create',
+    'FoodMenu.All',
   ];
   roleForUpdatePhoto: string[] = [
     'Sudo',
-    'FoodMenuPhotos.Update',
-    'FoodMenuPhotos.All',
+    'FoodMenu.Update',
+    'FoodMenu.All',
   ];
   roleForDeletePhoto: string[] = [
     'Sudo',
-    'FoodMenuPhotos.Delete',
-    'FoodMenuPhotos.All',
+    'FoodMenu.Delete',
+    'FoodMenu.All',
   ];
 
   roleForAddSubScreen: string[] = [
     'Sudo',
-    'FoodMenuSubScreens.Create',
+    'FoodMenu.Create',
     'FoodMenu.All',
   ];
 

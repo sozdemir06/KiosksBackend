@@ -13,6 +13,7 @@ import { Observable, combineLatest} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NgbSlideEvent} from '@ng-bootstrap/ng-bootstrap';
 import { IKiosksSubScreenData } from 'src/app/shared/models/IKiosksSubScreenData';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 
@@ -38,8 +39,13 @@ export class ScreenTopComponent implements OnInit{
   constructor(
     public helperService: HelperService,
     private kiosksStore: KiosksStore,
+    private sanitizer: DomSanitizer
   ) {
 
+  }
+
+  safeURL(youtubeId:string){
+    return this.sanitizer.bypassSecurityTrustResourceUrl (`https://www.youtube.com/embed/${youtubeId}?rel=0`);
   }
 
   ngOnInit(): void {
@@ -82,6 +88,13 @@ export class ScreenTopComponent implements OnInit{
         )
       )
     );
+    const liveTvBroadCasts$ = this.kiosksStore.kiosks$.pipe(
+      map((liveTvBroadCasts) =>
+      liveTvBroadCasts.liveTvBroadCasts.filter((x) =>
+          x.liveTvBroadCastSubScreens.find((x) => x.subScreenId == this.subscreenid)
+        )
+      )
+    );
 
     this.data$ = combineLatest([
       announces$,
@@ -89,14 +102,16 @@ export class ScreenTopComponent implements OnInit{
       homeAnnounces$,
       news$,
       foodsMenu$,
+      liveTvBroadCasts$,
     ]).pipe(
-      map(([announces, vehicleAnnounces, homeAnnounces, news, foodsMenu]) => {
+      map(([announces, vehicleAnnounces, homeAnnounces, news, foodsMenu,liveTvBroadCasts]) => {
         return {
           announces,
           vehicleAnnounces,
           homeAnnounces,
           news,
           foodsMenu,
+          liveTvBroadCasts
         };
       })
     );
@@ -109,6 +124,7 @@ export class ScreenTopComponent implements OnInit{
     const parseId = event.current.split('_');
     const [id, index, announceType, contentType, intervalTime,fullPath] = parseId;
     let intervalTimeToMiliSecond = parseInt(intervalTime) * 1000;
+    
     
     if(this.video?.played){
       this.video.pause();

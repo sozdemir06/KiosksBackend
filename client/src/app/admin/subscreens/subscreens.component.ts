@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class SubscreensComponent implements OnInit {
 
   toolbarTitle:string="Alt Ekranlar";
-  allowedRoles:string[]=['Sudo','SubScreens.Create'];
+  allowedRoles:string[]=['Sudo','SubScreens.Create','SubScreens.All'];
   screenId:number=0;
   
     constructor(

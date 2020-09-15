@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./live-tv-list-panel.component.scss']
 })
 export class LiveTvListPanelComponent implements OnInit {
-  allowedRolesForList:string[]=['Sudo','LiveTvList.List','LiveTvList.All']
+  allowedRolesForList:string[]=['Sudo','LiveTvBroadCastsOptions.All']
   constructor() { }
 
   ngOnInit(): void {

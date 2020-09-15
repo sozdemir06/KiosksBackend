@@ -6,30 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vehicle-announce-option-list.component.scss'],
 })
 export class VehicleAnnounceOptionListComponent implements OnInit {
-  alloweRolesVehicleCategoriesForList: string[] = [
+  alloweRoles: string[] = [
     'Sudo',
-    'VehicleCategories.List',
+    'VehicleAnnounceOptions.All',
   ];
-  alloweRolesVehicleBrandsForList: string[] = [
-    'Sudo',
-    'VehicleCategories.List',
-  ];
-  alloweRolesVehicleModelsForList: string[] = [
-    'Sudo',
-    'VehicleCategories.List',
-  ];
-  alloweRolesVehicleFuelTypesForList: string[] = [
-    'Sudo',
-    'VehicleFuelTypes.List',
-  ];
-  alloweRolesVehicleGearTypesForList: string[] = [
-    'Sudo',
-    'VehicleGearTypes.List',
-  ];
-  alloweRolesVehicleEngineSizesForList: string[] = [
-    'Sudo',
-    'VehicleEngineSizes.List',
-  ];
+
 
   constructor() {}
 

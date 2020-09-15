@@ -24,7 +24,7 @@ namespace Business.Concrete
             this.flatOFHomeDal = flatOFHomeDal;
 
         }
-        [SecuredOperation("Sudo,FlatsOfHome.Create", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]        
         [ValidationAspect(typeof(FlatOfHomeValidator), Priority = 2)]
         public async Task<FlatOfHomeForReturnDto> Create(FlatOfHomeForCreationDto createDto)
         {
@@ -40,7 +40,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,FlatsOfHome.Delete", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]        
         public async Task<FlatOfHomeForReturnDto> Delete(int Id)
         {
             var checkFromDb = await flatOFHomeDal.GetAsync(x => x.Id == Id);
@@ -55,7 +55,7 @@ namespace Business.Concrete
         }
 
 
-       [SecuredOperation("Sudo,FlatsOfHome.List", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]        
         public async Task<List<FlatOfHomeForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await flatOFHomeDal.GetListAsync();
@@ -68,7 +68,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,FlatsOfHome.Update", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]        
         [ValidationAspect(typeof(FlatOfHomeValidator), Priority = 2)]
         public async Task<FlatOfHomeForReturnDto> Update(FlatOfHomeForCreationDto updateDto)
         {

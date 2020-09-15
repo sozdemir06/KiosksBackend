@@ -1,0 +1,26 @@
+
+<h1 mat-dialog-title>{{ title }}</h1>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="campusForm"
+    (ngSubmit)="onSubmitform()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Kampus adı"
+        formControlName="name"
+      />
+    <mat-error *ngIf="f.name.errors?.required">Kampüs Adı boş olamaz...</mat-error>
+    <mat-error *ngIf="f.name.errors?.maxlength">Kampüs adı en fazla 60 karakter olmalı...</mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!campusForm.valid">
+      {{ this.mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>
+

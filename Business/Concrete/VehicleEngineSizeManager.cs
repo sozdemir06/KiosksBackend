@@ -25,7 +25,7 @@ namespace Business.Concrete
             this.vehicleEngineSizeDal = vehicleEngineSizeDal;
 
         }
-        [SecuredOperation("Sudo,VehicleEngineSizes.Create", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleEngineSizeValidator), Priority = 2)]
         public async Task<VehicleEngineSizeForReturnDto> Create(VehicleEngineSizeForCreationDto createDto)
         {
@@ -41,7 +41,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleEngineSizes.Delete", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<VehicleEngineSizeForReturnDto> Delete(int Id)
         {
             var checkFromDb = await vehicleEngineSizeDal.GetAsync(x => x.Id == Id);
@@ -55,7 +55,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleEngineSizes.List", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<List<VehicleEngineSizeForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await vehicleEngineSizeDal.GetListAsync();
@@ -68,7 +68,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleEngineSizes.Update", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleEngineSizeValidator), Priority = 2)]
         public async Task<VehicleEngineSizeForReturnDto> Update(VehicleEngineSizeForCreationDto updateDto)
         {

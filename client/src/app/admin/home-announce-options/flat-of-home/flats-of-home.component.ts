@@ -10,7 +10,7 @@ import { EditFlatsOfHomeDialogComponent } from './edit-flats-of-home-dialog/edit
 })
 export class FlatsOfHomeComponent implements OnInit {
 toolbarTitle:string="Bulunduğu Kat";
-allowedRoles:string[]=["Sudo","FlatsOfHome.List"];
+allowedRoles:string[]=["Sudo","HomeAnnounceOptions.All"];
 
   constructor(
     public flatOfHomeStore:FlatOfHomeStore,

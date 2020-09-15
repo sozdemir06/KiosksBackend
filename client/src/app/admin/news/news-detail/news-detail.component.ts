@@ -18,23 +18,23 @@ export class NewsDetailComponent implements OnInit {
   announceId: number;
   roleForAddPhoto: string[] = [
     'Sudo',
-    'NewsPhotos.Create',
+    'News.Create',
     'News.All',
   ];
   roleForUpdatePhoto: string[] = [
     'Sudo',
-    'NewsPhotos.Update',
+    'News.Update',
     'News.All',
   ];
   roleForDeletePhoto: string[] = [
     'Sudo',
-    'NewsPhotos.Delete',
+    'News.Delete',
     'News.All',
   ];
 
   roleForAddSubScreen: string[] = [
     'Sudo',
-    'NewsSubScreens.Create',
+    'News.Create',
     'News.All',
   ];
 

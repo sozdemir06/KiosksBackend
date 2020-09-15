@@ -13,8 +13,8 @@ import { AnnounceContentTypeStore } from 'src/app/core/services/stores/announce-
 export class AnnounceContentTypeListComponent implements OnInit {
 displayedColumns: string[] = ["Id",'Name',"Description","Actions"];
 @Input() dataSource:IAnnounceContentType[];
-allowedRoleFlatsOfHomeForUpdate:string[]=['Sudo','AnnounceContentTypes.Create'];
-allowedRoleFlatsOfHomeForDelete:string[]=['Sudo','AnnounceContentTypes.Delete'];
+allowedRoles:string[]=['Sudo','AnnounceOptons.All'];
+
   constructor(
     private dialog:MatDialog,
     private announceContentTypeStore:AnnounceContentTypeStore

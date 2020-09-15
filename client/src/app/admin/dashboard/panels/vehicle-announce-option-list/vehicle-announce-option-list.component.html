@@ -1,38 +1,23 @@
-<mat-expansion-panel>
+<mat-expansion-panel *appHasRole="alloweRoles">
   <mat-expansion-panel-header>
     <mat-panel-title class="d-flex align-items-center">
       <mat-icon>view_list</mat-icon>
       <span>Araç İlanı Opsiyon Listesi</span>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <mat-nav-list
-    routerLink="/app/admin/vehicle-categories"
-    *appHasRole="alloweRolesVehicleCategoriesForList"
-  >
+  <mat-nav-list routerLink="/app/admin/vehicle-categories">
     <a mat-list-item>Araç Kategori Listesi</a>
   </mat-nav-list>
-  <mat-nav-list
-    routerLink="/app/admin/vehicle-brands"
-    *appHasRole="alloweRolesVehicleBrandsForList"
-  >
+  <mat-nav-list routerLink="/app/admin/vehicle-brands">
     <a mat-list-item>Araç Marka Listesi</a>
   </mat-nav-list>
-  <mat-nav-list
-    routerLink="/app/admin/vehicle-models"
-    *appHasRole="alloweRolesVehicleModelsForList"
-  >
+  <mat-nav-list routerLink="/app/admin/vehicle-models">
     <a mat-list-item>Araç Model Listesi</a>
   </mat-nav-list>
-  <mat-nav-list
-    routerLink="/app/admin/vehicle-fuel-types"
-    *appHasRole="alloweRolesVehicleFuelTypesForList"
-  >
+  <mat-nav-list routerLink="/app/admin/vehicle-fuel-types">
     <a mat-list-item>Araç Yakıt Tipi </a>
   </mat-nav-list>
-  <mat-nav-list
-    routerLink="/app/admin/vehicle-gear-types"
-    *appHasRole="alloweRolesVehicleGearTypesForList"
-  >
+  <mat-nav-list routerLink="/app/admin/vehicle-gear-types">
     <a mat-list-item>Araç Vites Tipi</a>
   </mat-nav-list>
   <mat-nav-list routerLink="/app/admin/vehicle-engine-sizes">

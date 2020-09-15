@@ -1,0 +1,27 @@
+
+<h1 mat-dialog-title>{{ title }}</h1>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="departmentForm"
+    (ngSubmit)="onSubmitform()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Birim adı"
+        formControlName="name"
+      />
+    <mat-error *ngIf="f.name.errors?.required">Birim Adı boş olamaz...</mat-error>
+    <mat-error *ngIf="f.name.errors?.maxlength">Birim adı en fazla 60 karakter olmalı...</mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!departmentForm.valid">
+      {{ this.mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>
+
+

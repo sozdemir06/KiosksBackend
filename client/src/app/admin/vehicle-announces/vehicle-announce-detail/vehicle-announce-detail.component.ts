@@ -17,23 +17,23 @@ export class VehicleAnnounceDetailComponent implements OnInit {
   announceId: number;
   roleForAddPhoto: string[] = [
     'Sudo',
-    'VehicleAnnouncePhotos.Create',
+    'VehicleAnnounces.Create',
     'VehicleAnnounces.All',
   ];
   roleForUpdatePhoto: string[] = [
     'Sudo',
-    'VehicleAnnouncePhotos.Update',
+    'VehicleAnnounces.Update',
     'VehicleAnnounces.All',
   ];
   roleForDeletePhoto: string[] = [
     'Sudo',
-    'VehicleAnnouncePhotos.Delete',
+    'VehicleAnnounces.Delete',
     'VehicleAnnounces.All',
   ];
 
   roleForAddSubScreen: string[] = [
     'Sudo',
-    'VehicleAnnounceSubScreens.Create',
+    'VehicleAnnounces.Create',
     'VehicleAnnounces.All',
   ];
 

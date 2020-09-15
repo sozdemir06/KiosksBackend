@@ -29,7 +29,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,SubScreens.Create", Priority = 1)]
+        [SecuredOperation("Sudo,SubScreens.Create,SubScreens.All", Priority = 1)]
         [ValidationAspect(typeof(SubScreenValidator), Priority = 2)]
         public async Task<SubScreenForReturnDto> Create(SubScreenForCreationDto createDto)
         {
@@ -56,7 +56,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,SubScreens.Delete", Priority = 1)]
+        [SecuredOperation("Sudo,SubScreens.Delete,SubScreens.All", Priority = 1)]
         public async Task<SubScreenForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await subScreenDal.GetAsync(x => x.Id == Id);
@@ -81,7 +81,7 @@ namespace Business.Concrete
             return mapper.Map<List<SubScreen>, List<SubScreenForReturnDto>>(subScreensByScreenId);
         }
 
-        [SecuredOperation("Sudo,SubScreens.List", Priority = 1)]
+        [SecuredOperation("Sudo,SubScreens.List,SubScreens.All", Priority = 1)]
         public async Task<List<SubScreenForReturnDto>> GetListAsync()
         {
             var subScrens = await subScreenDal.GetListAsync();
@@ -93,7 +93,7 @@ namespace Business.Concrete
             return mapper.Map<List<SubScreen>, List<SubScreenForReturnDto>>(subScrens);
         }
 
-        [SecuredOperation("Sudo,SubScreens.Update", Priority = 1)]
+        [SecuredOperation("Sudo,SubScreens.Update,SubScreens.All", Priority = 1)]
         [ValidationAspect(typeof(SubScreenValidator), Priority = 2)]
         public async Task<SubScreenForReturnDto> Update(SubScreenForCreationDto updateDto)
         {

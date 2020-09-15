@@ -26,7 +26,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,NumberOfRoom.Create",Priority=1)]        
+        [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]        
         [ValidationAspect(typeof(NumberOfRoomValidator),Priority=2)]
         public async Task<NumberOfRoomForReturnDto> Create(NumberOfRoomForCreateOrUpdateDto createDto)
         {
@@ -43,7 +43,7 @@ namespace Business.Concrete
 
         }
 
-         [SecuredOperation("Sudo,NumberOfRoom.Delete")]
+         [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]   
         public async Task<NumberOfRoomForReturnDto> Delete(int Id)
         {
              var checkFromDb=await numberOfRoomDal.GetAsync(x=>x.Id==Id);
@@ -58,7 +58,7 @@ namespace Business.Concrete
         }
 
 
-         [SecuredOperation("Sudo,NumberOfRoom.List",Priority=1)]
+         [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]   
         public async Task<List<NumberOfRoomForReturnDto>> GetListAsync()
         {
              var numberOfRoomsList=await numberOfRoomDal.GetListAsync();
@@ -72,7 +72,7 @@ namespace Business.Concrete
         }
 
       
-        [SecuredOperation("Sudo,NumberOfRoom.Update",Priority=1)]
+        [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]   
         [ValidationAspect(typeof(NumberOfRoomValidator),Priority=2)]
         public async Task<NumberOfRoomForReturnDto> Update(NumberOfRoomForCreateOrUpdateDto updateDto)
         {

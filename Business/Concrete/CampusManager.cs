@@ -25,7 +25,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,Campus.Create,Campus.All", Priority = 1)]
+        [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         [ValidationAspect(typeof(CampusValidator), Priority = 2)]
         public async Task<CampusForReturnDto> Create(CampuseForCreationDto createDto)
         {
@@ -41,7 +41,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,Campus.Delete,Campus.All", Priority = 1)]
+       [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         public async Task<CampusForReturnDto> Delete(int Id)
         {
             var checkFromDb = await campusDal.GetAsync(x => x.Id == Id);
@@ -55,7 +55,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,Campus.List,Campus.All", Priority = 1)]
+        [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         public async Task<List<CampusForReturnDto>> GetCampusListAsync()
         {
             var campuses = await campusDal.GetListAsync();
@@ -69,7 +69,7 @@ namespace Business.Concrete
             return campusForReturn;
         }
 
-        [SecuredOperation("Sudo,Campus.Update,Campus.All", Priority = 1)]
+        [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         [ValidationAspect(typeof(CampusValidator), Priority = 2)]
         public async Task<CampusForReturnDto> Update(CampuseForCreationDto updateDto)
         {

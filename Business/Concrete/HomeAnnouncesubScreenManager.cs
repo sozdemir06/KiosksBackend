@@ -39,7 +39,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,HomeAnnounceSubScreens.Create,HomeAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounces.Create,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnounceSubsCreenValidator), Priority = 2)]
         public async Task<HomeAnnounceSubScreenForReturnDto> Create(HomeAnnounceSubScreenForCreationDto creationDto)
         {
@@ -85,7 +85,7 @@ namespace Business.Concrete
             return mapper.Map<HomeAnnounceSubScreen, HomeAnnounceSubScreenForReturnDto>(getFromRepo);
         }
 
-        [SecuredOperation("Sudo,HomeAnnounceSubScreens.Delete,HomeAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounces.Delete,HomeAnnounces.All", Priority = 1)]
         public async Task<HomeAnnounceSubScreenForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await homeAnnounceSubScreenDal.GetAsync(x => x.Id == Id);
@@ -98,7 +98,7 @@ namespace Business.Concrete
             return mapper.Map<HomeAnnounceSubScreen, HomeAnnounceSubScreenForReturnDto>(checkByIdFromRepo);
         }
 
-         [SecuredOperation("Sudo,HomeAnnounceSubScreens.List,HomeAnnounces.All", Priority = 1)]
+         [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
         public async Task<List<HomeAnnounceSubScreenForReturnDto>> GetByAnnounceId(int announceId)
         {
               var spec=new HomeAnnounSubScreenWithSubScreenSpecification(announceId);
@@ -112,7 +112,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,HomeAnnounceSubScreens.List,HomeAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
         public async Task<List<HomeAnnounceSubScreenForReturnDto>> GetListAsync()
         {
             var getListFromRepo = await homeAnnounceSubScreenDal.GetListAsync();
@@ -124,7 +124,7 @@ namespace Business.Concrete
             return mapper.Map<List<HomeAnnounceSubScreen>, List<HomeAnnounceSubScreenForReturnDto>>(getListFromRepo);
         }
 
-        [SecuredOperation("Sudo,HomeAnnounceSubScreens.Update,HomeAnnounces.All", Priority = 1)]
+         [SecuredOperation("Sudo,HomeAnnounces.Update,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnounceSubsCreenValidator), Priority = 2)]
         public async Task<HomeAnnounceSubScreenForReturnDto> Update(HomeAnnounceSubScreenForCreationDto updateDto)
         {

@@ -237,6 +237,26 @@
       
     </ng-template>
   </ng-container>
+  <ng-container *ngFor="let youtube of data.liveTvBroadCasts; let i = index">
+    <ng-template
+      ngbSlide
+      [id]="
+      youtube?.slideId +
+        '_' +
+        i +
+        '_' +
+        youtube.announceType.toLowerCase() +
+        '_' +
+        'livetv' +
+        '_' +
+        youtube.slideIntervalTime +
+        '_' +
+        'url'
+      "
+    >
+       {{youtube.contentType}}
+    </ng-template>
+  </ng-container>
   <ng-template
     ngbSlide
     *ngIf="
@@ -244,7 +264,8 @@
       data.foodsMenu?.length == 0 &&
       data.homeAnnounces?.length == 0 &&
       data.news?.length == 0 &&
-      data.vehicleAnnounces?.length == 0
+      data.vehicleAnnounces?.length == 0 &&
+      data.liveTvBroadCasts?.length==0
     "
   >
     <div class="d-flex flex-column align-items-center">

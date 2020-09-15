@@ -15,8 +15,8 @@ export class VehicleGeartypeListComponent implements OnInit {
   displayedColumns:string[]=['Id','FuelTypeName','Actions'];
 
 @Input() dataSource:IVehicleGearType[];
-allowedRolesVehicleGearTypeForUpdate:string[]=['Sudo','VehicleGearTypes.Update'];
-allowedRolesVehicleGearTypeForDelete:string[]=['Sudo','VehicleGearTypes.Delete'];
+allowedRoles:string[]=["Sudo","VehicleAnnounceOptions.All"];
+
 
   constructor(
     private dialog:MatDialog,

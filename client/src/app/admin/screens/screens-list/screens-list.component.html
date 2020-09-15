@@ -60,75 +60,46 @@
         </button>
         <button
           mat-menu-item
-          *appHasRole="allowedroleForSubScreenList"
           [routerLink]="['/app/admin/subscreens', element?.id]"
         >
           <mat-icon>link</mat-icon>
           <span>Alt Ekranlar</span>
         </button>
-        <button
-          mat-menu-item
-          *appHasRole="allowedroleForSubScreenList"
-          [routerLink]="['/kiosks', element?.id]"
-        >
+        <button mat-menu-item [routerLink]="['/kiosks', element?.id]">
           <mat-icon>preview</mat-icon>
           <span>Göz At</span>
         </button>
         <ng-container *ngIf="!element.screenHeaders?.headerText">
-          <button
-        mat-menu-item
-        *appHasRole="allowedroleForHeader"
-        (click)="onCreateHeader(element)"
-      >
-        <mat-icon>line_style</mat-icon>
-        <span>Üst Başlık Ekle</span>
-      </button>
+          <button mat-menu-item (click)="onCreateHeader(element)">
+            <mat-icon>line_style</mat-icon>
+            <span>Üst Başlık Ekle</span>
+          </button>
         </ng-container>
         <ng-container *ngIf="element.screenHeaders?.headerText">
-          <button
-        mat-menu-item
-        *appHasRole="allowedroleForHeader"
-        (click)="onUpdateHeader(element)"
-      >
-        <mat-icon>line_style</mat-icon>
-        <span>Üst Başlık Güncelle</span>
-      </button>
+          <button mat-menu-item (click)="onUpdateHeader(element)">
+            <mat-icon>line_style</mat-icon>
+            <span>Üst Başlık Güncelle</span>
+          </button>
         </ng-container>
-        
+
         <ng-container *ngIf="!element?.screenFooters?.id">
-          <button
-          mat-menu-item
-          *appHasRole="allowedroleForFooter"
-          (click)="onCreateFooter(element)"
-        >
-          <mat-icon>horizontal_split</mat-icon>
-          <span>Alt Başlık Ekle</span>
-        </button>
+          <button mat-menu-item (click)="onCreateFooter(element)">
+            <mat-icon>horizontal_split</mat-icon>
+            <span>Alt Başlık Ekle</span>
+          </button>
         </ng-container>
         <ng-container *ngIf="element?.screenFooters?.id">
-          <button
-          mat-menu-item
-          *appHasRole="allowedroleForFooter"
-          (click)="onUpdateFooter(element)"
-        >
-          <mat-icon>horizontal_split</mat-icon>
-          <span>Alt Başlık Güncelle</span>
-        </button>
+          <button mat-menu-item (click)="onUpdateFooter(element)">
+            <mat-icon>horizontal_split</mat-icon>
+            <span>Alt Başlık Güncelle</span>
+          </button>
         </ng-container>
-      
-      <button
-      mat-menu-item
-      *appHasRole="allowedroleForHeader"
-      (click)="onHeaderPhoto(element)"
-    >
-      <mat-icon>insert_photo</mat-icon>
-      <span>Header Logo</span>
-    </button>
-        <button
-          mat-menu-item
-          (click)="onDelete(element)"
-          *appHasRole="allowedRoleForDelete"
-        >
+
+        <button mat-menu-item (click)="onHeaderPhoto(element)">
+          <mat-icon>insert_photo</mat-icon>
+          <span>Header Logo</span>
+        </button>
+        <button mat-menu-item (click)="onDelete(element)">
           <mat-icon>delete</mat-icon>
           <span>sil</span>
         </button>

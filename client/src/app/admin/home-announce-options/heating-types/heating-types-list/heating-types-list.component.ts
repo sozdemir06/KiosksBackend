@@ -13,8 +13,8 @@ import { HeatingTypeStore } from 'src/app/core/services/stores/heating-type-stor
 export class HeatingTypesListComponent implements OnInit {
   displayedColumns: string[] = ['Id', 'Name', 'Actions'];
   @Input() dataSource: IHeatingType[];
-  alloweRolesHeatingTypesForUpdate:string[]=['Sudo','HeatingTypes.Create'];
-  alloweRolesHeatingTypesForDelete:string[]=['Sudo','HeatingTypes.Delete'];
+  alloweRoles:string[]=['Sudo','HomeAnnounceOptions.All'];
+
   constructor(
     private dialog: MatDialog,
     private heatingTypeStore:HeatingTypeStore

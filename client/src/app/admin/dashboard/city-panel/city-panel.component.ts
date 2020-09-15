@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./city-panel.component.scss']
 })
 export class CityPanelComponent implements OnInit {
-  allowedRolesForList:string[]=['Sudo','Cities.List','Cities.All']
+  allowedRolesForList:string[]=['Sudo','AddCityForWheatherForeCast']
   constructor() { }
 
   ngOnInit(): void {

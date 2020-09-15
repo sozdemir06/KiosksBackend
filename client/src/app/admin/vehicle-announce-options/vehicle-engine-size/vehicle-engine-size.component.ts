@@ -10,7 +10,7 @@ import { VehicleEngineSizeStore } from 'src/app/core/services/stores/vehicle-eng
 })
 export class VehicleEngineSizeComponent implements OnInit {
 toolbarTitle:string="Motor Hacmi";
-allowedRolesForCreate:string[]=['Sudo','VehicleEngineSizes.Create'];
+allowedRoles:string[]=["Sudo","VehicleAnnounceOptions.All"];
 
   constructor(
     private dialog:MatDialog,

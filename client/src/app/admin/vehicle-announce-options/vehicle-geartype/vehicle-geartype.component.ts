@@ -10,7 +10,7 @@ import { EditVehicleGeartypeDialogComponent } from './edit-vehicle-geartype-dial
 })
 export class VehicleGeartypeComponent implements OnInit {
   toolbarTitle:string="Yakıt Tipi";
-  allowedRolesForCreate:string[]=['Sudo','VehicleGearTypes.Create']
+  allowedRoles:string[]=["Sudo","VehicleAnnounceOptions.All"];
     constructor(
       public vehicleGearTypeStore:VehicleGearTypeStore,
       private dialog:MatDialog

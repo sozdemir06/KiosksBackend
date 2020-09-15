@@ -23,7 +23,7 @@ export class LiveTvDetailComponent implements OnInit {
     'LiveTvBroadCast.All',
   ];
  
-  roleForAddSubScreen:string[]=['Sudo',"LiveTvBroadCastSubScreens.Create",'LiveTvBroadCast.All'];
+  roleForAddSubScreen:string[]=['Sudo',"LiveTvBroadCasts.Create",'LiveTvBroadCasts.All'];
 
   constructor(
     private route: ActivatedRoute,

@@ -8,40 +8,47 @@ import { IFoodMenuBgPhoto } from 'src/app/shared/models/IFoodMenuBgPhoto';
 @Component({
   selector: 'app-background-photo-list',
   templateUrl: './background-photo-list.component.html',
-  styleUrls: ['./background-photo-list.component.scss']
+  styleUrls: ['./background-photo-list.component.scss'],
 })
 export class BackgroundPhotoListComponent implements OnInit {
-
-  @Input() roleForUpdate: string[] = ['Sudo','FoodMenuPhotos.Update','FoodMenu.All'];
-  @Input() roleForCreate: string[] = ['Sudo','FoodMenuPhotos.Create','FoodMenu.All'];
-  @Input() roleForDelete: string[] =['Sudo','FoodMenuPhotos.Delete','FoodMenu.All'];
+  @Input() roleForUpdate: string[] = [
+    'Sudo',
+    'FoodMenu.Update',
+    'FoodMenu.All',
+  ];
+  @Input() roleForCreate: string[] = [
+    'Sudo',
+    'FoodMenu.Create',
+    'FoodMenu.All',
+  ];
+  @Input() roleForDelete: string[] = [
+    'Sudo',
+    'FoodMenu.Delete',
+    'FoodMenu.All',
+  ];
   constructor(
     private dialog: MatDialog,
-    public foodMenuBgStore:FoodMenuBgPhotoStore
+    public foodMenuBgStore: FoodMenuBgPhotoStore
   ) {}
 
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   uploadResult(model: IFoodMenuBgPhoto) {
     this.foodMenuBgStore.addBgPhoto(model);
   }
 
   onSetBackground(image: IFoodMenuBgPhoto) {
-    
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '45rem',
       data: {
-        message:
-          'Fotoğrafı Ana Arka plan resmi olarak atamak istiyormusunuz.?',
+        message: 'Fotoğrafı Ana Arka plan resmi olarak atamak istiyormusunuz.?',
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const photo: IFoodMenuBgPhoto = {
           ...image,
-          isSetBackground: image.isSetBackground ?false:true
+          isSetBackground: image.isSetBackground ? false : true,
         };
         this.foodMenuBgStore.setPhotoAsBackground(photo);
       }
@@ -61,5 +68,4 @@ export class BackgroundPhotoListComponent implements OnInit {
       }
     });
   }
-
 }

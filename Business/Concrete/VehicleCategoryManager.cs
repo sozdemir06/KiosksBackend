@@ -26,7 +26,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,VehicleCategories.Create", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleCategoryValidator), Priority = 2)]
 
         public async Task<VehicleCategoryForReturnDto> Create(VehicleCategoryForCreationDto createDto)
@@ -43,7 +43,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleCategories.Delete", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<VehicleCategoryForReturnDto> Delete(int Id)
         {
             var checkFromDb = await vehicleCategoryDal.GetAsync(x => x.Id == Id);
@@ -57,7 +57,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleCategories.List", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<List<VehicleCategoryForReturnDto>> GetListAsync()
         {
             var vehicleCategories = await vehicleCategoryDal.GetListAsync();
@@ -70,7 +70,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleCategories.Update", Priority = 1)]
+       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleCategoryValidator), Priority = 2)]
 
         public async Task<VehicleCategoryForReturnDto> Update(VehicleCategoryForCreationDto updateDto)

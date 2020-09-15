@@ -14,8 +14,8 @@ export class LiveTvListComponent implements OnInit {
   @Input() dataSource:ILiveTvBroadCast[];
   displayedColumns:string[]=['Image','Created','PublishDates','PublishStatus','Type','Actions'];
   
-  roleForUpdate:string[]=["Sudo","LiveTvBroadCast.Update","LiveTvBroadCast.All"]
-  roleForPublish:string[]=["Sudo","LiveTvBroadCast.Publish","LiveTvBroadCast.All"]
+  roleForUpdate:string[]=["Sudo","LiveTvBroadCasts.Update","LiveTvBroadCasts.All"]
+  roleForPublish:string[]=["Sudo","LiveTvBroadCasts.Publish","LiveTvBroadCasts.All"]
     constructor(
       private dialog:MatDialog,
       private liveTvBroadCastStore:LiveTvBroadCastStore

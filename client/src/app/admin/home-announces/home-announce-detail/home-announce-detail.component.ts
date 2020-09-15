@@ -18,21 +18,21 @@ export class HomeAnnounceDetailComponent implements OnInit {
 
   roleForAddPhoto: string[] = [
     'Sudo',
-    'HomeAnnouncePhotos.Create',
+    'HomeAnnounces.Create',
     'HomeAnnounces.All',
   ];
   roleForUpdatePhoto: string[] = [
     'Sudo',
-    'HomeAnnouncePhotos.Update',
+    'HomeAnnounces.Update',
     'HomeAnnounces.All',
   ];
   roleForDeletePhoto: string[] = [
     'Sudo',
-    'HomeAnnouncePhotos.Delete',
+    'HomeAnnounces.Delete',
     'HomeAnnounces.All',
   ];
 
-  roleForAddSubScreen:string[]=['Sudo',"HomeAnnounceSubScreens.Create",'HomeAnnounces.All'];
+  roleForAddSubScreen:string[]=['Sudo',"HomeAnnounces.Create",'HomeAnnounces.All'];
 
   constructor(
     private route: ActivatedRoute,

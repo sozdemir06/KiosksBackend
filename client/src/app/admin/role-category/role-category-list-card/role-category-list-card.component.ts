@@ -11,6 +11,8 @@ import { IRole } from 'src/app/shared/models/IRole';
 })
 export class RoleCategoryListCardComponent implements OnInit {
 displayedColumns:string[]=["Name","Description","Actions"];
+roleForUpdate:string[]=["Sudo","Roles.Update","Roles.All"]
+
 @Input() dataSource:IRoleCategory[];
 @Input() isShowAddBtn:boolean=false;
 

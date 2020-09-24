@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-4">
+    <ul class="list-group">
+      <li
+        class="list-group-item list-group-item-action active"
+        [routerLink]="['/app/home']"
+        [routerLinkActive]="'active'"
+        [routerLinkActiveOptions]="{exact:true}"
+      >
+        Tümü
+      </li>
+      <li
+        class="list-group-item list-group-item-action"
+        [routerLink]="['/app/home/vehicle-announces']"
+        [routerLinkActive]="'active'"
+      >
+        Araç İlanları
+      </li>
+      <li
+        class="list-group-item list-group-item-action"
+        [routerLink]="['/app/home/home-announces']"
+        [routerLinkActive]="'active'"
+      >
+        Ev ilanları
+      </li>
+      <li
+        class="list-group-item list-group-item-action"
+        [routerLink]="['/app/home/announces']"
+        [routerLinkActive]="'active'"
+      >
+        Duyurular
+      </li>
+      <li
+        class="list-group-item list-group-item-action"
+        [routerLink]="['/app/home/news']"
+        [routerLinkActive]="'active'"
+      >
+        Haber
+      </li>
+      <li
+        class="list-group-item list-group-item-action"
+        [routerLink]="['/app/home/food-menu']"
+        [routerLinkActive]="'active'"
+      >
+        Yemek Menüsü
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-8">
+    <app-loading></app-loading>
+    <router-outlet></router-outlet>
+  </div>
+</div>

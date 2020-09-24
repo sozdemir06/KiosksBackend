@@ -31,7 +31,7 @@ namespace DataAccess.Concrete.EntityFramework
                                 .Include(x => x.VehicleEngineSize)
                                 .Include(x => x.VehicleGearType)
                                 .Where(x => x.VehicleAnnounceSubScreens.Any(s => s.ScreenId == screenId)
-                                 && x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true)
+                                 && x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true || x.PublishStartDate >= DateTime.Now)
                                  .AsNoTracking()
                                  .ToListAsync();
                 return vehicleAnnounces;
@@ -59,6 +59,31 @@ namespace DataAccess.Concrete.EntityFramework
                                 .Include(x => x.VehicleGearType)
                                 .Where(x => x.VehicleAnnounceSubScreens.Any(s => s.SubScreenId == subScreenId)
                                  && x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true)
+                                 .AsNoTracking()
+                                 .ToListAsync();
+                return vehicleAnnounces;
+
+            }
+        }
+
+        public async Task<List<VehicleAnnounce>> GetVehicleAnnouncesForPublicAsync()
+        {
+            using (var context = new DataContext())
+            {
+
+                var vehicleAnnounces = await context.VehicleAnnounces
+                                .Include(u => u.User)
+                                .Include(x => x.User.Campus)
+                                .Include(x => x.User.Degree)
+                                .Include(x => x.User.Department)
+                                .Include(p => p.VehicleAnnouncePhotos)
+                                .Include(x => x.VehicleCategory)
+                                 .Include(x => x.VehicleBrand)
+                                .Include(x => x.VehicleModel)
+                                .Include(x => x.VehicleFuelType)
+                                .Include(x => x.VehicleEngineSize)
+                                .Include(x => x.VehicleGearType)
+                                .Where(x => x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true)
                                  .AsNoTracking()
                                  .ToListAsync();
                 return vehicleAnnounces;

@@ -1,18 +1,18 @@
-import { Component, OnInit, Input, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList, ElementRef, OnDestroy } from '@angular/core';
 import { IKiosks } from '../../models/IKiosks';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, Subscription, timer } from 'rxjs';
 import { HelperService } from 'src/app/core/services/helper-service';
 import { KiosksStore } from '../../store/kiosks-store';
 import { IKiosksSubScreenData } from 'src/app/shared/models/IKiosksSubScreenData';
 import { NgbSlideEvent } from '@ng-bootstrap/ng-bootstrap';
-import { map } from 'rxjs/operators';
+import { map, subscribeOn } from 'rxjs/operators';
 
 @Component({
   selector: 'app-screen-left',
   templateUrl: './screen-left.component.html',
   styleUrls: ['./screen-left.component.scss']
 })
-export class ScreenLeftComponent implements OnInit {
+export class ScreenLeftComponent implements OnInit,OnDestroy {
   @Input() kiosks: IKiosks;
   @Input() subscreenid: number;
   @Input() screenWidth: number = 30;
@@ -21,7 +21,8 @@ export class ScreenLeftComponent implements OnInit {
   //@ViewChild('ngcarousel') ngCarousel: NgbCarousel;
   @ViewChildren('video') videoInput: QueryList<ElementRef>;
   video:HTMLVideoElement; 
-
+  subscription:Subscription=Subscription.EMPTY;
+  
   data$: Observable<IKiosksSubScreenData>;
 
 
@@ -33,74 +34,110 @@ export class ScreenLeftComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const announces$ = this.kiosksStore.kiosks$.pipe(
-      map((announces) =>
-        announces.announces.filter((x) =>
-          x.announceSubScreens.find((s) => s.subScreenId == this.subscreenid)
-        )
-      )
-    );
-    const vehicleAnnounces$ = this.kiosksStore.kiosks$.pipe(
-      map((vehicleannounces) =>
-        vehicleannounces.vehicleAnnounces.filter((x) =>
-          x.vehicleAnnounceSubScreens.find(
-            (x) => x.subScreenId == this.subscreenid
+    this.subscription = timer(1000,1*60*1000).subscribe((thick) => {
+      const dateNow = new Date();
+      const announces$ = this.kiosksStore.kiosks$.pipe(
+        map((announces) =>
+          announces.announces.filter((x) =>
+            x.announceSubScreens.find(
+              (s) =>
+                s.subScreenId == this.subscreenid &&
+                new Date(x.publishStartDate) <= dateNow &&
+                new Date(x.publishFinishDate) >= dateNow
+            )
           )
         )
-      )
-    );
-    const homeAnnounces$ = this.kiosksStore.kiosks$.pipe(
-      map((homeannounces) =>
-        homeannounces.homeAnnounces.filter((x) =>
-          x.homeAnnounceSubScreens.find(
-            (x) => x.subScreenId == this.subscreenid
+      );
+      const vehicleAnnounces$ = this.kiosksStore.kiosks$.pipe(
+        map((vehicleannounces) =>
+          vehicleannounces.vehicleAnnounces.filter((x) =>
+            x.vehicleAnnounceSubScreens.find(
+              (s) =>
+                s.subScreenId == this.subscreenid &&
+                new Date(x.publishStartDate) <= dateNow &&
+                new Date(x.publishFinishDate) >= dateNow
+            )
           )
         )
-      )
-    );
-    const news$ = this.kiosksStore.kiosks$.pipe(
-      map((news) =>
-        news.news.filter((x) =>
-          x.newsSubScreens.find((x) => x.subScreenId == this.subscreenid)
+      );
+      const homeAnnounces$ = this.kiosksStore.kiosks$.pipe(
+        map((homeannounces) =>
+          homeannounces.homeAnnounces.filter((x) =>
+            x.homeAnnounceSubScreens.find(
+              (s) =>
+                s.subScreenId == this.subscreenid &&
+                new Date(x.publishStartDate) <= dateNow &&
+                new Date(x.publishFinishDate) >= dateNow
+            )
+          )
         )
-      )
-    );
-    const foodsMenu$ = this.kiosksStore.kiosks$.pipe(
-      map((foodsMenu) =>
-        foodsMenu.foodsMenu.filter((x) =>
-          x.foodMenuSubScreens.find((x) => x.subScreenId == this.subscreenid)
+      );
+      const news$ = this.kiosksStore.kiosks$.pipe(
+        map((news) =>
+          news.news.filter((x) =>
+            x.newsSubScreens.find(
+              (s) =>
+                s.subScreenId == this.subscreenid &&
+                new Date(x.publishStartDate) <= dateNow &&
+                new Date(x.publishFinishDate) >= dateNow
+            )
+          )
         )
-      )
-    );
-
-    const liveTvBroadCasts$ = this.kiosksStore.kiosks$.pipe(
-      map((liveTvBroadCasts) =>
-      liveTvBroadCasts.liveTvBroadCasts.filter((x) =>
-          x.liveTvBroadCastSubScreens.find((x) => x.subScreenId == this.subscreenid)
+      );
+      const foodsMenu$ = this.kiosksStore.kiosks$.pipe(
+        map((foodsMenu) =>
+          foodsMenu.foodsMenu.filter((x) =>
+            x.foodMenuSubScreens.find(
+              (s) =>
+                s.subScreenId == this.subscreenid &&
+                new Date(x.publishStartDate) <= dateNow &&
+                new Date(x.publishFinishDate) >= dateNow
+            )
+          )
         )
-      )
-    );
+      );
+      const liveTvBroadCasts$ = this.kiosksStore.kiosks$.pipe(
+        map((liveTvBroadCasts) =>
+          liveTvBroadCasts.liveTvBroadCasts.filter((x) =>
+            x.liveTvBroadCastSubScreens.find(
+              (s) =>
+                s.subScreenId == this.subscreenid &&
+                new Date(x.publishStartDate) <= dateNow &&
+                new Date(x.publishFinishDate) >= dateNow
+            )
+          )
+        )
+      );
 
-    this.data$ = combineLatest([
-      announces$,
-      vehicleAnnounces$,
-      homeAnnounces$,
-      news$,
-      foodsMenu$,
-      liveTvBroadCasts$,
-    ]).pipe(
-      map(([announces, vehicleAnnounces, homeAnnounces, news, foodsMenu,liveTvBroadCasts]) => {
-        return {
-          announces,
-          vehicleAnnounces,
-          homeAnnounces,
-          news,
-          foodsMenu,
-          liveTvBroadCasts
-        };
-      })
-    );
-
+      this.data$ = combineLatest([
+        announces$,
+        vehicleAnnounces$,
+        homeAnnounces$,
+        news$,
+        foodsMenu$,
+        liveTvBroadCasts$,
+      ]).pipe(
+        map(
+          ([
+            announces,
+            vehicleAnnounces,
+            homeAnnounces,
+            news,
+            foodsMenu,
+            liveTvBroadCasts,
+          ]) => {
+            return {
+              announces,
+              vehicleAnnounces,
+              homeAnnounces,
+              news,
+              foodsMenu,
+              liveTvBroadCasts,
+            };
+          }
+        )
+      );
+    });
    
   } //End Of ngOnInit()
 
@@ -120,7 +157,13 @@ export class ScreenLeftComponent implements OnInit {
     }
 
     this.interval = intervalTimeToMiliSecond;
+    //Remove if Publish Date is Expire
+    this.kiosksStore.checkDateIfExpireAndRemoveFromStore(id, announceType);
 
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 
 }

@@ -22,6 +22,8 @@ namespace DataAccess.Concrete.Configurations
             builder.Property(x=>x.Created);
             builder.Property(x=>x.NewsDate);
             builder.Property(x=>x.NewsAgency);
+
+            
         }
     }
 }

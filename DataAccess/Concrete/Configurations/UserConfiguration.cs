@@ -26,6 +26,10 @@ namespace DataAccess.Concrete.Configurations
             builder.HasMany(x=>x.HomeAnnounces).WithOne(x=>x.User).HasForeignKey(x=>x.UserId);
             builder.HasMany(x=>x.VehicleAnnounces).WithOne(x=>x.User).HasForeignKey(x=>x.UserId);
             builder.HasMany(x=>x.Announces).WithOne(x=>x.User).HasForeignKey(x=>x.UserId);
+            builder.HasMany(x=>x.News).WithOne(x=>x.User).HasForeignKey(x=>x.UserId);
+            builder.HasMany(x=>x.FoodMenus).WithOne(x=>x.User).HasForeignKey(x=>x.UserId);
+            builder.HasMany(x=>x.LiveTvBroadCasts).WithOne(x=>x.User).HasForeignKey(x=>x.UserId);
+
     
 
 

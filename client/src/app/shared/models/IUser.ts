@@ -1,6 +1,7 @@
 import { ICampus } from './ICampus';
 import { IDepartment } from './IDepartment';
 import { IDegree } from './IDegree';
+import { IUserPhoto } from './IUserPhoto';
 
 export interface IUser{
     userId:number;
@@ -21,8 +22,10 @@ export interface IUserList{
     gsmPhone:string;
     isActive:boolean;
     created:Date;
+    degreeId:number;
     campus:ICampus;
     department:IDepartment;
     degree:IDegree;
     photoUrl:string;
+    userPhotos:IUserPhoto[];
 }

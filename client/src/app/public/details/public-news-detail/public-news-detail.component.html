@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mb-2">
+      <mat-card>
+        <mat-card-title
+          class="d-flex justify-content-between align-items-center"
+        >
+          {{ news.header }}
+          <button mat-icon-button (click)="onClose()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-card-title>
+      </mat-card>
+    </div>
+    <ng-container *ngIf="news?.contentType.toLowerCase() == 'image'">
+      <div class="col-md-12 col-lg-12 col-xl-12">
+        <ngb-carousel>
+          <ng-template ngbSlide *ngFor="let images of news?.newsPhotos">
+            <img [src]="images.fullPath" alt="News Photo" style="max-width:100%;display: block;margin:0 auto"/>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="news?.contentType.toLowerCase() == 'textandimage'">
+      <div class="col-md-12">
+        <quill-view
+          [content]="news?.content"
+          format="html"
+          theme="snow"
+        ></quill-view>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="col-md-12">
+        <ngb-carousel>
+            <ng-template ngbSlide *ngFor="let images of news?.newsPhotos">
+              <img [src]="images.fullPath" alt="News Photo" style="max-width:100%;display: block;margin:0 auto"/>
+            </ng-template>
+          </ngb-carousel>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="news?.contentType.toLowerCase() == 'textonly'">
+      <div class="col-md-12">
+        <quill-view
+          [content]="news?.content"
+          format="html"
+          theme="snow"
+        ></quill-view>
+      </div>
+    </ng-container>
+  </div>
+</div>

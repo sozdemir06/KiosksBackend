@@ -9,5 +9,6 @@ namespace DataAccess.Abstract
     {
         Task<List<VehicleAnnounce>> GetVehicleAnnouncesForKiosksByScreenIdAsync(int screenId);
         Task<List<VehicleAnnounce>> GetVehicleAnnouncesForKiosksBySubScreenIdAsync(int subScreenId);
+        Task<List<VehicleAnnounce>> GetVehicleAnnouncesForPublicAsync();
     }
 }

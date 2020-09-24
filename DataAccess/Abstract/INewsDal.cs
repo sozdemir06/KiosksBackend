@@ -9,5 +9,6 @@ namespace DataAccess.Abstract
     {
         Task<List<News>> GetNewsForKiosksByScreenIdAsync(int screenId);
         Task<List<News>> GetNewsForKiosksBySubScreenIdAsync(int subScreenId);
+        Task<List<News>> GetNewsForPublicDto();
     }
 }

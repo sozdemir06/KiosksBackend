@@ -51,7 +51,7 @@ namespace Business.Concrete
             var slideId = Guid.NewGuid();
             mapForCreate.SlideId = slideId;
             mapForCreate.UserId=userId;
-            mapForCreate.SlideIntervalTime = (int)TimeSpan.FromMinutes(mapForCreate.SlideIntervalTime).TotalMilliseconds;
+            mapForCreate.SlideIntervalTime = (int)TimeSpan.FromMinutes(mapForCreate.SlideIntervalTime).TotalSeconds;
             mapForCreate.Created = DateTime.Now;
             mapForCreate.AnnounceType = "livetv";
 
@@ -140,7 +140,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
-            mapForUpdate.SlideIntervalTime=(int)TimeSpan.FromMinutes(mapForUpdate.SlideIntervalTime).TotalMilliseconds;
+            mapForUpdate.SlideIntervalTime= (int)TimeSpan.FromMinutes(mapForUpdate.SlideIntervalTime).TotalSeconds;
             await liveTvBrodcastDal.Update(mapForUpdate);
 
             var spec = new LiveTvBroadCastWithUserSpecification(updateDto.Id);
@@ -163,7 +163,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
-            mapForUpdate.SlideIntervalTime=(int)TimeSpan.FromMinutes(mapForUpdate.SlideIntervalTime).TotalMilliseconds;
+            mapForUpdate.SlideIntervalTime=(int)TimeSpan.FromMinutes(mapForUpdate.SlideIntervalTime).TotalSeconds;
             await liveTvBrodcastDal.Update(mapForUpdate);
 
             var spec = new LiveTvBroadCastWithUserSpecification(updateDto.Id);

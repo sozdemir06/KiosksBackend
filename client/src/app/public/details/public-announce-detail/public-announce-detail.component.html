@@ -1,0 +1,148 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mb-2">
+      <mat-card>
+        <mat-card-title
+          class="d-flex justify-content-between align-items-center"
+        >
+          {{ announce.header }}
+          <button mat-icon-button (click)="onClose()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-card-title>
+      </mat-card>
+    </div>
+    <ng-container *ngIf="announce?.contentType.toLowerCase() == 'image'">
+      <div class="col-md-4">
+        <mat-card>
+          <app-user-card [user]="announce?.user"></app-user-card>
+        </mat-card>
+      </div>
+      <div class="col-md-4">
+        <app-image-slider
+          [images]="announce?.announcePhotos"
+        ></app-image-slider>
+      </div>
+      <div class="col-md-4">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <strong class="mr-2">İçerik Tipi:</strong>
+            <span class="text-danger">{{
+              helperService.checkContentType(announce?.contentType)
+            }}</span>
+          </li>
+          <li class="list-group-item">
+            <strong class="mr-2">Tarih:</strong>
+            <span>{{ announce?.created | timeAgo }}</span>
+          </li>
+          <li class="list-group-item">
+            <strong class="mr-2">Yayın Tarihleri:</strong>
+            <span
+              >{{ announce?.publishStartDate | date: "M/d/yyyy h:m a" }}-</span
+            >
+            <span>{{
+              announce?.publishFinishDate | date: "M/d/yyyy h:m a"
+            }}</span>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="announce?.contentType.toLowerCase() == 'video'">
+      <div class="col-md-4">
+        <mat-card>
+          <app-user-card [user]="announce?.user"></app-user-card>
+        </mat-card>
+      </div>
+      <div class="col-md-4">
+        <app-custom-slider
+          [slides]="announce?.announcePhotos"
+        ></app-custom-slider>
+      </div>
+      <div class="col-md-4">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <strong class="mr-2">İçerik Tipi:</strong>
+            <span class="text-danger">{{
+              helperService.checkContentType(announce?.contentType)
+            }}</span>
+          </li>
+          <li class="list-group-item">
+            <strong class="mr-2">Tarih:</strong>
+            <span>{{ announce?.created | timeAgo }}</span>
+          </li>
+          <li class="list-group-item">
+            <strong class="mr-2">Yayın Tarihleri:</strong>
+            <span
+              >{{ announce?.publishStartDate | date: "M/d/yyyy h:m a" }}-</span
+            >
+            <span>{{
+              announce?.publishFinishDate | date: "M/d/yyyy h:m a"
+            }}</span>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+    <ng-container
+      *ngIf="
+        announce?.contentType.toLowerCase() == 'bloodannounce' ||
+        announce?.contentType.toLowerCase() == 'deathannounce' ||
+        announce?.contentType.toLowerCase() == 'generalannounce'
+      "
+    >
+      <!-- Panel Content Start -->
+      <div class="col-md-12 mb-2">
+        <button
+          mat-raised-button
+          (click)="onChangeReadMore()"
+          style="width: 100%"
+        >
+          <mat-icon>read_more</mat-icon>
+          <span>Daha Fazla bilgi......</span>
+        </button>
+      </div>
+      <ng-container *ngIf="readMore">
+        <div class="col-md-4">
+          <mat-card>
+            <app-user-card [user]="announce?.user"></app-user-card>
+          </mat-card>
+        </div>
+        <div class="col-md-4">
+          <img src="/assets/no_image.jpg" alt="" style="width: 100%" />
+        </div>
+        <div class="col-md-4">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <strong class="mr-2">İçerik Tipi:</strong>
+              <span class="text-danger">{{
+                helperService.checkContentType(announce?.contentType)
+              }}</span>
+            </li>
+            <li class="list-group-item">
+              <strong class="mr-2">Tarih:</strong>
+              <span>{{ announce?.created | timeAgo }}</span>
+            </li>
+            <li class="list-group-item">
+              <strong class="mr-2">Yayın Tarihleri:</strong>
+              <span
+                >{{
+                  announce?.publishStartDate | date: "M/d/yyyy h:m a"
+                }}-</span
+              >
+              <span>{{
+                announce?.publishFinishDate | date: "M/d/yyyy h:m a"
+              }}</span>
+            </li>
+          </ul>
+        </div>
+      </ng-container>
+
+      <mat-divider></mat-divider>
+      <quill-view
+        [content]="announce?.content"
+        format="html"
+        theme="snow"
+      ></quill-view>
+      <!-- Panel content End -->
+    </ng-container>
+  </div>
+</div>

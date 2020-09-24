@@ -77,7 +77,7 @@ export class LiveTvBroadCastStore {
         }),
         tap((announces) => {
           announces.data.forEach((elem) => {
-            elem.slideIntervalTime = elem.slideIntervalTime / 1000 / 60;
+            elem.slideIntervalTime = elem.slideIntervalTime / 1000;
           });
           this.subject.next(announces);
         })
@@ -101,7 +101,7 @@ export class LiveTvBroadCastStore {
           return throwError(error);
         }),
         tap((announces) => {
-          announces.slideIntervalTime = announces.slideIntervalTime / 1000 / 60;
+          announces.slideIntervalTime = announces.slideIntervalTime / 1000;
 
           const newItem = produce(this.subject.getValue(), (draft) => {
             draft?.data.push(announces);
@@ -123,7 +123,7 @@ export class LiveTvBroadCastStore {
           return throwError(error);
         }),
         tap((announce) => {
-          announce.slideIntervalTime = announce.slideIntervalTime / 1000 / 60;
+          announce.slideIntervalTime = announce.slideIntervalTime / 1000;
           const updatedSubject = produce(this.subject.getValue(), (draft) => {
             const index = draft.data.findIndex((x) => x.id === announce.id);
             const update: ILiveTvBroadCast = {
@@ -149,7 +149,7 @@ export class LiveTvBroadCastStore {
           return throwError(error);
         }),
         tap((announce) => {
-          announce.slideIntervalTime = announce.slideIntervalTime / 1000 / 60;
+          announce.slideIntervalTime = announce.slideIntervalTime / 1000;
           const updatedSubject = produce(this.subject.getValue(), (draft) => {
             const index = draft.data.findIndex((x) => x.id === announce.id);
             const update: ILiveTvBroadCast = {
@@ -178,7 +178,7 @@ export class LiveTvBroadCastStore {
           return throwError(error);
         }),
         tap((detail) => {
-          detail.slideIntervalTime = detail.slideIntervalTime / 1000 / 60;
+          detail.slideIntervalTime = detail.slideIntervalTime / 1000;
           this.detailSubject.next(detail);
         })
       );

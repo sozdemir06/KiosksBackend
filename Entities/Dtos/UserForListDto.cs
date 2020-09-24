@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Concrete;
 
@@ -18,5 +19,6 @@ namespace Entities.Dtos
         public CampusForReturnDto Campus { get; set; }
         public DepartmentForReturnDto Department { get; set; }
         public DegreeForReturnDto Degree { get; set; }
+        public List<UserPhotoForReturnDto> UserPhotos { get; set; }
     }
 }

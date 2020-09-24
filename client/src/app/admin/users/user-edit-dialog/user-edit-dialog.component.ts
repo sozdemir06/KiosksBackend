@@ -118,7 +118,11 @@ export class UserEditDialogComponent implements OnInit {
   onSubmit() {
     if (this.mode == 'create') {
       if (this.loginForm.valid) {
-        this.userStore.create(this.loginForm.value);
+        const model:IUserList={
+          ...this.loginForm.value,
+          isActive:true
+        }
+        this.userStore.create(model);
         this.dialogRef.close();
       }
     }else if(this.mode=='update')

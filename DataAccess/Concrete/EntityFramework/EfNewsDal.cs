@@ -16,7 +16,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (var context = new DataContext())
             {
-        
+
                 var news = await context.News
                                 .Include(u => u.User)
                                 .Include(x => x.User.Campus)
@@ -25,7 +25,7 @@ namespace DataAccess.Concrete.EntityFramework
                                 .Include(p => p.NewsPhotos)
                                 .Include(s => s.NewsSubScreens)
                                 .Where(x => x.NewsSubScreens.Any(s => s.ScreenId == screenId)
-                                 && x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true)
+                                 && x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true || x.PublishStartDate >= DateTime.Now)
                                  .AsNoTracking()
                                  .ToListAsync();
                 return news;
@@ -35,9 +35,9 @@ namespace DataAccess.Concrete.EntityFramework
 
         public async Task<List<News>> GetNewsForKiosksBySubScreenIdAsync(int subScreenId)
         {
-           using (var context = new DataContext())
+            using (var context = new DataContext())
             {
-        
+
                 var news = await context.News
                                 .Include(u => u.User)
                                 .Include(x => x.User.Campus)
@@ -45,8 +45,27 @@ namespace DataAccess.Concrete.EntityFramework
                                 .Include(x => x.User.Department)
                                 .Include(p => p.NewsPhotos)
                                 .Include(s => s.NewsSubScreens)
-                                .Where(x => x.NewsSubScreens.Any(s => s.SubScreenId ==subScreenId)
+                                .Where(x => x.NewsSubScreens.Any(s => s.SubScreenId == subScreenId)
                                  && x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true)
+                                 .AsNoTracking()
+                                 .ToListAsync();
+                return news;
+
+            }
+        }
+
+        public async Task<List<News>> GetNewsForPublicDto()
+        {
+            using (var context = new DataContext())
+            {
+
+                var news = await context.News
+                                .Include(u => u.User)
+                                .Include(x => x.User.Campus)
+                                .Include(x => x.User.Degree)
+                                .Include(x => x.User.Department)
+                                .Include(p => p.NewsPhotos)
+                                .Where(x => x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true)
                                  .AsNoTracking()
                                  .ToListAsync();
                 return news;

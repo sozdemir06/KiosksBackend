@@ -9,5 +9,6 @@ namespace DataAccess.Abstract
     {
          Task<List<HomeAnnounce>> GetHomeAnnouncesForKiosksByScreenIdAsync(int screenId);
          Task<List<HomeAnnounce>> GetHomeAnnouncesForKiosksBySubScreenIdAsync(int subScreenId);
+         Task<List<HomeAnnounce>> GetHomeAnnouncesForPublicAsync();
     }
 }

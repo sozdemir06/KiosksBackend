@@ -23,7 +23,7 @@ namespace DataAccess.Concrete.EntityFramework
                                 .Include(s => s.LiveTvBroadCastSubScreens)
                                 .Where(
                                  x => x.LiveTvBroadCastSubScreens.Any(s => s.ScreenId == screenId) &&
-                                 x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true)
+                                 x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true || x.PublishStartDate>=DateTime.Now)
                                  .AsNoTracking()
                                  .ToListAsync();
                 return liveTvBroadCasts;

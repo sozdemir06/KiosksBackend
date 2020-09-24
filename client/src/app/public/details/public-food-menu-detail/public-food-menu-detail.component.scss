@@ -1,0 +1,24 @@
+.menu-container {
+    position: relative;
+    width: 100%;
+    color: white;
+  
+    & > .menu-bg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  
+    &>.overlay{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-height: 100%;
+      width: 100%;
+      opacity:0.8;
+      background-color: #010405;
+    }
+  }
+  

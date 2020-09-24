@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mb-2">
+      <mat-card>
+        <mat-card-title
+          class="d-flex justify-content-between align-items-center"
+        >
+          {{ homeAnnounce.header }}
+          <button mat-icon-button (click)="onClose()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-card-title>
+      </mat-card>
+    </div>
+    <div class="col-md-4">
+        <app-user-card [user]="homeAnnounce?.user"></app-user-card>
+      </div>
+      <div class="col-md-4">
+        <app-image-slider
+          [images]="homeAnnounce?.homeAnnouncePhotos"
+        ></app-image-slider>
+      </div>
+      <div class="col-md-4">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <strong class="mr-2">Fiyat:</strong>
+            <span class="text-danger">{{homeAnnounce?.price | currency:'₺'}}</span>
+          </li>
+          <li class="list-group-item">
+            <strong class="mr-2">Oda Sayısı:</strong>
+            <span>{{ homeAnnounce?.numberOfRoomName }}</span>
+          </li>
+          <li class="list-group-item">
+            <strong class="mr-2">Isıtma Tipi:</strong>
+            <span>{{ homeAnnounce?.heatingtypeName}}</span>
+          </li>
+          <li class="list-group-item">
+            <strong class="mr-2">Binanın Yaşı:</strong>
+            <span>{{ homeAnnounce?.buildingAgeName}}</span>
+          </li>
+          <li class="list-group-item">
+            <strong class="mr-2">㎡:</strong>
+            <span>{{ homeAnnounce?.squareMeters}}</span>
+          </li>
+          <li class="list-group-item">
+            <strong class="mr-2">Tarih:</strong>
+            <span>{{ homeAnnounce?.created | timeAgo }}</span>
+          </li>
+          <li class="list-group-item">
+            <strong class="mr-2">Yayın Tarihleri:</strong>
+            <span>{{ homeAnnounce?.publishStartDate | date: "M/d/yyyy h:m a" }}-</span>
+            <span>{{ homeAnnounce?.publishFinishDate | date: "M/d/yyyy h:m a" }}</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="col-md-12" *ngIf="homeAnnounce?.description">
+        <mat-divider></mat-divider>
+          <mat-card>
+              <mat-card-content>
+                  <p>{{homeAnnounce?.description}}</p>
+              </mat-card-content>
+          </mat-card>
+      </div>
+
+  </div>
+ 
+</div>

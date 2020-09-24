@@ -20,7 +20,7 @@ export class HelperService {
     return isoLocal;
   }
 
-  checkPublishDate(dt1: Date, dt2: Date): boolean {
+  checkPublishDate(dt1: Date | string, dt2: Date): boolean {
     let passCheck: boolean = true;
     dt1 = new Date(dt1);
     dt2 = new Date(dt2);

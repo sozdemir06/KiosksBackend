@@ -1,0 +1,43 @@
+<ng-container *ngIf="(vehicleannounces$ | async)?.length > 0;">
+  <mat-card>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Fotoğraf</th>
+          <th scope="col">Başlık</th>
+          <th scope="col">Tarih</th>
+          <th scope="col">Fiyat</th>
+          <th scope="col">Tür</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Vehicle Announce Start -->
+        <tr
+          *ngFor="let vehicleannounces of vehicleannounces$ | async"
+          style="cursor: pointer"
+          (click)="onDetail(vehicleannounces)"
+        >
+          <td>
+            <ng-container *ngIf="vehicleannounces.photoUrl; else noImage">
+              <img [src]="vehicleannounces?.photoUrl" style="width: 35px" />
+            </ng-container>
+            <ng-template #noImage>
+              <img src="/assets/no_image.jpg" style="width: 35px" />
+            </ng-template>
+          </td>
+          <td>{{ vehicleannounces?.header | shorten }}</td>
+          <td>{{ vehicleannounces?.created | timeAgo }}</td>
+          <td>{{ vehicleannounces?.price | currency: "₺" }}</td>
+          <td><span class="badge badge-danger">Araç İlanı</span></td>
+        </tr>
+        <!--Vehicle Announce End -->
+        <!-- News Start -->
+      </tbody>
+    </table>
+  </mat-card>
+</ng-container>
+<ng-template *ngIf="(vehicleannounces$ |async)?.length==0">
+  <div class="alert alert-primary" role="alert">
+    Yayında olan araç ilanı yok...!!!
+  </div>
+</ng-template>

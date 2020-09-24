@@ -83,7 +83,7 @@ namespace Business.Concrete
             return mapper.Map<List<HomeAnnouncePhoto>, List<HomeAnnouncePhotoForReturnDto>>(getListFromRepo);
         }
 
-         [SecuredOperation("Sudo,HomeAnnounces.Update,HomeAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounces.Update,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnouncePhotoValidator), Priority = 2)]
         public async Task<HomeAnnouncePhotoForReturnDto> Update(HomeAnnouncePhotoForCreationDto updateDto)
         {

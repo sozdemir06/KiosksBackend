@@ -9,7 +9,7 @@
           <mat-icon>menu</mat-icon>
         </button>
         <img
-          routerLink="/"
+          routerLink="/app/home"
           src="/assets/logo/logo.png"
           alt="Logo"
           width="70"
@@ -53,10 +53,10 @@
               >Şükrü Özdemir</span
             >
             <mat-menu #menu="matMenu">
-              <button mat-menu-item [routerLink]="['/']">
-                Yönetim Paneli
+              <button mat-menu-item [routerLink]="['/app/home/user-profile/me']">
+                Profile
               </button>
-              <button mat-menu-item [routerLink]="['/kiosks']">Kiosks</button>
+              <button mat-menu-item [routerLink]="['/kiosks']">Profile</button>
               <button mat-menu-item>Ayarlar</button>
               <button mat-menu-item (click)="logout()">Çıkış</button>
             </mat-menu>

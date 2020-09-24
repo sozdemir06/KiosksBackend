@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mb-2">
+      <mat-card>
+        <mat-card-title
+          class="d-flex justify-content-between align-items-center"
+        >
+          {{ vehicleAnnounce.header }}
+          <button mat-icon-button (click)="onClose()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-card-title>
+      </mat-card>
+    </div>
+    <div class="col-md-4">
+      <app-user-card [user]="vehicleAnnounce?.user"></app-user-card>
+    </div>
+    <div class="col-md-4">
+      <app-image-slider
+        [images]="vehicleAnnounce?.vehicleAnnouncePhotos"
+      ></app-image-slider>
+    </div>
+    <div class="col-md-4">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <strong class="mr-2">Fiyat:</strong>
+          <span class="text-danger">{{
+            vehicleAnnounce?.price | currency: "₺"
+          }}</span>
+        </li>
+        <li class="list-group-item">
+          <strong class="mr-2">Araç Kategorisi:</strong>
+          <span>{{ vehicleAnnounce?.vehicleCategoryName }}</span>
+        </li>
+        <li class="list-group-item">
+          <strong class="mr-2">Marka:</strong>
+          <span>{{ vehicleAnnounce?.vehicleBrandName }}</span>
+        </li>
+        <li class="list-group-item">
+          <strong class="mr-2">Model:</strong>
+          <span>{{ vehicleAnnounce?.vehicleModelName }}</span>
+        </li>
+        <li class="list-group-item">
+          <strong class="mr-2">Yakıt Tipi:</strong>
+          <span>{{ vehicleAnnounce?.vehicleFuelTypeName }}</span>
+        </li>
+        <li class="list-group-item">
+          <strong class="mr-2">Vites Tipi:</strong>
+          <span>{{ vehicleAnnounce?.vehicleGearTypeName }}</span>
+        </li>
+        <li class="list-group-item">
+            <strong class="mr-2">Motor Hacmi:</strong>
+            <span>{{ vehicleAnnounce?.vehicleEngineSizeName }}</span>
+          </li>
+        <li class="list-group-item">
+          <strong class="mr-2">Tarih:</strong>
+          <span>{{ vehicleAnnounce?.created | timeAgo }}</span>
+        </li>
+        <li class="list-group-item">
+          <strong class="mr-2">Yayın Tarihleri:</strong>
+          <span
+            >{{
+              vehicleAnnounce?.publishStartDate | date: "M/d/yyyy h:m a"
+            }}-</span
+          >
+          <span>{{
+            vehicleAnnounce?.publishFinishDate | date: "M/d/yyyy h:m a"
+          }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-12" *ngIf="vehicleAnnounce?.description">
+      <mat-divider></mat-divider>
+      <mat-card>
+        <mat-card-content>
+          <p>{{ vehicleAnnounce?.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

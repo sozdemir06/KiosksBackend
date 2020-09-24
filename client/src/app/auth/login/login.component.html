@@ -1,9 +1,9 @@
 <section class="container d-flex justify-content-center">
     <mat-card class="w-50">
         <app-loading></app-loading>
-        <mat-tab-group mat-stretch-tabs class="mt-2"> 
+        <mat-tab-group mat-stretch-tabs class="mt-2" > 
             <mat-tab label="Giriş Formu" >
-                <form [formGroup]="loginForm" class="d-flex flex-column w-100" (ngSubmit)="login()" autocomplete="off">
+                <form class="p-3" [formGroup]="loginForm" class="d-flex flex-column w-100" (ngSubmit)="login()" autocomplete="off">
                     <mat-form-field> 
                         <input matInput type="email" formControlName="email" placeholder="Email"/>
                         <mat-error *ngIf="f.email.errors?.required">Email adresinizi yazınız.!!!</mat-error>
@@ -18,7 +18,9 @@
                     <button mat-raised-button [disabled]="loginForm.invalid" color="primary" type="submit">Giriş</button>
                 </form>
             </mat-tab>
-            <mat-tab label="Kayıt Formu"> Content 2 </mat-tab>
+            <mat-tab label="Kayıt Formu">
+                <app-register></app-register>
+            </mat-tab>
           </mat-tab-group>
     </mat-card>
 </section>

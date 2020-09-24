@@ -77,7 +77,7 @@ export class UserStore {
           this.userSubject.next(newUser);
           this.notificationService.notify(
             'success',
-            'Yeni Kallanıcı Eklendi.!!!'
+            'Kayıt işlemi tamamlandı.profil bilgileriniz onaylandıktan sonra giriş yapabilirsiniz.'
           );
         })
       );

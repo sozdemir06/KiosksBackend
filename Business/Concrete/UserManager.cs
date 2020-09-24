@@ -32,7 +32,6 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,User.Create,User.All", Priority = 1)]
         [ValidationAspect(typeof(UserValidator), Priority = 2)]
         public async Task Add(User user)
         {
@@ -45,6 +44,8 @@ namespace Business.Concrete
             return await userDal.GetAsync(x => x.Email == email);
         }
 
+
+       
 
         public async Task<UserForListDto> GetUserAsync(string email)
         {

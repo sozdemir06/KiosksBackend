@@ -1091,6 +1091,38 @@ namespace DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.UserPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullPath")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsConfirm")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserPhotos");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.UserRole", b =>
                 {
                     b.Property<int>("Id")
@@ -1493,7 +1525,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Core.Entities.Concrete.FoodMenu", b =>
                 {
                     b.HasOne("Core.Entities.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("FoodMenus")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1625,7 +1657,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Core.Entities.Concrete.News", b =>
                 {
                     b.HasOne("Core.Entities.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("News")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1723,6 +1755,15 @@ namespace DataAccess.Migrations
                     b.HasOne("Core.Entities.Concrete.Department", "Department")
                         .WithMany("Users")
                         .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.UserPhoto", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.User", "User")
+                        .WithMany("UserPhotos")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

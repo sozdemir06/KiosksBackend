@@ -9,5 +9,6 @@ namespace DataAccess.Abstract
     {
         Task<List<FoodMenu>> GetFoodsMenuForKiosksByScreenIdAsync(int screenId);
         Task<List<FoodMenu>> GetFoodsMenuForKiosksBySubScreenIdAsync(int subScreenId);
+        Task<List<FoodMenu>> GetFoodMenusForPublicAsync();
     }
 }

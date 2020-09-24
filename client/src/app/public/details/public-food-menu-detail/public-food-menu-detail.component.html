@@ -1,0 +1,57 @@
+<mat-card style="max-width: 100vw">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 col-lg-12 col-xl-12 mb-1">
+        <mat-card-title class="d-flex justify-content-between">
+          <span class="kiosks-font">
+            {{ foodsMenu?.publishStartDate | date: "M/d/yyyy" }}
+            Tarihli Yemek Menüsü
+          </span>
+          <button mat-icon-button (click)="onClose()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-card-title>
+        <mat-divider></mat-divider>
+      </div>
+      <div class="col-md-12 col-lg-12 col-xl-12">
+        <div class="menu-container">
+          <ng-container *ngIf="bgPhotoUrl; else defaultbg">
+            <img class="menu-bg" [src]="bgPhotoUrl" />
+          </ng-container>
+          <ng-template #defaultbg>
+            <img class="menu-bg" src="/assets/food-bg.jpg" />
+          </ng-template>
+          <div class="overlay">
+            <div class="row">
+              <div class="col-md-12 col-lg-12 col-xl-12">
+                <div
+                  class="col-md-6 col-lg-6 col-xl-6 offset-md-3 offset-lg-3 offset-xl-3"
+                >
+                  <quill-view
+                    style="align-self: center"
+                    [content]="foodsMenu?.content"
+                    format="html"
+                    theme="snow"
+                  ></quill-view>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-12 col-xl-12 mt-3">
+                <div
+                  class="col-md-6 col-lg-6 col-xl-6 offset-md-3 offset-lg-3 offset-xl-3"
+                >
+                  <ng-container *ngIf="foodsMenu.foodMenuPhotos?.length > 0">
+                    <app-image-slider
+                      [images]="foodsMenu.foodMenuPhotos"
+                      [thumbnails]="false"
+                      [imageAutoPlay]="true"
+                    ></app-image-slider>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

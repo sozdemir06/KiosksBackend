@@ -24,7 +24,7 @@ namespace DataAccess.Concrete.EntityFramework
                                 .Include(s => s.AnnounceSubScreens)
                                 .Where(
                                  x => x.AnnounceSubScreens.Any(s => s.ScreenId == screenId) &&
-                                 x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true)
+                                 x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true || x.PublishStartDate>=DateTime.Now)
                                  .AsNoTracking()
                                  .ToListAsync();
                 return announces;
@@ -43,7 +43,28 @@ namespace DataAccess.Concrete.EntityFramework
                                 .Include(p => p.AnnouncePhotos)
                                 .Include(s => s.AnnounceSubScreens)
                                .Where(x => x.AnnounceSubScreens.Any(s => s.SubScreenId == subScreenId) &&
-                                 x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true)
+                                 x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true || x.PublishStartDate>=DateTime.Now)
+                                 .AsNoTracking()
+                                 .ToListAsync();
+                return announces;
+
+            }
+        }
+
+        public async Task<List<Announce>> GetAnnounceForPublicAsync()
+        {
+            using (var context = new DataContext())
+            {
+                var dateNow = DateTime.Now;
+
+                var announces = await context.Announces
+                                .Include(u => u.User)
+                                .Include(u=>u.User.Degree)
+                                .Include(u=>u.User.Department)
+                                .Include(u=>u.User.Campus)
+                                .Include(p => p.AnnouncePhotos)
+                                .Where(
+                                 x => x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true)
                                  .AsNoTracking()
                                  .ToListAsync();
                 return announces;

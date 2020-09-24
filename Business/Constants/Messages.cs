@@ -8,6 +8,7 @@ namespace Business.Constants
         public static string Added = "Başarıyla eklendi.";
         public static string Deleted = "Başarıyla silindi.";
         public static string Updated = "Başarıyla güncellendi.";
+        public static string OperationDenied = "Bu operasyon için yetkili değilsiniz..";
 
         public static string UserNotFound = "Kimlik Bilgileri Doğrulanamadı. Lütfen Yeni Kayıt Ekranını Kullanınız.";
         public static string UserNotApprovedProfile = "Profiliniz onaylanmamış Sistem Yöneticisi ile iletişime geçiniz.";

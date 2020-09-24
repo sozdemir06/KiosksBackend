@@ -232,29 +232,11 @@
         'url'
       "
     >
-     
-        <app-food-menu [foodMenu]="menu" [position]="kiosks.screen.position" [height]="screenHeight"></app-food-menu>
-      
-    </ng-template>
-  </ng-container>
-  <ng-container *ngFor="let youtube of data.liveTvBroadCasts; let i = index">
-    <ng-template
-      ngbSlide
-      [id]="
-      youtube?.slideId +
-        '_' +
-        i +
-        '_' +
-        youtube.announceType.toLowerCase() +
-        '_' +
-        'livetv' +
-        '_' +
-        youtube.slideIntervalTime +
-        '_' +
-        'url'
-      "
-    >
-       {{youtube.contentType}}
+      <app-food-menu
+        [foodMenu]="menu"
+        [position]="kiosks.screen.position"
+        [height]="screenHeight"
+      ></app-food-menu>
     </ng-template>
   </ng-container>
   <ng-template
@@ -265,7 +247,7 @@
       data.homeAnnounces?.length == 0 &&
       data.news?.length == 0 &&
       data.vehicleAnnounces?.length == 0 &&
-      data.liveTvBroadCasts?.length==0
+      data.liveTvBroadCasts?.length == 0
     "
   >
     <div class="d-flex flex-column align-items-center">

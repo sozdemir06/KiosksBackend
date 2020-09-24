@@ -4,12 +4,7 @@ using AutoMapper;
 using Business.Abstract;
 using Core.Entities.Concrete;
 using DataAccess.Abstract;
-using DataAccess.EntitySpecification.AnnounceSpecification;
-using DataAccess.EntitySpecification.FoodMenuSpecification;
-using DataAccess.EntitySpecification.HomeAnnounceSpecification;
-using DataAccess.EntitySpecification.NewsSpecification;
 using DataAccess.EntitySpecification.ScreenSpecification;
-using DataAccess.EntitySpecification.VehicleAnnounceSpecification;
 using Entities.Dtos;
 
 namespace Business.Concrete

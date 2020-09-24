@@ -27,6 +27,9 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
 
+            builder.RegisterType<UserPhotoManager>().As<IUserPhotoService>();
+            builder.RegisterType<EfUserPhotoDal>().As<IUserPhotoDal>();
+
             builder.RegisterType<CampusManager>().As<ICampusService>();
             builder.RegisterType<EfCampusDal>().As<ICampusDal>();
 
@@ -147,7 +150,7 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<LiveTvBroadCastSubScreenManager>().As<ILiveTvBroadCastSubScreenService>();
             builder.RegisterType<EfLiveTvListDal>().As<ILiveTvListDal>();
 
-             builder.RegisterType<EfLiveTvBroadCastSubScreenDal>().As<ILiveTvBroadCastSubScreenDal>();
+            builder.RegisterType<EfLiveTvBroadCastSubScreenDal>().As<ILiveTvBroadCastSubScreenDal>();
             builder.RegisterType<EfLiveTvBroadCastDal>().As<ILiveTvBroadCastDal>();
 
 

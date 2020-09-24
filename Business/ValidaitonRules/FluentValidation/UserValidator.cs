@@ -14,7 +14,7 @@ namespace Business.ValidaitonRules.FluentValidation
             RuleFor(x=>x.InterPhone).NotEmpty().WithMessage("Dahili telefon boş olamaz..");
             RuleFor(x=>x.CampusId).NotEmpty().WithMessage("Yerleşke seçiniz..");
             RuleFor(x=>x.DepartmentId).NotEmpty().WithMessage("Birim seçiniz..");
-            RuleFor(x=>x.Degree).NotEmpty().WithMessage("Ünvan seçiniz..");
+            RuleFor(x=>x.DegreeId).NotEmpty().WithMessage("Ünvan seçiniz..");
         }
     }
 }

@@ -4,7 +4,7 @@ import { IKiosks } from '../models/IKiosks';
 import { HelperService } from 'src/app/core/services/helper-service';
 import { KiosksStore } from '../store/kiosks-store';
 import { map } from 'rxjs/operators';
-import { combineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest, Observable, Subscription, timer } from 'rxjs';
 import { NgbSlideEvent } from '@ng-bootstrap/ng-bootstrap';
 import { FoodMenuBgPhotoStore } from 'src/app/core/services/stores/food-menu-bg-photo-store';
 
@@ -22,6 +22,7 @@ interval: any = 2500;
 video:HTMLVideoElement; 
 bgPhotoUrl:string;
 subscription:Subscription=Subscription.EMPTY;
+timerSubs:Subscription=Subscription.EMPTY;
 
 data$: Observable<IKiosksSubScreenData>;
 
@@ -42,11 +43,14 @@ data$: Observable<IKiosksSubScreenData>;
     })
     //Bg Photo End
 
-    
+    this.timerSubs=timer(1000,1*60*1000).subscribe(thick=>{
+      const dateNow=new Date();
     const announces$ = this.kiosksStore.kiosks$.pipe(
       map((announces) =>
         announces.announces.filter((x) =>
-          x.announceSubScreens.filter((s) => s.screenId == this.kiosks.screen?.id)
+          x.announceSubScreens.filter((s) => s.screenId == this.kiosks.screen?.id &&
+          new Date(x.publishStartDate) <= dateNow &&
+          new Date(x.publishFinishDate) >= dateNow)
         )
       )
     )
@@ -55,7 +59,9 @@ data$: Observable<IKiosksSubScreenData>;
       map((vehicleannounces) =>
         vehicleannounces.vehicleAnnounces.filter((x) =>
           x.vehicleAnnounceSubScreens.filter(
-            (x) => x.screenId == this.kiosks.screen?.id
+            (s) => s.screenId == this.kiosks.screen?.id &&
+            new Date(x.publishStartDate) <= dateNow &&
+            new Date(x.publishFinishDate) >= dateNow
           )
         )
       )
@@ -64,7 +70,9 @@ data$: Observable<IKiosksSubScreenData>;
       map((homeannounces) =>
         homeannounces.homeAnnounces.filter((x) =>
           x.homeAnnounceSubScreens.filter(
-            (x) => x.screenId == this.kiosks.screen?.id
+            (s) => s.screenId == this.kiosks.screen?.id&&
+            new Date(x.publishStartDate) <= dateNow &&
+            new Date(x.publishFinishDate) >= dateNow
           )
         )
       )
@@ -72,14 +80,18 @@ data$: Observable<IKiosksSubScreenData>;
     const news$ = this.kiosksStore.kiosks$.pipe(
       map((news) =>
         news.news.filter((x) =>
-          x.newsSubScreens.filter((x) => x.screenId == this.kiosks.screen?.id)
+          x.newsSubScreens.filter( (s) => s.screenId == this.kiosks.screen?.id &&
+          new Date(x.publishStartDate) <= dateNow &&
+          new Date(x.publishFinishDate) >= dateNow)
         )
       )
     );
     const foodsMenu$ = this.kiosksStore.kiosks$.pipe(
       map((foodsMenu) =>
         foodsMenu.foodsMenu.filter((x) =>
-          x.foodMenuSubScreens.filter((x) => x.screenId == this.kiosks.screen?.id)
+          x.foodMenuSubScreens.filter( (s) => s.screenId == this.kiosks.screen?.id &&
+          new Date(x.publishStartDate) <= dateNow &&
+          new Date(x.publishFinishDate) >= dateNow)
         )
       )
     );
@@ -87,7 +99,9 @@ data$: Observable<IKiosksSubScreenData>;
     const liveTvBroadCasts$ = this.kiosksStore.kiosks$.pipe(
       map((liveTvBroadCasts) =>
       liveTvBroadCasts.liveTvBroadCasts.filter((x) =>
-          x.liveTvBroadCastSubScreens.find((x) => x.subScreenId == this.kiosks.screen?.id)
+          x.liveTvBroadCastSubScreens.find( (s) => s.subScreenId == this.kiosks.screen?.id &&
+          new Date(x.publishStartDate) <= dateNow &&
+          new Date(x.publishFinishDate) >= dateNow)
         )
       )
     );
@@ -111,6 +125,8 @@ data$: Observable<IKiosksSubScreenData>;
         };
       })
     );
+    })
+    
 
   }
 
@@ -129,11 +145,15 @@ data$: Observable<IKiosksSubScreenData>;
     }
 
     this.interval = intervalTimeToMiliSecond;
+     //Remove if Publish Date is Expire
+     this.kiosksStore.checkDateIfExpireAndRemoveFromStore(id, announceType);
+
 
   }
 
   ngOnDestroy(){
     this.subscription.unsubscribe();
+    this.timerSubs.unsubscribe();
   }
 
 }

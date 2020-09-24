@@ -27,8 +27,11 @@ namespace Core.Entities.Concrete
         public int DegreeId { get; set; }
 
         public ICollection<UserRole> UserRoles { get; set; }
+        public ICollection<UserPhoto> UserPhotos { get; set; }
         public ICollection<HomeAnnounce> HomeAnnounces { get; set; }
         public ICollection<VehicleAnnounce> VehicleAnnounces { get; set; }
+        public ICollection<News> News { get; set; }
+        public ICollection<FoodMenu> FoodMenus { get; set; }
         public ICollection<Announce> Announces { get; set; }
         public ICollection<LiveTvBroadCast> LiveTvBroadCasts { get; set; }
 

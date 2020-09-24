@@ -28,7 +28,7 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: '',
+        path: 'home',
         loadChildren: () =>
           import('../public/public.module').then((m) => m.PublicModule),
       },

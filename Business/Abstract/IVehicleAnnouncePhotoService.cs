@@ -8,6 +8,7 @@ namespace Business.Abstract
     {
         Task<List<VehicleAnnouncePhotoForReturnDto>> GetListAsync(int announceId);
         Task<VehicleAnnouncePhotoForReturnDto> Create(FileUploadDto uploadDto);
+        Task<VehicleAnnouncePhotoForReturnDto> CreateForPublicAsync(FileUploadDto uploadDto);
         Task<VehicleAnnouncePhotoForReturnDto> Update(VehicleAnnouncePhotoForCreationDto updateDto);
         Task<VehicleAnnouncePhotoForReturnDto> Delete(int Id);
     }

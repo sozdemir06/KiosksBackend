@@ -58,7 +58,7 @@ namespace Business.Concrete
         }
 
 
-         [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]   
+         [SecuredOperation("Sudo,HomeAnnounceOptions.All,Public",Priority=1)]   
         public async Task<List<NumberOfRoomForReturnDto>> GetListAsync()
         {
              var numberOfRoomsList=await numberOfRoomDal.GetListAsync();

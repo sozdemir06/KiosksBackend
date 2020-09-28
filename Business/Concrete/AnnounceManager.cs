@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Abstract;
@@ -15,6 +17,7 @@ using Core.QueryParams;
 using DataAccess.Abstract;
 using DataAccess.EntitySpecification.AnnounceSpecification;
 using Entities.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Concrete
 {
@@ -23,8 +26,11 @@ namespace Business.Concrete
         private readonly IAnnounceDal announceDal;
         private readonly IMapper mapper;
         private readonly IAnnounceSubScreenDal announceSubScreenDal;
-        public AnnounceManager(IAnnounceDal announceDal, IMapper mapper, IAnnounceSubScreenDal announceSubScreenDal)
+        private readonly IHttpContextAccessor httpContextAccessor;
+        public AnnounceManager(IAnnounceDal announceDal, IHttpContextAccessor httpContextAccessor,
+        IMapper mapper, IAnnounceSubScreenDal announceSubScreenDal)
         {
+            this.httpContextAccessor = httpContextAccessor;
             this.announceSubScreenDal = announceSubScreenDal;
             this.mapper = mapper;
             this.announceDal = announceDal;
@@ -52,6 +58,42 @@ namespace Business.Concrete
 
             var getAnnounceFromRepo = await announceDal.GetEntityWithSpecAsync(spec);
             return mapper.Map<Announce, AnnounceForReturnDto>(getAnnounceFromRepo);
+        }
+
+        [SecuredOperation("Sudo,Public", Priority = 1)]
+        [ValidationAspect(typeof(AnnounceValidator), Priority = 2)]
+        public async Task<AnnounceForUserDto> CreateForPublicAsync(AnnounceForCreationDto creationDto, int userId)
+        {
+            var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+            if (claimId != userId)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.OperationDenied });
+            }
+
+            var checkByNameFromRepo = await announceDal.GetAsync(x => x.Header.ToLower() == creationDto.Header.ToLower());
+            if (checkByNameFromRepo != null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.AlreadyExist });
+            }
+
+            var mapForCreate = mapper.Map<Announce>(creationDto);
+            var slideId = Guid.NewGuid();
+            mapForCreate.SlideId = slideId;
+            mapForCreate.UserId = claimId;
+            mapForCreate.IsNew = true;
+            mapForCreate.IsPublish = false;
+            mapForCreate.Reject = false;
+            mapForCreate.SlideIntervalTime = 8;
+            mapForCreate.PublishFinishDate = DateTime.Now;
+            mapForCreate.PublishStartDate = DateTime.Now;
+            mapForCreate.Created = DateTime.Now;
+            mapForCreate.AnnounceType = "announce";
+
+            var createAnnounce = await announceDal.Add(mapForCreate);
+            var spec = new AnnounceByUserIdSpecification(userId, createAnnounce.Id);
+
+            var getAnnounceFromRepo = await announceDal.GetEntityWithSpecAsync(spec);
+            return mapper.Map<Announce, AnnounceForUserDto>(getAnnounceFromRepo);
         }
 
         [SecuredOperation("Sudo,Announces.Delete,Announces.All", Priority = 1)]
@@ -158,6 +200,35 @@ namespace Business.Concrete
             var getAnnounceWithUserFromRepo = await announceDal.GetEntityWithSpecAsync(spec);
 
             return mapper.Map<Announce, AnnounceForReturnDto>(getAnnounceWithUserFromRepo);
+        }
+
+        [SecuredOperation("Sudo,Public", Priority = 1)]
+        [ValidationAspect(typeof(AnnounceValidator), Priority = 2)]
+        public async Task<AnnounceForUserDto> UpdateForPublicAsync(AnnounceForCreationDto updateDto, int userId)
+        {
+            var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+            if (claimId != userId)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.OperationDenied });
+            }
+
+            var checkFromRepo = await announceDal.GetAsync(x => x.Id == updateDto.Id);
+            if (checkFromRepo == null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
+            }
+
+            var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
+            mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.IsNew = true;
+            mapForUpdate.IsPublish = false;
+            mapForUpdate.Reject = false;
+            await announceDal.Update(mapForUpdate);
+
+            var spec = new AnnounceByUserIdSpecification(userId, checkFromRepo.Id);
+            var getAnnounceWithUserFromRepo = await announceDal.GetEntityWithSpecAsync(spec);
+
+            return mapper.Map<Announce, AnnounceForUserDto>(getAnnounceWithUserFromRepo);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Pagination<AnnounceForReturnDto>>> List([FromQuery]AnnounceParams queryParams)
+        public async Task<ActionResult<Pagination<AnnounceForReturnDto>>> List([FromQuery] AnnounceParams queryParams)
         {
             return await announceService.GetListAsync(queryParams);
         }
@@ -31,7 +31,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AnnounceForReturnDto>> Create([FromBody]AnnounceForCreationDto creationDto)
+        public async Task<ActionResult<AnnounceForReturnDto>> Create([FromBody] AnnounceForCreationDto creationDto)
         {
             return await announceService.Create(creationDto);
         }
@@ -53,6 +53,19 @@ namespace API.Controllers
         {
             return await announceService.Delete(announceId);
         }
+
+        [HttpPost("createforuser/{userId}")]
+        public async Task<ActionResult<AnnounceForReturnDto>> CreateForPublicAsync([FromBody] AnnounceForCreationDto creationDto,int userId)
+        {
+            return await announceService.Create(creationDto);
+        }
+
+        [HttpPut("updateforuser/{userId}")]
+        public async Task<ActionResult<AnnounceForReturnDto>> Update(AnnounceForCreationDto updateDto,int userId)
+        {
+            return await announceService.Update(updateDto);
+        }
+
 
 
     }

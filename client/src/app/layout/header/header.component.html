@@ -2,7 +2,7 @@
   <div class="container">
     <div
       class="d-flex justify-content-between align-items-center"
-      style="min-height: 7vh;"
+      style="min-height: 7vh"
     >
       <div class="d-flex align-items-center">
         <button mat-icon-button (click)="onToogleSidenav()">
@@ -13,7 +13,7 @@
           src="/assets/logo/logo.png"
           alt="Logo"
           width="70"
-          style="cursor: pointer; outline: none;"
+          style="cursor: pointer; outline: none"
         />
       </div>
       <div class="d-flex align-items-center justify-content-between">
@@ -47,16 +47,21 @@
               class="mr-2"
               width="35"
               alt="user avatar"
-              style="cursor: pointer;"
+              style="cursor: pointer"
             />
-            <span [matMenuTriggerFor]="menu" style="cursor: pointer;"
+            <span [matMenuTriggerFor]="menu" style="cursor: pointer"
               >Şükrü Özdemir</span
             >
             <mat-menu #menu="matMenu">
-              <button mat-menu-item [routerLink]="['/app/home/user-profile/me']">
+              <button
+                mat-menu-item
+                [routerLink]="['/app/home/user-profile/me']"
+              >
                 Profile
               </button>
-              <button mat-menu-item [routerLink]="['/kiosks']">Profile</button>
+              <button mat-menu-item [routerLink]="['/app/home/announces/me']">
+                Yayınlarım
+              </button>
               <button mat-menu-item>Ayarlar</button>
               <button mat-menu-item (click)="logout()">Çıkış</button>
             </mat-menu>

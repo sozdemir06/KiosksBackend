@@ -4,9 +4,9 @@ using Core.Entities;
 
 namespace Entities.Dtos
 {
-    public class AnnounceForPublicDto:IDto
+    public class AnnounceForPublicDto : IDto
     {
-         public int Id { get; set; }
+        public int Id { get; set; }
         public string Header { get; set; }
         public string Description { get; set; }
         public string AnnounceType { get; set; }

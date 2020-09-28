@@ -20,7 +20,7 @@ namespace API.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<Pagination<HomeAnnounceForReturnDto>>> List([FromQuery]HomeAnnounceParams queryParams)
+        public async Task<ActionResult<Pagination<HomeAnnounceForReturnDto>>> List([FromQuery] HomeAnnounceParams queryParams)
         {
             return await homeAnnounceService.GetListAsync(queryParams);
         }
@@ -32,7 +32,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<HomeAnnounceForReturnDto>> Create([FromBody]HomeAnnounceForCreationDto creationDto)
+        public async Task<ActionResult<HomeAnnounceForReturnDto>> Create([FromBody] HomeAnnounceForCreationDto creationDto)
         {
             return await homeAnnounceService.Create(creationDto);
         }
@@ -53,6 +53,18 @@ namespace API.Controllers
         public async Task<ActionResult<HomeAnnounceForReturnDto>> Delete(int announceId)
         {
             return await homeAnnounceService.Delete(announceId);
+        }
+
+        [HttpPost("createforuser/{userId}")]
+        public async Task<ActionResult<HomeAnnounceForUserDto>> CreateForUser([FromBody] HomeAnnounceForCreationDto creationDto, int userId)
+        {
+            return await homeAnnounceService.CreateForPublicAsync(creationDto, userId);
+        }
+
+        [HttpPut("updateforuser/{userId}")]
+        public async Task<ActionResult<HomeAnnounceForUserDto>> Update(HomeAnnounceForCreationDto updateDto,int userId)
+        {
+            return await homeAnnounceService.UpdateForPublicAsync(updateDto,userId);
         }
     }
 }

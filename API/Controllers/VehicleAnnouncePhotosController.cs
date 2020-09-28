@@ -29,6 +29,12 @@ namespace API.Controllers
             return await vehicleAnnouncePhotoService.Create(uploadDto);
         }
 
+        [HttpPost("createforuser")]
+        public async Task<ActionResult<VehicleAnnouncePhotoForReturnDto>> CreateForUser([FromForm] FileUploadDto uploadDto)
+        {
+            return await vehicleAnnouncePhotoService.CreateForPublicAsync(uploadDto);
+        }
+
         [HttpPut]
         public async Task<VehicleAnnouncePhotoForReturnDto> Update(VehicleAnnouncePhotoForCreationDto creationDto)
         {

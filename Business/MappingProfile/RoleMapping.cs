@@ -14,8 +14,8 @@ namespace Business.MappingProfile
             CreateMap<Role, UserRoleForListDto>();
             CreateMap<User, UserForListDto>();
             CreateMap<UserForRegisterDto, User>();
-            CreateMap<UserPhoto,UserPhotoForReturnDto>();
-            CreateMap<UserPhotoForCreationDto,UserPhoto>();
+            CreateMap<UserPhoto, UserPhotoForReturnDto>();
+            CreateMap<UserPhotoForCreationDto, UserPhoto>();
 
             CreateMap<Campus, CampusForReturnDto>();
             CreateMap<CampuseForCreationDto, Campus>();
@@ -25,7 +25,7 @@ namespace Business.MappingProfile
 
             CreateMap<Degree, DegreeForReturnDto>();
             CreateMap<DegreeForCreationDto, Degree>();
-            
+
             CreateMap<Role, RoleForListDto>();
             CreateMap<RoleCategory, RoleCategoryForListDto>();
             CreateMap<RoleForCreationAndUpdateDto, Role>();
@@ -73,7 +73,9 @@ namespace Business.MappingProfile
                     .ForMember(x => x.HomeAnnouncePhotos, o => o.MapFrom(z => z.HomeAnnouncePhotos.Where(t => t.IsConfirm == true)));
             CreateMap<HomeAnnounce, HomeAnnounceForPublicDto>()
                    .ForMember(x => x.HomeAnnouncePhotos, o => o.MapFrom(z => z.HomeAnnouncePhotos.Where(t => t.IsConfirm == true)))
-                    .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.HomeAnnouncePhotos.FirstOrDefault(x=>x.IsConfirm).FullPath));
+                    .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.HomeAnnouncePhotos.FirstOrDefault(x => x.IsConfirm).FullPath));
+            CreateMap<HomeAnnounce, HomeAnnounceForUserDto>()
+                  .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.HomeAnnouncePhotos.FirstOrDefault(x => x.IsConfirm).FullPath));
             CreateMap<HomeAnnounceForCreationDto, HomeAnnounce>();
 
             CreateMap<HomeAnnounce, HomeAnnounceForDetailDto>();
@@ -92,11 +94,15 @@ namespace Business.MappingProfile
                     .ForMember(x => x.VehicleModelName, o => o.MapFrom(z => z.VehicleModel.VehicleModelName));
             CreateMap<VehicleAnnounce, VehicleAnnounceForPublicDto>()
                .ForMember(x => x.VehicleAnnouncePhotos, o => o.MapFrom(z => z.VehicleAnnouncePhotos.Where(t => t.IsConfirm == true)))
-                .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.VehicleAnnouncePhotos.FirstOrDefault(x=>x.IsConfirm).FullPath))
+                .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.VehicleAnnouncePhotos.FirstOrDefault(x => x.IsConfirm).FullPath))
                 .ForMember(x => x.VehicleCategoryName, o => o.MapFrom(z => z.VehicleCategory.CategoryName))
                   .ForMember(x => x.VehicleBrandName, o => o.MapFrom(z => z.VehicleBrand.BrandName))
                   .ForMember(x => x.VehicleModelName, o => o.MapFrom(z => z.VehicleModel.VehicleModelName));
-
+            CreateMap<VehicleAnnounce, VehicleAnnounceForUserDto>()
+               .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.VehicleAnnouncePhotos.FirstOrDefault(x => x.IsConfirm).FullPath))
+               .ForMember(x => x.VehicleCategoryName, o => o.MapFrom(z => z.VehicleCategory.CategoryName))
+                 .ForMember(x => x.VehicleBrandName, o => o.MapFrom(z => z.VehicleBrand.BrandName))
+                 .ForMember(x => x.VehicleModelName, o => o.MapFrom(z => z.VehicleModel.VehicleModelName));
             CreateMap<VehicleAnnounce, VehicleAnnounceForDetailDto>()
                  .ForMember(x => x.VehicleCategoryName, o => o.MapFrom(z => z.VehicleCategory.CategoryName))
                     .ForMember(x => x.VehicleBrandName, o => o.MapFrom(z => z.VehicleBrand.BrandName))
@@ -116,7 +122,9 @@ namespace Business.MappingProfile
                      .ForMember(x => x.AnnouncePhotos, o => o.MapFrom(z => z.AnnouncePhotos.Where(t => t.IsConfirm == true)));
             CreateMap<Announce, AnnounceForPublicDto>()
                    .ForMember(x => x.AnnouncePhotos, o => o.MapFrom(z => z.AnnouncePhotos.Where(t => t.IsConfirm == true)))
-                   .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.AnnouncePhotos.FirstOrDefault(x=>x.IsConfirm).FullPath));
+                   .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.AnnouncePhotos.FirstOrDefault(x => x.IsConfirm).FullPath));
+              CreateMap<Announce, AnnounceForUserDto>()
+                   .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.AnnouncePhotos.FirstOrDefault(x => x.IsConfirm).FullPath));
             CreateMap<AnnounceForCreationDto, Announce>();
 
             CreateMap<Announce, AnnounceForDetailDto>();
@@ -135,7 +143,7 @@ namespace Business.MappingProfile
                          .ForMember(x => x.NewsPhotos, o => o.MapFrom(z => z.NewsPhotos.Where(t => t.IsConfirm == true)));
             CreateMap<News, NewsForPublicDto>()
                          .ForMember(x => x.NewsPhotos, o => o.MapFrom(z => z.NewsPhotos.Where(t => t.IsConfirm == true)))
-                          .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.NewsPhotos.FirstOrDefault(x=>x.IsConfirm).FullPath));
+                          .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.NewsPhotos.FirstOrDefault(x => x.IsConfirm).FullPath));
             CreateMap<NewsForCreationDto, News>();
 
             CreateMap<News, NewsForDetailDto>();
@@ -151,7 +159,7 @@ namespace Business.MappingProfile
                  .ForMember(x => x.FoodMenuPhotos, o => o.MapFrom(z => z.FoodMenuPhotos.Where(t => t.IsConfirm == true)));
             CreateMap<FoodMenu, FoodMenuForPublicDto>()
                .ForMember(x => x.FoodMenuPhotos, o => o.MapFrom(z => z.FoodMenuPhotos.Where(t => t.IsConfirm == true)))
-                .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.FoodMenuPhotos.FirstOrDefault(x=>x.IsConfirm).FullPath));
+                .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.FoodMenuPhotos.FirstOrDefault(x => x.IsConfirm).FullPath));
             CreateMap<FoodMenuForCreationDto, FoodMenu>();
 
             CreateMap<FoodMenu, FoodMenuForDetailDto>();

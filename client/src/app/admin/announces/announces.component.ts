@@ -1,4 +1,11 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { AnnounceStore } from 'src/app/core/services/stores/announce-store';
 import { PageEvent } from '@angular/material/paginator';
 import { ISubScreen } from 'src/app/shared/models/ISubScreen';
@@ -12,24 +19,19 @@ import { AnnounceParams } from 'src/app/shared/models/AnnounceParams';
 @Component({
   selector: 'app-announces',
   templateUrl: './announces.component.html',
-  styleUrls: ['./announces.component.scss']
+  styleUrls: ['./announces.component.scss'],
 })
-export class AnnouncesComponent implements OnInit,AfterViewInit,OnDestroy {
-unSubsCribeFromSearchInput:Subscription=Subscription.EMPTY;
-@ViewChild('searchInput') searchInput: ElementRef;
-roleForCreate:string[]=['Sudo','Announces.Create,Announces.All']
+export class AnnouncesComponent implements OnInit, AfterViewInit, OnDestroy {
+  unSubsCribeFromSearchInput: Subscription = Subscription.EMPTY;
+  @ViewChild('searchInput') searchInput: ElementRef;
+  roleForCreate: string[] = ['Sudo', 'Announces.Create,Announces.All'];
   constructor(
-    public announceStore:AnnounceStore,
-    public subScreenStore:SubScreenStore,
-    private dialog:MatDialog
-  ) { }
+    public announceStore: AnnounceStore,
+    public subScreenStore: SubScreenStore,
+    private dialog: MatDialog
+  ) {}
 
-  ngOnInit(): void {
-   
-  }
-
-  
-
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     this.unSubsCribeFromSearchInput = fromEvent<any>(
@@ -49,50 +51,48 @@ roleForCreate:string[]=['Sudo','Announces.Create,Announces.All']
       });
   }
 
-  onPageChange(event:PageEvent){
-     const params=this.announceStore.getParams();
-     params.pageSize = event.pageSize;
-     params.pageIndex = event.pageIndex + 1;
-     this.announceStore.setParams(params);
-     this.announceStore.getListByParams();
-
-  }
-
-  onWaitingForConfirm(){
+  onPageChange(event: PageEvent) {
     const params = this.announceStore.getParams();
-    params.isNew=true;
+    params.pageSize = event.pageSize;
+    params.pageIndex = event.pageIndex + 1;
     this.announceStore.setParams(params);
     this.announceStore.getListByParams();
   }
 
-  onCreateNew(){
-    this.dialog.open(EditAnnouncesDialogComponent,{
-      width:"60vw",
-      maxHeight:"100vh",
-      autoFocus:false,
-      data:{
-        title:"Yeni Duyuru  ekle",
-        mode:"create",
-        item:null
-      }
-    })
+  onWaitingForConfirm() {
+    const params = this.announceStore.getParams();
+    params.isNew = true;
+    this.announceStore.setParams(params);
+    this.announceStore.getListByParams();
   }
 
-  onReset(){
+  onCreateNew() {
+    this.dialog.open(EditAnnouncesDialogComponent, {
+      width: '60vw',
+      maxHeight: '100vh',
+      autoFocus: false,
+      data: {
+        title: 'Yeni Duyuru  ekle',
+        mode: 'create',
+        item: null,
+      },
+    });
+  }
+
+  onReset() {
     const params = new AnnounceParams();
     this.announceStore.setParams(params);
     this.announceStore.getListByParams();
   }
 
-  filterBySubScreen(id:number){
+  filterBySubScreen(id: number) {
     const params = this.announceStore.getParams();
-    params.subScreenId =id;
+    params.subScreenId = id;
     this.announceStore.setParams(params);
     this.announceStore.getListByParams();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.unSubsCribeFromSearchInput.unsubscribe();
   }
-
 }

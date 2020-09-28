@@ -13,7 +13,6 @@ using Core.Extensions;
 using Core.QueryParams;
 using DataAccess.Abstract;
 using DataAccess.EntitySpecification.VehicleBrandSpecification;
-using Entities.Concrete;
 using Entities.Dtos;
 
 namespace Business.Concrete
@@ -44,7 +43,7 @@ namespace Business.Concrete
             var mapForReturn = mapper.Map<VehicleBrand, VehicleBrandForReturnDto>(saveToDb);
             return mapForReturn;
         }
-      [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<VehicleBrandForReturnDto> Delete(int Id)
         {
             var checkFromDb = await vehicleBrandDal.GetAsync(x => x.Id == Id);
@@ -58,14 +57,14 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<Pagination<VehicleBrandForReturnDto>> GetListAsync(VehicleBrandParams vehicleBrandParams)
         {
-            var spec=new VehicleBrandWithVehicleCategorySpecification(vehicleBrandParams);
-            var vehicleBrandList=await vehicleBrandDal.ListEntityWithSpecAsync(spec);
-            var countSpec=new VehicleBrandWithFilterForCountAsyncSpecification(vehicleBrandParams);
-            var totalCount=await vehicleBrandDal.CountAsync(countSpec);
-            
+            var spec = new VehicleBrandWithVehicleCategorySpecification(vehicleBrandParams);
+            var vehicleBrandList = await vehicleBrandDal.ListEntityWithSpecAsync(spec);
+            var countSpec = new VehicleBrandWithFilterForCountAsyncSpecification(vehicleBrandParams);
+            var totalCount = await vehicleBrandDal.CountAsync(countSpec);
+
             if (vehicleBrandList == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
@@ -81,19 +80,20 @@ namespace Business.Concrete
             );
         }
 
-        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounceOptions.All,Public", Priority = 1)]
         public async Task<List<VehicleBrandForReturnDto>> GetListByCategoryId(int categoryId)
         {
-             var getListByCategoryId=await vehicleBrandDal.GetListAsync(x=>x.VehicleCategoryId==categoryId);
-             if(getListByCategoryId==null)
-             {
-                  throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
-             }
+            var getListByCategoryId = await vehicleBrandDal.GetListAsync(x => x.VehicleCategoryId == categoryId);
+            if (getListByCategoryId == null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
+            }
 
-             return mapper.Map<List<VehicleBrand>,List<VehicleBrandForReturnDto>>(getListByCategoryId);
+            return mapper.Map<List<VehicleBrand>, List<VehicleBrandForReturnDto>>(getListByCategoryId);
         }
 
-       [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
+
+        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleBrandValidator), Priority = 2)]
         public async Task<VehicleBrandForReturnDto> Update(VehicleBrandForCreationDto updateDto)
         {

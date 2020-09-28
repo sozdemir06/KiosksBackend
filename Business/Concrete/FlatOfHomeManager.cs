@@ -55,7 +55,7 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]        
+        [SecuredOperation("Sudo,HomeAnnounceOptions.All,Public",Priority=1)]        
         public async Task<List<FlatOfHomeForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await flatOFHomeDal.GetListAsync();

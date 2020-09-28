@@ -10,5 +10,6 @@ namespace DataAccess.Abstract
          Task<List<Announce>> GetAnnounceForKiosksByScreenIdAsync(int screenId);
          Task<List<Announce>> GetAnnounceForKiosksBySubScreenIdAsync(int subScreenId);
          Task<List<Announce>> GetAnnounceForPublicAsync();
+         
     }
 }

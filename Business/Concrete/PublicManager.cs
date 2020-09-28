@@ -66,6 +66,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(ChangePasswordValidator), Priority = 2)]
+         [SecuredOperation("Sudo,Public", Priority = 1)]
         public async Task ChangePassword(UserForChangePasswordDto userForChangePasswordDto, int userId)
         {
             var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Abstract;
@@ -12,6 +14,7 @@ using Core.Extensions;
 using Core.Utilities.Photos;
 using DataAccess.Abstract;
 using Entities.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Concrete
 {
@@ -21,9 +24,12 @@ namespace Business.Concrete
         private readonly IMapper mapper;
         private readonly IUploadFile upload;
         private readonly IVehicleAnnounceDal vehicleAnnounceDal;
+        private readonly IHttpContextAccessor httpContextAccessor;
         public VehicleAnnouncePhotoManager(IVehicleAnnouncePhotoDal vehicleAnnouncePhotoDal,
+        IHttpContextAccessor httpContextAccessor,
                 IMapper mapper, IUploadFile upload, IVehicleAnnounceDal vehicleAnnounceDal)
         {
+            this.httpContextAccessor = httpContextAccessor;
             this.vehicleAnnounceDal = vehicleAnnounceDal;
             this.upload = upload;
             this.mapper = mapper;
@@ -53,7 +59,35 @@ namespace Business.Concrete
             return mapper.Map<VehicleAnnouncePhoto, VehicleAnnouncePhotoForReturnDto>(createPhoto);
         }
 
-       [SecuredOperation("Sudo,VehicleAnnounces.Delete,VehicleAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,Public", Priority = 1)]
+        [ValidationAspect(typeof(VehicleAnnouncePhotoValidator), Priority = 2)]
+        public async Task<VehicleAnnouncePhotoForReturnDto> CreateForPublicAsync(FileUploadDto uploadDto)
+        {
+            var checkAnnounceById = await vehicleAnnounceDal.GetAsync(x => x.Id == uploadDto.AnnounceId);
+            var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+            
+            if (claimId != checkAnnounceById.UserId)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.OperationDenied });
+            }
+            if (checkAnnounceById == null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundAnnounce });
+            }
+
+            var uploadFile = await upload.Upload(uploadDto.File, "carannounce");
+
+            var mapForCreate = new VehicleAnnouncePhotoForCreationDto();
+            mapForCreate.Name = uploadFile.Name;
+            mapForCreate.FullPath = uploadFile.FullPath;
+            mapForCreate.VehicleAnnounceId = uploadDto.AnnounceId;
+            mapForCreate.IsConfirm = false;
+            var mapForDb = mapper.Map<VehicleAnnouncePhoto>(mapForCreate);
+            var createPhoto = await vehicleAnnouncePhotoDal.Add(mapForDb);
+            return mapper.Map<VehicleAnnouncePhoto, VehicleAnnouncePhotoForReturnDto>(createPhoto);
+        }
+
+        [SecuredOperation("Sudo,VehicleAnnounces.Delete,VehicleAnnounces.All", Priority = 1)]
         public async Task<VehicleAnnouncePhotoForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await vehicleAnnouncePhotoDal.GetAsync(x => x.Id == Id);
@@ -68,7 +102,7 @@ namespace Business.Concrete
             return mapper.Map<VehicleAnnouncePhoto, VehicleAnnouncePhotoForReturnDto>(checkByIdFromRepo);
         }
 
-       [SecuredOperation("Sudo,VehicleAnnounces.List,VehicleAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounces.List,VehicleAnnounces.All", Priority = 1)]
         public async Task<List<VehicleAnnouncePhotoForReturnDto>> GetListAsync(int announceId)
         {
             var getListFromRepo = await vehicleAnnouncePhotoDal.GetListAsync(x => x.VehicleAnnounceId == announceId);

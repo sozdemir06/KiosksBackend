@@ -40,5 +40,11 @@ namespace API.Controllers
         {
             return await announcePhotoService.Delete(photoId);
         }
+
+        [HttpPost("createforuser")]
+        public async Task<ActionResult<AnnouncePhotoForReturnDto>> CreateForPublic([FromForm]FileUploadDto uploadDto)
+        {
+            return await announcePhotoService.CreateForPublic(uploadDto);
+        }
     }
 }

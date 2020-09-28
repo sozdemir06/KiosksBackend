@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Duyuru Fotoğrafları</h1>
+<div class="row p-4">
+  <ng-container *ngIf="(announce$ | async)?.announcePhotos?.length > 0; else dataIsEmpty">
+    <ng-container *ngFor="let image of (announce$ | async)?.announcePhotos">
+      <div class="col-md-2">
+        <mat-card>
+          <img
+            mat-card-image
+            src="{{ image?.fullPath }}"
+            alt="İlan Fotoğrafı"
+            height="100"
+          />
+          <mat-card-actions
+            class="d-flex justify-content-center align-items-center"
+          >
+            <ng-container *ngIf="!image?.isConfirm">
+              <button type="button" class="btn btn-danger btn-sm">
+                Onay Bekliyor
+              </button>
+            </ng-container>
+
+            <ng-container *ngIf="image.isConfirm">
+              <button type="button" class="btn btn-primary btn-sm">
+                Onaylandı
+              </button>
+            </ng-container>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <div class="col-md-4">
+    <ng-template #dataIsEmpty>
+      <div class="alert alert-primary" role="alert">
+        Bu duyuru için henüz fotoğraf eklenmemiş...
+      </div>
+    </ng-template>
+  </div>
+  <div class="col-md-12">
+    <app-upload
+          class="m-3"
+          [announceId]="announce?.id"
+          [apiUrl]="'http://localhost:5000/api/announcephotos/createforuser'"
+          [roleForUpload]="allowedRole"
+          (uploadResult)="uploadResult($event)"
+        ></app-upload>
+  </div>
+</div>

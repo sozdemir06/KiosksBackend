@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Abstract;
@@ -15,6 +17,7 @@ using Core.QueryParams;
 using DataAccess.Abstract;
 using DataAccess.EntitySpecification.VehicleAnnounceSpecification;
 using Entities.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Concrete
 {
@@ -23,8 +26,11 @@ namespace Business.Concrete
         private readonly IVehicleAnnounceDal vehicleAnnounceDal;
         private readonly IMapper mapper;
         private readonly IVehicleAnnounceSubScreenDal vehicleAnnounceSubScreenDal;
-        public VehicleAnnounceManager(IVehicleAnnounceDal vehicleAnnounceDal, IMapper mapper, IVehicleAnnounceSubScreenDal vehicleAnnounceSubScreenDal)
+        private readonly IHttpContextAccessor httpContextAccessor;
+        public VehicleAnnounceManager(IVehicleAnnounceDal vehicleAnnounceDal, IHttpContextAccessor httpContextAccessor,
+        IMapper mapper, IVehicleAnnounceSubScreenDal vehicleAnnounceSubScreenDal)
         {
+            this.httpContextAccessor = httpContextAccessor;
             this.vehicleAnnounceSubScreenDal = vehicleAnnounceSubScreenDal;
             this.mapper = mapper;
             this.vehicleAnnounceDal = vehicleAnnounceDal;
@@ -51,6 +57,41 @@ namespace Business.Concrete
             return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(createHomeAnnounce);
         }
 
+        [SecuredOperation("Sudo,Public", Priority = 1)]
+        [ValidationAspect(typeof(VehicleAnnounceValidator), Priority = 2)]
+        public async Task<VehicleAnnounceForUserDto> CreateForPublicAsync(VehicleAnnounceForCreationDto creationDto, int userId)
+        {
+            var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+            if (claimId != userId)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.OperationDenied });
+            }
+            var checkByNameFromRepo = await vehicleAnnounceDal.GetAsync(x => x.Header.ToLower() == creationDto.Header.ToLower());
+            if (checkByNameFromRepo != null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.AlreadyExist });
+            }
+
+            var mapForCreate = mapper.Map<VehicleAnnounce>(creationDto);
+            var slideId = System.Guid.NewGuid();
+            mapForCreate.UserId = claimId;
+            mapForCreate.IsNew = true;
+            mapForCreate.IsPublish = false;
+            mapForCreate.Reject = false;
+            mapForCreate.SlideIntervalTime = 8;
+            mapForCreate.PublishFinishDate = DateTime.Now;
+            mapForCreate.PublishStartDate = DateTime.Now;
+            mapForCreate.SlideId = slideId;
+            mapForCreate.Created = DateTime.Now;
+            mapForCreate.AnnounceType = "Car";
+
+            var createHomeAnnounce = await vehicleAnnounceDal.Add(mapForCreate);
+            var spec = new VehicleAnnounceByUserIdSpecification(userId, createHomeAnnounce.Id);
+
+            var getAnnounceFromRepo = await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
+            return mapper.Map<VehicleAnnounce, VehicleAnnounceForUserDto>(getAnnounceFromRepo);
+        }
+
         [SecuredOperation("Sudo,VehicleAnnounces.Delete,VehicleAnnounces.All", Priority = 1)]
         public async Task<VehicleAnnounceForReturnDto> Delete(int Id)
         {
@@ -64,7 +105,7 @@ namespace Business.Concrete
             return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(getByIdFromRepo);
         }
 
-         [SecuredOperation("Sudo,VehicleAnnounces.List,VehicleAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounces.List,VehicleAnnounces.All", Priority = 1)]
         public async Task<VehicleAnnounceForDetailDto> GetDetailAsync(int vehicleAnnounceId)
         {
 
@@ -114,7 +155,7 @@ namespace Business.Concrete
             }
 
             var checkAnnounceSubScreenForPublish = await vehicleAnnounceSubScreenDal.GetListAsync(x => x.VehicleAnnounceId == updateDto.Id);
-            if (checkAnnounceSubScreenForPublish.Count<=0)
+            if (checkAnnounceSubScreenForPublish.Count <= 0)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotSelectSubScreen = Messages.NotSelectSubScreen });
             }
@@ -153,6 +194,32 @@ namespace Business.Concrete
             var spec = new VehicleAnnounceWithPagingSpecification(checkFromRepo.Id);
             var getWithUser = await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
             return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(getWithUser);
+        }
+
+        [SecuredOperation("Sudo,Public", Priority = 1)]
+        [ValidationAspect(typeof(VehicleAnnounceValidator), Priority = 2)]
+        public async Task<VehicleAnnounceForUserDto> UpdateForPublicAsync(VehicleAnnounceForCreationDto updateDto, int userId)
+        {
+            var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+            if (claimId != userId)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.OperationDenied });
+            }
+            var checkFromRepo = await vehicleAnnounceDal.GetAsync(x => x.Id == updateDto.Id);
+            if (checkFromRepo == null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
+            }
+
+            var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
+            mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.IsNew = true;
+            mapForUpdate.IsPublish = false;
+            mapForUpdate.Reject = false;
+            await vehicleAnnounceDal.Update(mapForUpdate);
+            var spec = new VehicleAnnounceByUserIdSpecification(userId, checkFromRepo.Id);
+            var getWithUser = await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
+            return mapper.Map<VehicleAnnounce, VehicleAnnounceForUserDto>(getWithUser);
         }
     }
 }

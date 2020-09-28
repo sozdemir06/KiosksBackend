@@ -58,6 +58,11 @@ const routes: Routes = [
         path:"user-profile/me",
         loadChildren:()=>import("./user-profile/user-profile.module").then(m=>m.UserProfileModule),
 
+      },
+      {
+        path:"announces/me",
+        loadChildren:()=>import("./user-announce/user-announce.module").then(m=>m.UserAnnounceModule)
+        
       }
     ],
   },

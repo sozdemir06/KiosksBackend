@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Abstract;
@@ -15,6 +17,7 @@ using Core.QueryParams;
 using DataAccess.Abstract;
 using DataAccess.EntitySpecification.HomeAnnounceSpecification;
 using Entities.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Concrete
 {
@@ -23,8 +26,11 @@ namespace Business.Concrete
         private readonly IHomeAnnounceDal homeAnnounceDal;
         private readonly IMapper mapper;
         private readonly IHomeAnnounceSubScreenDal homeAnnounceSubScreenDal;
-        public HomeAnnounceManager(IHomeAnnounceDal homeAnnounceDal, IMapper mapper, IHomeAnnounceSubScreenDal homeAnnounceSubScreenDal)
+        private readonly IHttpContextAccessor httpContextAccessor;
+        public HomeAnnounceManager(IHomeAnnounceDal homeAnnounceDal, IHttpContextAccessor httpContextAccessor,
+        IMapper mapper, IHomeAnnounceSubScreenDal homeAnnounceSubScreenDal)
         {
+            this.httpContextAccessor = httpContextAccessor;
             this.homeAnnounceSubScreenDal = homeAnnounceSubScreenDal;
             this.mapper = mapper;
             this.homeAnnounceDal = homeAnnounceDal;
@@ -52,6 +58,42 @@ namespace Business.Concrete
 
             var getAnnounceFromRepo = await homeAnnounceDal.GetEntityWithSpecAsync(spec);
             return mapper.Map<HomeAnnounce, HomeAnnounceForReturnDto>(getAnnounceFromRepo);
+        }
+
+        [SecuredOperation("Sudo,Public", Priority = 1)]
+        [ValidationAspect(typeof(HomeAnnounceValidator), Priority = 2)]
+        public async Task<HomeAnnounceForUserDto> CreateForPublicAsync(HomeAnnounceForCreationDto creationDto, int userId)
+        {
+            var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+            if (claimId != userId)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.OperationDenied });
+            }
+
+            var checkByNameFromRepo = await homeAnnounceDal.GetAsync(x => x.Header.ToLower() == creationDto.Header.ToLower());
+            if (checkByNameFromRepo != null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.AlreadyExist });
+            }
+
+            var mapForCreate = mapper.Map<HomeAnnounce>(creationDto);
+            var slideId = Guid.NewGuid();
+            mapForCreate.UserId = claimId;
+            mapForCreate.IsNew = true;
+            mapForCreate.IsPublish = false;
+            mapForCreate.Reject = false;
+            mapForCreate.SlideIntervalTime = 8;
+            mapForCreate.PublishFinishDate = DateTime.Now;
+            mapForCreate.PublishStartDate = DateTime.Now;
+            mapForCreate.AnnounceType = "home";
+            mapForCreate.SlideId = slideId;
+            mapForCreate.Created = DateTime.Now;
+
+            var createHomeAnnounce = await homeAnnounceDal.Add(mapForCreate);
+            var spec = new HomeAnnounceByUserIdSpecification(userId, createHomeAnnounce.Id);
+
+            var getAnnounceFromRepo = await homeAnnounceDal.GetEntityWithSpecAsync(spec);
+            return mapper.Map<HomeAnnounce, HomeAnnounceForUserDto>(getAnnounceFromRepo);
         }
 
         [SecuredOperation("Sudo,HomeAnnounces.Delete,HomeAnnounces.All", Priority = 1)]
@@ -162,6 +204,38 @@ namespace Business.Concrete
             var getAnnounceWithUserFromRepo = await homeAnnounceDal.GetEntityWithSpecAsync(spec);
 
             return mapper.Map<HomeAnnounce, HomeAnnounceForReturnDto>(getAnnounceWithUserFromRepo);
+        }
+
+        [SecuredOperation("Sudo,Public", Priority = 1)]
+        [ValidationAspect(typeof(HomeAnnounceValidator), Priority = 2)]
+        public async Task<HomeAnnounceForUserDto> UpdateForPublicAsync(HomeAnnounceForCreationDto creationDto,int userId)
+        {
+           
+
+            var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+            if (claimId != userId)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.OperationDenied });
+            }
+
+             var checkFromRepo = await homeAnnounceDal.GetAsync(x => x.Id == creationDto.Id);
+             
+            if (checkFromRepo == null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
+            }
+
+            var mapForUpdate = mapper.Map(creationDto, checkFromRepo);
+            mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.IsNew = true;
+            mapForUpdate.IsPublish = false;
+            mapForUpdate.Reject = false;
+            await homeAnnounceDal.Update(mapForUpdate);
+
+            var spec = new HomeAnnounceByUserIdSpecification(userId, creationDto.Id);
+            var getAnnounceWithUserFromRepo = await homeAnnounceDal.GetEntityWithSpecAsync(spec);
+
+            return mapper.Map<HomeAnnounce, HomeAnnounceForUserDto>(getAnnounceWithUserFromRepo);
         }
     }
 }

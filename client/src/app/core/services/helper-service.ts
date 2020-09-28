@@ -56,7 +56,7 @@ export class HelperService {
   checkContentType(contentType: string): string {
     let type: string = '';
 
-    switch (contentType.toLowerCase()) {
+    switch (contentType?.toLowerCase()) {
       case 'image':
         type = 'Fotoğraf';
         break;

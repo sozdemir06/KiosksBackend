@@ -55,7 +55,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,HomeAnnounceOptions.All",Priority=1)]        
+        [SecuredOperation("Sudo,HomeAnnounceOptions.All,Public",Priority=1)]        
         public async Task<List<HeatingTypeForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await heatingTypeDal.GetListAsync();

@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content>
+  <app-loading></app-loading>
+  <form
+    class="d-flex flex-column w-100"
+    [formGroup]="announceForm"
+    (ngSubmit)="onSubmit()"
+    autocomplete="off"
+  >
+    <mat-form-field>
+      <mat-label>İçerik Tipi</mat-label>
+      <mat-select formControlName="contentType">
+        <mat-option
+          *ngFor="
+            let item of announceContentTypeStore.announcecontenttypes$ | async
+          "
+          [value]="item.name"
+        >
+          {{ item.description }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="f.contentType.errors?.required"
+        >Duyuru içerik tipini seçiniz...</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Duyuru başlığı"
+        formControlName="header"
+      />
+      <mat-error *ngIf="f.header.errors?.required"
+        >Duyuru başlığı boş olamaz...</mat-error
+      >
+      <mat-error *ngIf="f.header.errors?.maxlength"
+        >Duyuru başlığı en fazla 140 karakter olmalı...</mat-error
+      >
+    </mat-form-field>
+    <ng-container>
+      <quill-editor
+        *ngIf="showTextEditor"
+        [modules]="helperService.quillToolbarOptions()"
+        formControlName="content"
+        [styles]="{ height: '25rem' }"
+        placeholder="Duyuru Metni"
+      ></quill-editor>
+    </ng-container>
+
+    <button mat-raised-button color="primary" [disabled]="!announceForm.valid">
+      {{ mode == "create" ? "Kaydet" : "Güncelle" }}
+    </button>
+  </form>
+</mat-dialog-content>

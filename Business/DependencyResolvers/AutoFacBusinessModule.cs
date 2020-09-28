@@ -152,7 +152,9 @@ namespace Business.DependencyResolvers.AutoFac
 
             builder.RegisterType<EfLiveTvBroadCastSubScreenDal>().As<ILiveTvBroadCastSubScreenDal>();
             builder.RegisterType<EfLiveTvBroadCastDal>().As<ILiveTvBroadCastDal>();
-
+            
+             builder.RegisterType<PublicManager>().As<IPublicService>();
+            builder.RegisterType<PublicUserAnnounceManager>().As<IPublicUserAnnounceService>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();

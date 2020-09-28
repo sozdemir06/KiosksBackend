@@ -1,9 +1,10 @@
 using Core.Entities.Concrete;
+using Entities.Dtos;
 using FluentValidation;
 
 namespace Business.ValidaitonRules.FluentValidation
 {
-    public class AnnounceValidator:AbstractValidator<Announce>
+    public class AnnounceValidator:AbstractValidator<AnnounceForCreationDto>
     {
         public AnnounceValidator()
         {

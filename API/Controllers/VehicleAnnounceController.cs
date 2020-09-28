@@ -47,5 +47,16 @@ namespace API.Controllers
         {
             return await vehicleAnnounceService.GetDetailAsync(announceId);
         }
+
+        [HttpPost("createforuser/{userId}")]
+        public async Task<ActionResult<VehicleAnnounceForUserDto>> CreateForPublic(VehicleAnnounceForCreationDto creationDto,int userId)
+        {
+            return await vehicleAnnounceService.CreateForPublicAsync(creationDto,userId);
+        }
+        [HttpPut("updateforuser/{userId}")]
+        public async Task<ActionResult<VehicleAnnounceForUserDto>> UpdateForPublic(VehicleAnnounceForCreationDto creationDto,int userId)
+        {
+            return await vehicleAnnounceService.UpdateForPublicAsync(creationDto,userId);
+        }
     }
 }

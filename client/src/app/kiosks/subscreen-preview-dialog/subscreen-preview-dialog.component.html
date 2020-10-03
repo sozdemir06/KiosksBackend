@@ -1,0 +1,50 @@
+<span mat-card-subtitle>{{subscreen?.name}}</span>
+  <ng-container *ngIf="subscreen?.position.toLowerCase() == 'top'">
+    <app-screen-top
+      [subscreenid]="subscreen.id"
+      [showNavigationArrows]="true"
+      [showNavigationIndicators]="true"
+      [screenHeight]="90"
+    ></app-screen-top>
+  </ng-container>
+  <ng-container *ngIf="subscreen?.position.toLowerCase() == 'vmiddle'">
+    <app-screen-middle
+      [subscreenid]="subscreen.id"
+      [showNavigationArrows]="true"
+      [showNavigationIndicators]="true"
+      [screenHeight]="90"
+    ></app-screen-middle>
+  </ng-container>
+  <ng-container *ngIf="subscreen?.position.toLowerCase() == 'bottom'">
+    <app-screen-bottom
+      [subscreenid]="subscreen.id"
+      [showNavigationArrows]="true"
+      [showNavigationIndicators]="true"
+      [screenHeight]="90"
+    ></app-screen-bottom>
+  </ng-container>
+  <ng-container *ngIf="subscreen?.position.toLowerCase() == 'left'">
+    <app-screen-left
+      [subscreenid]="subscreen.id"
+      [showNavigationArrows]="true"
+      [showNavigationIndicators]="true"
+      [screenWidth]="100"
+    ></app-screen-left>
+  </ng-container>
+  <ng-container *ngIf="subscreen?.position.toLowerCase() == 'hmiddle'">
+    <app-screen-hmiddle
+      [subscreenid]="subscreen.id"
+      [showNavigationArrows]="true"
+      [showNavigationIndicators]="true"
+      [screenWidth]="100"
+    ></app-screen-hmiddle>
+  </ng-container>
+  <ng-container *ngIf="subscreen?.position.toLowerCase() == 'right'">
+    <app-screen-right
+      [subscreenid]="subscreen.id"
+      [showNavigationArrows]="true"
+      [showNavigationIndicators]="true"
+      [screenWidth]="100"
+    ></app-screen-right>
+  </ng-container>
+

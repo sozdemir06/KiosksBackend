@@ -694,6 +694,49 @@ namespace DataAccess.Migrations
                     b.ToTable("LiveTvLists");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DateRead")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("RecipientDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("RecipientId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("RecipientUserName")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("SenderDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SenderUserName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.News", b =>
                 {
                     b.Property<int>("Id")
@@ -1651,6 +1694,21 @@ namespace DataAccess.Migrations
                         .WithMany("LiveTvBroadCastSubScreens")
                         .HasForeignKey("SubScreenId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.Message", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.User", "Recipient")
+                        .WithMany("MessagesReceived")
+                        .HasForeignKey("RecipientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.User", "Sender")
+                        .WithMany("MessagesSent")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

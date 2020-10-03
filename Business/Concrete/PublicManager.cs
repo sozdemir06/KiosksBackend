@@ -150,6 +150,7 @@ namespace Business.Concrete
             };
         }
 
+        [SecuredOperation("Sudo,Public", Priority = 1)]
         public async Task<UserForListDto> GetUSerById(int userId)
         {
             var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
@@ -170,6 +171,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
+        [SecuredOperation("Sudo,Public", Priority = 1)]
         [ValidationAspect(typeof(UserValidator), Priority = 2)]
         public async Task<UserForListDto> UpdateUserProfileAsync(UserForRegisterDto userForRegisterDto, int userId)
         {
@@ -196,6 +198,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
+        [SecuredOperation("Sudo,Public", Priority = 1)]
         public async Task<UserCamPusAndDepartmentAndDegree> UserCamPusAndDepartmentAndDegreeAsync()
         {
             var campuses = await campusDal.GetListAsync();

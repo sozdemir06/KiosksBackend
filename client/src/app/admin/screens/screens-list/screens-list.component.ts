@@ -18,7 +18,7 @@ export class ScreensListComponent implements OnInit {
   panelOpenState: boolean = false;
   displayedColumns: string[] = ['Id', 'Name', 'Position', 'IsFull', 'Actions'];
   allowedRoleForUpdate: string[] = ['Sudo', 'Screens.Update','Screens.All'];
-
+ allowedPreviewRole:string[]=['Sudo'];
 
   constructor(public screenStore: ScreenStore, private dialog: MatDialog) {}
 

@@ -4,12 +4,22 @@
     <ng-container *ngFor="let image of (announce$ | async)?.announcePhotos">
       <div class="col-md-2">
         <mat-card>
-          <img
-            mat-card-image
-            src="{{ image?.fullPath }}"
-            alt="İlan Fotoğrafı"
-            height="100"
-          />
+          <ng-container *ngIf="image?.fileType.toLowerCase() == 'image'">
+            <img
+              mat-card-image
+              src="{{ image?.fullPath }}"
+              alt="İlan Fotoğrafı"
+              height="100"
+            />
+          </ng-container>
+          <ng-container *ngIf="image?.fileType.toLowerCase() == 'video'">
+            <video controls class="w-100 h-100">
+              <source src="{{ image?.fullPath }}" type="video/mp4" />
+              <source src="{{ image?.fullPath }}" type="video/ogg" />
+              <source src="{{ image?.fullPath }}" type="video/webm" />
+              Your browser does not support the video tag.
+            </video>
+          </ng-container>
           <mat-card-actions
             class="d-flex justify-content-center align-items-center"
           >

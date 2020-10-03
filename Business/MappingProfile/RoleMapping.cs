@@ -123,8 +123,8 @@ namespace Business.MappingProfile
             CreateMap<Announce, AnnounceForPublicDto>()
                    .ForMember(x => x.AnnouncePhotos, o => o.MapFrom(z => z.AnnouncePhotos.Where(t => t.IsConfirm == true)))
                    .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.AnnouncePhotos.FirstOrDefault(x => x.IsConfirm).FullPath));
-              CreateMap<Announce, AnnounceForUserDto>()
-                   .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.AnnouncePhotos.FirstOrDefault(x => x.IsConfirm).FullPath));
+            CreateMap<Announce, AnnounceForUserDto>()
+                 .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.AnnouncePhotos.FirstOrDefault(x => x.IsConfirm).FullPath));
             CreateMap<AnnounceForCreationDto, Announce>();
 
             CreateMap<Announce, AnnounceForDetailDto>();
@@ -210,7 +210,6 @@ namespace Business.MappingProfile
 
             CreateMap<LiveTvBroadCastSubScreen, LiveTvBroadCastSubScreenForReturnDto>();
             CreateMap<LiveTvBroadCastSubScreenForCreationDto, LiveTvBroadCastSubScreen>();
-
 
         }
     }

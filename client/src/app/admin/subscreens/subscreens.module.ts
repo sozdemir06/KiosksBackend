@@ -18,6 +18,7 @@ export const routes: Routes = [
     SubscreensComponent,
     SubscreensListComponent,
     EditSubscreensDialogComponent,
+
   ],
   imports: [SharedModule, RouterModule.forChild(routes)],
 

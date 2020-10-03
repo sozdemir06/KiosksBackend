@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, ViewChildren, QueryList, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { IKiosksSubScreenData } from 'src/app/shared/models/IKiosksSubScreenData';
 import { IKiosks } from '../models/IKiosks';
 import { HelperService } from 'src/app/core/services/helper-service';
 import { KiosksStore } from '../store/kiosks-store';
 import { map } from 'rxjs/operators';
 import { combineLatest, Observable, Subscription, timer } from 'rxjs';
-import { NgbSlideEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarousel, NgbSlideEvent } from '@ng-bootstrap/ng-bootstrap';
 import { FoodMenuBgPhotoStore } from 'src/app/core/services/stores/food-menu-bg-photo-store';
 
 @Component({
@@ -14,10 +14,13 @@ import { FoodMenuBgPhotoStore } from 'src/app/core/services/stores/food-menu-bg-
   styleUrls: ['./screen-isfull.component.scss']
 })
 export class ScreenIsfullComponent implements OnInit,OnDestroy {
-@Input() kiosks: IKiosks;
+//@Input() kiosks: IKiosks;
+@Input() kiosksId:number;
+@Input() showNavigationArrows:boolean=false;
+@Input() showNavigationIndicators:boolean=false;
 interval: any = 2500;
 
-//@ViewChild('ngcarousel') ngCarousel: NgbCarousel;
+@ViewChild('carousel') carousel: NgbCarousel;
 @ViewChildren('video') videoInput: QueryList<ElementRef>;
 video:HTMLVideoElement; 
 bgPhotoUrl:string;
@@ -31,7 +34,37 @@ data$: Observable<IKiosksSubScreenData>;
     private kiosksStore: KiosksStore,
     private foodMenuBgPhotoStore:FoodMenuBgPhotoStore
   ) { }
+  onEnded(event) {
+    const numberSlide = this.carousel.slides.length;
+    if(numberSlide==1){
+      this.video.play();
+    }
+  }
 
+  onLoadedloaded(event) {
+    const numberSlide = this.carousel?.slides?.length;
+    if (numberSlide == 1) {
+      this.carousel.slides.forEach((x) => {
+        const parseId = x.id.split('_');
+        const [
+          id,
+          index,
+          announceType,
+          contentType,
+          intervalTime,
+          fullPath,
+        ] = parseId;
+
+        if (contentType.toLowerCase() == 'video') {
+          this.video = this.videoInput.find(
+            (x) => x.nativeElement.id == index
+          ).nativeElement;
+          this.video.play();
+        }
+        this.kiosksStore.checkDateIfExpireAndRemoveFromStore(id, announceType);
+      });
+    }
+  }
   ngOnInit(): void {
     //Bg Photo
     this.subscription=  this.foodMenuBgPhotoStore.bgphotos$.pipe(
@@ -48,7 +81,7 @@ data$: Observable<IKiosksSubScreenData>;
     const announces$ = this.kiosksStore.kiosks$.pipe(
       map((announces) =>
         announces.announces.filter((x) =>
-          x.announceSubScreens.filter((s) => s.screenId == this.kiosks.screen?.id &&
+          x.announceSubScreens.filter((s) => s.screenId ==this.kiosksId &&
           new Date(x.publishStartDate) <= dateNow &&
           new Date(x.publishFinishDate) >= dateNow)
         )
@@ -59,7 +92,7 @@ data$: Observable<IKiosksSubScreenData>;
       map((vehicleannounces) =>
         vehicleannounces.vehicleAnnounces.filter((x) =>
           x.vehicleAnnounceSubScreens.filter(
-            (s) => s.screenId == this.kiosks.screen?.id &&
+            (s) => s.screenId == this.kiosksId &&
             new Date(x.publishStartDate) <= dateNow &&
             new Date(x.publishFinishDate) >= dateNow
           )
@@ -70,7 +103,7 @@ data$: Observable<IKiosksSubScreenData>;
       map((homeannounces) =>
         homeannounces.homeAnnounces.filter((x) =>
           x.homeAnnounceSubScreens.filter(
-            (s) => s.screenId == this.kiosks.screen?.id&&
+            (s) => s.screenId == this.kiosksId&&
             new Date(x.publishStartDate) <= dateNow &&
             new Date(x.publishFinishDate) >= dateNow
           )
@@ -80,7 +113,7 @@ data$: Observable<IKiosksSubScreenData>;
     const news$ = this.kiosksStore.kiosks$.pipe(
       map((news) =>
         news.news.filter((x) =>
-          x.newsSubScreens.filter( (s) => s.screenId == this.kiosks.screen?.id &&
+          x.newsSubScreens.filter( (s) => s.screenId == this.kiosksId &&
           new Date(x.publishStartDate) <= dateNow &&
           new Date(x.publishFinishDate) >= dateNow)
         )
@@ -89,7 +122,7 @@ data$: Observable<IKiosksSubScreenData>;
     const foodsMenu$ = this.kiosksStore.kiosks$.pipe(
       map((foodsMenu) =>
         foodsMenu.foodsMenu.filter((x) =>
-          x.foodMenuSubScreens.filter( (s) => s.screenId == this.kiosks.screen?.id &&
+          x.foodMenuSubScreens.filter( (s) => s.screenId == this.kiosksId &&
           new Date(x.publishStartDate) <= dateNow &&
           new Date(x.publishFinishDate) >= dateNow)
         )
@@ -99,7 +132,7 @@ data$: Observable<IKiosksSubScreenData>;
     const liveTvBroadCasts$ = this.kiosksStore.kiosks$.pipe(
       map((liveTvBroadCasts) =>
       liveTvBroadCasts.liveTvBroadCasts.filter((x) =>
-          x.liveTvBroadCastSubScreens.find( (s) => s.subScreenId == this.kiosks.screen?.id &&
+          x.liveTvBroadCastSubScreens.find( (s) => s.subScreenId == this.kiosksId &&
           new Date(x.publishStartDate) <= dateNow &&
           new Date(x.publishFinishDate) >= dateNow)
         )

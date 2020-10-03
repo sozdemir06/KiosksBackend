@@ -20,6 +20,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 
@@ -47,6 +48,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatCheckboxModule,
     MatAutocompleteModule,
     MatProgressBarModule,
+    MatButtonToggleModule
     
     
   ],
@@ -70,7 +72,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatDialogModule,
     MatCheckboxModule,
     MatAutocompleteModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatButtonToggleModule
   ],
 })
 export class MaterialModule {}

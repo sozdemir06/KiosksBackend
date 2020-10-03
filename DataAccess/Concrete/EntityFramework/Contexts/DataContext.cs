@@ -67,5 +67,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<LiveTvList> LiveTvLists { get; set; }
         public DbSet<LiveTvBroadCast> LiveTvBroadCasts { get; set; }
         public DbSet<LiveTvBroadCastSubScreen> LiveTvBroadCastSubScreens { get; set; }
+      
     }
 }

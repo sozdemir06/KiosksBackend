@@ -90,6 +90,7 @@ export class PublicUserStore {
           this.notifyService.notify('error', error);
           return throwError(error);
         }),
+        
         tap(() => {
           this.notifyService.notify('success', 'Şifreniz değiştirilsi...');
         })

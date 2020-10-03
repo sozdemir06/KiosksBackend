@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { PublicVehicleAnnounceDetailComponent } from '../../details/public-vehicle-announce-detail/public-vehicle-announce-detail.component';
 import { IVehicleAnnounceForPublic } from '../../models/IVehicleAnnounceForPublic';
 import { PublicStore } from '../../store/public-store';
@@ -21,8 +21,10 @@ export class PublicVehicleAnnouncesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.vehicleannounces$ = this.publicStore.allannounces$.pipe(
-      map((vehicleannounces) => vehicleannounces?.vehicleAnnounces)
-    );
+      map((vehicleannounces) => vehicleannounces?.vehicleAnnounces),
+      startWith([])
+      
+    )
   }
 
   onDetail(vehicleannounce:IVehicleAnnounceForPublic){

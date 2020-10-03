@@ -2,13 +2,15 @@
   <div class="container">
     <div class="row flex align-items-center">
       <div class="col-9">
-        <h1>Title Goes Here</h1>
+        <button mat-raised-button (click)="goBack()">
+          <mat-icon>keyboard_return</mat-icon>
+          <span>Geri Dön</span>
+        </button>
       </div>
       <div class="col-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Library</li>
+            <li class="breadcrumb-item"><a href="/app/home">Home</a></li>
           </ol>
         </nav>
       </div>

@@ -1,6 +1,8 @@
 <ngb-carousel
+[showNavigationIndicators]="showNavigationIndicators"
+[showNavigationArrows]="showNavigationArrows"
   *ngIf="data$ | async as data"
-  #ngbcarousel
+  #carousel
   [interval]="interval"
   [wrap]="true"
   (slide)="onSlideChange($event)"
@@ -113,6 +115,8 @@
           <div [ngStyle]="{ height: screenHeight + 'vh' }">
             <video
               #video
+              (ended)="onEnded($event)"
+              (loadedmetadata)="onLoadedloaded($event)"
               id="{{ i }}"
               muted
               class="w-100 h-100"

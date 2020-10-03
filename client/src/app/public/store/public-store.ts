@@ -31,6 +31,7 @@ export class PublicStore {
       tap((data) => {
         this.subject.next(data);
       })
+      
     );
     this.loadingService.showLoaderUntilCompleted(list$).subscribe();
   }

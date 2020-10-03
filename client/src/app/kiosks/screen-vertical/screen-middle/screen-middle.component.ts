@@ -4,14 +4,14 @@ import {
   Input,
   ElementRef,
   ViewChildren,
-  QueryList,OnDestroy
+  QueryList,OnDestroy, ViewChild
 } from '@angular/core';
 import { IKiosks } from '../../models/IKiosks';
 import { HelperService } from 'src/app/core/services/helper-service';
 import { KiosksStore } from '../../store/kiosks-store';
 import { Observable, combineLatest, Subscription, timer} from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { NgbSlideEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarousel, NgbSlideEvent } from '@ng-bootstrap/ng-bootstrap';
 import { IKiosksSubScreenData } from 'src/app/shared/models/IKiosksSubScreenData';
 
 
@@ -22,12 +22,14 @@ import { IKiosksSubScreenData } from 'src/app/shared/models/IKiosksSubScreenData
   styleUrls: ['./screen-middle.component.scss']
 })
 export class ScreenMiddleComponent implements OnInit,OnDestroy {
-  @Input() kiosks: IKiosks;
+ @Input() kiosks: IKiosks;
   @Input() subscreenid: number;
   @Input() screenHeight: number = 30;
+  @Input() showNavigationArrows:boolean=false;
+  @Input() showNavigationIndicators:boolean=false;
   interval: any = 2500;
 
-  //@ViewChild('ngcarousel') ngCarousel: NgbCarousel;
+  @ViewChild('carousel') carousel: NgbCarousel;
   @ViewChildren('video') videoInput: QueryList<ElementRef>;
   video:HTMLVideoElement; 
   subscription:Subscription=Subscription.EMPTY;
@@ -40,6 +42,38 @@ export class ScreenMiddleComponent implements OnInit,OnDestroy {
     private kiosksStore: KiosksStore,
   ) {
      
+  }
+
+  onEnded(event) {
+    const numberSlide = this.carousel.slides.length;
+    if(numberSlide==1){
+      this.video.play();
+    }
+  }
+
+  onLoadedloaded(event) {
+    const numberSlide = this.carousel?.slides?.length;
+    if (numberSlide == 1) {
+      this.carousel.slides.forEach((x) => {
+        const parseId = x.id.split('_');
+        const [
+          id,
+          index,
+          announceType,
+          contentType,
+          intervalTime,
+          fullPath,
+        ] = parseId;
+
+        if (contentType.toLowerCase() == 'video') {
+          this.video = this.videoInput.find(
+            (x) => x.nativeElement.id == index
+          ).nativeElement;
+          this.video.play();
+        }
+        this.kiosksStore.checkDateIfExpireAndRemoveFromStore(id, announceType);
+      });
+    }
   }
   ngOnInit(): void {
 

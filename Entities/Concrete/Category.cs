@@ -10,3 +10,4 @@ namespace Entities.Concrete
         public ICollection<Product> Products { get; set; }
     }
 }
+

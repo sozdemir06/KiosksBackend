@@ -1,6 +1,9 @@
 <ngb-carousel
+ [wrap]="true"
+ [showNavigationArrows]="showNavigationArrows"
+ [showNavigationIndicators]="showNavigationIndicators"
   *ngIf="data$ | async as data"
-  #ngbcarousel
+  #carousel
   [interval]="interval"
   [wrap]="true"
   (slide)="onSlideChange($event)"
@@ -9,6 +12,7 @@
   <ng-container *ngFor="let homeannounce of data.homeAnnounces; let i = index">
     <ng-template
       ngbSlide
+      
       [id]="
         homeannounce?.slideId +
         '_' +
@@ -34,6 +38,7 @@
     *ngFor="let vehicleAnnounce of data.vehicleAnnounces; let i = index"
   >
     <ng-template
+    
       ngbSlide
       [id]="
         vehicleAnnounce?.slideId +
@@ -112,6 +117,8 @@
         >
           <div [ngStyle]="{ height: screenHeight + 'vh' }">
             <video
+            (ended)="onEnded($event)"
+            (loadedmetadata)="onLoadedloaded($event)"
               #video
               id="{{ i }}"
               muted

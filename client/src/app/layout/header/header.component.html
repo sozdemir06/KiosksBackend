@@ -18,18 +18,14 @@
       </div>
       <div class="d-flex align-items-center justify-content-between">
         <ng-container *ngIf="authStore.isLoggedIn$ | async">
-          <div class="message">
-            <button mat-icon-button [matMenuTriggerFor]="message">
+          <!-- <div class="message">
+            <button mat-icon-button routerLink="/app/home/messages">
               <mat-icon matBadge="2" matBadgeColor="warn" matBadgeSize="small"
                 >message</mat-icon
               >
             </button>
-            <mat-menu #message="matMenu">
-              <button mat-menu-item>Item 1</button>
-              <button mat-menu-item>Item 2</button>
-            </mat-menu>
-          </div>
-          <div class="notifications">
+          </div> -->
+          <!-- <div class="notifications">
             <button mat-icon-button [matMenuTriggerFor]="notification">
               <mat-icon matBadge="2" matBadgeColor="warn" matBadgeSize="small"
                 >notifications</mat-icon
@@ -39,7 +35,7 @@
               <button mat-menu-item>Item 1</button>
               <button mat-menu-item>Item 2</button>
             </mat-menu>
-          </div>
+          </div> -->
           <div class="d-flex align-items-center mr-2">
             <img
               [matMenuTriggerFor]="menu"
@@ -62,7 +58,6 @@
               <button mat-menu-item [routerLink]="['/app/home/announces/me']">
                 Yayınlarım
               </button>
-              <button mat-menu-item>Ayarlar</button>
               <button mat-menu-item (click)="logout()">Çıkış</button>
             </mat-menu>
           </div>

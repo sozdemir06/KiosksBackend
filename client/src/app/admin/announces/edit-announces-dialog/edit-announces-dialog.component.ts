@@ -51,7 +51,7 @@ export class EditAnnouncesDialogComponent implements OnInit, OnDestroy {
         Validators.required,
       ],
       slideIntervalTime: [9, Validators.required],
-      userId: ['', Validators.required],
+      userId: [''],
     };
 
     if (this.mode == 'create') {

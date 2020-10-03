@@ -20,7 +20,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ScreenLeftComponent } from './screen-horizontal/screen-left/screen-left.component';
 import { ScreenHmiddleComponent } from './screen-horizontal/screen-hmiddle/screen-hmiddle.component';
 import { ScreenRightComponent } from './screen-horizontal/screen-right/screen-right.component';
-import {YouTubePlayerModule} from '@angular/youtube-player';
+import { SubscreenPreviewDialogComponent } from './subscreen-preview-dialog/subscreen-preview-dialog.component';
+
 
 export const routes: Routes = [
   {
@@ -49,13 +50,14 @@ export const routes: Routes = [
     ScreenLeftComponent,
     ScreenHmiddleComponent,
     ScreenRightComponent,
+    SubscreenPreviewDialogComponent,
   
   ],
   imports: [
     SharedModule, 
     RouterModule.forChild(routes),
     NgbModule,
-    YouTubePlayerModule
+
     
   ],
   exports: [
@@ -64,7 +66,7 @@ export const routes: Routes = [
     ScreenTopComponent,
     ScreenMiddleComponent,
     ScreenBottomComponent,
-    YouTubePlayerModule
+    SubscreenPreviewDialogComponent
   ],
 })
 export class KiosksModule {}

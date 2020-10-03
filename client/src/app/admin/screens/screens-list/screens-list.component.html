@@ -65,7 +65,7 @@
           <mat-icon>link</mat-icon>
           <span>Alt Ekranlar</span>
         </button>
-        <button mat-menu-item [routerLink]="['/kiosks', element?.id]">
+        <button mat-menu-item [routerLink]="['/kiosks', element?.id]" *appHasRole="allowedPreviewRole">
           <mat-icon>preview</mat-icon>
           <span>Göz At</span>
         </button>

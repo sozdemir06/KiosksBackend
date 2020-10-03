@@ -55,15 +55,15 @@ namespace API.Controllers
         }
 
         [HttpPost("createforuser/{userId}")]
-        public async Task<ActionResult<AnnounceForReturnDto>> CreateForPublicAsync([FromBody] AnnounceForCreationDto creationDto,int userId)
+        public async Task<ActionResult<AnnounceForUserDto>> CreateForPublic([FromBody] AnnounceForCreationDto creationDto,int userId)
         {
-            return await announceService.Create(creationDto);
+            return await announceService.CreateForPublicAsync(creationDto,userId);
         }
 
         [HttpPut("updateforuser/{userId}")]
-        public async Task<ActionResult<AnnounceForReturnDto>> Update(AnnounceForCreationDto updateDto,int userId)
+        public async Task<ActionResult<AnnounceForUserDto>> UpdateForPublic(AnnounceForCreationDto updateDto,int userId)
         {
-            return await announceService.Update(updateDto);
+            return await announceService.UpdateForPublicAsync(updateDto,userId);
         }
 
 

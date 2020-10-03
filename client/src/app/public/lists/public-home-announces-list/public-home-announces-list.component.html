@@ -36,8 +36,8 @@
       </table>
     </mat-card>
   </ng-container>
-  <ng-template *ngIf="(homeannounces$ |async)?.length==0">
+  <ng-container *ngIf="(homeannounces$ |async)?.length==0">
     <div class="alert alert-primary" role="alert">
-      Yayında olan araç ilanı yok...!!!
+      Yayında olan ev ilanı yok...!!!
     </div>
-  </ng-template>
+  </ng-container>

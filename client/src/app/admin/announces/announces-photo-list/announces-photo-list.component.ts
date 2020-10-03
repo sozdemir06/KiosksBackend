@@ -24,10 +24,11 @@ export class AnnouncesPhotoListComponent implements OnInit {
   ngOnInit(): void {}
 
   onUnConfirm(image: IAnnouncePhoto) {
+    const mes:string=image.fileType.toLowerCase()=='image'?'Fotoğrafı':'Video';
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '45rem',
       data: {
-        message: image.fileType.toLowerCase()=='image'?'Fotoğrafı':'Video '+'yayın dışında tutmak istiyormusunuz.?',
+        message: mes +" yayın dışında tutmak istiyormusunuz.?",
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -42,10 +43,12 @@ export class AnnouncesPhotoListComponent implements OnInit {
   }
 
   onConfirm(image: IAnnouncePhoto) {
+    const mes:string=image.fileType.toLowerCase()=='image'?'Fotoğrafı':'Video';
+
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '45rem',
       data: {
-        message: image.fileType.toLowerCase()=='image'?'Fotoğrafı':'Video '+'onaylamak istiyormusunuz.?',
+        message:mes+" Onaylamak istiyormusunuz.?" 
       },
     });
     dialogRef.afterClosed().subscribe((result) => {

@@ -41,15 +41,27 @@ namespace Business.Concrete
         [ValidationAspect(typeof(AnnounceValidator), Priority = 2)]
         public async Task<AnnounceForReturnDto> Create(AnnounceForCreationDto creationDto)
         {
+            var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+
             var checkByNameFromRepo = await announceDal.GetAsync(x => x.Header.ToLower() == creationDto.Header.ToLower());
             if (checkByNameFromRepo != null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.AlreadyExist });
             }
 
+
+
             var mapForCreate = mapper.Map<Announce>(creationDto);
             var slideId = Guid.NewGuid();
             mapForCreate.SlideId = slideId;
+            if (creationDto.UserId > 0)
+            {
+                mapForCreate.UserId = creationDto.UserId;
+            }
+            else
+            {
+                mapForCreate.UserId = claimId;
+            }
             mapForCreate.Created = DateTime.Now;
             mapForCreate.AnnounceType = "announce";
 

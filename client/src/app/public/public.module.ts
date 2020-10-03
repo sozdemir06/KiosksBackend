@@ -17,6 +17,7 @@ import { PublicNewsDetailComponent } from './details/public-news-detail/public-n
 import { PublicFoodMenuDetailComponent } from './details/public-food-menu-detail/public-food-menu-detail.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -25,6 +26,7 @@ const routes: Routes = [
       {
         path: '',
         component: MainHomeComponent,
+
         children: [
           {
             path: '',
@@ -51,19 +53,22 @@ const routes: Routes = [
             component: PublicFoodmenuListComponent,
           },
         ],
-        
       },
 
       {
-        path:"user-profile/me",
-        loadChildren:()=>import("./user-profile/user-profile.module").then(m=>m.UserProfileModule),
-
+        path: 'user-profile/me',
+        loadChildren: () =>
+          import('./user-profile/user-profile.module').then(
+            (m) => m.UserProfileModule
+          ),
       },
       {
-        path:"announces/me",
-        loadChildren:()=>import("./user-announce/user-announce.module").then(m=>m.UserAnnounceModule)
-        
-      }
+        path: 'announces/me',
+        loadChildren: () =>
+          import('./user-announce/user-announce.module').then(
+            (m) => m.UserAnnounceModule
+          ),
+      },
     ],
   },
 ];
@@ -84,8 +89,14 @@ const routes: Routes = [
     PublicVehicleAnnounceDetailComponent,
     PublicNewsDetailComponent,
     PublicFoodMenuDetailComponent,
+   
   ],
-  imports: [SharedModule, RouterModule.forChild(routes),NgbModule],
+  imports: [
+    SharedModule,
+    RouterModule.forChild(routes),
+    NgbModule,
+    
+  ],
   exports: [
     HomeComponent,
     RouterModule,
@@ -101,7 +112,7 @@ const routes: Routes = [
     PublicVehicleAnnounceDetailComponent,
     PublicNewsDetailComponent,
     PublicFoodMenuDetailComponent,
-    NgbModule
+    NgbModule,
   ],
 })
 export class PublicModule {}

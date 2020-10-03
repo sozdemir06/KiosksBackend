@@ -38,8 +38,8 @@
     </table>
   </mat-card>
 </ng-container>
-<ng-template *ngIf="(news$ | async)?.length == 0">
+<ng-container *ngIf="(news$ | async)?.length == 0">
   <div class="alert alert-primary" role="alert">
-    Yayında olan araç ilanı yok...!!!
+    Yayında olan haber yok...!!!
   </div>
-</ng-template>
+</ng-container>

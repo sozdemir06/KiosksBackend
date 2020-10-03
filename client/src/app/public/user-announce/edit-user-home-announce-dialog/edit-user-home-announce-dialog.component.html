@@ -1,4 +1,12 @@
-<h2 mat-dialog-title>{{title}}</h2>
+<div class="d-flex align-items-center justify-content-between">
+  <h2 mat-dialog-title>{{ title }}</h2>
+  <button mat-icon-button [mat-dialog-close]="true">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div *ngIf="mode=='update'" class="alert alert-primary" role="alert">
+  Güncelleme yapmanız durumunda yayında olan ev ilanınız tekrar onay sürecine girecek.!!
+</div>
 <mat-dialog-content>
   <app-loading></app-loading>
     <form class="d-flex flex-column w-100" [formGroup]="homeAnnounceForm" (ngSubmit)="onSubmit()" autocomplete="off">

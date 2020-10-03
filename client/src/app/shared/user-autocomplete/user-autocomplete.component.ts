@@ -25,6 +25,7 @@ export class UserAutocompleteComponent
   @Output() getSelectedUser=new EventEmitter<IUserList>();
   @Input() mode: 'create' | 'update';
   @Input() user: IUserList;
+  @Input() placeholder:string="İlan Sahibi";
 
   constructor(public userStore: UserStore) {}
 

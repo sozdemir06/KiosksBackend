@@ -2,10 +2,12 @@ import { Component, OnInit} from '@angular/core';
 import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 import { Observable } from 'rxjs';
 import { SubScreenStore } from 'src/app/core/services/stores/subscreen-store';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { EditSubscreensDialogComponent } from '../edit-subscreens-dialog/edit-subscreens-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { SubscreenPreviewDialogComponent } from 'src/app/kiosks/subscreen-preview-dialog/subscreen-preview-dialog.component';
+
 
 @Component({
   selector: 'app-subscreens-list',
@@ -55,6 +57,17 @@ export class SubscreensListComponent implements OnInit {
          
        }
      }) 
+  }
+
+  onPreview(element:ISubScreen){
+      this.dialog.open(SubscreenPreviewDialogComponent,{
+         width:"100vw",
+         height:"90vh",
+         data:{
+           subscreen:element,
+           screenId:this.screenId
+         }
+      })
   }
 
   

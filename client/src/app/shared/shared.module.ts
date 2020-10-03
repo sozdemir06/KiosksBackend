@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingComponent } from './loading/loading.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -18,12 +18,11 @@ import { ShortenPipe } from './pipes/shorten-pipe';
 import { AnnounceDetailMenuComponent } from './announce-detail-menu/announce-detail-menu.component';
 import { UserCardComponent } from './user-card/user-card.component';
 import { ImageSliderComponent } from './image-slider/image-slider.component';
-import { NgxGalleryModule} from "ngx-gallery-9";
+import { NgxGalleryModule } from 'ngx-gallery-9';
 import { UploadComponent } from './upload/upload.component';
 import { SubscreensListForAnnounceComponent } from './subscreens-list-for-announce/subscreens-list-for-announce.component';
-import { QuillModule } from "ngx-quill";
+import { QuillModule } from 'ngx-quill';
 import { CustomSliderComponent } from './custom-slider/custom-slider.component';
-
 
 @NgModule({
   declarations: [
@@ -44,22 +43,22 @@ import { CustomSliderComponent } from './custom-slider/custom-slider.component';
     UploadComponent,
     SubscreensListForAnnounceComponent,
     CustomSliderComponent,
-    
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     MatProgressSpinnerModule,
     MaterialModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgxGalleryModule,
     QuillModule.forRoot(),
-    
   ],
 
   exports: [
     ReactiveFormsModule,
+    FormsModule,
     CommonModule,
     LoadingComponent,
     MatProgressSpinnerModule,
@@ -83,7 +82,6 @@ import { CustomSliderComponent } from './custom-slider/custom-slider.component';
     SubscreensListForAnnounceComponent,
     QuillModule,
     CustomSliderComponent,
-    
   ],
 })
 export class SharedModule {}

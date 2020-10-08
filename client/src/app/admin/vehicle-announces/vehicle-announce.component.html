@@ -22,7 +22,7 @@
               <div class="">
                 <button mat-icon-button (click)="onWaitingForConfirm()">
                   <mat-icon 
-                  [matBadge]="0" 
+                  [matBadge]="vehicleStore.getNewAnnounceLength() | async" 
                   matBadgeColor="warn" 
                   matBadgeSize="small"
                   

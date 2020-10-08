@@ -53,7 +53,8 @@ namespace Business.Concrete
             mapForCreate.Name = uploadFile.Name;
             mapForCreate.FullPath = uploadFile.FullPath;
             mapForCreate.VehicleAnnounceId = uploadDto.AnnounceId;
-            mapForCreate.IsConfirm = true;
+            mapForCreate.IsConfirm = false;
+            mapForCreate.UnConfirm = false;
             var mapForDb = mapper.Map<VehicleAnnouncePhoto>(mapForCreate);
             var createPhoto = await vehicleAnnouncePhotoDal.Add(mapForDb);
             return mapper.Map<VehicleAnnouncePhoto, VehicleAnnouncePhotoForReturnDto>(createPhoto);

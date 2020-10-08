@@ -54,7 +54,9 @@ namespace Business.Concrete
             mapForCreate.AnnounceType = "Car";
 
             var createHomeAnnounce = await vehicleAnnounceDal.Add(mapForCreate);
-            return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(createHomeAnnounce);
+            var spec=new VehicleAnnounceWithPagingSpecification(createHomeAnnounce.Id);
+            var vehicleAnnounces=await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
+            return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(vehicleAnnounces);
         }
 
         [SecuredOperation("Sudo,Public", Priority = 1)]
@@ -105,22 +107,7 @@ namespace Business.Concrete
             return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(getByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,VehicleAnnounces.List,VehicleAnnounces.All", Priority = 1)]
-        public async Task<VehicleAnnounceForDetailDto> GetDetailAsync(int vehicleAnnounceId)
-        {
-
-            var spec = new VehicleAnnounceDetailSpecification(vehicleAnnounceId);
-            var getDetailFromRepo = await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
-
-            if (getDetailFromRepo == null)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
-            }
-
-            return mapper.Map<VehicleAnnounce, VehicleAnnounceForDetailDto>(getDetailFromRepo);
-
-        }
-
+       
         [SecuredOperation("Sudo,VehicleAnnounces.List,VehicleAnnounces.All", Priority = 1)]
         public async Task<Pagination<VehicleAnnounceForReturnDto>> GetListAsync(VehicleAnnounceParams queryParams)
         {
@@ -174,8 +161,10 @@ namespace Business.Concrete
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
             var updateToDb = await vehicleAnnounceDal.Update(mapForUpdate);
+            var spec=new VehicleAnnounceWithPagingSpecification(updateDto.Id);
+            var vehicleAnnounce=await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
 
-            return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(updateToDb);
+            return mapper.Map<VehicleAnnounce, VehicleAnnounceForReturnDto>(vehicleAnnounce);
         }
 
         [SecuredOperation("Sudo,VehicleAnnounces.Update,VehicleAnnounces.All", Priority = 1)]

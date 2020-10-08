@@ -3,6 +3,7 @@ export interface IAnnouncePhoto{
     name:string;
     fullPath:string;
     isConfirm:boolean;
+    unConfirm:boolean;
     fileType:string;
     announceId:number;
     duration:number;

@@ -6,6 +6,7 @@ import { UserEditDialogComponent } from '../user-edit-dialog/user-edit-dialog.co
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { UserStore } from 'src/app/core/services/stores/user-store';
 import { EditUserRolesComponent } from '../edit-user-roles/edit-user-roles.component';
+import { EditUserNotfyGroupsComponent } from '../edit-user-notfy-groups/edit-user-notfy-groups.component';
 
 
 
@@ -17,6 +18,7 @@ import { EditUserRolesComponent } from '../edit-user-roles/edit-user-roles.compo
 export class UsersListCardComponent implements OnInit {
   displayedColumns: string[] = ['Avatar', 'Name', 'Phone','Campus','Status',"Actions"];
   allowdRolesForUpdate:string[]=["Sudo","User.Update","User.All"];
+  allowedRolesForNotify:string[]=['Sudo','User.All'];
   @Input() dataSource:IUserList[];
 
   constructor(
@@ -72,6 +74,16 @@ export class UsersListCardComponent implements OnInit {
         }
       })
 
+  }
+
+  onEditNotifyGroup(user:IUserList){
+      this.dialog.open(EditUserNotfyGroupsComponent,{
+        width:"60rem",
+        maxHeight:"90vh",
+        data:{
+          user:user
+        }
+      })
   }
 
 

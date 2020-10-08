@@ -109,19 +109,7 @@ namespace Business.Concrete
             return mapper.Map<HomeAnnounce, HomeAnnounceForReturnDto>(getByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
-        public async Task<HomeAnnounceForDetailDto> GetDetailAsync(int homeAnnounceId)
-        {
-            var spec = new HomeAnnounceDetailSpecification(homeAnnounceId);
-            var getDetailFromRepo = await homeAnnounceDal.GetEntityWithSpecAsync(spec);
-
-            if (getDetailFromRepo == null)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
-            }
-
-            return mapper.Map<HomeAnnounce, HomeAnnounceForDetailDto>(getDetailFromRepo);
-        }
+       
 
         [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
         public async Task<Pagination<HomeAnnounceForReturnDto>> GetListAsync(HomeAnnounceParams queryParams)

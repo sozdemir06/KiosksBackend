@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AnnounceStore } from 'src/app/core/services/stores/announce-store';
 
 @Component({
   selector: 'app-announce-panel',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnnouncePanelComponent implements OnInit {
   allowedRolesForList:string[]=['Sudo','Announces.List','Announces.All',"Announces.Create","Announces.Update"]
-  constructor() { }
+  constructor(
+    public announceStore:AnnounceStore
+  ) { }
 
   ngOnInit(): void {
   }

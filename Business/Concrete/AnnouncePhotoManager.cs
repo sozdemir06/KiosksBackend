@@ -69,7 +69,8 @@ namespace Business.Concrete
             mapForCreate.AnnounceId = uploadDto.AnnounceId;
             mapForCreate.FileType = uploadFile.FileType;
             mapForCreate.Duration = uploadDto.Duration;
-            mapForCreate.IsConfirm = true;
+            mapForCreate.IsConfirm = false;
+            mapForCreate.UnConfirm = false;
             var mapForDb = mapper.Map<AnnouncePhoto>(mapForCreate);
             var createPhoto = await announcePhotoDal.Add(mapForDb);
             return mapper.Map<AnnouncePhoto, AnnouncePhotoForReturnDto>(createPhoto);

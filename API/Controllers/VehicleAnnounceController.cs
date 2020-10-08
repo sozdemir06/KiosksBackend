@@ -42,11 +42,6 @@ namespace API.Controllers
             return await vehicleAnnounceService.Publish(creationDto);
         }
 
-        [HttpGet("detail/{announceId}")]
-        public async Task<ActionResult<VehicleAnnounceForDetailDto>> Detail(int announceId)
-        {
-            return await vehicleAnnounceService.GetDetailAsync(announceId);
-        }
 
         [HttpPost("createforuser/{userId}")]
         public async Task<ActionResult<VehicleAnnounceForUserDto>> CreateForPublic(VehicleAnnounceForCreationDto creationDto,int userId)

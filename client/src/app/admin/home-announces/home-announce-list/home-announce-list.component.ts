@@ -114,4 +114,9 @@ export class HomeAnnounceListComponent implements OnInit {
       }
     });
   }
+
+  onPhotoWaitConfirmCount(element:IHomeAnnounce):number{
+    return element?.homeAnnouncePhotos?.filter(x=>x.isConfirm==false && x.unConfirm==false)?.length;
+}
+
 }

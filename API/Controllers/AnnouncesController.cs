@@ -24,11 +24,6 @@ namespace API.Controllers
             return await announceService.GetListAsync(queryParams);
         }
 
-        [HttpGet("detail/{announceId}")]
-        public async Task<ActionResult<AnnounceForDetailDto>> Detail(int announceId)
-        {
-            return await announceService.GetDetailAsync(announceId);
-        }
 
         [HttpPost]
         public async Task<ActionResult<AnnounceForReturnDto>> Create([FromBody] AnnounceForCreationDto creationDto)

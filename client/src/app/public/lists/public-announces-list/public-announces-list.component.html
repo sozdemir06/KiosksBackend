@@ -1,52 +1,52 @@
-<ng-container *ngIf="(announces$ | async)?.length > 0;">
-    <mat-card>
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Fotoğraf</th>
-            <th scope="col">Başlık</th>
-            <th scope="col">Tarih</th>
-            <th scope="col">Fiyat</th>
-            <th scope="col">Tür</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Announces Start -->
-      <tr *ngFor="let announces of announces$ | async" style="cursor: pointer" (click)="onDetail(announces)">
-        <td>
-          <div [ngSwitch]="announces.contentType.toLowerCase()">
-            <div *ngSwitchCase="'image'">
-              <ng-container *ngIf="announces.photoUrl; else noImage">
-                <img [src]="announces?.photoUrl" style="width: 35px" />
-              </ng-container>
-              <ng-template #noImage>
-                <img src="/assets/no_image.jpg" style="width: 35px" />
-              </ng-template>
-            </div>
-            <div *ngSwitchCase="'video'">
-              <ng-container
-                *ngIf="announces.contentType.toLowerCase() == 'video'"
-              >
+<ng-container *ngIf="(announces$ | async)?.length > 0">
+  <mat-card>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Fotoğraf</th>
+          <th scope="col">Başlık</th>
+          <th scope="col">Tarih</th>
+          <th scope="col">Fiyat</th>
+          <th scope="col">Tür</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Announces Start -->
+        <tr
+          *ngFor="let announces of announces$ | async"
+          style="cursor: pointer"
+          (click)="onDetail(announces)"
+        >
+          <td>
+            <div [ngSwitch]="announces.contentType.toLowerCase()">
+              <div *ngSwitchCase="'image'">
+                <ng-container *ngIf="announces.photoUrl; else noImage">
+                  <img [src]="announces?.photoUrl" style="width: 35px" />
+                </ng-container>
+                <ng-template #noImage>
+                  <img src="/assets/no_image.jpg" style="width: 35px" />
+                </ng-template>
+              </div>
+              <div *ngSwitchCase="'video'">
                 <img src="/assets/video.png" style="width: 35px" />
-              </ng-container>
+              </div>
+              <div *ngSwitchDefault>
+                <img src="/assets/no_image.jpg" style="width: 35px" />
+              </div>
             </div>
-            <div *ngSwitchDefault>
-              <img src="/assets/no_image.jpg" style="width: 35px" />
-            </div>
-          </div>
-        </td>
-        <td>{{ announces?.header | shorten }}</td>
-        <td>{{ announces?.created | timeAgo }}</td>
-        <td>---</td>
-        <td><span class="badge badge-danger">Duyuru</span></td>
-      </tr>
-      <!-- Announces End -->
-        </tbody>
-      </table>
-    </mat-card>
-  </ng-container>
-  <ng-container *ngIf="(announces$ |async)?.length==0">
-    <div class="alert alert-primary" role="alert">
-      Yayında olan duyuru  yok...!!!
-    </div>
-  </ng-container>
+          </td>
+          <td>{{ announces?.header | shorten }}</td>
+          <td>{{ announces?.created | timeAgo }}</td>
+          <td>---</td>
+          <td><span class="badge badge-danger">Duyuru</span></td>
+        </tr>
+        <!-- Announces End -->
+      </tbody>
+    </table>
+  </mat-card>
+</ng-container>
+<ng-container *ngIf="(announces$ | async)?.length == 0">
+  <div class="alert alert-primary" role="alert">
+    Yayında olan duyuru yok...!!!
+  </div>
+</ng-container>

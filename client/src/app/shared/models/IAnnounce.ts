@@ -1,3 +1,5 @@
+import { IAnnouncePhoto } from './IAnnouncePhoto';
+import { IAnnounceSubScreen } from './IAnnounceSubScreen';
 import { IUserList } from './IUser';
 
 export interface IAnnounce{
@@ -19,4 +21,6 @@ export interface IAnnounce{
     reject:boolean;
     isPublish:boolean;
     user:IUserList;
+    announcePhotos:IAnnouncePhoto[];
+    announceSubScreens:IAnnounceSubScreen[];
 }

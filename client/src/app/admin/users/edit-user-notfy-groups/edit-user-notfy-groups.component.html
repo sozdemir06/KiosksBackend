@@ -1,0 +1,92 @@
+<ng-container *ngIf="(userNotifyStore.userNotifyGroups$ |async)?.length>0;else emptyusergroups">
+    <div class="d-flex align-items-center justify-content-between">
+      <h1 mat-subheader class="text-center">Kullanıcı mevcut bildirim gurubu</h1>
+      <button mat-icon-button [mat-dialog-close]="true">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <app-loading></app-loading>
+    <table mat-table [dataSource]="(userNotifyStore.userNotifyGroups$ | async)" class="mat-elevation-z8 w-100">
+        <!-- Column -->
+        <ng-container matColumnDef="Id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let element">
+              {{element.id}}
+          </td>
+        </ng-container>
+      
+        <!-- Column -->
+        <ng-container matColumnDef="Description">
+          <th mat-header-cell *matHeaderCellDef>Açıklama</th>
+          <td mat-cell *matCellDef="let element">
+            <div class="d-flex flex-column">
+              <span class="font-weight-bold">{{element?.gsmPhone}}</span>
+              <span>{{element?.description}}</span>
+            </div>
+          </td>
+        </ng-container>
+      
+      
+        <!--Column -->
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="onRemoveNotifyGroup(element)">
+                <mat-icon>clear</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>    
+</ng-container>
+<ng-template #emptyusergroups>
+    <div class="alert alert-primary" role="alert">
+        {{user?.firstName}} {{user.lastName}} için henüz bildirim grubu seçilmemiş..
+      </div>
+</ng-template>
+<mat-divider></mat-divider>
+
+<ng-container *ngIf="(userNotifyStore.notifyGroups$ |async)?.length>0;else emptynotifygroup">
+    <h4>Tüm bildirim grupları</h4>
+    <table mat-table [dataSource]="(userNotifyStore.notifyGroups$ | async)" class="mat-elevation-z8 w-100">
+        <!-- Column -->
+        <ng-container matColumnDef="Id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let element">
+              {{element.id}}
+          </td>
+        </ng-container>
+      
+        <!-- Column -->
+        <ng-container matColumnDef="Description">
+          <th mat-header-cell *matHeaderCellDef>Açıklama</th>
+          <td mat-cell *matCellDef="let element">
+            <div class="d-flex flex-column">
+              <span class="font-weight-bold">{{element?.gsmPhone}}</span>
+              <span>{{element?.description}}</span>
+            </div>
+          </td>
+        </ng-container>
+      
+      
+        <!--Column -->
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="onAddNotifyGroup(element)">
+                <mat-icon>add</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>    
+</ng-container>
+<ng-template #emptynotifygroup>
+    <div class="alert alert-primary" role="alert">
+        {{user?.firstName}} {{user.lastName}} için henüz bildirim grubu seçilmemiş..
+      </div>
+</ng-template>

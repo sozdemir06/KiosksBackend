@@ -6,6 +6,7 @@ import { map, tap, shareReplay, finalize, delay } from 'rxjs/operators';
 import { IUser } from '../shared/models/IUser';
 import { IUserForLogin } from '../shared/models/IUserForLogin';
 import { Router } from '@angular/router';
+import { AdminHubService } from '../core/services/admin-hub-signalr-service';
 
 const AUTH_DATA = 'auth_data';
 const AUTH_TOKEN = 'auth_token';
@@ -28,16 +29,18 @@ export class AuthStore {
 
   constructor(
     private http: HttpClient,
-    private router:Router
+    private router:Router,
+    private adminHubService:AdminHubService
     
     ) {
     this.isLoggedIn$ = this.user$.pipe(map((user) => !!user));
     this.isLoggedOut$ = this.isLoggedIn$.pipe(map((isLoggedIn) => !isLoggedIn));
 
-    const user = localStorage.getItem(AUTH_DATA);
+    const user:IUser = JSON.parse(localStorage.getItem(AUTH_DATA));
 
     if (user) {
-      this.subject.next(JSON.parse(user));
+      this.subject.next(user);
+      this.adminHubService.createHubConneciton(user);
       this.autoLogout();
     }
   }
@@ -49,6 +52,7 @@ export class AuthStore {
         this.subject.next(user);
         localStorage.setItem(AUTH_DATA, JSON.stringify(user));
         localStorage.setItem(AUTH_TOKEN, user.token);
+        this.adminHubService.createHubConneciton(user);
         this.autoLogout();
       }),
       finalize(() => this.loadingSubject.next(false)),

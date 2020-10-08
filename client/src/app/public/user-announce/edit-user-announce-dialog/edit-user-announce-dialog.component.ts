@@ -62,7 +62,7 @@ export class EditUserAnnounceDialogComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     const contentType = this.item?.contentType.toLowerCase();
     if (contentType == 'video') {
-      this.announceForm.get('slideIntervalTime').disable();
+      this.announceForm.get('slideIntervalTime')?.disable();
     }
     this.subscription = this.announceForm
       .get('contentType')

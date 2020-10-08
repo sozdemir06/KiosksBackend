@@ -67,7 +67,12 @@
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element">
         <button mat-icon-button [routerLink]="['../detail/',element?.id]" >
-          <mat-icon>preview</mat-icon>
+          <mat-icon 
+          [matBadge]="onPhotoWaitConfirmCount(element)" 
+          matBadgeColor="warn"
+          [matBadgeHidden]="onPhotoWaitConfirmCount(element)===0"
+          matBadgeSize="small"
+          >preview</mat-icon>
         </button>
         <app-announce-detail-menu
                 [isPublish]="element?.isPublish"

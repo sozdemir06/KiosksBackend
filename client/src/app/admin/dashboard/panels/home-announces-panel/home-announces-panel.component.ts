@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HomeAnnounceStore } from 'src/app/core/services/stores/home-announce-store';
 
 @Component({
   selector: 'app-home-announces-panel',
@@ -13,7 +14,9 @@ export class HomeAnnouncesPanelComponent implements OnInit {
     'HomeAnnounces.Create',
     'HomeAnnounces.Update',
   ];
-  constructor() {}
+  constructor(
+    public homeAnnounceStore:HomeAnnounceStore
+  ) {}
 
   ngOnInit(): void {}
 }

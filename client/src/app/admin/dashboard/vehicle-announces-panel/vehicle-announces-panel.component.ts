@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { VehilceAnnounceStore } from 'src/app/core/services/stores/vehicle-announce-store';
 
 @Component({
   selector: 'app-vehicle-announces-panel',
@@ -13,7 +14,9 @@ export class VehicleAnnouncesPanelComponent implements OnInit {
     'VehicleAnnounces.Create',
     'VehicleAnnounces.Update'
   ];
-  constructor() {}
+  constructor(
+    public vehicleStore:VehilceAnnounceStore
+  ) {}
 
   ngOnInit(): void {}
 }

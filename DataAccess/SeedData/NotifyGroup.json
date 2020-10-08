@@ -1,0 +1,26 @@
+[
+    {
+        "GroupName":"Announce",
+        "Description":"Duyuru Bildirimi"
+    },
+    {
+        "GroupName":"Home",
+        "Description":"Ev İlanı  Bildirimi"
+    },
+    {
+        "GroupName":"Car",
+        "Description":"Araç ilanı Bildirmi"
+    },
+    {
+        "GroupName":"News",
+        "Description":"Haber Bildirimi"
+    },
+    {
+        "GroupName":"FoodMenu",
+        "Description":"Yemek Menu Bildirimi"
+    },
+    {
+        "GroupName":"User",
+        "Description":"Yeni Kullanıcı Bildirimi"
+    }
+]

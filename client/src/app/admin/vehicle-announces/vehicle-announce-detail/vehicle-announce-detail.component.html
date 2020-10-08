@@ -1,4 +1,4 @@
-<ng-container *ngIf="vehicleStore.detail$ | async as announce">
+<ng-container *ngIf="vehicleannounces$ | async as announce">
   <div class="container mt-3">
     <mat-card>
       <div class="row">
@@ -34,7 +34,7 @@
       <div class="col-md-4">
         <mat-card>
           <app-image-slider
-            [images]="(vehicleStore.detail$ | async)?.vehicleAnnouncePhotos"
+            [images]="(vehicleannounces$ | async)?.vehicleAnnouncePhotos"
           ></app-image-slider>
         </mat-card>
       </div>
@@ -103,7 +103,7 @@
         <mat-tab label="İlan Fotoğrafları">
           <app-loading></app-loading>
           <app-vehicle-announce-photo-list
-            [images]="(vehicleStore.detail$ | async)?.vehicleAnnouncePhotos"
+            [images]="(vehicleannounces$ | async)?.vehicleAnnouncePhotos"
             [announceId]="announceId"
             [roleForUpdate]="roleForUpdatePhoto"
             [roleForDelete]="roleForDeletePhoto"
@@ -120,7 +120,7 @@
             <div class="col-md-6">
               <h5>İlanın yayında olduğu ekranlar</h5>
               <app-vehicle-announce-subscreens
-                [subscreens]="(vehicleStore.detail$ | async)?.vehicleAnnounceSubScreens"
+                [subscreens]="(vehicleannounces$ | async)?.vehicleAnnounceSubScreens"
               ></app-vehicle-announce-subscreens>
             </div>
             <div class="col-md-6">

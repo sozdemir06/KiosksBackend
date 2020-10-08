@@ -1,4 +1,4 @@
-<ng-container *ngIf="announceStore.detail$ | async as announce">
+<ng-container *ngIf="announce | async as announce">
   <div class="container mt-3">
     <mat-card>
       <div class="row">
@@ -39,18 +39,18 @@
       <div class="col-md-4" [ngSwitch]="announce?.contentType.toLowerCase()">
         <mat-card *ngSwitchCase="'image'">
           <app-image-slider
-            [images]="(announceStore.detail$ | async)?.announcePhotos"
+            [images]="announce?.announcePhotos"
           ></app-image-slider>
         </mat-card>
         <ng-container *ngSwitchCase="'video'">
           <app-custom-slider
-            [slides]="(announceStore.detail$ | async)?.announcePhotos"
+            [slides]="announce?.announcePhotos"
           >
           </app-custom-slider>
         </ng-container>
         <mat-card *ngSwitchDefault>
           <app-image-slider
-            [images]="(announceStore.detail$ | async)?.announcePhotos"
+            [images]="announce?.announcePhotos"
           ></app-image-slider>
         </mat-card>
       </div>
@@ -98,7 +98,7 @@
         >
           <app-loading></app-loading>
           <app-announces-photo-list
-            [images]="(announceStore.detail$ | async)?.announcePhotos"
+            [images]="announce?.announcePhotos"
             [announceId]="announceId"
             [roleForUpdate]="roleForUpdatePhoto"
             [roleForDelete]="roleForDeletePhoto"
@@ -116,7 +116,7 @@
               <h5>İlanın yayında olduğu ekranlar</h5>
               <app-announces-subscreens
                 [subscreens]="
-                  (announceStore.detail$ | async)?.announceSubScreens
+                  announce?.announceSubScreens
                 "
               ></app-announces-subscreens>
             </div>

@@ -17,7 +17,7 @@ namespace API.Controllers
 
         }
 
-         [HttpGet]
+        [HttpGet]
         public async Task<ActionResult<List<HeatingTypeForReturnDto>>> List()
         {
             return await heatingTypeService.GetListAsync();

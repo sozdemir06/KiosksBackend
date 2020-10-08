@@ -24,14 +24,36 @@ namespace DataAccess.EntitySpecification.VehicleAnnounceSpecification
              (!queryParams.IsPublish.HasValue || x.IsPublish == queryParams.IsPublish)
         )
         {
-            AddInclude(x=>x.User);
+            AddInclude(x => x.VehicleAnnouncePhotos);
+            AddInclude(x => x.VehicleAnnounceSubScreens);
+            AddInclude(x => x.User);
+            AddInclude(x => x.User.Department);
+            AddInclude(x => x.User.Campus);
+            AddInclude(x => x.User.Degree);
+            AddInclude(x => x.VehicleBrand);
+            AddInclude(x => x.VehicleCategory);
+            AddInclude(x => x.VehicleModel);
+            AddInclude(x => x.VehicleFuelType);
+            AddInclude(x => x.VehicleEngineSize);
+            AddInclude(x => x.VehicleGearType);
             AddOrderByDscending(x => x.IsNew);
             ApplyPaging(queryParams.PageSize * (queryParams.PageIndex - 1), queryParams.PageSize);
         }
 
-        public VehicleAnnounceWithPagingSpecification(int announceId):base(x=>x.Id==announceId)
+        public VehicleAnnounceWithPagingSpecification(int announceId) : base(x => x.Id == announceId)
         {
-            AddInclude(x=>x.User);
+            AddInclude(x => x.VehicleAnnouncePhotos);
+            AddInclude(x => x.VehicleAnnounceSubScreens);
+            AddInclude(x => x.User);
+            AddInclude(x => x.User.Department);
+            AddInclude(x => x.User.Campus);
+            AddInclude(x => x.User.Degree);
+            AddInclude(x => x.VehicleBrand);
+            AddInclude(x => x.VehicleCategory);
+            AddInclude(x => x.VehicleModel);
+            AddInclude(x => x.VehicleFuelType);
+            AddInclude(x => x.VehicleEngineSize);
+            AddInclude(x => x.VehicleGearType);
         }
     }
 }

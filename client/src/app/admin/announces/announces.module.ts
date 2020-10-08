@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AnnouncesComponent } from './announces.component';
 import { AnnouncesListComponent } from './announces-list/announces-list.component';
 import { AnnouncesDetailComponent } from './announces-detail/announces-detail.component';
@@ -8,7 +7,7 @@ import { AnnouncesPhotoListComponent } from './announces-photo-list/announces-ph
 import { AnnouncesSubscreensComponent } from './announces-subscreens/announces-subscreens.component';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { EditorModule } from 'src/app/editor/editor.module';
+
 
 export const routes: Routes = [
   {

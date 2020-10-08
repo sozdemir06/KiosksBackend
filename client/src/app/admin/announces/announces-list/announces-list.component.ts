@@ -114,6 +114,12 @@ export class AnnouncesListComponent implements OnInit {
     });
   }
 
+  onPhotoWaitConfirmCount(element:IAnnounce):number{
+      return element?.announcePhotos?.filter(x=>x.isConfirm==false && x.unConfirm==false)?.length;
+  }
+
+
+
   onDelete(element: IAnnounce) {
     // console.log("deleted");
   }

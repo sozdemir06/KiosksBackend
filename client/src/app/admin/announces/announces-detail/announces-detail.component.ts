@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnnounceStore } from 'src/app/core/services/stores/announce-store';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,14 +8,18 @@ import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { IAnnounceSubScreen } from 'src/app/shared/models/IAnnounceSubScreen';
 import { HelperService } from 'src/app/core/services/helper-service';
+import { Observable } from 'rxjs';
+import { IAnnounce } from 'src/app/shared/models/IAnnounce';
 
 @Component({
   selector: 'app-announces-detail',
   templateUrl: './announces-detail.component.html',
   styleUrls: ['./announces-detail.component.scss'],
 })
-export class AnnouncesDetailComponent implements OnInit {
+export class AnnouncesDetailComponent implements OnInit,AfterViewInit {
   announceId: number;
+  announce:Observable<IAnnounce>;
+
   roleForAddPhoto: string[] = [
     'Sudo',
     'Announces.Create',
@@ -51,7 +55,11 @@ export class AnnouncesDetailComponent implements OnInit {
   }
   ngOnInit(): void {
     this.announceId=+this.route.snapshot.paramMap.get("id");
-    this.announceStore.getDetail(this.announceId);
+  }
+  ngAfterViewInit(){
+    setTimeout(()=>{
+      this.announce=this.announceStore.getDetailById(this.announceId);
+    })
   }
 
 

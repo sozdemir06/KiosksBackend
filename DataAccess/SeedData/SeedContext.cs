@@ -286,6 +286,17 @@ namespace DataAccess.SeedData
                         }
                     }
 
+                    if (!_context.NotifyGroups.Any())
+                    {
+                        var data = File.ReadAllText("../DataAccess/SeedData/NotifyGroup.json");
+                        var dataList = JsonSerializer.Deserialize<List<NotifyGroup>>(data);
+
+                        foreach (var item in dataList)
+                        {
+                            _context.NotifyGroups.Add(item);
+                        }
+                    }
+
 
 
 

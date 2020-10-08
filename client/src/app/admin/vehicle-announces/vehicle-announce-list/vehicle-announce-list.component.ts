@@ -100,4 +100,8 @@ roleForPublish:string[]=["Sudo","VehicleAnnounces.Publish","VehicleAnnounces.All
     console.log("deleted");
   }
 
+  onPhotoWaitConfirmCount(element:IVehicleAnnounceList):number{
+    return element?.vehicleAnnouncePhotos?.filter(x=>x.isConfirm==false && x.unConfirm==false)?.length;
+}
+
 }

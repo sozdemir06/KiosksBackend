@@ -8,6 +8,7 @@ namespace Entities.Dtos
         public string Name { get; set; }
         public string FullPath { get; set; }
         public bool IsConfirm { get; set; }
+        public bool UnConfirm { get; set; }
         public int VehicleAnnounceId { get; set; }
     }
 }

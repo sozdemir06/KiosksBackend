@@ -86,7 +86,10 @@ namespace Business.MappingProfile
             CreateMap<HomeAnnouncePhoto, HomeAnnouncePhotoForReturnDto>();
             CreateMap<HomeAnnouncePhotoForCreationDto, HomeAnnouncePhoto>();
 
-            CreateMap<VehicleAnnounce, VehicleAnnounceForReturnDto>();
+            CreateMap<VehicleAnnounce, VehicleAnnounceForReturnDto>()
+                    .ForMember(x => x.VehicleCategoryName, o => o.MapFrom(z => z.VehicleCategory.CategoryName))
+                    .ForMember(x => x.VehicleBrandName, o => o.MapFrom(z => z.VehicleBrand.BrandName))
+                    .ForMember(x => x.VehicleModelName, o => o.MapFrom(z => z.VehicleModel.VehicleModelName));
             CreateMap<VehicleAnnounce, VehicleAnnounceForKiosksToReturnDto>()
                  .ForMember(x => x.VehicleAnnouncePhotos, o => o.MapFrom(z => z.VehicleAnnouncePhotos.Where(t => t.IsConfirm == true)))
                   .ForMember(x => x.VehicleCategoryName, o => o.MapFrom(z => z.VehicleCategory.CategoryName))
@@ -126,7 +129,6 @@ namespace Business.MappingProfile
             CreateMap<Announce, AnnounceForUserDto>()
                  .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.AnnouncePhotos.FirstOrDefault(x => x.IsConfirm).FullPath));
             CreateMap<AnnounceForCreationDto, Announce>();
-
             CreateMap<Announce, AnnounceForDetailDto>();
 
             CreateMap<AnnounceSubScreen, AnnounceSubScreenForReturnDto>();
@@ -210,6 +212,14 @@ namespace Business.MappingProfile
 
             CreateMap<LiveTvBroadCastSubScreen, LiveTvBroadCastSubScreenForReturnDto>();
             CreateMap<LiveTvBroadCastSubScreenForCreationDto, LiveTvBroadCastSubScreen>();
+
+            CreateMap<NotifyGroup, NotifyGroupForReturnDto>();
+            CreateMap<NotifyGroupForCreationDto, NotifyGroup>();
+
+            CreateMap<UserNotifyGroup, UserNotifyGroupForReturnDto>()
+                    .ForMember(src=>src.GroupName,o=>o.MapFrom(dest=>dest.NotifyGroup.GroupName))
+                    .ForMember(src=>src.Description,o=>o.MapFrom(dest=>dest.NotifyGroup.Description));
+            CreateMap<UserNotifyGroupForCreationDto, UserNotifyGroup>();
 
         }
     }

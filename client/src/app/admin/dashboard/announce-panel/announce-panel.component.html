@@ -1,11 +1,17 @@
 <mat-expansion-panel *appHasRole="allowedRolesForList">
-    <mat-expansion-panel-header>
-      <mat-panel-title class="d-flex align-items-center">
-        <mat-icon>announcement</mat-icon>
-        <span>Duyurular</span>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <mat-nav-list routerLink="/app/admin/announces">
-      <a mat-list-item>Duyuru Listesi</a>
-    </mat-nav-list>
-  </mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title class="d-flex align-items-center py-4">
+      <mat-icon>announcement</mat-icon>
+      <span
+        [matBadge]="announceStore.getNewAnnounceCount() | async"
+        matBadgeColor="warn"
+        matBadgeOverlap="false"
+        matBadgeSize="small"
+        >Duyurular</span
+      >
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-nav-list routerLink="/app/admin/announces">
+    <a mat-list-item>Duyuru Listesi</a>
+  </mat-nav-list>
+</mat-expansion-panel>

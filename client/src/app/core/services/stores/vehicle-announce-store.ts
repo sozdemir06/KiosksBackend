@@ -129,23 +129,10 @@ export class VehilceAnnounceStore {
     this.loadingService.showLoaderUntilCompleted(update$).subscribe();
   }
 
-  getDetail(announceId: number) {
-    this.detailSubject.next(null);//
-    const detail$ = this.httpClient
-      .get<IVehicleAnnounceDetail>(
-        this.apiUrl + 'vehicleannounce/detail/' + announceId
-      )
-      .pipe(
-        map((announce) => announce),
-        catchError((error) => {
-          this.notifyService.notify('error', error);
-          return throwError(error);
-        }),
-        tap((announce) => {
-          this.detailSubject.next(announce);
-        })
-      );
-    this.loadingService.showLoaderUntilCompleted(detail$).subscribe();
+  getDetailById(announceId: number):Observable<IVehicleAnnounceList> {
+     return this.vehicleannounces$.pipe(
+       map(vehicleannounces=>vehicleannounces?.data.find(x=>x.id==announceId))
+     );
   }
 
   publish(model: Partial<IVehicleAnnounceList>) {
@@ -173,11 +160,14 @@ export class VehilceAnnounceStore {
     this.loadingService.showLoaderUntilCompleted(publish$).subscribe();
   }
 
-  addPhoto(announceId: number, photo: IVehicleAnnouncePhoto) {
-    const updatePhoto = produce(this.detailSubject.getValue(), (draft) => {
-      draft.vehicleAnnouncePhotos.push(photo);
+  addPhoto(photo: IVehicleAnnouncePhoto) {
+    const updatePhoto = produce(this.subject.getValue(), (draft) => {
+      const index=draft.data.findIndex(x=>x.id==photo.vehicleAnnounceId);
+      if(index!=-1){
+        draft.data[index].vehicleAnnouncePhotos.push(photo);
+      }
     });
-    this.detailSubject.next(updatePhoto);
+    this.subject.next(updatePhoto);
     this.notifyService.notify('success', 'Resim Eklendi...');
   }
 
@@ -192,15 +182,18 @@ export class VehilceAnnounceStore {
         }),
         tap((result) => {
           const updateDetailsubject = produce(
-            this.detailSubject.getValue(),
+            this.subject.getValue(),
             (draft) => {
-              const photoIndex = draft.vehicleAnnouncePhotos.findIndex(
-                (x) => x.id == result.id
-              );
-              draft.vehicleAnnouncePhotos[photoIndex] = result;
+               const index=draft.data.findIndex(x=>x.id===result.vehicleAnnounceId);
+               if(index!=-1){
+                 const photoIndex=draft.data[index].vehicleAnnouncePhotos.findIndex(x=>x.id==result.id);
+                 if(photoIndex!=-1){
+                   draft.data[index].vehicleAnnouncePhotos[photoIndex]=result;
+                 }
+               }
             }
           );
-          this.detailSubject.next(updateDetailsubject);
+          this.subject.next(updateDetailsubject);
           this.notifyService.notify('success', 'Fotoğraf Güncellendi...');
         })
       );
@@ -220,17 +213,18 @@ export class VehilceAnnounceStore {
         }),
         tap((photo) => {
           const updateDetailsubject = produce(
-            this.detailSubject.getValue(),
+            this.subject.getValue(),
             (draft) => {
-              const photoIndex = draft.vehicleAnnouncePhotos.findIndex(
-                (x) => x.id === photo.id
-              );
-              if (photoIndex != -1) {
-                draft.vehicleAnnouncePhotos.splice(photoIndex, 1);
+              const index=draft.data.findIndex(x=>x.id===photo.vehicleAnnounceId);
+              if(index!=-1){
+                const photoIndex=draft.data[index].vehicleAnnouncePhotos.findIndex(x=>x.id==photo.id);
+                if(photoIndex!=-1){
+                  draft.data[index].vehicleAnnouncePhotos.splice(photoIndex,1);
+                }
               }
             }
           );
-          this.detailSubject.next(updateDetailsubject);
+          this.subject.next(updateDetailsubject);
           this.notifyService.notify('success', 'Fotoğraf Silindi...');
         })
       );
@@ -251,12 +245,15 @@ export class VehilceAnnounceStore {
         }),
         tap((subscreen) => {
           const updateDetailsubject = produce(
-            this.detailSubject.getValue(),
+            this.subject.getValue(),
             (draft) => {
-              draft.vehicleAnnounceSubScreens.push(subscreen);
+              const index=draft.data.findIndex(x=>x.id==subscreen.vehicleAnnounceId);
+              if(index!=-1){
+                draft.data[index].vehicleAnnounceSubScreens.push(subscreen);
+              }
             }
           );
-          this.detailSubject.next(updateDetailsubject);
+          this.subject.next(updateDetailsubject);
           this.notifyService.notify('success', 'Yayın Ekranı Eklendi...');
         })
       );
@@ -273,19 +270,43 @@ export class VehilceAnnounceStore {
       }),
       tap((subscreen) => {
         const updateDetailsubject = produce(
-          this.detailSubject.getValue(),
+          this.subject.getValue(),
           (draft) => {
-            const index=draft.vehicleAnnounceSubScreens.findIndex(x=>x.id===subscreen.id);
+            const index=draft.data.findIndex(x=>x.id==subscreen.vehicleAnnounceId);
             if(index!=-1){
-               draft.vehicleAnnounceSubScreens.splice(index,1);
+               const subscreenIndex=draft.data[index].vehicleAnnounceSubScreens.findIndex(x=>x.id==subscreen.id)
+               if (subscreenIndex != -1) {
+                draft.data[index].vehicleAnnounceSubScreens.splice(subscreenIndex,1);
+              }
+              
             }
           }
         );
-        this.detailSubject.next(updateDetailsubject);
+        this.subject.next(updateDetailsubject);
         this.notifyService.notify('success', 'Yayın Ekranı Kaldırıldı...');
       })
     );
     this.loadingService.showLoaderUntilCompleted(removeSubScreen$).subscribe();
+  }
+
+  getNewAnnounceLength(): Observable<number> {
+    return this.vehicleannounces$.pipe(
+      map((announces) => {
+        const newanouncecount = announces?.data.filter(
+          (x) => x.isNew == true && x.isPublish == false && x.reject == false
+        ).length;
+        let photoCount=0;
+        announces?.data?.forEach(x=>{
+           x.vehicleAnnouncePhotos.forEach(x=>{
+              if(x.isConfirm==false && x.unConfirm==false){
+                photoCount++;
+              }
+           })
+        })
+
+        return newanouncecount + photoCount;
+      })
+    );
   }
   getParams(): VehicleAnnounceParams {
     return this.vehicleAnnounceParams;

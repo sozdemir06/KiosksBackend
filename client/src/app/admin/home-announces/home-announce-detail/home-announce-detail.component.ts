@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { HomeAnnounceStore } from 'src/app/core/services/stores/home-announce-store';
@@ -7,14 +7,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 import { IHomeAnnounceSubScreen } from 'src/app/shared/models/IHomeAnnounceSubScreen';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { Observable } from 'rxjs';
+import { IHomeAnnounce } from 'src/app/shared/models/IHomeAnnounce';
 
 @Component({
   selector: 'app-home-announce-detail',
   templateUrl: './home-announce-detail.component.html',
   styleUrls: ['./home-announce-detail.component.scss'],
 })
-export class HomeAnnounceDetailComponent implements OnInit {
+export class HomeAnnounceDetailComponent implements OnInit,AfterViewInit {
   announceId: number;
+  homeannounce$:Observable<IHomeAnnounce>;
 
   roleForAddPhoto: string[] = [
     'Sudo',
@@ -41,9 +44,14 @@ export class HomeAnnounceDetailComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
+  ngAfterViewInit(){
+    setTimeout(()=>{
+     this.homeannounce$= this.homeAnnounceStore.getDetailById(this.announceId);
+    })
+  }
   ngOnInit(): void {
     this.announceId = +this.route.snapshot.paramMap.get('id');
-    this.homeAnnounceStore.getDetail(this.announceId);
+
   }
 
   goBack() {

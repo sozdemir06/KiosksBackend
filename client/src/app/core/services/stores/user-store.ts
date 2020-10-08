@@ -113,6 +113,17 @@ export class UserStore {
     this.loadingService.showLoaderUntilCompleted(update$).subscribe();
   }
 
+  getNewUser():Observable<number>{
+    return this.users$.pipe(
+      map(users=>users?.data?.filter(x=>x.isActive==false)?.length)
+    );
+  }
+  getUnConfirmUserPhoto():Observable<number>{
+    return this.users$.pipe(
+      map(users=>users?.data?.filter(x=>x.userPhotos.find(x=>x.isConfirm===false))?.length)
+    )
+  }
+
 
 
   getUserParams(): UserParams {

@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material/material.module';
 import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
 import { EditUserRolesComponent } from './edit-user-roles/edit-user-roles.component';
-import { RolesComponent } from '../roles/roles.component';
+import { EditUserNotfyGroupsComponent } from './edit-user-notfy-groups/edit-user-notfy-groups.component';
 
 
 
@@ -26,6 +26,7 @@ const routes:Routes=[
     UsersListCardComponent,
     UserEditDialogComponent,
     EditUserRolesComponent,
+    EditUserNotfyGroupsComponent,
 
    
   ],
@@ -40,6 +41,7 @@ const routes:Routes=[
     UsersListCardComponent,
     RouterModule,
     UserEditDialogComponent,
+    EditUserNotfyGroupsComponent
 
   
   ],

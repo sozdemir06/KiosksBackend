@@ -125,6 +125,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<bool>("UnConfirm")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AnnounceId");
@@ -544,6 +547,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<bool>("UnConfirm")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("HomeAnnounceId");
@@ -694,49 +700,6 @@ namespace DataAccess.Migrations
                     b.ToTable("LiveTvLists");
                 });
 
-            modelBuilder.Entity("Core.Entities.Concrete.Message", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Content")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DateRead")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("RecipientDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("RecipientId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("RecipientUserName")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("SenderDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("SenderId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("SenderUserName")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecipientId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Messages");
-                });
-
             modelBuilder.Entity("Core.Entities.Concrete.News", b =>
                 {
                     b.Property<int>("Id")
@@ -863,6 +826,24 @@ namespace DataAccess.Migrations
                     b.HasIndex("SubScreenId");
 
                     b.ToTable("NewsSubScreens");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.NotifyGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("GroupName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NotifyGroups");
                 });
 
             modelBuilder.Entity("Core.Entities.Concrete.NumberOfRoom", b =>
@@ -1134,6 +1115,28 @@ namespace DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.UserNotifyGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("NotifyGroupId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NotifyGroupId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserNotifyGroups");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.UserPhoto", b =>
                 {
                     b.Property<int>("Id")
@@ -1293,6 +1296,9 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
+
+                    b.Property<bool>("UnConfirm")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("VehicleAnnounceId")
                         .HasColumnType("integer");
@@ -1697,21 +1703,6 @@ namespace DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Core.Entities.Concrete.Message", b =>
-                {
-                    b.HasOne("Core.Entities.Concrete.User", "Recipient")
-                        .WithMany("MessagesReceived")
-                        .HasForeignKey("RecipientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Core.Entities.Concrete.User", "Sender")
-                        .WithMany("MessagesSent")
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Core.Entities.Concrete.News", b =>
                 {
                     b.HasOne("Core.Entities.Concrete.User", "User")
@@ -1813,6 +1804,21 @@ namespace DataAccess.Migrations
                     b.HasOne("Core.Entities.Concrete.Department", "Department")
                         .WithMany("Users")
                         .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.UserNotifyGroup", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.NotifyGroup", "NotifyGroup")
+                        .WithMany("UserNotifyGroups")
+                        .HasForeignKey("NotifyGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.User", "User")
+                        .WithMany("UserNotifyGroups")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

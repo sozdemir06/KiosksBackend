@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using API.Hubs;
 using AutoMapper;
 using Business.Handlers.Products.Query;
 using Core.DependencyResolvers;
@@ -37,18 +39,16 @@ namespace API
             // });
 
             services.AddDbContext<DataContext>();
+
             services.AddMediatR(typeof(ProductListQuery).Assembly);
             services.AddAutoMapper(typeof(ProductListQuery));
             services.AddSingleton<SeedContext>();
-
-            services.AddCors(opt =>
-            {
-                opt.AddPolicy("CorsPolicy", policy =>
-                {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
-                });
-            });
             services.AddControllers();
+            services.AddSignalR();
+
+
+
+
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -64,9 +64,26 @@ namespace API
                             ValidIssuer = tokenOptions.Issuer,
                             ValidateLifetime = true
                         };
+
+                        jwt.Events = new JwtBearerEvents
+                        {
+                            OnMessageReceived = context =>
+                            {
+                                var accessToken = context.Request.Query["access_token"];
+
+                                var path = context.HttpContext.Request.Path;
+                                if (!string.IsNullOrEmpty(accessToken) &&
+                                    path.StartsWithSegments("/hubs/AdminHub"))
+                                {
+                                    context.Token = accessToken;
+                                }
+
+                                return Task.CompletedTask;
+                            }
+                        };
                     });
 
-                    services.AddDependencyResolvers(new ICoreModule[]{
+            services.AddDependencyResolvers(new ICoreModule[]{
                         new CoreModule(),
                     });
 
@@ -85,13 +102,17 @@ namespace API
             app.UseStaticFiles();
             seedData.SeedAsync();
             app.UseRouting();
+            app.UseCors(x => x.AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials()
+               .WithOrigins("http://localhost:4200"));
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<AdminHub>("/hubs/AdminHub");
             });
         }
     }

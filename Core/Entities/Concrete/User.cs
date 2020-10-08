@@ -26,6 +26,7 @@ namespace Core.Entities.Concrete
         public Degree Degree { get; set; }
         public int DegreeId { get; set; }
 
+        public ICollection<UserNotifyGroup> UserNotifyGroups { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
         public ICollection<UserPhoto> UserPhotos { get; set; }
         public ICollection<HomeAnnounce> HomeAnnounces { get; set; }

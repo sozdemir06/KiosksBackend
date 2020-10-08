@@ -11,6 +11,7 @@ namespace DataAccess.Concrete.Configurations
             builder.HasKey(x=>x.Id);
             builder.Property(x=>x.Name);
             builder.Property(x=>x.IsConfirm);
+            builder.Property(x=>x.UnConfirm);
             builder.Property(x=>x.FullPath);
 
             //Fluent Api

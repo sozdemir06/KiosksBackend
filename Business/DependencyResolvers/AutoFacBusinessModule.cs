@@ -6,6 +6,7 @@ using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
 using Core.Utilities.Photos;
 using Core.Utilities.Security.Jwt;
+using Core.Utilities.Security.UserAccessor;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
@@ -156,10 +157,17 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<PublicManager>().As<IPublicService>();
             builder.RegisterType<PublicUserAnnounceManager>().As<IPublicUserAnnounceService>();
 
-           
+            builder.RegisterType<NotifyGroupManager>().As<INotifyGroupService>();
+            builder.RegisterType<EfNotifyGroupDal>().As<INotifyGroupDal>();
+
+            builder.RegisterType<UserNotifyGroupManager>().As<IUserNotifyGroupService>();
+            builder.RegisterType<EfUserNotifyGroupDal>().As<IUserNotifyGroupDal>();
+
+
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
             builder.RegisterType<UploadFile>().As<IUploadFile>();
+            builder.RegisterType<UserAccessor>().As<IUserAccessor>();
 
 
 

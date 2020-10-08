@@ -20,5 +20,6 @@ namespace Core.Extensions
         {
             userRoles.ToList().ForEach(role=>claims.Add(new Claim(ClaimTypes.Role,role)));
         }
+
     }
 }

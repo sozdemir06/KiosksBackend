@@ -72,4 +72,40 @@ export class VehicleAnnouncePhotoListComponent implements OnInit {
       }
     });
   }
+
+  onReject(image:IVehicleAnnouncePhoto){
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '45rem',
+      data: {
+        message: 'Fotoğrafı Ret Etmek istiyormusunuz.? ',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const photo: IVehicleAnnouncePhoto = {
+          ...image,
+          unConfirm:true
+        };
+       this.vehicleStore.updatePhoto(photo);
+      }
+    });
+  }
+
+  onUnReject(image:IVehicleAnnouncePhoto){
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '45rem',
+      data: {
+        message: 'Fotoğrafı Ret Etmekten  Vazgeçmek istiyormusunuz.? ',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const photo: IVehicleAnnouncePhoto = {
+          ...image,
+          unConfirm:false
+        };
+       this.vehicleStore.updatePhoto(photo);
+      }
+    });
+  }
 }

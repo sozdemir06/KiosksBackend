@@ -5,7 +5,7 @@ using Core.QueryParams;
 
 namespace DataAccess.EntitySpecification.AnnounceSpecification
 {
-    public class AnnounceWithPagingSpecification:BaseSpecification<Announce>
+    public class AnnounceWithPagingSpecification : BaseSpecification<Announce>
     {
         public AnnounceWithPagingSpecification(AnnounceParams queryParams)
          : base(x =>
@@ -25,7 +25,12 @@ namespace DataAccess.EntitySpecification.AnnounceSpecification
              (!queryParams.IsPublish.HasValue || x.IsPublish == queryParams.IsPublish)
         )
         {
-            AddInclude(x=>x.User);
+            AddInclude(x => x.User);
+            AddInclude(x => x.User.Campus);
+            AddInclude(x => x.User.Degree);
+            AddInclude(x => x.User.Department);
+            AddInclude(x => x.AnnouncePhotos);
+            AddInclude(x => x.AnnounceSubScreens);
             AddOrderByDscending(x => x.IsNew);
             ApplyPaging(queryParams.PageSize * (queryParams.PageIndex - 1), queryParams.PageSize);
         }

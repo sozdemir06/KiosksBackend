@@ -55,7 +55,8 @@ namespace Business.Concrete
             mapForCreate.Name = uploadFile.Name;
             mapForCreate.FullPath = uploadFile.FullPath;
             mapForCreate.HomeAnnounceId = uploadDto.AnnounceId;
-            mapForCreate.IsConfirm = true;
+            mapForCreate.IsConfirm = false;
+            mapForCreate.UnConfirm = false;
             var mapForDb = mapper.Map<HomeAnnouncePhoto>(mapForCreate);
             var createPhoto = await homeAnnouncePhotoDal.Add(mapForDb);
             return mapper.Map<HomeAnnouncePhoto, HomeAnnouncePhotoForReturnDto>(createPhoto);

@@ -1,4 +1,6 @@
 import { IUserList } from './IUser';
+import { IVehicleAnnouncePhoto } from './IVehicleAnnouncePhoto';
+import { IVehicleAnnounceSubScreen } from './IVehicleAnnounceSubScreen';
 
 
 export interface IVehicleAnnounceList {
@@ -13,11 +15,17 @@ export interface IVehicleAnnounceList {
   publishStartDate: Date;
   publishFinishDate: Date;
   vehicleCategoryId: number;
+  vehicleCategoryName:string;
   vehicleBrandId: number;
+  vehicleBrandName:string;
   vehicleModelId: number;
-  vehicleFuelTypeId?: number;
+  vehicleModelName:string;
+  vehicleFuelTypeId: number;
+  vehicleFuelTypeName:string;
   vehicleGearTypeId: number;
+  vehicleGearTypeName:string;
   vehicleEngineSizeId: number;
+  vehicleEngineSizeName:string;
   slideIntervalTime:number;
   price: number;
   userId: number;
@@ -25,4 +33,6 @@ export interface IVehicleAnnounceList {
   reject: boolean;
   isPublish: boolean;
   user: IUserList;
+  vehicleAnnouncePhotos:IVehicleAnnouncePhoto[];
+  vehicleAnnounceSubScreens:IVehicleAnnounceSubScreen[];
 }

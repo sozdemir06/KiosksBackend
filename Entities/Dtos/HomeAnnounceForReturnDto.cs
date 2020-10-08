@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Entities.Concrete;
+
 
 namespace Entities.Dtos
 {
@@ -16,9 +16,13 @@ namespace Entities.Dtos
         public DateTime PublishStartDate { get; set; }
         public DateTime PublishFinishDate { get; set; }
         public int NumberOfRoomId { get; set; }
+        public string NumberOfRoomName { get; set; }
         public int HeatingTypeId { get; set; }
+        public string HeatingtypeName { get; set; }
         public int FlatOfHomeId { get; set; }
+        public string FlatOfHomeName { get; set; }
         public int BuildingAgeId { get; set; }
+        public string BuildingAgeName { get; set; }
         public int Price { get; set; }
         public int SquareMeters { get; set; }
         public int SlideIntervalTime { get; set; }
@@ -27,6 +31,8 @@ namespace Entities.Dtos
         public bool Reject { get; set; }
         public bool IsPublish { get; set; }
         public UserForListDto User { get; set; }
+        public ICollection<HomeAnnouncePhotoForReturnDto> HomeAnnouncePhotos { get; set; }
+        public ICollection<HomeAnnounceSubScreenForReturnDto> HomeAnnounceSubScreens { get; set; }
 
 
 

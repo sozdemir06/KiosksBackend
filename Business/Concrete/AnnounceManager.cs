@@ -121,19 +121,6 @@ namespace Business.Concrete
             return mapper.Map<Announce, AnnounceForReturnDto>(getByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,Announces.List,Announces.All", Priority = 1)]
-        public async Task<AnnounceForDetailDto> GetDetailAsync(int announceId)
-        {
-            var spec = new AnnounceWithDetailSpecification(announceId);
-            var getDetailFromRepo = await announceDal.GetEntityWithSpecAsync(spec);
-
-            if (getDetailFromRepo == null)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
-            }
-
-            return mapper.Map<Announce, AnnounceForDetailDto>(getDetailFromRepo);
-        }
 
         [SecuredOperation("Sudo,Announces.List,Announces.All", Priority = 1)]
         public async Task<Pagination<AnnounceForReturnDto>> GetListAsync(AnnounceParams queryParams)
@@ -143,7 +130,7 @@ namespace Business.Concrete
             var countSpec = new AnnounceWithFilterForCaountAsyncSpecification(queryParams);
             var totalItem = await announceDal.CountAsync(countSpec);
 
-            if (listFromRepo == null)
+            if (listFromRepo.Count<=0)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.HomeAnnounceEmpty });
             }

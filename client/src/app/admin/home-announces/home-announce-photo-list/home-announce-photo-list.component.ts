@@ -24,21 +24,43 @@ export class HomeAnnouncePhotoListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onUnConfirm(image:IHomeAnnouncePhoto){
-      const photo:IHomeAnnouncePhoto={
-         ...image,
-         isConfirm:false
+  onUnConfirm(image: IHomeAnnouncePhoto) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '45rem',
+      data: {
+        message:"Fotoğrafı yayın dışında tutmak istiyormusunuz.?",
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const photo: IHomeAnnouncePhoto = {
+          ...image,
+          isConfirm: false,
+        };
+        this.homeAnnounceStore.updatePhoto(photo);
       }
-      this.homeAnnounceStore.updatePhoto(photo);
+    });
   }
 
-  onConfirm(image:IHomeAnnouncePhoto){
-    const photo:IHomeAnnouncePhoto={
-      ...image,
-      isConfirm:true
-    }
-    this.homeAnnounceStore.updatePhoto(photo);
+  onConfirm(image: IHomeAnnouncePhoto) {
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '45rem',
+      data: {
+        message:"Fotoğrafı Onaylamak istiyormusunuz.?" 
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const photo: IHomeAnnouncePhoto = {
+          ...image,
+          isConfirm: true,
+        };
+       this.homeAnnounceStore.updatePhoto(photo);
+      }
+    });
   }
+
 
   onDelete(image:IHomeAnnouncePhoto){
     const dialogRef=this.dialog.open(ConfirmDialogComponent,{
@@ -53,6 +75,42 @@ export class HomeAnnouncePhotoListComponent implements OnInit {
       }
     })
       
+  }
+
+  onReject(image:IHomeAnnouncePhoto){
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '45rem',
+      data: {
+        message: 'Fotoğrafı Ret Etmek istiyormusunuz.? ',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const photo: IHomeAnnouncePhoto = {
+          ...image,
+          unConfirm:true
+        };
+       this.homeAnnounceStore.updatePhoto(photo);
+      }
+    });
+  }
+
+  onUnReject(image:IHomeAnnouncePhoto){
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '45rem',
+      data: {
+        message: 'Fotoğrafı Ret Etmekten  Vazgeçmek istiyormusunuz.? ',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const photo: IHomeAnnouncePhoto = {
+          ...image,
+          unConfirm:false
+        };
+       this.homeAnnounceStore.updatePhoto(photo);
+      }
+    });
   }
 
 

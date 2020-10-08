@@ -8,7 +8,6 @@ namespace Business.Abstract
     public interface IAnnounceService
     {
         Task<Pagination<AnnounceForReturnDto>> GetListAsync(AnnounceParams queryParams);
-        Task<AnnounceForDetailDto> GetDetailAsync(int announceId);
         Task<AnnounceForReturnDto> Create(AnnounceForCreationDto creationDto);
         Task<AnnounceForUserDto> CreateForPublicAsync(AnnounceForCreationDto creationDto,int userId);
         Task<AnnounceForReturnDto> Update(AnnounceForCreationDto updateDto);

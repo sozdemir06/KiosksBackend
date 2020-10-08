@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Entities.Concrete;
 
 namespace Entities.Dtos
 {
@@ -17,11 +16,17 @@ namespace Entities.Dtos
         public DateTime PublishStartDate { get; set; }
         public DateTime PublishFinishDate { get; set; }
         public int VehicleCategoryId { get; set; }
+        public string VehicleCategoryName { get; set; }
         public int VehicleBrandId { get; set; }
+        public string VehicleBrandName { get; set; }
         public int VehicleModelId { get; set; }
+        public string VehicleModelName { get; set; }
         public int VehicleFuelTypeId { get; set; }
+        public string VehicleFuelTypeName { get; set; }
         public int VehicleGearTypeId { get; set; }
+        public string VehicleGearTypeName { get; set; }
         public int VehicleEngineSizeId { get; set; }
+        public string VehicleEngineSizeName { get; set; }
         public int SlideIntervalTime { get; set; }
         public int UserId { get; set; }
         public int Price { get; set; }
@@ -29,6 +34,8 @@ namespace Entities.Dtos
         public bool Reject { get; set; }
         public bool IsPublish { get; set; }
         public UserForListDto User { get; set; }
+        public ICollection<VehicleAnnouncePhotoForReturnDto> VehicleAnnouncePhotos { get; set; }
+        public ICollection<VehicleAnnounceSubScreenForReturnDto> VehicleAnnounceSubScreens { get; set; }
 
     }
 }

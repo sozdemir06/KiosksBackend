@@ -1,8 +1,14 @@
 <mat-expansion-panel *appHasRole="allowedRolesForList">
     <mat-expansion-panel-header>
-      <mat-panel-title class="d-flex align-items-center">
+      <mat-panel-title class="d-flex align-items-center py-4">
         <mat-icon>directions_car</mat-icon>
-        <span>Araç İlanları</span>
+        <span
+        [matBadge]="vehicleStore.getNewAnnounceLength() | async"
+        matBadgeColor="warn"
+        matBadgeOverlap="false"
+        matBadgeSize="small"
+        [matBadgeHidden]="(vehicleStore.getNewAnnounceLength() | async)==0"
+        >Araç İlanları</span>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <mat-nav-list routerLink="/app/admin/vehicle-announces">

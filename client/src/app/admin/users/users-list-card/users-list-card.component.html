@@ -67,6 +67,10 @@
           <mat-icon>lock_open</mat-icon>
           <span>Hesabı Aç</span>
         </button>
+        <button mat-menu-item (click)="onEditNotifyGroup(element)" *appHasRole="allowedRolesForNotify">
+          <mat-icon>notification_important</mat-icon>
+          <span>Admin Kullanıcı Bildirimleri</span>
+        </button>
       </mat-menu>
     </td>
   </ng-container>

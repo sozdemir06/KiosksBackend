@@ -6,12 +6,12 @@ import { NotifyService } from '../notify-service';
 import { AnnounceParams } from 'src/app/shared/models/AnnounceParams';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { IAnnounce } from 'src/app/shared/models/IAnnounce';
-import { IAnnounceDetail } from 'src/app/shared/models/IAnnounceDetail';
 import { IPagination } from 'src/app/shared/models/IPagination';
 import { map, catchError, tap } from 'rxjs/operators';
 import produce from 'immer';
 import { IAnnouncePhoto } from 'src/app/shared/models/IAnnouncePhoto';
 import { IAnnounceSubScreen } from 'src/app/shared/models/IAnnounceSubScreen';
+import { IHomeAnnouncePhoto } from 'src/app/shared/models/IHomeAnnouncePhoto';
 
 @Injectable({ providedIn: 'root' })
 export class AnnounceStore {
@@ -20,9 +20,6 @@ export class AnnounceStore {
 
   private subject = new BehaviorSubject<IPagination<IAnnounce>>(null);
   announces$: Observable<IPagination<IAnnounce>> = this.subject.asObservable();
-  private detailSubject = new BehaviorSubject<IAnnounceDetail>(null);
-  detail$: Observable<IAnnounceDetail> = this.detailSubject.asObservable();
-
   constructor(
     private httpClient: HttpClient,
     private loadingService: LoadingService,
@@ -116,7 +113,7 @@ export class AnnounceStore {
           this.notifyService.notify('success', 'Duyuru Güncellendi...');
         })
       );
-      this.loadingService.showLoaderUntilCompleted(update$).subscribe();
+    this.loadingService.showLoaderUntilCompleted(update$).subscribe();
   }
 
   delete(model: IAnnounce) {
@@ -141,21 +138,10 @@ export class AnnounceStore {
       );
   }
 
-  getDetail(announceId: number) {
-    this.detailSubject.next(null);
-    const detail$ = this.httpClient
-      .get<IAnnounceDetail>(this.apiUrl + 'announces/detail/' + announceId)
-      .pipe(
-        map((announce) => announce),
-        catchError((error) => {
-          this.notifyService.notify('error', error);
-          return throwError(error);
-        }),
-        tap((announce) => {
-          this.detailSubject.next(announce);
-        })
-      );
-    this.loadingService.showLoaderUntilCompleted(detail$).subscribe();
+  getDetailById(announceId: number): Observable<IAnnounce> {
+    return this.announces$.pipe(
+      map((announces) => announces?.data.find((x) => x.id == announceId))
+    );
   }
 
   publish(model: Partial<IAnnounce>) {
@@ -184,10 +170,14 @@ export class AnnounceStore {
   }
 
   addPhoto(photo: IAnnouncePhoto) {
-    const updatePhoto = produce(this.detailSubject.getValue(), (draft) => {
-      draft.announcePhotos.push(photo);
+    const updatePhoto = produce(this.subject.getValue(), (draft) => {
+      const index = draft.data.findIndex((x) => x.id === photo.announceId);
+      if (index != -1) {
+        draft.data[index].announcePhotos.push(photo);
+      }
     });
-    this.detailSubject.next(updatePhoto);
+
+    this.subject.next(updatePhoto);
     this.notifyService.notify('success', 'Dosya Eklendi...');
   }
 
@@ -202,15 +192,22 @@ export class AnnounceStore {
         }),
         tap((result) => {
           const updateDetailsubject = produce(
-            this.detailSubject.getValue(),
+            this.subject.getValue(),
             (draft) => {
-              const photoIndex = draft.announcePhotos.findIndex(
-                (x) => x.id == result.id
+              const index = draft.data.findIndex(
+                (x) => x.id === result.announceId
               );
-              draft.announcePhotos[photoIndex] = result;
+              if (index != -1) {
+                const photoIndex = draft.data[index].announcePhotos.findIndex(
+                  (x) => x.id == result.id
+                );
+                if (photoIndex != -1) {
+                  draft.data[index].announcePhotos[photoIndex] = result;
+                }
+              }
             }
           );
-          this.detailSubject.next(updateDetailsubject);
+          this.subject.next(updateDetailsubject);
           this.notifyService.notify('success', 'Dosya Güncellendi...');
         })
       );
@@ -228,17 +225,22 @@ export class AnnounceStore {
         }),
         tap((photo) => {
           const updateDetailsubject = produce(
-            this.detailSubject.getValue(),
+            this.subject.getValue(),
             (draft) => {
-              const photoIndex = draft.announcePhotos.findIndex(
-                (x) => x.id === photo.id
+              const index = draft.data.findIndex(
+                (x) => x.id === photo.announceId
               );
-              if (photoIndex != -1) {
-                draft.announcePhotos.splice(photoIndex, 1);
+              if (index != -1) {
+                const photoIndex = draft.data[index].announcePhotos.findIndex(
+                  (x) => x.id == photo.id
+                );
+                if (photoIndex != -1) {
+                  draft.data[index].announcePhotos.splice(photoIndex, 1);
+                }
               }
             }
           );
-          this.detailSubject.next(updateDetailsubject);
+          this.subject.next(updateDetailsubject);
           this.notifyService.notify('success', 'Dosya Silindi...');
         })
       );
@@ -247,9 +249,36 @@ export class AnnounceStore {
 
   addSubScreen(model: Partial<IAnnounceSubScreen>) {
     const addSubScreen$ = this.httpClient
-      .post<IAnnounceSubScreen>(
-        this.apiUrl + 'AnnounceSubScreens',
-        model
+      .post<IAnnounceSubScreen>(this.apiUrl + 'AnnounceSubScreens', model)
+      .pipe(
+        map((subscreen) => subscreen),
+        catchError((error) => {
+          this.notifyService.notify('error', error);
+          return throwError(error);
+        }),
+        tap((subscreen) => {
+          const updateDetailsubject = produce(
+            this.subject.getValue(),
+            (draft) => {
+              const index = draft.data.findIndex(
+                (x) => x.id === subscreen.announceId
+              );
+              if (index != -1) {
+                draft.data[index].announceSubScreens.push(subscreen);
+              }
+            }
+          );
+          this.subject.next(updateDetailsubject);
+          this.notifyService.notify('success', 'Yayın Ekranı Eklendi...');
+        })
+      );
+    this.loadingService.showLoaderUntilCompleted(addSubScreen$).subscribe();
+  }
+
+  removeSubScreen(model: IAnnounceSubScreen) {
+    const removeSubScreen$ = this.httpClient
+      .delete<IAnnounceSubScreen>(
+        this.apiUrl + 'AnnounceSubScreens/' + model.id
       )
       .pipe(
         map((subscreen) => subscreen),
@@ -259,41 +288,50 @@ export class AnnounceStore {
         }),
         tap((subscreen) => {
           const updateDetailsubject = produce(
-            this.detailSubject.getValue(),
+            this.subject.getValue(),
             (draft) => {
-              draft.announceSubScreens.push(subscreen);
+              const index = draft.data.findIndex(
+                (x) => x.id === subscreen.announceId
+              );
+              if (index != -1) {
+                const subscreenIndex = draft.data[
+                  index
+                ].announceSubScreens.findIndex((x) => x.id == subscreen.id);
+                if (subscreenIndex != -1) {
+                  draft.data[index].announceSubScreens.splice(
+                    subscreenIndex,
+                    1
+                  );
+                }
+              }
             }
           );
-          this.detailSubject.next(updateDetailsubject);
-          this.notifyService.notify('success', 'Yayın Ekranı Eklendi...');
+          this.subject.next(updateDetailsubject);
+          this.notifyService.notify('success', 'Yayın Ekranı Kaldırıldı...');
         })
       );
-    this.loadingService.showLoaderUntilCompleted(addSubScreen$).subscribe();
+    this.loadingService.showLoaderUntilCompleted(removeSubScreen$).subscribe();
   }
 
-  removeSubScreen(model:IAnnounceSubScreen){
-    const removeSubScreen$=this.httpClient.delete<IAnnounceSubScreen>(this.apiUrl+"AnnounceSubScreens/"+model.id)
-    .pipe(
-      map((subscreen) => subscreen),
-      catchError((error) => {
-        this.notifyService.notify('error', error);
-        return throwError(error);
-      }),
-      tap((subscreen) => {
-        const updateDetailsubject = produce(
-          this.detailSubject.getValue(),
-          (draft) => {
-            const index=draft.announceSubScreens.findIndex(x=>x.id===subscreen.id);
-            if(index!=-1){
-               draft.announceSubScreens.splice(index,1);
-            }
-          }
-        );
-        this.detailSubject.next(updateDetailsubject);
-        this.notifyService.notify('success', 'Yayın Ekranı Kaldırıldı...');
+  getNewAnnounceCount(): Observable<number> {
+    return this.announces$.pipe(
+      map((announces) => {
+        const newanouncecount = announces?.data.filter(
+          (x) => x.isNew == true && x.isPublish == false && x.reject == false
+        ).length;
+        
+        let photoCount=0;
+        announces?.data?.forEach(x=>{
+           x.announcePhotos.forEach(x=>{
+              if(x.isConfirm==false && x.unConfirm==false){
+                photoCount++;
+              }
+           })
+        })
+
+        return newanouncecount + photoCount;
       })
     );
-    this.loadingService.showLoaderUntilCompleted(removeSubScreen$).subscribe();
   }
 
   getParams(): AnnounceParams {

@@ -72,5 +72,41 @@ export class NewsPhotoListComponent implements OnInit {
     });
   }
 
+  onReject(image:INewsPhoto){
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '45rem',
+      data: {
+        message: 'Fotoğrafı Ret Etmek istiyormusunuz.? ',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const photo: INewsPhoto = {
+          ...image,
+          unConfirm:true
+        };
+       this.newsStore.updatePhoto(photo);
+      }
+    });
+  }
+
+  onUnReject(image:INewsPhoto){
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '45rem',
+      data: {
+        message: 'Fotoğrafı Ret Etmekten  Vazgeçmek istiyormusunuz.? ',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const photo: INewsPhoto = {
+          ...image,
+          unConfirm:false
+        };
+       this.newsStore.updatePhoto(photo);
+      }
+    });
+  }
+
 
 }

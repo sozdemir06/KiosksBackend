@@ -11,6 +11,7 @@ namespace DataAccess.EntitySpecification.UsersSpecification
             AddInclude(x=>x.Campus);
             AddInclude(x=>x.Department);
             AddInclude(x=>x.Degree);
+            AddInclude(x=>x.UserPhotos);
             
         }
     }

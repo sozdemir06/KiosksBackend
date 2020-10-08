@@ -7,6 +7,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 import { UserStore } from 'src/app/core/services/stores/user-store';
 import { EditUserRolesComponent } from '../edit-user-roles/edit-user-roles.component';
 import { EditUserNotfyGroupsComponent } from '../edit-user-notfy-groups/edit-user-notfy-groups.component';
+import { UserPhotoListComponent } from '../user-photo-list/user-photo-list.component';
 
 
 
@@ -84,6 +85,22 @@ export class UsersListCardComponent implements OnInit {
           user:user
         }
       })
+  }
+
+  onEditPhoto(user:IUserList){
+    this.dialog.open(UserPhotoListComponent,{
+      width:"100vw",
+      height:"90vh",
+      data:{
+        user:user
+      }
+    })
+  }
+
+  onPhotoWaitConfirmCount(element: IUserList): number {
+    return element?.userPhotos?.filter(
+      (x) => x.isConfirm == false && x.unConfirm == false
+    )?.length;
   }
 
 

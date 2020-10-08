@@ -23,7 +23,12 @@ namespace DataAccess.EntitySpecification.FoodMenuSpecification
              (!queryParams.IsPublish.HasValue || x.IsPublish == queryParams.IsPublish)
         )
         {
+            AddInclude(x => x.FoodMenuPhotos);
+            AddInclude(x => x.FoodMenuSubScreens);
             AddInclude(x => x.User);
+            AddInclude(x => x.User.Campus);
+            AddInclude(x => x.User.Degree);
+            AddInclude(x => x.User.Department);
             AddOrderByDscending(x => x.IsNew);
             ApplyPaging(queryParams.PageSize * (queryParams.PageIndex - 1), queryParams.PageSize);
         }

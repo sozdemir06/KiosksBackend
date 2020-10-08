@@ -1,3 +1,5 @@
+import { INewsPhoto } from './INewsPhoto';
+import { INewsSubScreen } from './INewsSubScreen';
 import { IUserList } from './IUser';
 
 export interface INews{
@@ -21,4 +23,6 @@ export interface INews{
     reject:boolean;
     isPublish:boolean;
     user:IUserList;
+    newsPhotos:INewsPhoto[];
+    newsSubScreens:INewsSubScreen[];
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Core.Entities;
 
 namespace Entities.Dtos
@@ -19,5 +20,7 @@ namespace Entities.Dtos
         public bool Reject { get; set; }
         public bool IsPublish { get; set; }
         public UserForListDto User { get; set; }
+        public ICollection<FoodMenuPhotoForReturnDto> FoodMenuPhotos { get; set; }
+        public ICollection<FoodMenuSubScreenForReturnDto> FoodMenuSubScreens { get; set; }
     }
 }

@@ -1,3 +1,5 @@
+import { IFoodMenuPhoto } from './IFoodMenuPhoto';
+import { IFoodMenuSubScreen } from './IFoodMenuSubScreen';
 import { IUserList } from './IUser';
 
 export interface IFoodMenu{
@@ -16,4 +18,6 @@ export interface IFoodMenu{
     reject:boolean;
     isPublish:boolean;
     user:IUserList;
+    foodMenuPhotos:IFoodMenuPhoto[];
+    foodMenuSubScreens:IFoodMenuSubScreen[];
 }

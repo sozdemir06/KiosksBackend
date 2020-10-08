@@ -1,7 +1,7 @@
 <div class="row p-4">
-    <ng-container *ngIf="images.length > 0; else dataIsEmpty">
-      <ng-container *ngFor="let image of images">
-        <div class="col-md-2 col-lg-3">
+    <ng-container *ngIf="(user$ |async)?.userPhotos?.length > 0; else dataIsEmpty">
+      <ng-container *ngFor="let image of user?.userPhotos">
+        <div class="col-md-2 col-lg-2">
           <mat-card>
             <ng-container>
               <img
@@ -12,7 +12,6 @@
               />
             </ng-container>
             <mat-card-actions class="d-flex">
-
               <ng-container *appHasRole="roleForUpdate">
                 <div class="d-flex align-items-center">
                   <span class="badge badge-danger mr-2" *ngIf="!image?.isConfirm" (click)="onConfirm(image)">Onayla</span>
@@ -29,13 +28,22 @@
         </div>
       </ng-container>
     </ng-container>
+    <div class="col-md-12 py-4">
+        <app-upload
+        [apiUrl]="'http://localhost:5000/api/newsphoto'"
+        [announceId]="user?.id"
+        [roleForUpload]="roleForAddPhoto"
+        (uploadResult)="uploadResult($event)"
+      ></app-upload>
+    </div>
   
     <div class="col-md-4">
       <ng-template #dataIsEmpty>
-        <h4 class="text-info ml-5 p-4 h-25">
-          Bu ilan için henüz fotoğraf eklenmemiş..
-        </h4>
+        <div class="alert alert-primary" role="alert">
+            Bu kullanıcı için henüz profil fotoğrafı yüklenmemiş...
+          </div>
       </ng-template>
     </div>
   </div>
   
+

@@ -18,8 +18,11 @@ namespace Business.Concrete
         private readonly IUserService userService;
         private readonly ITokenHelper tokenHelper;
         private readonly IMapper mapper;
-        public AuthManager(IUserService userService, ITokenHelper tokenHelper, IMapper mapper)
+        private readonly IUserPhotoService userPhotoService;
+        public AuthManager(IUserService userService, IUserPhotoService userPhotoService,
+        ITokenHelper tokenHelper, IMapper mapper)
         {
+            this.userPhotoService = userPhotoService;
             this.mapper = mapper;
             this.tokenHelper = tokenHelper;
             this.userService = userService;
@@ -29,6 +32,11 @@ namespace Business.Concrete
         {
             var userRoles = await userService.GetUserRoles(user);
             var accesstoken = tokenHelper.CreateToken(user, userRoles);
+            var mainPhoto=await userPhotoService.GetMain();
+            if(mainPhoto!=null)
+            {
+                accesstoken.PhotoUrl=mainPhoto.FullPath;
+            }
             if (accesstoken == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { TokenNotCreated = Messages.TokenNotCreated });
@@ -46,7 +54,7 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { Blaaaa = Messages.UserNotFound });
             }
 
-            if(!user.IsActive)
+            if (!user.IsActive)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotApprovedProfile = Messages.UserNotApprovedProfile });
             }

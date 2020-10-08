@@ -25,16 +25,22 @@
         <ng-container matColumnDef="Image">
           <th mat-header-cell *matHeaderCellDef>Photo</th>
           <td mat-cell *matCellDef="let element">
-            <img
-              *ngIf="element?.photoUrl; else defaultPhotoUrl"
-              src="{{ element.photoUrl }}"
-              alt=""
-              width="50"
-              height="25"
-            />
-            <ng-template #defaultPhotoUrl>
-              <mat-icon>announcement</mat-icon>
-            </ng-template>
+            <div [ngSwitch]="element?.contentType?.toLowerCase()">
+              <div *ngSwitchCase="'image'">
+                <ng-container *ngIf="element.photoUrl; else noImage">
+                  <img [src]="element?.photoUrl" style="width: 35px" />
+                </ng-container>
+                <ng-template #noImage>
+                  <img src="/assets/no_image.jpg" style="width: 35px" />
+                </ng-template>
+              </div>
+              <div *ngSwitchCase="'video'">
+                <img src="/assets/video.png" style="width: 35px" />
+              </div>
+              <div *ngSwitchDefault>
+                <img src="/assets/no_image.jpg" style="width: 35px" />
+              </div>
+            </div>
           </td>
         </ng-container>
 

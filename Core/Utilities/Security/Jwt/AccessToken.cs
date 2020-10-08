@@ -9,6 +9,7 @@ namespace Core.Utilities.Security.Jwt
          public string LastName { get; set; }
          public string Email { get; set; }
         public string Token { get; set; }
+        public string PhotoUrl { get; set; }
         public DateTime Expiration { get; set; }
        
         

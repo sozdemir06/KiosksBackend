@@ -10,6 +10,7 @@ namespace Entities.Dtos
         public string FullPath { get; set; }
         public string FileType { get; set; }
         public bool IsConfirm { get; set; }
+        public bool UnConfirm { get; set; }
         public bool IsMain { get; set; }
         public int UserId { get; set; }
     }

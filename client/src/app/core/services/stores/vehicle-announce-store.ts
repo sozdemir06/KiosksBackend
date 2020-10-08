@@ -24,11 +24,7 @@ export class VehilceAnnounceStore {
   vehicleannounces$: Observable<
     IPagination<IVehicleAnnounceList>
   > = this.subject.asObservable();
-  private detailSubject = new BehaviorSubject<IVehicleAnnounceDetail>(null);
-  detail$: Observable<
-    IVehicleAnnounceDetail
-  > = this.detailSubject.asObservable();
-
+ 
   constructor(
     private httpClient: HttpClient,
     private loadingService: LoadingService,

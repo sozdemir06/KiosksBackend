@@ -3,6 +3,7 @@ export interface INewsPhoto{
     name:string;
     fullPath:string;
     isConfirm:boolean;
+    unConfirm:boolean;
     fileType:string;
     newsId:number;
 }

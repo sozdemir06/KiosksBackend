@@ -1,8 +1,14 @@
 <mat-expansion-panel *appHasRole="allowedRolesForList">
     <mat-expansion-panel-header>
-      <mat-panel-title class="d-flex align-items-center">
+      <mat-panel-title class="d-flex align-items-center py-4">
         <mat-icon>food_bank</mat-icon>
-        <span>Menü</span>
+        <span
+        [matBadge]="foodMenuStore.getNewAnnounceCount() | async"
+        matBadgeColor="warn"
+        matBadgeOverlap="false"
+        matBadgeSize="small"
+        [matBadgeHidden]="(foodMenuStore.getNewAnnounceCount() | async)==0"
+        >Yemek Menüsü</span>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <mat-nav-list routerLink="/app/admin/foods-menu">

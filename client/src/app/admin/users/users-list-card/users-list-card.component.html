@@ -3,7 +3,12 @@
   <ng-container matColumnDef="Avatar">
     <th mat-header-cell *matHeaderCellDef>Resim</th>
     <td mat-cell *matCellDef="let element">
-      <img mat-card-avatar src="/assets/user/avatar.png" alt="User Avatar" width="35">
+      <img
+        mat-card-avatar
+        src="/assets/user/avatar.png"
+        alt="User Avatar"
+        width="35"
+      />
     </td>
   </ng-container>
 
@@ -11,7 +16,7 @@
   <ng-container matColumnDef="Name">
     <th mat-header-cell *matHeaderCellDef>Ad-Soyad</th>
     <td mat-cell *matCellDef="let element">
-      {{element.firstName}} {{element.lastName}}
+      {{ element.firstName }} {{ element.lastName }}
     </td>
   </ng-container>
 
@@ -20,8 +25,8 @@
     <th mat-header-cell *matHeaderCellDef>Tel</th>
     <td mat-cell *matCellDef="let element">
       <div class="d-flex flex-column">
-        <span class="font-weight-bold">{{element?.gsmPhone}}</span>
-        <span>{{element?.interPhone}}</span>
+        <span class="font-weight-bold">{{ element?.gsmPhone }}</span>
+        <span>{{ element?.interPhone }}</span>
       </div>
     </td>
   </ng-container>
@@ -37,8 +42,12 @@
     <th mat-header-cell *matHeaderCellDef>Durum</th>
     <td mat-cell *matCellDef="let element">
       <mat-chip-list aria-label="Fish selection">
-        <mat-chip *ngIf="element?.isActive" color="primary" selected>Aktif</mat-chip>
-        <mat-chip  *ngIf="!element?.isActive" color="accent" selected>Pasif</mat-chip>
+        <mat-chip *ngIf="element?.isActive" color="primary" selected
+          >Aktif</mat-chip
+        >
+        <mat-chip *ngIf="!element?.isActive" color="accent" selected
+          >Pasif</mat-chip
+        >
       </mat-chip-list>
     </td>
   </ng-container>
@@ -47,29 +56,59 @@
   <ng-container matColumnDef="Actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let element">
-       <button mat-icon-button [matMenuTriggerFor]="tableMenu">
-         <mat-icon>more_vert</mat-icon>
-       </button>
-       <mat-menu #tableMenu="matMenu">
-        <button mat-menu-item (click)="onUpdate(element)" *appHasRole="allowdRolesForUpdate">
+      <button mat-icon-button [matMenuTriggerFor]="tableMenu">
+        <mat-icon
+          [matBadge]="onPhotoWaitConfirmCount(element)"
+          matBadgeColor="warn"
+          [matBadgeHidden]="onPhotoWaitConfirmCount(element) === 0"
+          matBadgeSize="small"
+          >preview</mat-icon
+        >
+      </button>
+      <mat-menu #tableMenu="matMenu">
+        <button
+          mat-menu-item
+          (click)="onUpdate(element)"
+          *appHasRole="allowdRolesForUpdate"
+        >
           <mat-icon>update</mat-icon>
           <span>Güncelle</span>
         </button>
         <button mat-menu-item (click)="onUserRole(element)">
           <mat-icon>verified_user</mat-icon>
           <span>Yetkiler</span>
-        </button> 
-        <button mat-menu-item (click)="onActivePassive(element)" [disabled]="!element?.isActive">
+        </button>
+        <button
+          mat-menu-item
+          (click)="onActivePassive(element)"
+          [disabled]="!element?.isActive"
+        >
           <mat-icon>lock</mat-icon>
           <span>Hesabı Kapat</span>
         </button>
-        <button mat-menu-item (click)="onActivePassive(element)" [disabled]="element?.isActive">
+        <button
+          mat-menu-item
+          (click)="onActivePassive(element)"
+          [disabled]="element?.isActive"
+        >
           <mat-icon>lock_open</mat-icon>
           <span>Hesabı Aç</span>
         </button>
-        <button mat-menu-item (click)="onEditNotifyGroup(element)" *appHasRole="allowedRolesForNotify">
+        <button
+          mat-menu-item
+          (click)="onEditNotifyGroup(element)"
+          *appHasRole="allowedRolesForNotify"
+        >
           <mat-icon>notification_important</mat-icon>
           <span>Admin Kullanıcı Bildirimleri</span>
+        </button>
+        <button
+          mat-menu-item
+          (click)="onEditPhoto(element)"
+          *appHasRole="allowdRolesForUpdate"
+        >
+          <mat-icon>photo</mat-icon>
+          <span>Kullanıcı Resimleri</span>
         </button>
       </mat-menu>
     </td>

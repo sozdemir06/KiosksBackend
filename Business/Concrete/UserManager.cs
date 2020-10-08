@@ -114,8 +114,10 @@ namespace Business.Concrete
 
             var userForUpdate = mapper.Map(userForRegisterDto, userFromRepo);
 
-            await userDal.Update(userForUpdate);
-            return await GetUserAsync(userFromRepo.Email);
+            var userUpdate=await userDal.Update(userForUpdate);
+            var spec = new UserWithCampusAndDepartmentAndDegreeSpecification(userUpdate.Email);
+            var user = await userDal.GetEntityWithSpecAsync(spec);
+            return mapper.Map<User,UserForListDto>(user);
         }
     }
 }

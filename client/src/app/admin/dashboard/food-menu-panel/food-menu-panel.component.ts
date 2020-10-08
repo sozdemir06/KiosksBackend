@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FoodMenuStore } from 'src/app/core/services/stores/food-menu-store';
 
 @Component({
   selector: 'app-food-menu-panel',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FoodMenuPanelComponent implements OnInit {
   allowedRolesForList:string[]=['Sudo','FoodMenu.List','FoodMenu.All']
-  constructor() { }
+  constructor(
+    public foodMenuStore:FoodMenuStore
+  ) { }
 
   ngOnInit(): void {
   }

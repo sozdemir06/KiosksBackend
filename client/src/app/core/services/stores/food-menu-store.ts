@@ -19,8 +19,7 @@ export class FoodMenuStore {
 
   private subject = new BehaviorSubject<IPagination<IFoodMenu>>(null);
   foodsmenu$: Observable<IPagination<IFoodMenu>> = this.subject.asObservable();
-  private detailSubject = new BehaviorSubject<IFoodMenuDetail>(null);
-  detail$: Observable<IFoodMenuDetail> = this.detailSubject.asObservable();
+ 
   private bgPhotoSubject = new BehaviorSubject<IFoodMenuPhoto[]>([]);
   bgPhotos$: Observable<IFoodMenuPhoto[]> = this.bgPhotoSubject.asObservable();
 
@@ -168,28 +167,20 @@ export class FoodMenuStore {
     this.loadingService.showLoaderUntilCompleted(publish$).subscribe();
   }
 
-  getDetail(foodMenuId: number) {
-    this.detailSubject.next(null);
-    const detail$ = this.httpClient
-      .get<IFoodMenuDetail>(this.apiUrl + 'foodmenu/detail/' + foodMenuId)
-      .pipe(
-        map((foodsmenu) => foodsmenu),
-        catchError((error) => {
-          this.notifyService.notify('error', error);
-          return throwError(error);
-        }),
-        tap((foodsmenu) => {
-          this.detailSubject.next(foodsmenu);
-        })
-      );
-    this.loadingService.showLoaderUntilCompleted(detail$).subscribe();
+  getDetailById(foodMenuId: number) {
+    return this.foodsmenu$.pipe(
+      map((foodmenu) => foodmenu?.data?.find((x) => x.id == foodMenuId))
+    );
   }
 
   addPhoto(photo: IFoodMenuPhoto) {
-    const updatePhoto = produce(this.detailSubject.getValue(), (draft) => {
-      draft.foodMenuPhotos.push(photo);
+    const updatePhoto = produce(this.subject.getValue(), (draft) => {
+       const index=draft.data.findIndex(x=>x.id==photo.foodMenuId);
+       if(index!=-1){
+         draft.data[index].foodMenuPhotos.push(photo);
+       }
     });
-    this.detailSubject.next(updatePhoto);
+    this.subject.next(updatePhoto);
     this.notifyService.notify('success', 'Dosya Eklendi...');
   }
 
@@ -204,15 +195,18 @@ export class FoodMenuStore {
         }),
         tap((result) => {
           const updateDetailsubject = produce(
-            this.detailSubject.getValue(),
+            this.subject.getValue(),
             (draft) => {
-              const photoIndex = draft.foodMenuPhotos.findIndex(
-                (x) => x.id == result.id
-              );
-              draft.foodMenuPhotos[photoIndex] = result;
+              const index=draft.data.findIndex(x=>x.id==result.foodMenuId);
+              if(index!=-1){
+                const photoIndex=draft.data[index].foodMenuPhotos.findIndex(x=>x.id==result.id);
+                if(photoIndex!=-1){
+                  draft.data[index].foodMenuPhotos[photoIndex]=result;
+                }
+              }
             }
           );
-          this.detailSubject.next(updateDetailsubject);
+          this.subject.next(updateDetailsubject);
           this.notifyService.notify('success', 'Dosya Güncellendi...');
         })
       );
@@ -230,17 +224,18 @@ export class FoodMenuStore {
         }),
         tap((photo) => {
           const updateDetailsubject = produce(
-            this.detailSubject.getValue(),
+            this.subject.getValue(),
             (draft) => {
-              const photoIndex = draft.foodMenuPhotos.findIndex(
-                (x) => x.id === photo.id
-              );
-              if (photoIndex != -1) {
-                draft.foodMenuPhotos.splice(photoIndex, 1);
+              const index=draft.data.findIndex(x=>x.id==photo.foodMenuId);
+              if(index!=-1){
+                const photoIndex=draft.data[index].foodMenuPhotos.findIndex(x=>x.id==photo.id);
+                if(photoIndex!=-1){
+                  draft.data[index].foodMenuPhotos.splice(photoIndex,1);
+                }
               }
             }
           );
-          this.detailSubject.next(updateDetailsubject);
+          this.subject.next(updateDetailsubject);
           this.notifyService.notify('success', 'Dosya Silindi...');
         })
       );
@@ -258,12 +253,15 @@ export class FoodMenuStore {
         }),
         tap((subscreen) => {
           const updateDetailsubject = produce(
-            this.detailSubject.getValue(),
+            this.subject.getValue(),
             (draft) => {
-              draft.foodMenuSubScreens.push(subscreen);
+              const index=draft.data.findIndex(x=>x.id===subscreen.foodMenuId);
+              if(index!=-1){
+                draft.data[index].foodMenuSubScreens.push(subscreen);
+              }
             }
           );
-          this.detailSubject.next(updateDetailsubject);
+          this.subject.next(updateDetailsubject);
           this.notifyService.notify('success', 'Yayın Ekranı Eklendi...');
         })
       );
@@ -281,21 +279,43 @@ export class FoodMenuStore {
         }),
         tap((subscreen) => {
           const updateDetailsubject = produce(
-            this.detailSubject.getValue(),
+            this.subject.getValue(),
             (draft) => {
-              const index = draft.foodMenuSubScreens.findIndex(
-                (x) => x.id === subscreen.id
-              );
-              if (index != -1) {
-                draft.foodMenuSubScreens.splice(index, 1);
+              const index=draft.data.findIndex(x=>x.id==subscreen.foodMenuId);
+              if(index!=-1){
+                const subscreenIndex=draft.data[index].foodMenuSubScreens.findIndex(x=>x.id===subscreen.id);
+                if(subscreenIndex!=-1){
+                  draft.data[index].foodMenuSubScreens.splice(subscreenIndex,1);
+                }
               }
             }
           );
-          this.detailSubject.next(updateDetailsubject);
+          this.subject.next(updateDetailsubject);
           this.notifyService.notify('success', 'Yayın Ekranı Kaldırıldı...');
         })
       );
     this.loadingService.showLoaderUntilCompleted(removeSubScreen$).subscribe();
+  }
+
+  getNewAnnounceCount(): Observable<number> {
+    return this.foodsmenu$.pipe(
+      map((announces) => {
+        const newanouncecount = announces?.data.filter(
+          (x) => x.isNew == true && x.isPublish == false && x.reject == false
+        ).length;
+        
+        let photoCount=0;
+        announces?.data?.forEach(x=>{
+           x.foodMenuPhotos.forEach(x=>{
+              if(x.isConfirm==false && x.unConfirm==false){
+                photoCount++;
+              }
+           })
+        })
+
+        return newanouncecount + photoCount;
+      })
+    );
   }
 
   getParams(): FoodMenuParams {

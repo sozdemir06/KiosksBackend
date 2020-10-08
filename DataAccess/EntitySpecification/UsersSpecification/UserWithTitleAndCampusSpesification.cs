@@ -22,6 +22,7 @@ namespace DataAccess.EntitySpecification.UsersSpecification
             AddInclude(x=>x.Campus);
             AddInclude(x=>x.Department);
             AddInclude(x=>x.Degree);
+            AddInclude(x=>x.UserPhotos);
             AddOrderBy(x=>x.FirstName);
             ApplyPaging(queryParams.PageSize*(queryParams.PageIndex-1),queryParams.PageSize);
         }

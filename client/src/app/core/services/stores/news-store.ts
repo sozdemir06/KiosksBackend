@@ -21,8 +21,6 @@ export class NewsStore {
 
   private subject = new BehaviorSubject<IPagination<INews>>(null);
   news$: Observable<IPagination<INews>> = this.subject.asObservable();
-  private detailSubject = new BehaviorSubject<INewsDetail>(null);
-  detail$: Observable<INewsDetail> = this.detailSubject.asObservable();
 
   constructor(
     private httpClient: HttpClient,
@@ -138,21 +136,10 @@ export class NewsStore {
       );
   }
 
-  getDetail(newsId: number) {
-    this.detailSubject.next(null);
-    const detail$ = this.httpClient
-      .get<INewsDetail>(this.apiUrl + 'news/detail/' + newsId)
-      .pipe(
-        map((news) => news),
-        catchError((error) => {
-          this.notifyService.notify('error', error);
-          return throwError(error);
-        }),
-        tap((news) => {
-          this.detailSubject.next(news);
-        })
-      );
-    this.loadingService.showLoaderUntilCompleted(detail$).subscribe();
+  getDetailbyId(newsId: number):Observable<INews> {
+    return this.news$.pipe(
+      map(news=>news?.data?.find(x=>x.id==newsId))
+    );
   }
 
   publish(model: Partial<INews>) {
@@ -181,10 +168,13 @@ export class NewsStore {
   }
 
   addPhoto(photo: INewsPhoto) {
-    const updatePhoto = produce(this.detailSubject.getValue(), (draft) => {
-      draft.newsPhotos.push(photo);
+    const updatePhoto = produce(this.subject.getValue(), (draft) => {
+      const index=draft.data.findIndex(x=>x.id==photo.newsId);
+      if(index!=-1){
+        draft.data[index].newsPhotos.push(photo);
+      }
     });
-    this.detailSubject.next(updatePhoto);
+    this.subject.next(updatePhoto);
     this.notifyService.notify('success', 'Dosya Eklendi...');
   }
 
@@ -199,15 +189,18 @@ export class NewsStore {
         }),
         tap((result) => {
           const updateDetailsubject = produce(
-            this.detailSubject.getValue(),
+            this.subject.getValue(),
             (draft) => {
-              const photoIndex = draft.newsPhotos.findIndex(
-                (x) => x.id == result.id
-              );
-              draft.newsPhotos[photoIndex] = result;
+              const index=draft.data.findIndex(x=>x.id===result.newsId);
+              if(index!=-1){
+                const photoIndex=draft.data[index].newsPhotos.findIndex(x=>x.id==result.id);
+                if(photoIndex!=-1){
+                  draft.data[index].newsPhotos[photoIndex]=result;
+                }
+              }
             }
           );
-          this.detailSubject.next(updateDetailsubject);
+          this.subject.next(updateDetailsubject);
           this.notifyService.notify('success', 'Dosya Güncellendi...');
         })
       );
@@ -225,17 +218,18 @@ export class NewsStore {
         }),
         tap((photo) => {
           const updateDetailsubject = produce(
-            this.detailSubject.getValue(),
+            this.subject.getValue(),
             (draft) => {
-              const photoIndex = draft.newsPhotos.findIndex(
-                (x) => x.id === photo.id
-              );
-              if (photoIndex != -1) {
-                draft.newsPhotos.splice(photoIndex, 1);
+              const index=draft.data.findIndex(x=>x.id===photo.newsId);
+              if(index!=-1){
+                const photoIndex=draft.data[index].newsPhotos.findIndex(x=>x.id==photo.id);
+                if(photoIndex!=-1){
+                  draft.data[index].newsPhotos.splice(photoIndex,1);
+                }
               }
             }
           );
-          this.detailSubject.next(updateDetailsubject);
+          this.subject.next(updateDetailsubject);
           this.notifyService.notify('success', 'Dosya Silindi...');
         })
       );
@@ -256,12 +250,15 @@ export class NewsStore {
         }),
         tap((subscreen) => {
           const updateDetailsubject = produce(
-            this.detailSubject.getValue(),
+            this.subject.getValue(),
             (draft) => {
-              draft.newsSubScreens.push(subscreen);
+              const index=draft.data.findIndex(x=>x.id==subscreen.newsId);
+              if(index!=-1){
+                draft.data[index].newsSubScreens.push(subscreen);
+              }
             }
           );
-          this.detailSubject.next(updateDetailsubject);
+          this.subject.next(updateDetailsubject);
           this.notifyService.notify('success', 'Yayın Ekranı Eklendi...');
         })
       );
@@ -278,19 +275,43 @@ export class NewsStore {
       }),
       tap((subscreen) => {
         const updateDetailsubject = produce(
-          this.detailSubject.getValue(),
+          this.subject.getValue(),
           (draft) => {
-            const index=draft.newsSubScreens.findIndex(x=>x.id===subscreen.id);
-            if(index!=-1){
-               draft.newsSubScreens.splice(index,1);
-            }
+            const index=draft.data.findIndex(x=>x.id==subscreen.newsId);
+              if(index!=-1){
+                const subscreenIndex=draft.data[index].newsSubScreens.findIndex(x=>x.id===subscreen.id);
+                if(subscreenIndex!=-1){
+                  draft.data[index].newsSubScreens.splice(subscreenIndex,1);
+                }
+              }
           }
         );
-        this.detailSubject.next(updateDetailsubject);
+        this.subject.next(updateDetailsubject);
         this.notifyService.notify('success', 'Yayın Ekranı Kaldırıldı...');
       })
     );
     this.loadingService.showLoaderUntilCompleted(removeSubScreen$).subscribe();
+  }
+
+  getNewAnnounceCount(): Observable<number> {
+    return this.news$.pipe(
+      map((announces) => {
+        const newanouncecount = announces?.data.filter(
+          (x) => x.isNew == true && x.isPublish == false && x.reject == false
+        ).length;
+        
+        let photoCount=0;
+        announces?.data?.forEach(x=>{
+           x.newsPhotos.forEach(x=>{
+              if(x.isConfirm==false && x.unConfirm==false){
+                photoCount++;
+              }
+           })
+        })
+
+        return newanouncecount + photoCount;
+      })
+    );
   }
 
   getParams(): NewsParams {

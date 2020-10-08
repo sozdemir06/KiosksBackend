@@ -76,19 +76,7 @@ namespace Business.Concrete
             return mapper.Map<News, NewsForReturnDto>(getByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,News.List,News.All", Priority = 1)]
-        public async Task<NewsForDetailDto> GetDetailAsync(int announceId)
-        {
-            var spec = new NewsWithDetailSpecification(announceId);
-            var getDetailFromRepo = await newsDal.GetEntityWithSpecAsync(spec);
-
-            if (getDetailFromRepo == null)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
-            }
-
-            return mapper.Map<News, NewsForDetailDto>(getDetailFromRepo);
-        }
+       
 
         [SecuredOperation("Sudo,News.List,News.All", Priority = 1)]
         public async Task<Pagination<NewsForReturnDto>> GetListAsync(NewsParams queryParams)

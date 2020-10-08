@@ -100,6 +100,12 @@ export class FoodMenuListComponent implements OnInit {
     onDelete(element:IVehicleAnnounceList){
       console.log("deleted");
     }
+
+    onPhotoWaitConfirmCount(element: IFoodMenu): number {
+      return element?.foodMenuPhotos?.filter(
+        (x) => x.isConfirm == false && x.unConfirm == false
+      )?.length;
+    }
   
 
 }

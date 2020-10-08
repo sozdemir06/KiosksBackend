@@ -54,7 +54,8 @@ namespace Business.Concrete
             mapForCreate.FullPath = uploadFile.FullPath;
             mapForCreate.NewsId = uploadDto.AnnounceId;
             mapForCreate.FileType = uploadFile.FileType;
-            mapForCreate.IsConfirm = true;
+            mapForCreate.IsConfirm = false;
+            mapForCreate.UnConfirm = false;
             var mapForDb = mapper.Map<NewsPhoto>(mapForCreate);
             var createPhoto = await newsPhotoDal.Add(mapForDb);
             return mapper.Map<NewsPhoto, NewsPhotoForReturnDto>(createPhoto);

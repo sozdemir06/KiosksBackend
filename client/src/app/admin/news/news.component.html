@@ -22,7 +22,8 @@
               <div class="">
                 <button mat-icon-button (click)="onWaitingForConfirm()">
                   <mat-icon 
-                  [matBadge]="0" 
+                  [matBadge]="newsStore.getNewAnnounceCount() | async"
+                  [matBadgeHidden]="(newsStore.getNewAnnounceCount() | async)==0" 
                   matBadgeColor="warn" 
                   matBadgeSize="small"
                   

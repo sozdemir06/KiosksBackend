@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FoodMenuStore } from 'src/app/core/services/stores/food-menu-store';
 import { Location } from '@angular/common';
@@ -7,14 +7,18 @@ import { IFoodMenuPhoto } from 'src/app/shared/models/IFoodMenuPhoto';
 import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { IFoodMenuSubScreen } from 'src/app/shared/models/IFoodMenuSubScreen';
+import { Observable } from 'rxjs';
+import { IFoodMenu } from 'src/app/shared/models/IFoodMenu';
 
 @Component({
   selector: 'app-food-menu-detail',
   templateUrl: './food-menu-detail.component.html',
   styleUrls: ['./food-menu-detail.component.scss']
 })
-export class FoodMenuDetailComponent implements OnInit {
+export class FoodMenuDetailComponent implements OnInit,AfterViewInit {
   announceId: number;
+  foodsmneu$:Observable<IFoodMenu>;
+
   roleForAddPhoto: string[] = [
     'Sudo',
     'FoodMenu.Create',
@@ -47,7 +51,13 @@ export class FoodMenuDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.announceId = +this.route.snapshot.paramMap.get('id');
-    this.foodMenuStore.getDetail(this.announceId);
+    
+  }
+
+  ngAfterViewInit(){
+    setTimeout(()=>{
+    this.foodsmneu$= this.foodMenuStore.getDetailById(this.announceId);
+    })
   }
 
   goBack() {

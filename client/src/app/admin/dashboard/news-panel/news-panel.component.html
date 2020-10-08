@@ -1,8 +1,14 @@
 <mat-expansion-panel *appHasRole="allowedRolesForList">
     <mat-expansion-panel-header>
-      <mat-panel-title class="d-flex align-items-center">
+      <mat-panel-title class="d-flex align-items-center py-4">
         <mat-icon>article</mat-icon>
-        <span>Haberler</span>
+        <span
+        [matBadge]="newsStore.getNewAnnounceCount() | async"
+        matBadgeColor="warn"
+        matBadgeOverlap="false"
+        matBadgeSize="small"
+        [matBadgeHidden]="(newsStore.getNewAnnounceCount() | async)==0"
+        >Haberler</span>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <mat-nav-list routerLink="/app/admin/news">

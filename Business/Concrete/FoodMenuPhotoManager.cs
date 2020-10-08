@@ -49,7 +49,8 @@ namespace Business.Concrete
             mapForCreate.FullPath = uploadFile.FullPath;
             mapForCreate.FoodMenuId = uploadDto.AnnounceId;
             mapForCreate.FileType = uploadFile.FileType;
-            mapForCreate.IsConfirm = true;
+            mapForCreate.IsConfirm = false;
+            mapForCreate.UnConfirm = true;
             var mapForDb = mapper.Map<FoodMenuPhoto>(mapForCreate);
             var createPhoto = await foodMenuPhotoDal.Add(mapForDb);
             return mapper.Map<FoodMenuPhoto, FoodMenuPhotoForReturnDto>(createPhoto);

@@ -3,6 +3,7 @@ export interface IUserPhoto{
     name:string;
     fullPath:string;
     isConfirm:boolean;
+    unConfirm:boolean;
     isMain:boolean;
     userId:number;
 }

@@ -105,6 +105,12 @@ export class NewsListComponent implements OnInit {
     });
   }
 
+  onPhotoWaitConfirmCount(element: INews): number {
+    return element?.newsPhotos?.filter(
+      (x) => x.isConfirm == false && x.unConfirm == false
+    )?.length;
+  }
+
   onDelete(element: INews) {
     // console.log("deleted");
   }

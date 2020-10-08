@@ -37,7 +37,18 @@
             </mat-menu>
           </div> -->
           <div class="d-flex align-items-center mr-2">
+            <ng-container *ngIf="(authStore.user$ | async)?.photoUrl">
+              <img
+                [matMenuTriggerFor]="menu"
+                src="{{ (authStore.user$ | async)?.photoUrl }}"
+                class="mr-2"
+                width="35"
+                alt="user avatar"
+                style="cursor: pointer"
+              />
+            </ng-container>
             <img
+              *ngIf="!(authStore.user$ | async)?.photoUrl"
               [matMenuTriggerFor]="menu"
               src="/assets/user/avatar.png"
               class="mr-2"

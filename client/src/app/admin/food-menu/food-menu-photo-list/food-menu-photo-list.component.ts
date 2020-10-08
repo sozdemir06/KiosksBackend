@@ -91,4 +91,40 @@ export class FoodMenuPhotoListComponent implements OnInit {
       }
     });
   }
+
+  onReject(image:IFoodMenuPhoto){
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '45rem',
+      data: {
+        message: 'Fotoğrafı Ret Etmek istiyormusunuz.? ',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const photo: IFoodMenuPhoto = {
+          ...image,
+          unConfirm:true
+        };
+       this.foodMenuStore.updatePhoto(photo);
+      }
+    });
+  }
+
+  onUnReject(image:IFoodMenuPhoto){
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '45rem',
+      data: {
+        message: 'Fotoğrafı Ret Etmekten  Vazgeçmek istiyormusunuz.? ',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const photo: IFoodMenuPhoto = {
+          ...image,
+          unConfirm:false
+        };
+       this.foodMenuStore.updatePhoto(photo);
+      }
+    });
+  }
 }

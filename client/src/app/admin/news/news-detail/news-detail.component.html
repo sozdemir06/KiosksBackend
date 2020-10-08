@@ -1,4 +1,4 @@
-<ng-container *ngIf="newsStore.detail$ | async as announce">
+<ng-container *ngIf="news$| async as announce">
   <div class="container mt-3">
     <mat-card>
       <div class="row">
@@ -39,7 +39,7 @@
       <div class="col-md-4">
         <mat-card>
           <app-image-slider
-            [images]="(newsStore.detail$ | async)?.newsPhotos"
+            [images]="(news$| async)?.newsPhotos"
           ></app-image-slider>
         </mat-card>
       </div>
@@ -91,7 +91,7 @@
         <mat-tab label="Haber Fotoğrafları" *ngIf="announce?.contentType.toLowerCase()=='image' || 'textandimage'" >
           <app-loading></app-loading>
           <app-news-photo-list
-            [images]="(newsStore.detail$ | async)?.newsPhotos"
+            [images]="(news$| async)?.newsPhotos"
             [announceId]="announceId"
             [roleForUpdate]="roleForUpdatePhoto"
             [roleForDelete]="roleForDeletePhoto"
@@ -108,7 +108,7 @@
             <div class="col-md-6">
               <h5>İlanın yayında olduğu ekranlar</h5>
               <app-news-subscreen-list
-                [subscreens]="(newsStore.detail$ | async)?.newsSubScreens"
+                [subscreens]="(news$| async)?.newsSubScreens"
               ></app-news-subscreen-list>
             </div>
             <div class="col-md-6">

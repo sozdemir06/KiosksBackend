@@ -10,8 +10,11 @@
             height="100"
           />
           <mat-card-actions class="d-flex justify-content-center align-items-center">
-            <ng-container *ngIf="!image?.isConfirm">
+            <ng-container *ngIf="!image?.isConfirm && !image.unConfirm">
               <button type="button" class="btn btn-danger btn-sm">Onay Bekliyor</button>
+            </ng-container>
+            <ng-container *ngIf="!image?.isConfirm && image.unConfirm">
+              <button type="button" class="btn btn-dark btn-sm">RetEdildi</button>
             </ng-container>
 
             <ng-container *ngIf="image.isMain && image.isConfirm">

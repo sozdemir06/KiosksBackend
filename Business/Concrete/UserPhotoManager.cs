@@ -46,7 +46,8 @@ namespace Business.Concrete
             mapForCreate.Name = uploadFile.Name;
             mapForCreate.FullPath = uploadFile.FullPath;
             mapForCreate.UserId = uploadDto.AnnounceId;
-            mapForCreate.IsConfirm = true;
+            mapForCreate.IsConfirm = false;
+            mapForCreate.UnConfirm=false;
             var mapForDb = mapper.Map<UserPhoto>(mapForCreate);
             var createPhoto = await userPotoDal.Add(mapForDb);
             return mapper.Map<UserPhoto, UserPhotoForReturnDto>(createPhoto);
@@ -77,6 +78,15 @@ namespace Business.Concrete
             }
 
             return mapper.Map<List<UserPhoto>, List<UserPhotoForReturnDto>>(getListFromRepo);
+        }
+
+        public async Task<UserPhotoForReturnDto> GetMain()
+        {
+            var userphoto=await userPotoDal.GetAsync(x=>x.IsConfirm && x.IsMain && !x.UnConfirm);
+        
+                return mapper.Map<UserPhoto,UserPhotoForReturnDto>(userphoto);
+            
+            
         }
 
         [SecuredOperation("Sudo,Public", Priority = 1)]

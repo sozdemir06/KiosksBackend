@@ -12,7 +12,8 @@ namespace Business.MappingProfile
         public RoleMapping()
         {
             CreateMap<Role, UserRoleForListDto>();
-            CreateMap<User, UserForListDto>();
+            CreateMap<User, UserForListDto>()
+           .ForMember(x => x.Avatar, o => o.MapFrom(z => z.UserPhotos.FirstOrDefault(x => x.IsConfirm && !x.UnConfirm).FullPath));
             CreateMap<UserForRegisterDto, User>();
             CreateMap<UserPhoto, UserPhotoForReturnDto>();
             CreateMap<UserPhotoForCreationDto, UserPhoto>();

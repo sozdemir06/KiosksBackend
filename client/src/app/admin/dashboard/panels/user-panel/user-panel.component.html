@@ -1,11 +1,14 @@
 <mat-expansion-panel *appHasRole="allowedRoles">
   <mat-expansion-panel-header>
-    <mat-panel-title>
+    <mat-panel-title class="d-flex align-items-center py-4">
       <mat-icon>person</mat-icon>
-       <span>
-         Kullanıcı işlemleri
-         {{(userStore.getNewUser() | async)}}
-        </span>
+      <span
+      [matBadge]="userStore.getNewAnnounceLength() | async"
+      matBadgeColor="warn"
+      matBadgeOverlap="false"
+      matBadgeSize="small"
+      [matBadgeHidden]="(userStore.getNewAnnounceLength() | async)==0"
+      >Kullanıcılar</span>
     </mat-panel-title>
   </mat-expansion-panel-header>
   <mat-nav-list routerLink="/app/admin/users">

@@ -10,6 +10,7 @@ import { produce } from 'immer';
 import { NotifyService } from '../notify-service';
 import { LoadingService } from '../loading-service';
 import { ErrorMessagesService } from '../error-messages.service';
+import { IUserPhoto } from 'src/app/shared/models/IUserPhoto';
 
 @Injectable({ providedIn: 'root' })
 export class UserStore {
@@ -38,11 +39,11 @@ export class UserStore {
     if (userParams.sort) {
       params = params.append('sort', userParams.sort);
     }
-    if(userParams.statusPassive){
+    if (userParams.statusPassive) {
       params = params.append('statusPassive', userParams.statusPassive);
     }
 
-    if(userParams.statusActive){
+    if (userParams.statusActive) {
       params = params.append('statusActive', userParams.statusActive);
     }
     params = params.append('pageIndex', userParams.pageIndex.toString());
@@ -67,7 +68,7 @@ export class UserStore {
       .pipe(
         map((user) => user),
         catchError((error) => {
-          this.notificationService.notify("error",error);
+          this.notificationService.notify('error', error);
           return throwError(error);
         }),
         tap((user) => {
@@ -92,7 +93,7 @@ export class UserStore {
         delay(1000),
         map((user) => user),
         catchError((error) => {
-          this.notificationService.notify("error",error);
+          this.notificationService.notify('error', error);
           return throwError(error);
         }),
         tap((user) => {
@@ -113,18 +114,107 @@ export class UserStore {
     this.loadingService.showLoaderUntilCompleted(update$).subscribe();
   }
 
-  getNewUser():Observable<number>{
+ getuserById(userId:number):Observable<IUserList>{
+   return this.users$.pipe(
+     map(users=>users?.data?.find(x=>x.id==userId))
+   );
+ }
+  getUnConfirmUserPhoto(): Observable<number> {
     return this.users$.pipe(
-      map(users=>users?.data?.filter(x=>x.isActive==false)?.length)
+      map(
+        (users) =>
+          users?.data?.filter((x) =>
+            x.userPhotos.find((x) => x.isConfirm === false)
+          )?.length
+      )
     );
   }
-  getUnConfirmUserPhoto():Observable<number>{
-    return this.users$.pipe(
-      map(users=>users?.data?.filter(x=>x.userPhotos.find(x=>x.isConfirm===false))?.length)
-    )
+
+  addPhoto(photo: IUserPhoto) {
+    const createphoto = produce(this.userSubject.getValue(), (draft) => {
+      const index = draft.data.findIndex((x) => x.id == photo.userId);
+      if (index! - 1) {
+        draft.data[index].userPhotos.push(photo);
+      }
+    });
+    this.userSubject.next(createphoto);
+    this.notificationService.notify('success', 'Fotoğraf Eklendi...');
   }
 
+  updatePhoto(photo: IUserPhoto) {
+    const update$ = this.httpClient
+      .put<IUserPhoto>(this.apiUrl + 'userphoto', photo)
+      .pipe(
+        map((userphoto) => userphoto),
+        catchError((error) => {
+          this.notificationService.notify('error', error);
+          return throwError(error);
+        }),
+        tap((userphoto) => {
+          const updatephoto = produce(this.userSubject.getValue(), (draft) => {
+            const index = draft.data.findIndex((x) => x.id == userphoto.userId);
+            if (index != -1) {
+              const photoIndex = draft.data[index].userPhotos.findIndex(
+                (x) => x.id == userphoto.id
+              );
+              if (photoIndex != -1) {
+                draft.data[index].userPhotos[photoIndex] = userphoto;
+              }
+            }
+          });
+          this.userSubject.next(updatephoto);
+          this.notificationService.notify('success', 'Fotoğraf Güncellendi...');
+        })
+      );
+    this.loadingService.showLoaderUntilCompleted(update$).subscribe();
+  }
 
+  deletePhoto(photo: IUserPhoto) {
+    const delete$ = this.httpClient
+      .delete<IUserPhoto>(this.apiUrl + 'userphoto/' + photo.id)
+      .pipe(
+        map((userphoto) => userphoto),
+        catchError((error) => {
+          this.notificationService.notify('error', error);
+          return throwError(error);
+        }),
+        tap((userphoto) => {
+          const updatephoto = produce(this.userSubject.getValue(), (draft) => {
+            const index = draft.data.findIndex((x) => x.id == userphoto.userId);
+            if (index != -1) {
+              const photoIndex = draft.data[index].userPhotos.findIndex(
+                (x) => x.id == userphoto.id
+              );
+              if (photoIndex != -1) {
+                draft.data[index].userPhotos.splice(photoIndex, 1);
+              }
+            }
+          });
+          this.userSubject.next(updatephoto);
+          this.notificationService.notify('success', 'Fotoğraf Güncellendi...');
+        })
+      );
+    this.loadingService.showLoaderUntilCompleted(delete$).subscribe();
+  }
+
+  getNewAnnounceLength(): Observable<number> {
+    return this.users$.pipe(
+      map((announces) => {
+        const newanouncecount = announces?.data.filter(
+          (x) => x.isActive == false
+        ).length;
+        let photoCount = 0;
+        announces?.data?.forEach((x) => {
+          x.userPhotos.forEach((x) => {
+            if (x.isConfirm == false && x.unConfirm == false) {
+              photoCount++;
+            }
+          });
+        });
+        return newanouncecount + photoCount;
+      })
+    );
+  }
 
   getUserParams(): UserParams {
     return this.userParams;

@@ -1,4 +1,4 @@
-<ng-container *ngIf="foodMenuStore.detail$ | async as announce">
+<ng-container *ngIf="foodsmneu$ | async as announce">
   <div class="container mt-3">
     <mat-card>
       <div class="row">
@@ -34,7 +34,7 @@
       <div class="col-md-4">
         <mat-card>
           <app-image-slider
-            [images]="(foodMenuStore.detail$ | async)?.foodMenuPhotos"
+            [images]="(foodsmneu$ | async)?.foodMenuPhotos"
           ></app-image-slider>
         </mat-card>
       </div>
@@ -74,7 +74,7 @@
         <mat-tab label="Menu Fotoğrafları">
           <app-loading></app-loading>
           <app-food-menu-photo-list
-            [images]="(foodMenuStore.detail$ | async)?.foodMenuPhotos"
+            [images]="(foodsmneu$ | async)?.foodMenuPhotos"
             [announceId]="announceId"
             [roleForUpdate]="roleForUpdatePhoto"
             [roleForDelete]="roleForDeletePhoto"
@@ -92,7 +92,7 @@
               <h5>İlanın yayında olduğu ekranlar</h5>
               <app-food-menu-subscreen-list
                 [subscreens]="
-                  (foodMenuStore.detail$ | async)?.foodMenuSubScreens
+                  (foodsmneu$ | async)?.foodMenuSubScreens
                 "
               ></app-food-menu-subscreen-list>
             </div>

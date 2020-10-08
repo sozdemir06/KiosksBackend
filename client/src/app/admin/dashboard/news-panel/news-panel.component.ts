@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NewsStore } from 'src/app/core/services/stores/news-store';
 
 @Component({
   selector: 'app-news-panel',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewsPanelComponent implements OnInit {
   allowedRolesForList:string[]=['Sudo','News.List','News.All']
-  constructor() { }
+  constructor(
+    public newsStore:NewsStore
+  ) { }
 
   ngOnInit(): void {
   }

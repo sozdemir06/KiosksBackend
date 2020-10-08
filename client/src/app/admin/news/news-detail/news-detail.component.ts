@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NewsStore } from 'src/app/core/services/stores/news-store';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,14 +8,18 @@ import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { INewsSubScreen } from 'src/app/shared/models/INewsSubScreen';
 import { HelperService } from 'src/app/core/services/helper-service';
+import { Observable } from 'rxjs';
+import { INews } from 'src/app/shared/models/INews';
 
 @Component({
   selector: 'app-news-detail',
   templateUrl: './news-detail.component.html',
   styleUrls: ['./news-detail.component.scss']
 })
-export class NewsDetailComponent implements OnInit {
+export class NewsDetailComponent implements OnInit,AfterViewInit {
   announceId: number;
+  news$:Observable<INews>;
+
   roleForAddPhoto: string[] = [
     'Sudo',
     'News.Create',
@@ -51,7 +55,13 @@ export class NewsDetailComponent implements OnInit {
   }
   ngOnInit(): void {
     this.announceId=+this.route.snapshot.paramMap.get("id");
-    this.newsStore.getDetail(this.announceId);
+
+  }
+
+  ngAfterViewInit(){
+    setTimeout(()=>{
+      this.news$=this.newsStore.getDetailbyId(this.announceId);
+    })
   }
 
 

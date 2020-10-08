@@ -25,7 +25,12 @@ namespace DataAccess.EntitySpecification.NewsSpecification
              (!queryParams.IsPublish.HasValue || x.IsPublish == queryParams.IsPublish)
         )
         {
+            AddInclude(x => x.NewsPhotos);
+            AddInclude(x => x.NewsSubScreens);
             AddInclude(x => x.User);
+            AddInclude(x => x.User.Campus);
+            AddInclude(x => x.User.Degree);
+            AddInclude(x => x.User.Department);
             AddOrderByDscending(x => x.IsNew);
             ApplyPaging(queryParams.PageSize * (queryParams.PageIndex - 1), queryParams.PageSize);
         }

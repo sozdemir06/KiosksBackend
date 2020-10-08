@@ -7,6 +7,7 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
 import { EditUserRolesComponent } from './edit-user-roles/edit-user-roles.component';
 import { EditUserNotfyGroupsComponent } from './edit-user-notfy-groups/edit-user-notfy-groups.component';
+import { UserPhotoListComponent } from './user-photo-list/user-photo-list.component';
 
 
 
@@ -27,6 +28,7 @@ const routes:Routes=[
     UserEditDialogComponent,
     EditUserRolesComponent,
     EditUserNotfyGroupsComponent,
+    UserPhotoListComponent,
 
    
   ],
@@ -41,7 +43,8 @@ const routes:Routes=[
     UsersListCardComponent,
     RouterModule,
     UserEditDialogComponent,
-    EditUserNotfyGroupsComponent
+    EditUserNotfyGroupsComponent,
+    UserPhotoListComponent
 
   
   ],

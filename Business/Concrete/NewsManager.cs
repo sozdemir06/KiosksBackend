@@ -46,13 +46,13 @@ namespace Business.Concrete
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.AlreadyExist });
             }
-            
-            var claimId=int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
-            
+
+            var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+
             var mapForCreate = mapper.Map<News>(creationDto);
             var slideId = Guid.NewGuid();
             mapForCreate.SlideId = slideId;
-            mapForCreate.UserId=claimId;
+            mapForCreate.UserId = claimId;
             mapForCreate.Created = DateTime.Now;
             mapForCreate.AnnounceType = "news";
 
@@ -76,9 +76,9 @@ namespace Business.Concrete
             return mapper.Map<News, NewsForReturnDto>(getByIdFromRepo);
         }
 
-       
 
-        [SecuredOperation("Sudo,News.List,News.All", Priority = 1)]
+
+        //[SecuredOperation("Sudo,News.List,News.All", Priority = 1)]
         public async Task<Pagination<NewsForReturnDto>> GetListAsync(NewsParams queryParams)
         {
             var spec = new NewsWithPagingSpecification(queryParams);
@@ -112,12 +112,12 @@ namespace Business.Concrete
             }
 
             var checkHomeNewsSubScreenForPublish = await newsSubScreenDal.GetListAsync(x => x.NewsId == updateDto.Id);
-            if (checkHomeNewsSubScreenForPublish.Count<=0)
+            if (checkHomeNewsSubScreenForPublish.Count <= 0)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotSelectSubScreen = Messages.NotSelectSubScreen });
             }
 
-             if (updateDto.IsPublish)
+            if (updateDto.IsPublish)
             {
                 var checkDateExpire = DateTime.Compare(DateTime.Now, checkFromRepo.PublishFinishDate);
                 if (checkDateExpire > 0)
@@ -129,6 +129,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.AnnounceType = "news";
             await newsDal.Update(mapForUpdate);
 
             var spec = new NewsWithUserSpecification(updateDto.Id);
@@ -149,6 +150,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.AnnounceType = "news";
             await newsDal.Update(mapForUpdate);
 
             var spec = new NewsWithUserSpecification(updateDto.Id);

@@ -37,7 +37,7 @@ namespace API
             // {
             //     opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             // });
-
+            services.AddSingleton<KiosksScreenTracker>();
             services.AddDbContext<DataContext>();
 
             services.AddMediatR(typeof(ProductListQuery).Assembly);
@@ -113,6 +113,7 @@ namespace API
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<AdminHub>("/hubs/AdminHub");
+                endpoints.MapHub<KiosksHub>("/hubs/KiosksHub");
             });
         }
     }

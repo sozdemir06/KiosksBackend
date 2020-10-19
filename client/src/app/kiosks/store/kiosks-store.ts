@@ -3,11 +3,27 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { LoadingService } from 'src/app/core/services/loading-service';
 import { NotifyService } from 'src/app/core/services/notify-service';
-import { BehaviorSubject, Observable, throwError} from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { IKiosks } from '../models/IKiosks';
-import { map, catchError, tap} from 'rxjs/operators';
+import { map, catchError, tap, subscribeOn } from 'rxjs/operators';
 import produce from 'immer';
 import { HelperService } from 'src/app/core/services/helper-service';
+import { IAnnounce } from 'src/app/shared/models/IAnnounce';
+import { IAnnouncePhoto } from 'src/app/shared/models/IAnnouncePhoto';
+import { IAnnounceSubScreen } from 'src/app/shared/models/IAnnounceSubScreen';
+import { IHomeAnnounce } from 'src/app/shared/models/IHomeAnnounce';
+import { IHomeAnnouncePhoto } from 'src/app/shared/models/IHomeAnnouncePhoto';
+import { IHomeAnnounceSubScreen } from 'src/app/shared/models/IHomeAnnounceSubScreen';
+import { IVehicleAnnounceList } from 'src/app/shared/models/IVehicleAnnounceList';
+import { IVehicleAnnouncePhoto } from 'src/app/shared/models/IVehicleAnnouncePhoto';
+import { IVehicleAnnounceSubScreen } from 'src/app/shared/models/IVehicleAnnounceSubScreen';
+import { INews } from 'src/app/shared/models/INews';
+import { INewsPhoto } from 'src/app/shared/models/INewsPhoto';
+import { INewsSubScreen } from 'src/app/shared/models/INewsSubScreen';
+import { INewsDetail } from 'src/app/shared/models/INewsDetail';
+import { IFoodMenu } from 'src/app/shared/models/IFoodMenu';
+import { IFoodMenuPhoto } from 'src/app/shared/models/IFoodMenuPhoto';
+import { IFoodMenuSubScreen } from 'src/app/shared/models/IFoodMenuSubScreen';
 
 @Injectable({ providedIn: 'root' })
 export class KiosksStore {
@@ -77,7 +93,6 @@ export class KiosksStore {
   }
 
   removeFromHomeAnnounces(slideId: string) {
-   
     const updateSubject = produce(this.subject.getValue(), (draft) => {
       const index = draft.homeAnnounces.findIndex((x) => x.slideId == slideId);
       if (index != -1) {
@@ -94,7 +109,9 @@ export class KiosksStore {
 
   removeFromVehicleAnnounces(slideId: string) {
     const updateSubject = produce(this.subject.getValue(), (draft) => {
-      const index = draft.vehicleAnnounces.findIndex((x) => x.slideId == slideId);
+      const index = draft.vehicleAnnounces.findIndex(
+        (x) => x.slideId == slideId
+      );
       if (index != -1) {
         const checkIfExpire = this.helperService.checkExpire(
           draft.vehicleAnnounces[index].publishFinishDate
@@ -136,4 +153,560 @@ export class KiosksStore {
     });
     this.subject.next(updateSubject);
   }
+
+  //SignalR Events
+  updateOrCreateAnnounceRealTime(announce: IAnnounce): void {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.announces.findIndex((x) => x.id === announce.id);
+      if (index != -1) {
+        if (!announce.isNew && announce.isPublish && !announce.reject) {
+          draft.announces[index] = announce;
+          this.notifyService.notify('success', 'Duyuru Güncellendi...');
+        } else if (!announce.isNew && !announce.isPublish && !announce.reject) {
+          draft.announces.splice(index, 1);
+          this.notifyService.notify('success', 'Duyuru Kaldırıldı...');
+        }
+      } else {
+        draft.announces.push(announce);
+        this.notifyService.notify('success', 'Yeni Duyuru eklendi...');
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  updateOrAddNewAnnouncePhotoRealTime(photo: IAnnouncePhoto) {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.announces.findIndex((x) => x.id === photo.announceId);
+      if (index != -1) {
+        const photoIndex = draft.announces[index].announcePhotos.findIndex(
+          (x) => x.id === photo.id
+        );
+        if (photoIndex != -1) {
+          if ((!photo.isConfirm && !photo.unConfirm) || photo.unConfirm) {
+            draft.announces[index].announcePhotos.splice(photoIndex, 1);
+            this.notifyService.notify(
+              'success',
+              'Fotoğraf yayından kaldırıldı...'
+            );
+          }
+        } else {
+          if (photo.isConfirm && !photo.unConfirm) {
+            draft.announces[index].announcePhotos.push(photo);
+            this.notifyService.notify(
+              'success',
+              'Duyuru için Yeni fotoğraf yayınlandı...'
+            );
+          }
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  deleteannouncePhotoRealTime(photo: IAnnouncePhoto) {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.announces.findIndex((x) => x.id === photo.announceId);
+      if (index != -1) {
+        const photoIndex = draft.announces[index].announcePhotos.findIndex(
+          (x) => x.id === photo.id
+        );
+        if (photoIndex != -1) {
+          draft.announces[index].announcePhotos.splice(photoIndex, 1);
+          this.notifyService.notify(
+            'success',
+            'Fotoğraf yayından kaldırıldı...'
+          );
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  createSubsCreenRealTime(subScreen: IAnnounceSubScreen) {
+    const updatesubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.announces.findIndex(
+        (x) => x.id === subScreen.announceId
+      );
+      if (index != -1) {
+        draft.announces[index].announceSubScreens.push(subScreen);
+        this.notifyService.notify(
+          'success',
+          'Duyuru ' + subScreen.subScreenName + ' adlı ekranda yayına alındı...'
+        );
+      }
+    });
+    this.subject.next(updatesubject);
+  }
+
+  removeSubscreenRealTime(subscreen: IAnnounceSubScreen) {
+    const updatesubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.announces.findIndex(
+        (x) => x.id === subscreen.announceId
+      );
+      if (index != -1) {
+        const subscreenIndex = draft.announces[
+          index
+        ].announceSubScreens.findIndex((x) => x.id === subscreen.id);
+        if (subscreenIndex != -1) {
+          draft.announces[index].announceSubScreens.splice(subscreenIndex, 1);
+          this.notifyService.notify(
+            'success',
+            'Duyuru ' + subscreen.subScreenName + ' adlı ekrandan kaldırıldı...'
+          );
+        }
+      }
+    });
+    this.subject.next(updatesubject);
+  }
+  //Announce Events END
+
+  //Home Announce Events START
+  updateOrCreateHomeAnnounceRealTime(announce: IHomeAnnounce): void {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.homeAnnounces.findIndex((x) => x.id === announce.id);
+      if (index != -1) {
+        if (!announce.isNew && announce.isPublish && !announce.reject) {
+          draft.homeAnnounces[index] = announce;
+          this.notifyService.notify('success', 'Ev ilanı Güncellendi...');
+        } else if (!announce.isNew && !announce.isPublish && !announce.reject) {
+          draft.homeAnnounces.splice(index, 1);
+          this.notifyService.notify('success', 'Ev ilanı Kaldırıldı...');
+        }
+      } else {
+        draft.homeAnnounces.push(announce);
+        this.notifyService.notify('success', 'Yeni Ev ilanı eklendi...');
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  updateOrAddNewHomeAnnouncePhotoRealTime(photo: IHomeAnnouncePhoto) {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.homeAnnounces.findIndex(
+        (x) => x.id === photo.homeAnnounceId
+      );
+      if (index != -1) {
+        const photoIndex = draft.homeAnnounces[
+          index
+        ].homeAnnouncePhotos.findIndex((x) => x.id === photo.id);
+        if (photoIndex != -1) {
+          if ((!photo.isConfirm && !photo.unConfirm) || photo.unConfirm) {
+            draft.homeAnnounces[index].homeAnnouncePhotos.splice(photoIndex, 1);
+            this.notifyService.notify(
+              'success',
+              'Ev ilanı için fotoğraf yayından kaldırıldı...'
+            );
+          }
+        } else {
+          if (photo.isConfirm && !photo.unConfirm) {
+            draft.homeAnnounces[index].homeAnnouncePhotos.push(photo);
+            this.notifyService.notify(
+              'success',
+              'Ev ilanı için Yeni fotoğraf yayınlandı...'
+            );
+          }
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  deleteHomeAnnouncePhotoRealTime(photo: IHomeAnnouncePhoto) {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.homeAnnounces.findIndex(
+        (x) => x.id === photo.homeAnnounceId
+      );
+      if (index != -1) {
+        const photoIndex = draft.homeAnnounces[
+          index
+        ].homeAnnouncePhotos.findIndex((x) => x.id === photo.id);
+        if (photoIndex != -1) {
+          draft.homeAnnounces[index].homeAnnouncePhotos.splice(photoIndex, 1);
+          this.notifyService.notify(
+            'success',
+            'Ev ilanı için fotoğraf silindi...'
+          );
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  createHomeAnnounceSubsCreenRealTime(subScreen: IHomeAnnounceSubScreen) {
+    const updatesubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.homeAnnounces.findIndex(
+        (x) => x.id === subScreen.homeAnnounceId
+      );
+      if (index != -1) {
+        draft.homeAnnounces[index].homeAnnounceSubScreens.push(subScreen);
+        this.notifyService.notify(
+          'success',
+          'Ev ilanı ' +
+            subScreen.subScreenName +
+            ' adlı ekranda yayına alındı...'
+        );
+      }
+    });
+    this.subject.next(updatesubject);
+  }
+
+  removeHomeAnnounceSubscreenRealTime(subscreen: IHomeAnnounceSubScreen) {
+    const updatesubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.homeAnnounces.findIndex(
+        (x) => x.id === subscreen.homeAnnounceId
+      );
+      if (index != -1) {
+        const subscreenIndex = draft.homeAnnounces[
+          index
+        ].homeAnnounceSubScreens.findIndex((x) => x.id === subscreen.id);
+        if (subscreenIndex != -1) {
+          draft.homeAnnounces[index].homeAnnounceSubScreens.splice(
+            subscreenIndex,
+            1
+          );
+          this.notifyService.notify(
+            'success',
+            'Ev ilanı ' +
+              subscreen.subScreenName +
+              ' adlı ekrandan kaldırıldı...'
+          );
+        }
+      }
+    });
+    this.subject.next(updatesubject);
+  }
+  //HomeAnnounce Events END
+
+  //VehicleAnnounce Events START
+  updateOrCreateVehicleAnnounceRealTime(announce: IVehicleAnnounceList): void {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.vehicleAnnounces.findIndex(
+        (x) => x.id === announce.id
+      );
+      if (index != -1) {
+        if (!announce.isNew && announce.isPublish && !announce.reject) {
+          draft.vehicleAnnounces[index] = announce;
+          this.notifyService.notify('success', 'Araç ilanı Güncellendi...');
+        } else if (!announce.isNew && !announce.isPublish && !announce.reject) {
+          draft.vehicleAnnounces.splice(index, 1);
+          this.notifyService.notify('success', 'Araç ilanı Kaldırıldı...');
+        }
+      } else {
+        draft.vehicleAnnounces.push(announce);
+        this.notifyService.notify('success', 'Araç Ev ilanı eklendi...');
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  updateOrAddNewVehicleAnnouncePhotoRealTime(photo: IVehicleAnnouncePhoto) {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.vehicleAnnounces.findIndex(
+        (x) => x.id === photo.vehicleAnnounceId
+      );
+      if (index != -1) {
+        const photoIndex = draft.vehicleAnnounces[
+          index
+        ].vehicleAnnouncePhotos.findIndex((x) => x.id === photo.id);
+        if (photoIndex != -1) {
+          if ((!photo.isConfirm && !photo.unConfirm) || photo.unConfirm) {
+            draft.vehicleAnnounces[index].vehicleAnnouncePhotos.splice(
+              photoIndex,
+              1
+            );
+            this.notifyService.notify(
+              'success',
+              'Araç ilanı için fotoğraf yayından kaldırıldı...'
+            );
+          }
+        } else {
+          if (photo.isConfirm && !photo.unConfirm) {
+            draft.vehicleAnnounces[index].vehicleAnnouncePhotos.push(photo);
+            this.notifyService.notify(
+              'success',
+              'Araç ilanı için Yeni fotoğraf yayınlandı...'
+            );
+          }
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  deleteVehicleAnnouncePhotoRealTime(photo: IVehicleAnnouncePhoto) {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.vehicleAnnounces.findIndex(
+        (x) => x.id === photo.vehicleAnnounceId
+      );
+      if (index != -1) {
+        const photoIndex = draft.vehicleAnnounces[
+          index
+        ].vehicleAnnouncePhotos.findIndex((x) => x.id === photo.id);
+        if (photoIndex != -1) {
+          draft.vehicleAnnounces[index].vehicleAnnouncePhotos.splice(
+            photoIndex,
+            1
+          );
+          this.notifyService.notify(
+            'success',
+            'Araç ilanı için fotoğraf silindi...'
+          );
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  createVehicleAnnounceSubsCreenRealTime(subScreen: IVehicleAnnounceSubScreen) {
+    const updatesubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.vehicleAnnounces.findIndex(
+        (x) => x.id === subScreen.vehicleAnnounceId
+      );
+      if (index != -1) {
+        draft.vehicleAnnounces[index].vehicleAnnounceSubScreens.push(subScreen);
+        this.notifyService.notify(
+          'success',
+          'Araç ilanı ' +
+            subScreen.subScreenName +
+            ' adlı ekranda yayına alındı...'
+        );
+      }
+    });
+    this.subject.next(updatesubject);
+  }
+
+  removeVehicleAnnounceSubscreenRealTime(subscreen: IVehicleAnnounceSubScreen) {
+    const updatesubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.vehicleAnnounces.findIndex(
+        (x) => x.id === subscreen.vehicleAnnounceId
+      );
+      if (index != -1) {
+        const subscreenIndex = draft.vehicleAnnounces[
+          index
+        ].vehicleAnnounceSubScreens.findIndex((x) => x.id === subscreen.id);
+        if (subscreenIndex != -1) {
+          draft.vehicleAnnounces[index].vehicleAnnounceSubScreens.splice(
+            subscreenIndex,
+            1
+          );
+          this.notifyService.notify(
+            'success',
+            'Araç ilanı ' +
+              subscreen.subScreenName +
+              ' adlı ekrandan kaldırıldı...'
+          );
+        }
+      }
+    });
+    this.subject.next(updatesubject);
+  }
+  //VehicleAnnounce Events END
+
+  //News Events START
+  updateOrCreateNewsRealTime(news: INews): void {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.news.findIndex((x) => x.id === news.id);
+      if (index != -1) {
+        if (!news.isNew && news.isPublish && !news.reject) {
+          draft.news[index] = news;
+          this.notifyService.notify('success', 'Haber Güncellendi...');
+        } else if (!news.isNew && !news.isPublish && !news.reject) {
+          draft.news.splice(index, 1);
+          this.notifyService.notify('success', 'Haber Kaldırıldı...');
+        }
+      } else {
+        draft.news.push(news);
+        this.notifyService.notify('success', 'Haber  eklendi...');
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  updateOrAddNewNewsPhotoRealTime(photo: INewsPhoto) {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.news.findIndex((x) => x.id === photo.newsId);
+      if (index != -1) {
+        const photoIndex = draft.news[index].newsPhotos.findIndex(
+          (x) => x.id === photo.id
+        );
+        if (photoIndex != -1) {
+          if ((!photo.isConfirm && !photo.unConfirm) || photo.unConfirm) {
+            draft.news[index].newsPhotos.splice(photoIndex, 1);
+            this.notifyService.notify(
+              'success',
+              'Haber için fotoğraf yayından kaldırıldı...'
+            );
+          }
+        } else {
+          if (photo.isConfirm && !photo.unConfirm) {
+            draft.news[index].newsPhotos.push(photo);
+            this.notifyService.notify(
+              'success',
+              'Haber için Yeni fotoğraf yayınlandı...'
+            );
+          }
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  deleteNewsPhotoRealTime(photo: INewsPhoto) {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.news.findIndex((x) => x.id === photo.newsId);
+      if (index != -1) {
+        const photoIndex = draft.news[index].newsPhotos.findIndex(
+          (x) => x.id === photo.id
+        );
+        if (photoIndex != -1) {
+          draft.news[index].newsPhotos.splice(photoIndex, 1);
+          this.notifyService.notify(
+            'success',
+            'Haber için fotoğraf silindi...'
+          );
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  createNewsSubsCreenRealTime(subScreen: INewsSubScreen) {
+    const updatesubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.news.findIndex((x) => x.id === subScreen.newsId);
+      if (index != -1) {
+        draft.news[index].newsSubScreens.push(subScreen);
+        this.notifyService.notify(
+          'success',
+          'Haber ' + subScreen.subScreenName + ' adlı ekranda yayına alındı...'
+        );
+      }
+    });
+    this.subject.next(updatesubject);
+  }
+
+  removeNewsSubscreenRealTime(subscreen: INewsSubScreen) {
+    const updatesubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.news.findIndex((x) => x.id === subscreen.newsId);
+      if (index != -1) {
+        const subscreenIndex = draft.news[index].newsSubScreens.findIndex(
+          (x) => x.id === subscreen.id
+        );
+        if (subscreenIndex != -1) {
+          draft.news[index].newsSubScreens.splice(subscreenIndex, 1);
+          this.notifyService.notify(
+            'success',
+            'Haber ' + subscreen.subScreenName + ' adlı ekrandan kaldırıldı...'
+          );
+        }
+      }
+    });
+    this.subject.next(updatesubject);
+  }
+  //News EVents END
+  //FoodMenu Events START
+  updateOrCreateFoodMenuRealTime(foodsMenu: IFoodMenu): void {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.foodsMenu.findIndex((x) => x.id === foodsMenu.id);
+      if (index != -1) {
+        if (!foodsMenu.isNew && foodsMenu.isPublish && !foodsMenu.reject) {
+          draft.foodsMenu[index] = foodsMenu;
+          this.notifyService.notify('success', 'Yemek Menüsü Güncellendi...');
+        } else if (
+          !foodsMenu.isNew &&
+          !foodsMenu.isPublish &&
+          !foodsMenu.reject
+        ) {
+          draft.foodsMenu.splice(index, 1);
+          this.notifyService.notify('success', 'Yemek Menüsü Kaldırıldı...');
+        }
+      } else {
+        draft.foodsMenu.push(foodsMenu);
+        this.notifyService.notify('success', 'Yemek Menüsü  eklendi...');
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  updateOrAddNewFoodMenuPhotoRealTime(photo: IFoodMenuPhoto) {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.foodsMenu.findIndex((x) => x.id === photo.foodMenuId);
+      if (index != -1) {
+        const photoIndex = draft.foodsMenu[index].foodMenuPhotos.findIndex(
+          (x) => x.id === photo.id
+        );
+        if (photoIndex != -1) {
+          if ((!photo.isConfirm && !photo.unConfirm) || photo.unConfirm) {
+            draft.foodsMenu[index].foodMenuPhotos.splice(photoIndex, 1);
+            this.notifyService.notify(
+              'success',
+              'Yemek Menüsü için fotoğraf yayından kaldırıldı...'
+            );
+          }
+        } else {
+          if (photo.isConfirm && !photo.unConfirm) {
+            draft.foodsMenu[index].foodMenuPhotos.push(photo);
+            this.notifyService.notify(
+              'success',
+              'Yemek Menüsü için Yeni fotoğraf yayınlandı...'
+            );
+          }
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  deleteFoodMenuPhotoRealTime(photo: IFoodMenuPhoto) {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.foodsMenu.findIndex((x) => x.id === photo.foodMenuId);
+      if (index != -1) {
+        const photoIndex = draft.foodsMenu[index].foodMenuPhotos.findIndex(
+          (x) => x.id === photo.id
+        );
+        if (photoIndex != -1) {
+          draft.foodsMenu[index].foodMenuPhotos.splice(photoIndex, 1);
+          this.notifyService.notify(
+            'success',
+            'Yemek Menüsü için fotoğraf silindi...'
+          );
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  createFoodMenuSubsCreenRealTime(subScreen: IFoodMenuSubScreen) {
+    const updatesubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.foodsMenu.findIndex((x) => x.id === subScreen.foodMenuId);
+      if (index != -1) {
+        draft.foodsMenu[index].foodMenuSubScreens.push(subScreen);
+        this.notifyService.notify(
+          'success',
+          'Yemek Menüsü ' + subScreen.subScreenName + ' adlı ekranda yayına alındı...'
+        );
+      }
+    });
+    this.subject.next(updatesubject);
+  }
+
+  removeFoodMenuSubscreenRealTime(subscreen: IFoodMenuSubScreen) {
+    const updatesubject = produce(this.subject.getValue(), (draft) => {
+      const index = draft.foodsMenu.findIndex((x) => x.id === subscreen.foodMenuId);
+      if (index != -1) {
+        const subscreenIndex = draft.foodsMenu[index].foodMenuSubScreens.findIndex(
+          (x) => x.id === subscreen.id
+        );
+        if (subscreenIndex != -1) {
+          draft.foodsMenu[index].foodMenuSubScreens.splice(subscreenIndex, 1);
+          this.notifyService.notify(
+            'success',
+            'Yemek Menüsü ' + subscreen.subScreenName + ' adlı ekrandan kaldırıldı...'
+          );
+        }
+      }
+    });
+    this.subject.next(updatesubject);
+  }
+
+  //FoodMenu Events END
 }

@@ -83,7 +83,7 @@ export class ScreenTopComponent implements OnInit, OnDestroy {
       const announces$ = this.kiosksStore.kiosks$.pipe(
         map((announces) =>
           announces?.announces?.filter((x) =>
-            x.announceSubScreens.find(
+            x.announceSubScreens?.find(
               (s) =>
                 s.subScreenId == this.subscreenid &&
                 new Date(x.publishStartDate) <= dateNow &&
@@ -95,7 +95,7 @@ export class ScreenTopComponent implements OnInit, OnDestroy {
       const vehicleAnnounces$ = this.kiosksStore.kiosks$.pipe(
         map((vehicleannounces) =>
           vehicleannounces?.vehicleAnnounces?.filter((x) =>
-            x.vehicleAnnounceSubScreens.find(
+            x.vehicleAnnounceSubScreens?.find(
               (s) =>
                 s.subScreenId == this.subscreenid &&
                 new Date(x.publishStartDate) <= dateNow &&
@@ -107,7 +107,7 @@ export class ScreenTopComponent implements OnInit, OnDestroy {
       const homeAnnounces$ = this.kiosksStore.kiosks$.pipe(
         map((homeannounces) =>
           homeannounces?.homeAnnounces?.filter((x) =>
-            x.homeAnnounceSubScreens.find(
+            x.homeAnnounceSubScreens?.find(
               (s) =>
                 s.subScreenId == this.subscreenid &&
                 new Date(x.publishStartDate) <= dateNow &&
@@ -119,7 +119,7 @@ export class ScreenTopComponent implements OnInit, OnDestroy {
       const news$ = this.kiosksStore.kiosks$.pipe(
         map((news) =>
           news?.news?.filter((x) =>
-            x.newsSubScreens.find(
+            x.newsSubScreens?.find(
               (s) =>
                 s.subScreenId == this.subscreenid &&
                 new Date(x.publishStartDate) <= dateNow &&
@@ -131,7 +131,7 @@ export class ScreenTopComponent implements OnInit, OnDestroy {
       const foodsMenu$ = this.kiosksStore.kiosks$.pipe(
         map((foodsMenu) =>
           foodsMenu?.foodsMenu?.filter((x) =>
-            x.foodMenuSubScreens.find(
+            x.foodMenuSubScreens?.find(
               (s) =>
                 s.subScreenId == this.subscreenid &&
                 new Date(x.publishStartDate) <= dateNow &&
@@ -143,7 +143,7 @@ export class ScreenTopComponent implements OnInit, OnDestroy {
       const liveTvBroadCasts$ = this.kiosksStore.kiosks$.pipe(
         map((liveTvBroadCasts) =>
           liveTvBroadCasts?.liveTvBroadCasts?.filter((x) =>
-            x.liveTvBroadCastSubScreens.find(
+            x.liveTvBroadCastSubScreens?.find(
               (s) =>
                 s.subScreenId == this.subscreenid &&
                 new Date(x.publishStartDate) <= dateNow &&

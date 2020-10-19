@@ -6,12 +6,12 @@ import { NotifyService } from '../notify-service';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { IPagination } from 'src/app/shared/models/IPagination';
 import { INews } from 'src/app/shared/models/INews';
-import { INewsDetail } from 'src/app/shared/models/INewsDetail';
 import { NewsParams } from 'src/app/shared/models/NewsParams';
 import { map, catchError, tap } from 'rxjs/operators';
 import produce from 'immer';
 import { INewsPhoto } from 'src/app/shared/models/INewsPhoto';
 import { INewsSubScreen } from 'src/app/shared/models/INewsSubScreen';
+
 
 @Injectable({ providedIn: 'root' })
 export class NewsStore {
@@ -25,7 +25,7 @@ export class NewsStore {
   constructor(
     private httpClient: HttpClient,
     private loadingService: LoadingService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
   ) {
     this.getList(this.newsParams);
   }
@@ -93,7 +93,7 @@ export class NewsStore {
 
   update(model: Partial<INews>) {
     const update$ = this.httpClient
-      .put<INews>(this.apiUrl + 'news', model)
+      .put<INews>(this.apiUrl + 'news',model)
       .pipe(
         map((news) => news),
         catchError((error) => {
@@ -312,6 +312,66 @@ export class NewsStore {
         return newanouncecount + photoCount;
       })
     );
+  }
+
+  //SignalR Events
+  createNewNews(model:INews):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+          draft.data.push(model);
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Yayın Haber eklendi...');
+  }
+
+  updateNews(model:INews):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===model.id);
+      if(index!=-1){
+        draft.data[index]=model;
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Haber Güncellendi...');
+  }
+
+  addNewPhotoRealTime(photo:INewsPhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.newsId);
+      if(index!=-1){
+         draft.data[index].newsPhotos.push(photo);
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Haber için Yeni Fotoğraf Eklendi...');
+  }
+
+  updatePhotoRealTime(photo:INewsPhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.newsId);
+      if(index!=-1){
+        const photoIndex=draft.data[index].newsPhotos.findIndex(x=>x.id==photo.id);
+        if(photoIndex!=-1){
+          draft.data[index].newsPhotos[photoIndex]=photo;
+        }
+        
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Haber için Fotoğraf Güncellendi...');
+  }
+
+  removePhotoRealTime(photo:INewsPhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.newsId);
+      if(index!=-1){
+        const photoIndex=draft.data[index].newsPhotos.findIndex(x=>x.id==photo.id);
+        if(photoIndex!=-1){
+          draft.data[index].newsPhotos.splice(photoIndex,1);
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Haber için Fotoğraf Silindi...');
   }
 
   getParams(): NewsParams {

@@ -19,7 +19,7 @@
         '_' +
         i +
         '_' +
-        homeannounce.announceType.toLowerCase() +
+        homeannounce.announceType?.toLowerCase() +
         '_' +
         'home' +
         '_' +
@@ -123,7 +123,7 @@
         '_' +
         i +
         '_' +
-        vehicleAnnounce.announceType.toLowerCase() +
+        vehicleAnnounce.announceType?.toLowerCase() +
         '_' +
         'car' +
         '_' +
@@ -232,7 +232,7 @@
 
 <!-- Announce Start -->
   <ng-container *ngFor="let announce of data.announces; let ai = index">
-    <ng-container *ngIf="announce.contentType.toLowerCase() == 'image'">
+    <ng-container *ngIf="announce.contentType?.toLowerCase() == 'image'">
       <ng-container
         *ngFor="let image of announce.announcePhotos; let i = index"
       >
@@ -243,9 +243,9 @@
             '_' +
             i +
             '_' +
-            announce.announceType.toLowerCase() +
+            announce.announceType?.toLowerCase() +
             '_' +
-            announce.contentType.toLowerCase() +
+            announce.contentType?.toLowerCase() +
             '_' +
             announce.slideIntervalTime +
             '_' +
@@ -264,7 +264,7 @@
         </ng-template>
       </ng-container>
     </ng-container>
-    <ng-container *ngIf="announce?.contentType.toLowerCase() == 'video'">
+    <ng-container *ngIf="announce?.contentType?.toLowerCase() == 'video'">
       <ng-container
         *ngFor="let image of announce.announcePhotos; let i = index"
       >
@@ -275,9 +275,9 @@
             '_' +
             i +
             '_' +
-            announce.announceType.toLowerCase() +
+            announce.announceType?.toLowerCase() +
             '_' +
-            announce.contentType.toLowerCase() +
+            announce.contentType?.toLowerCase() +
             '_' +
             image.duration +
             '_' +
@@ -305,9 +305,9 @@
     </ng-container>
     <ng-container
       *ngIf="
-        announce?.contentType.toLowerCase() == 'deathannounce' ||
-        announce?.contentType.toLowerCase() == 'bloodannounce' ||
-        announce?.contentType.toLowerCase() == 'generalannounce'
+        announce?.contentType?.toLowerCase() == 'deathannounce' ||
+        announce?.contentType?.toLowerCase() == 'bloodannounce' ||
+        announce?.contentType?.toLowerCase() == 'generalannounce'
       "
     >
       <ng-template
@@ -317,9 +317,9 @@
           '_' +
           ai +
           '_' +
-          announce.announceType.toLowerCase() +
+          announce.announceType?.toLowerCase() +
           '_' +
-          announce.contentType.toLowerCase() +
+          announce.contentType?.toLowerCase() +
           '_' +
           announce.slideIntervalTime +
           '_' +
@@ -359,7 +359,7 @@
 
   <!-- News Start -->
   <ng-container *ngFor="let news of data.news; let ni = index">
-    <ng-container *ngIf="news?.contentType.toLowerCase() === 'image'">
+    <ng-container *ngIf="news?.contentType?.toLowerCase() === 'image'">
       <ng-container *ngFor="let image of news.newsPhotos; let i = index">
         <ng-template
           ngbSlide
@@ -368,9 +368,9 @@
             '_' +
             i +
             '_' +
-            news.announceType.toLowerCase() +
+            news.announceType?.toLowerCase() +
             '_' +
-            news.contentType.toLowerCase() +
+            news.contentType?.toLowerCase() +
             '_' +
             news.slideIntervalTime +
             '_' +
@@ -389,7 +389,7 @@
         </ng-template>
       </ng-container>
     </ng-container>
-    <ng-container *ngIf="news.contentType.toLowerCase() == 'textandimage'">
+    <ng-container *ngIf="news.contentType?.toLowerCase() == 'textandimage'">
       <ng-template
         ngbSlide
         [id]="
@@ -397,9 +397,9 @@
           '_' +
           ni +
           '_' +
-          news.announceType.toLowerCase() +
+          news.announceType?.toLowerCase() +
           '_' +
-          news.contentType.toLowerCase() +
+          news.contentType?.toLowerCase() +
           '_' +
           news.slideIntervalTime +
           '_' +
@@ -458,7 +458,7 @@
         '_' +
         i +
         '_' +
-        menu.announceType.toLowerCase() +
+        menu.announceType?.toLowerCase() +
         '_' +
         'foodmenu' +
         '_' +

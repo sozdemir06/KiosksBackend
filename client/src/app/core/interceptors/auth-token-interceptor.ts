@@ -1,36 +1,41 @@
-
-
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpInterceptor,
+  HttpEvent,
+  HttpHandler,
+  HttpRequest,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { IUser } from 'src/app/shared/models/IUser';
 import { AuthStore } from 'src/app/auth/auth.store';
-import { first, flatMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
+const AUTH_DATA = 'auth_data';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(
-        private authStore:AuthStore
-    ){}
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return this.authStore.user$.pipe(
-            first(),
-            flatMap(user=>{
-                if(!user){
-                    return next.handle(req);
-                }
+  constructor(
+    private router:Router
+  ) {}
 
-                const authReq = !!user.token ? req.clone({
-                    setHeaders: { Authorization: 'Bearer ' + user.token },
-                  }) : req;
-                 
-                  return next.handle(authReq);
-            })
-        )
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    let currentUser: IUser = JSON.parse(localStorage.getItem(AUTH_DATA));
+    if (currentUser) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${currentUser.token}`,
+        },
+      });
     }
+    return next.handle(req);
+  }
 }
 
-export const AuthInterceptors={
-    provide:HTTP_INTERCEPTORS,
-    useClass:AuthInterceptor,
-    multi:true
-}
+export const AuthInterceptors = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: AuthInterceptor,
+  multi: true,
+};

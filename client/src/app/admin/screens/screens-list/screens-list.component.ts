@@ -8,6 +8,7 @@ import { EditScreenHeaderComponent } from '../edit-screen-header/edit-screen-hea
 import { EditScreenFooterComponent } from '../edit-screen-footer/edit-screen-footer.component';
 import { EditScreenHeaderPhotoComponent } from '../edit-screen-header-photo/edit-screen-header-photo.component';
 import { IScreenHeader } from 'src/app/shared/models/IScreenHeader';
+import { KiosksHubService } from 'src/app/kiosks/store/kiosks-hub';
 
 @Component({
   selector: 'app-screens-list',
@@ -16,11 +17,15 @@ import { IScreenHeader } from 'src/app/shared/models/IScreenHeader';
 })
 export class ScreensListComponent implements OnInit {
   panelOpenState: boolean = false;
-  displayedColumns: string[] = ['Id', 'Name', 'Position', 'IsFull', 'Actions'];
+  displayedColumns: string[] = ['Id', 'Name', 'Position', 'IsFull','ConnectionStatus' ,'Actions'];
   allowedRoleForUpdate: string[] = ['Sudo', 'Screens.Update','Screens.All'];
  allowedPreviewRole:string[]=['Sudo'];
 
-  constructor(public screenStore: ScreenStore, private dialog: MatDialog) {}
+  constructor(
+    public screenStore: ScreenStore,
+     private dialog: MatDialog,
+     public kiosksHub:KiosksHubService
+     ) {}
 
   ngOnInit(): void {}
 

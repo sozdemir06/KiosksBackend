@@ -6,6 +6,7 @@ namespace Entities.Dtos
     {
         public int Id { get; set; }
         public int SubScreenId { get; set; }
+        public int ScreenId { get; set; }
         public int NewsId { get; set; }
         public string SubScreenName { get; set; }
         public string SubScreenPosition { get; set; }

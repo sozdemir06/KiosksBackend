@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { take } from 'rxjs/operators';
+import { AdminHubService } from './admin-hub-signalr-service';
 import { NotifyService } from './notify-service';
-
 
 @Injectable({ providedIn: 'root' })
 export class HelperService {
   constructor(
     private notifyService: NotifyService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+
     
     ) {}
 
@@ -125,4 +127,5 @@ export class HelperService {
   safeURL(youtubeId:string){
     return this.sanitizer.bypassSecurityTrustResourceUrl (`https://www.youtube.com/embed/${youtubeId}?rel=0`);
   }
+
 }

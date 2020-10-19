@@ -324,6 +324,68 @@ export class HomeAnnounceStore {
     this.loadingservice.showLoaderUntilCompleted(removeSubScreen$).subscribe();
   }
 
+  //SignalR Events
+  createNewHomeAnnounceRealTime(model:IHomeAnnounce):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+       draft.data.push(model);
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Yeni Ev ilanı eklendi..');
+  }
+
+  updateHomeAnnounceRealTime(model:IHomeAnnounce):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===model.id);
+      if(index!=-1){
+        draft.data[index]=model;
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Ev ilanı Güncellendi...');
+  }
+
+  addNewPhotoRealTime(photo:IHomeAnnouncePhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.homeAnnounceId);
+      if(index!=-1){
+         draft.data[index].homeAnnouncePhotos.push(photo);
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Ev İlanı için Yeni Fotoğraf Eklendi...');
+  }
+
+  updatePhotoRealTime(photo:IHomeAnnouncePhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.homeAnnounceId);
+      if(index!=-1){
+        const photoIndex=draft.data[index].homeAnnouncePhotos.findIndex(x=>x.id==photo.id);
+        if(photoIndex!=-1){
+          draft.data[index].homeAnnouncePhotos[photoIndex]=photo;
+        }
+        
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'ev İlanı için Fotoğraf Güncellendi...');
+  }
+
+  removePhotoRealTime(photo:IHomeAnnouncePhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.homeAnnounceId);
+      if(index!=-1){
+        const photoIndex=draft.data[index].homeAnnouncePhotos.findIndex(x=>x.id==photo.id);
+        if(photoIndex!=-1){
+          draft.data[index].homeAnnouncePhotos.splice(photoIndex,1);
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Ev İlanı için Fotoğraf Silindi...');
+  }
+
+
+
   getHomeAnnounceParams(): HomeAnnounceParams {
     return this.announceparams;
   }

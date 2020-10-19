@@ -42,6 +42,14 @@
       </div>
     </td>
   </ng-container>
+   <!-- Column -->
+   <ng-container matColumnDef="ConnectionStatus">
+    <th mat-header-cell *matHeaderCellDef>Bağlantı Durumu</th>
+    <td mat-cell *matCellDef="let element">
+      <span class="badge badge-success" *ngIf="(kiosksHub.onlineScreens$ | async)?.includes(element?.id)">Bağlı</span>
+      <span class="badge badge-danger" *ngIf="!(kiosksHub.onlineScreens$ | async)?.includes(element?.id)">Bağlı Değil</span>
+    </td>
+  </ng-container>
   <!--Column -->
   <ng-container matColumnDef="Actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>

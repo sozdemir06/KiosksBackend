@@ -10,6 +10,7 @@ import { INewsSubScreen } from 'src/app/shared/models/INewsSubScreen';
 import { HelperService } from 'src/app/core/services/helper-service';
 import { Observable } from 'rxjs';
 import { INews } from 'src/app/shared/models/INews';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-news-detail',
@@ -19,7 +20,7 @@ import { INews } from 'src/app/shared/models/INews';
 export class NewsDetailComponent implements OnInit,AfterViewInit {
   announceId: number;
   news$:Observable<INews>;
-
+  
   roleForAddPhoto: string[] = [
     'Sudo',
     'News.Create',
@@ -55,7 +56,6 @@ export class NewsDetailComponent implements OnInit,AfterViewInit {
   }
   ngOnInit(): void {
     this.announceId=+this.route.snapshot.paramMap.get("id");
-
   }
 
   ngAfterViewInit(){

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EditScreensDialogComponent } from './edit-screens-dialog/edit-screens-dialog.component';
 
@@ -31,5 +31,6 @@ allowedRoles:string[]=['Sudo','Screens.Create','Screens.All'];
       }
     })
   }
+
 
 }

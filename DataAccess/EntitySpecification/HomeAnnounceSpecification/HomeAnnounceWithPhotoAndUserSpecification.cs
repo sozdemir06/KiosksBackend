@@ -42,6 +42,7 @@ namespace DataAccess.EntitySpecification.HomeAnnounceSpecification
         public HomeAnnounceWithPhotoAndUserSpecification(int announceId) : base(x => x.Id == announceId)
         {
             AddInclude(x => x.HomeAnnouncePhotos);
+            AddInclude(x=>x.HomeAnnounceSubScreens);
             AddInclude(x => x.User);
             AddInclude(x => x.User.Department);
             AddInclude(x => x.User.Campus);

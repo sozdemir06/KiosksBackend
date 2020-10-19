@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Hubs;
 using Business.Abstract;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace API.Controllers
 {
@@ -11,8 +13,14 @@ namespace API.Controllers
     public class HomeAnnounceSubScreensController : ControllerBase
     {
         private readonly IHomeAnnounceSubScreenService homeAnnounceSubScreenService;
-        public HomeAnnounceSubScreensController(IHomeAnnounceSubScreenService homeAnnounceSubScreenService)
+        private readonly IOnlineScreenService onlineScreenService;
+        private readonly IHubContext<KiosksHub> kiosksHub;
+        public HomeAnnounceSubScreensController(IHomeAnnounceSubScreenService homeAnnounceSubScreenService,
+        IHubContext<KiosksHub> kiosksHub,
+        IOnlineScreenService onlineScreenService)
         {
+            this.kiosksHub = kiosksHub;
+            this.onlineScreenService = onlineScreenService;
             this.homeAnnounceSubScreenService = homeAnnounceSubScreenService;
 
         }
@@ -20,7 +28,13 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<HomeAnnounceSubScreenForReturnDto>> Create(HomeAnnounceSubScreenForCreationDto creationDto)
         {
-            return await homeAnnounceSubScreenService.Create(creationDto);
+            var subscreen = await homeAnnounceSubScreenService.Create(creationDto);
+            var onlineScreensConnectionId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
+            if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
+            {
+                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveHomeAnnounceSubScreen", subscreen, "create");
+            }
+            return subscreen;
         }
 
         [HttpGet("{announceId}")]
@@ -32,7 +46,13 @@ namespace API.Controllers
         [HttpDelete("{Id}")]
         public async Task<ActionResult<HomeAnnounceSubScreenForReturnDto>> Delete(int Id)
         {
-            return await homeAnnounceSubScreenService.Delete(Id);
+            var subscreen = await homeAnnounceSubScreenService.Delete(Id);
+            var onlineScreensConnectionId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
+            if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
+            {
+                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveHomeAnnounceSubScreen", subscreen, "delete");
+            }
+            return subscreen;
         }
     }
 }

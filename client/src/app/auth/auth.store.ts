@@ -10,6 +10,7 @@ import { AdminHubService } from '../core/services/admin-hub-signalr-service';
 
 const AUTH_DATA = 'auth_data';
 const AUTH_TOKEN = 'auth_token';
+const CONN_ID="conn_id";
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +47,7 @@ export class AuthStore {
   }
 
   login(model: IUserForLogin): Observable<IUser> {
+    
     this.loadingSubject.next(true);
     return this.http.post<IUser>(this.apiUrl + 'auth/login', model).pipe(
       tap((user) => {
@@ -115,5 +117,9 @@ export class AuthStore {
       );
       return payLoad.role as Array<string>;
     }
+  }
+
+  getConnId():string{
+    return localStorage.getItem(CONN_ID);
   }
 }

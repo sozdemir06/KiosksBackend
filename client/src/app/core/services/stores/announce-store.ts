@@ -334,6 +334,67 @@ export class AnnounceStore {
     );
   }
 
+  //SignalR Events
+  addNewAnnounceRealTime(model:IAnnounce):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+       draft.data.push(model);
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Yeni Duyuru eklendi...');
+  }
+
+  updateAnnounceRealTime(model:IAnnounce):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===model.id);
+      if(index!=-1){
+        draft.data[index]=model;
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Duyuru Güncellendi...');
+  }
+
+  addNewPhotoRealTime(photo:IAnnouncePhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.announceId);
+      if(index!=-1){
+         draft.data[index].announcePhotos.push(photo);
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Duyuru için Yeni Fotoğraf Eklendi...');
+  }
+
+  updatePhotoRealTime(photo:IAnnouncePhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.announceId);
+      if(index!=-1){
+        const photoIndex=draft.data[index].announcePhotos.findIndex(x=>x.id==photo.id);
+        if(photoIndex!=-1){
+          draft.data[index].announcePhotos[photoIndex]=photo;
+        }
+        
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Duyuru için Fotoğraf Güncellendi...');
+  }
+
+  removePhotoRealTime(photo:IAnnouncePhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.announceId);
+      if(index!=-1){
+        const photoIndex=draft.data[index].announcePhotos.findIndex(x=>x.id==photo.id);
+        if(photoIndex!=-1){
+          draft.data[index].announcePhotos.splice(photoIndex,1);
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Duyuru için Fotoğraf Silindi...');
+  }
+
+
   getParams(): AnnounceParams {
     return this.announceParams;
   }

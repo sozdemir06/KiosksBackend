@@ -1,7 +1,7 @@
 <div class="row p-4">
     <ng-container *ngIf="(user$ |async)?.userPhotos?.length > 0; else dataIsEmpty">
       <ng-container *ngFor="let image of user?.userPhotos">
-        <div class="col-md-2 col-lg-2">
+        <div class="col-md-3 col-lg-3">
           <mat-card>
             <ng-container>
               <img

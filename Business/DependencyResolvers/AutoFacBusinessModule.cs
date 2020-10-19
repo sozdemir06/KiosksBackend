@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
 using Business.Concrete;
+using Business.Helpers;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
 using Core.Utilities.Photos;
@@ -163,11 +164,20 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<UserNotifyGroupManager>().As<IUserNotifyGroupService>();
             builder.RegisterType<EfUserNotifyGroupDal>().As<IUserNotifyGroupDal>();
 
+            builder.RegisterType<OnlineUserManager>().As<IOnlineUserService>();
+            builder.RegisterType<EfOnlineUserDal>().As<IOnlineUserDal>();
+
+            builder.RegisterType<OnlineScreenManager>().As<IOnlineScreenService>();
+            builder.RegisterType<EfOnlineScreenDal>().As<IOnlineScreenDal>();
+
+
+
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
             builder.RegisterType<UploadFile>().As<IUploadFile>();
             builder.RegisterType<UserAccessor>().As<IUserAccessor>();
+            builder.RegisterType<AnnounceStatusCheck>().As<IAnnounceStatusCheck>();
 
 
 

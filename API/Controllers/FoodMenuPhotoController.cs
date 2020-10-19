@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Hubs;
 using Business.Abstract;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace API.Controllers
 {
@@ -11,10 +13,22 @@ namespace API.Controllers
     public class FoodMenuPhotoController : ControllerBase
     {
         private readonly IFoodMenuPhotoService foodMenuPhotoService;
-        public FoodMenuPhotoController(IFoodMenuPhotoService foodMenuPhotoService)
-        {
-            this.foodMenuPhotoService = foodMenuPhotoService;
+        private readonly IOnlineScreenService onlineScreenService;
+        private readonly IHubContext<KiosksHub> kiosksHub;
+        private readonly IHubContext<AdminHub> hubContext;
+        private readonly IOnlineUserService onlineUserService;
 
+        public FoodMenuPhotoController(IFoodMenuPhotoService foodMenuPhotoService,
+        IOnlineScreenService onlineScreenService,
+        IHubContext<KiosksHub> kiosksHub,
+         IOnlineUserService onlineUserService,
+        IHubContext<AdminHub> hubContext)
+        {
+            this.onlineUserService = onlineUserService;
+            this.foodMenuPhotoService = foodMenuPhotoService;
+            this.onlineScreenService = onlineScreenService;
+            this.kiosksHub = kiosksHub;
+            this.hubContext = hubContext;
         }
 
         [HttpGet("{announceId}")]
@@ -26,19 +40,51 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<FoodMenuPhotoForReturnDto>> Create([FromForm] FileUploadDto uploadDto)
         {
-            return await foodMenuPhotoService.Create(uploadDto);
+            var photo = await foodMenuPhotoService.Create(uploadDto);
+            var connId = await onlineUserService.GetUserConnectionStringAsync();
+            if (!string.IsNullOrEmpty(connId))
+            {
+                await hubContext.Clients.GroupExcept("FoodMenu", connId).SendAsync("ReceiveFoodMenuPhoto", photo, "create");
+            }
+
+            return photo;
         }
 
         [HttpPut]
         public async Task<FoodMenuPhotoForReturnDto> Update(FoodMenuPhotoForCreationDto creationDto)
         {
-            return await foodMenuPhotoService.Update(creationDto);
+            var photo = await foodMenuPhotoService.Update(creationDto);
+            var connId = await onlineUserService.GetUserConnectionStringAsync();
+            if (!string.IsNullOrEmpty(connId))
+            {
+                await hubContext.Clients.GroupExcept("FoodMenu", connId).SendAsync("ReceiveFoodMenuPhoto", photo, "update");
+            }
+
+            var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
+            if (onlineScreens != null && onlineScreens.Length != 0)
+            {
+                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReceiveFoodMenuPhoto", photo, "update");
+            }
+
+            return photo;
         }
 
         [HttpDelete("{photoId}")]
         public async Task<FoodMenuPhotoForReturnDto> Delete(int photoId)
         {
-            return await foodMenuPhotoService.Delete(photoId);
+            var photo = await foodMenuPhotoService.Delete(photoId);
+            var connId = await onlineUserService.GetUserConnectionStringAsync();
+            if (!string.IsNullOrEmpty(connId))
+            {
+                await hubContext.Clients.GroupExcept("FoodMenu", connId).SendAsync("ReceiveFoodMenuPhoto", photo, "delete");
+            }
+            var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
+            if (onlineScreens != null && onlineScreens.Length != 0)
+            {
+                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReceiveFoodMenuPhoto", photo, "delete");
+            }
+
+            return photo;
         }
     }
 }

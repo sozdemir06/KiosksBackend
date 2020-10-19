@@ -122,7 +122,7 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("Sudo,Announces.List,Announces.All", Priority = 1)]
+        //[SecuredOperation("Sudo,Announces.List,Announces.All", Priority = 1)]
         public async Task<Pagination<AnnounceForReturnDto>> GetListAsync(AnnounceParams queryParams)
         {
             var spec = new AnnounceWithPagingSpecification(queryParams);
@@ -169,10 +169,11 @@ namespace Business.Concrete
                     throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.PublishDateExpire });
                 }
 
-            }
+            } 
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.AnnounceType="announce";
             await announceDal.Update(mapForUpdate);
 
             var spec = new AnnounceWithUserSpecification(updateDto.Id);
@@ -193,6 +194,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.AnnounceType="announce";
             await announceDal.Update(mapForUpdate);
 
             var spec = new AnnounceWithUserSpecification(updateDto.Id);
@@ -219,6 +221,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.AnnounceType="announce";
             mapForUpdate.IsNew = true;
             mapForUpdate.IsPublish = false;
             mapForUpdate.Reject = false;

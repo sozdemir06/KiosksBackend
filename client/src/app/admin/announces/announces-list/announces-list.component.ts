@@ -109,7 +109,7 @@ export class AnnouncesListComponent implements OnInit {
           reject: true,
           isPublish: false
         };
-        this.announceStore.publish(model);
+        this.announceStore.update(model);
       }
     });
   }

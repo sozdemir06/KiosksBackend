@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Hubs;
 using Business.Abstract;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace API.Controllers
 {
@@ -11,8 +13,14 @@ namespace API.Controllers
     public class AnnounceSubScreensController : ControllerBase
     {
         private readonly IAnnounceSubScreenService announceSubScreenService;
-        public AnnounceSubScreensController(IAnnounceSubScreenService announceSubScreenService)
+        private readonly IOnlineScreenService onlineScreenService;
+        private readonly IHubContext<KiosksHub> kiosksHub;
+        public AnnounceSubScreensController(IAnnounceSubScreenService announceSubScreenService,
+        IHubContext<KiosksHub> kiosksHub,
+        IOnlineScreenService onlineScreenService)
         {
+            this.kiosksHub = kiosksHub;
+            this.onlineScreenService = onlineScreenService;
             this.announceSubScreenService = announceSubScreenService;
 
         }
@@ -20,7 +28,14 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<AnnounceSubScreenForReturnDto>> Create(AnnounceSubScreenForCreationDto creationDto)
         {
-            return await announceSubScreenService.Create(creationDto);
+            var subscreen = await announceSubScreenService.Create(creationDto);
+            var onlineScreensById = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
+            if (onlineScreensById != null && onlineScreensById.Length != 0)
+            {
+                await kiosksHub.Clients.Clients(onlineScreensById).SendAsync("ReceiveAnnounceSubScreen", subscreen, "create");
+            }
+
+            return subscreen;
         }
 
         [HttpGet("{announceId}")]
@@ -32,7 +47,14 @@ namespace API.Controllers
         [HttpDelete("{Id}")]
         public async Task<ActionResult<AnnounceSubScreenForReturnDto>> Delete(int Id)
         {
-            return await announceSubScreenService.Delete(Id);
+            var subscreen = await announceSubScreenService.Delete(Id);
+            var onlineScreensById = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
+            if (onlineScreensById != null && onlineScreensById.Length != 0)
+            {
+                await kiosksHub.Clients.Clients(onlineScreensById).SendAsync("ReceiveAnnounceSubScreen", subscreen, "delete");
+            }
+
+            return subscreen;
         }
     }
 }

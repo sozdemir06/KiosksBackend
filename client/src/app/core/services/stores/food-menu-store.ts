@@ -318,6 +318,66 @@ export class FoodMenuStore {
     );
   }
 
+  //SignalR Events
+  createNewFoodMenuRealTime(model:IFoodMenu):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+          draft.data.push(model);
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Yeni Yemek Menüsü Eklendi...');
+  }
+
+  updateFoodMenuRealTime(model:IFoodMenu):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===model.id);
+      if(index!=-1){
+        draft.data[index]=model;
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Yemek Menüsü Güncellendi...');
+  }
+
+  addNewPhotoRealTime(photo:IFoodMenuPhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.foodMenuId);
+      if(index!=-1){
+         draft.data[index].foodMenuPhotos.push(photo);
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Yemek Menüsü için Yeni Fotoğraf Eklendi...');
+  }
+
+  updatePhotoRealTime(photo:IFoodMenuPhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.foodMenuId);
+      if(index!=-1){
+        const photoIndex=draft.data[index].foodMenuPhotos.findIndex(x=>x.id==photo.id);
+        if(photoIndex!=-1){
+          draft.data[index].foodMenuPhotos[photoIndex]=photo;
+        }
+        
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Yemek Menüsü için Fotoğraf Güncellendi...');
+  }
+
+  removePhotoRealTime(photo:IFoodMenuPhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.foodMenuId);
+      if(index!=-1){
+        const photoIndex=draft.data[index].foodMenuPhotos.findIndex(x=>x.id==photo.id);
+        if(photoIndex!=-1){
+          draft.data[index].foodMenuPhotos.splice(photoIndex,1);
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Yemek Menüsü için Fotoğraf Silindi...');
+  }
+
   getParams(): FoodMenuParams {
     return this.foodMenuParams;
   }

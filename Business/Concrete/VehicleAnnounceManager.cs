@@ -108,7 +108,7 @@ namespace Business.Concrete
         }
 
        
-        [SecuredOperation("Sudo,VehicleAnnounces.List,VehicleAnnounces.All", Priority = 1)]
+        //[SecuredOperation("Sudo,VehicleAnnounces.List,VehicleAnnounces.All", Priority = 1)]
         public async Task<Pagination<VehicleAnnounceForReturnDto>> GetListAsync(VehicleAnnounceParams queryParams)
         {
             var spec = new VehicleAnnounceWithPagingSpecification(queryParams);
@@ -160,6 +160,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.AnnounceType="Car";
             var updateToDb = await vehicleAnnounceDal.Update(mapForUpdate);
             var spec=new VehicleAnnounceWithPagingSpecification(updateDto.Id);
             var vehicleAnnounce=await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
@@ -179,6 +180,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
+               mapForUpdate.AnnounceType="Car";
             await vehicleAnnounceDal.Update(mapForUpdate);
             var spec = new VehicleAnnounceWithPagingSpecification(checkFromRepo.Id);
             var getWithUser = await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
@@ -202,6 +204,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.AnnounceType="Car";
             mapForUpdate.IsNew = true;
             mapForUpdate.IsPublish = false;
             mapForUpdate.Reject = false;

@@ -869,6 +869,46 @@ namespace DataAccess.Migrations
                     b.ToTable("NumberOfRooms");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.OnlineScreen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ConnectionId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ScreenId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScreenId");
+
+                    b.ToTable("OnlineScreens");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.OnlineUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ConnectionId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OnlineUsers");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -1747,6 +1787,24 @@ namespace DataAccess.Migrations
                     b.HasOne("Core.Entities.Concrete.SubScreen", "SubScreen")
                         .WithMany("NewsSubScreens")
                         .HasForeignKey("SubScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.OnlineScreen", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.Screen", "Screen")
+                        .WithMany("OnlineScreens")
+                        .HasForeignKey("ScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.OnlineUser", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.User", "User")
+                        .WithMany("OnlineUsers")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

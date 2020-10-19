@@ -5,11 +5,10 @@ import { IUserList } from 'src/app/shared/models/IUser';
 import { IPagination } from 'src/app/shared/models/IPagination';
 import { UserParams } from 'src/app/shared/models/UserParams';
 import { environment } from 'src/environments/environment';
-import { map, catchError, tap, finalize, delay } from 'rxjs/operators';
+import { map, catchError, tap,delay } from 'rxjs/operators';
 import { produce } from 'immer';
 import { NotifyService } from '../notify-service';
 import { LoadingService } from '../loading-service';
-import { ErrorMessagesService } from '../error-messages.service';
 import { IUserPhoto } from 'src/app/shared/models/IUserPhoto';
 
 @Injectable({ providedIn: 'root' })
@@ -25,7 +24,6 @@ export class UserStore {
     private httpClient: HttpClient,
     private notificationService: NotifyService,
     private loadingService: LoadingService,
-    private errorMessageService: ErrorMessagesService
   ) {
     this.getUsers(this.userParams);
   }

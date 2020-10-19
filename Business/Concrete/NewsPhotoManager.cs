@@ -46,7 +46,7 @@ namespace Business.Concrete
             var uploadFile = new UploadedFileResultDto();
             if (uploadDto.FileType.ToLower() == "image")
             {
-                uploadFile = await upload.Upload(uploadDto.File, "announce");
+                uploadFile = await upload.Upload(uploadDto.File, "news");
             }
 
             var mapForCreate = new NewsPhotoForCreationDto();
@@ -70,13 +70,13 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
 
-            var deleteFileFromFolder = await upload.DeleteFile(checkByIdFromRepo.Name, "announce");
+            var deleteFileFromFolder = await upload.DeleteFile(checkByIdFromRepo.Name, "news");
 
             await newsPhotoDal.Delete(checkByIdFromRepo);
             return mapper.Map<NewsPhoto, NewsPhotoForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,News.List,News.All", Priority = 1)]
+        //[SecuredOperation("Sudo,News.List,News.All", Priority = 1)]
         public async Task<List<NewsPhotoForReturnDto>> GetListAsync(int announceId)
         {
             var getListFromRepo = await newsPhotoDal.GetListAsync(x => x.NewsId == announceId);

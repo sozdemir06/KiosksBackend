@@ -1,8 +1,10 @@
 using System.Threading.Tasks;
+using API.Hubs;
 using Business.Abstract;
 using Core.Utilities.Security.Jwt;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace API.Controllers
 {
@@ -12,8 +14,10 @@ namespace API.Controllers
     {
         private readonly IAuthService authService;
         private readonly IUserService userService;
-        public AuthController(IAuthService authService, IUserService userService)
+        private readonly IHubContext<AdminHub> hubContext;
+        public AuthController(IAuthService authService, IUserService userService, IHubContext<AdminHub> hubContext)
         {
+            this.hubContext = hubContext;
             this.userService = userService;
             this.authService = authService;
 
@@ -36,9 +40,9 @@ namespace API.Controllers
         {
             await authService.UserExist(userForRegisterDto.Email);
             var result = await authService.Register(userForRegisterDto, userForRegisterDto.Password);
-            return await userService.GetUserAsync(result.Email);
-
-
+            var user = await userService.GetUserAsync(result.Email);
+            await hubContext.Clients.Group("User").SendAsync("ReceiveNewUser",user);
+            return user;
 
         }
     }

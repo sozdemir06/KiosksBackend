@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Hubs;
 using Business.Abstract;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace API.Controllers
 {
@@ -11,8 +13,14 @@ namespace API.Controllers
     public class FoodMenuSubScreenController : ControllerBase
     {
         private readonly IFoodMenuSubScreenService foodMenuSubScreenService;
-        public FoodMenuSubScreenController(IFoodMenuSubScreenService foodMenuSubScreenService)
+        private readonly IHubContext<KiosksHub> kiosksHub;
+        private readonly IOnlineScreenService onlineScreenService;
+        public FoodMenuSubScreenController(IFoodMenuSubScreenService foodMenuSubScreenService,
+        IOnlineScreenService onlineScreenService,
+        IHubContext<KiosksHub> kiosksHub)
         {
+            this.onlineScreenService = onlineScreenService;
+            this.kiosksHub = kiosksHub;
             this.foodMenuSubScreenService = foodMenuSubScreenService;
 
         }
@@ -20,7 +28,14 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<FoodMenuSubScreenForReturnDto>> Create(FoodMenuSubScreenForCreationDto creationDto)
         {
-            return await foodMenuSubScreenService.Create(creationDto);
+            var subscreen = await foodMenuSubScreenService.Create(creationDto);
+            var onlineScreensByScreenId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
+            if (onlineScreensByScreenId != null && onlineScreensByScreenId.Length != 0)
+            {
+                await kiosksHub.Clients.Clients(onlineScreensByScreenId).SendAsync("ReceiveFoodMenuSubScreen", subscreen, "create");
+            }
+            return subscreen;
+
         }
 
         [HttpGet("{announceId}")]
@@ -32,7 +47,13 @@ namespace API.Controllers
         [HttpDelete("{Id}")]
         public async Task<ActionResult<FoodMenuSubScreenForReturnDto>> Delete(int Id)
         {
-            return await foodMenuSubScreenService.Delete(Id);
+            var subscreen = await foodMenuSubScreenService.Delete(Id);
+            var onlineScreensByScreenId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
+            if (onlineScreensByScreenId != null && onlineScreensByScreenId.Length != 0)
+            {
+                await kiosksHub.Clients.Clients(onlineScreensByScreenId).SendAsync("ReceiveFoodMenuSubScreen", subscreen, "delete");
+            }
+            return subscreen;
         }
     }
 }

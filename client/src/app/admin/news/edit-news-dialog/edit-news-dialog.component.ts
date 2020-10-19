@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NewsStore } from 'src/app/core/services/stores/news-store';
 import { HelperService } from 'src/app/core/services/helper-service';
 import { UserStore } from 'src/app/core/services/stores/user-store';
+import { AdminHubService } from 'src/app/core/services/admin-hub-signalr-service';
 
 @Component({
   selector: 'app-edit-news-dialog',
@@ -32,7 +33,8 @@ export class EditNewsDialogComponent implements OnInit, OnDestroy {
     private newsStore: NewsStore,
     private fb: FormBuilder,
     public helperService: HelperService,
-    public userStore: UserStore
+    public userStore: UserStore,
+    private hubService:AdminHubService
   ) {
     this.title = data?.title;
     this.mode = data?.mode;

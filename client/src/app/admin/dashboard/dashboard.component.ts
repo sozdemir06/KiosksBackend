@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import { AdminHubService } from 'src/app/core/services/admin-hub-signalr-service';
+import { KiosksHubService } from 'src/app/kiosks/store/kiosks-hub';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -13,7 +15,9 @@ export class DashboardComponent implements OnInit,OnDestroy{
   sideNavBehavior:string="side";
 
   constructor(
-   private breakPointObserver:BreakpointObserver
+   private breakPointObserver:BreakpointObserver,
+   private adminHubService:AdminHubService,
+   private kiosksHub:KiosksHubService
   ) { }
 
   ngOnInit(): void {
@@ -34,8 +38,9 @@ export class DashboardComponent implements OnInit,OnDestroy{
           this.sideNavBehavior="side";
         }
       })
-    
 
+      this.adminHubService.onListenersForAdmin();
+      this.kiosksHub.createHubConnection();
   
   }
 

@@ -12,6 +12,7 @@ namespace Core.Entities.Concrete
         public ScreenHeader ScreenHeaders { get; set; }
         public ScreenFooter ScreenFooters { get; set; }
         public ICollection<SubScreen> SubScreens { get; set; }
+        public ICollection<OnlineScreen> OnlineScreens { get; set; }
         public ICollection<HomeAnnounceSubScreen> HomeAnnounceSubScreens { get; set; }
         public ICollection<VehicleAnnounceSubScreen> VehicleAnnounceSubScreens { get; set; }
         public ICollection<AnnounceSubScreen> AnnounceSubScreens { get; set; }

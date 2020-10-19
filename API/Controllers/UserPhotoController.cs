@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Hubs;
 using Business.Abstract;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace API.Controllers
 {
@@ -11,22 +13,26 @@ namespace API.Controllers
     public class UserPhotoController : ControllerBase
     {
         private readonly IUserPhotoService userPhotoService;
-        public UserPhotoController(IUserPhotoService userPhotoService)
+        private readonly IHubContext<AdminHub> hubContext;
+        public UserPhotoController(IUserPhotoService userPhotoService, IHubContext<AdminHub> hubContext)
         {
+            this.hubContext = hubContext;
             this.userPhotoService = userPhotoService;
 
         }
 
-         [HttpGet("{userId}")]
+        [HttpGet("{userId}")]
         public async Task<ActionResult<List<UserPhotoForReturnDto>>> List(int userId)
         {
             return await userPhotoService.GetListAsync(userId);
         }
-        
+
         [HttpPost]
-        public async Task<ActionResult<UserPhotoForReturnDto>> Create([FromForm]FileUploadDto uploadDto)
+        public async Task<ActionResult<UserPhotoForReturnDto>> Create([FromForm] FileUploadDto uploadDto)
         {
-            return await userPhotoService.Create(uploadDto);
+            var photo= await userPhotoService.Create(uploadDto);
+            await hubContext.Clients.Group("User").SendAsync("ReceiveNewUserProfilePhoto",photo);
+            return photo;
         }
 
         [HttpPut]

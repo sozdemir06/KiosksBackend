@@ -34,7 +34,6 @@ namespace Business.Concrete
             this.upload = upload;
             this.mapper = mapper;
             this.announcePhotoDal = announcePhotoDal;
-
         }
 
         [SecuredOperation("Sudo,Announces.Create,Announces.All", Priority = 1)]
@@ -116,6 +115,7 @@ namespace Business.Concrete
             mapForCreate.FileType = uploadFile.FileType;
             mapForCreate.Duration = uploadDto.Duration;
             mapForCreate.IsConfirm = false;
+            mapForCreate.UnConfirm = false;
             var mapForDb = mapper.Map<AnnouncePhoto>(mapForCreate);
             var createPhoto = await announcePhotoDal.Add(mapForDb);
 

@@ -60,7 +60,7 @@ namespace Business.Concrete
             return mapper.Map<FoodMenuBgPhoto, FoodMenuBgPhotoForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,FoodMenu.List,FoodMenu.All", Priority = 1)]
+        //[SecuredOperation("Sudo,FoodMenu.List,FoodMenu.All", Priority = 1)]
         public async Task<List<FoodMenuBgPhotoForReturnDto>> GetListAsync()
         {
             var getListFromRepo = await foodMenuBgPhotoDal.GetListAsync();

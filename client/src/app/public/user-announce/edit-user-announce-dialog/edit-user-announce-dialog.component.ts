@@ -2,6 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { AdminHubService } from 'src/app/core/services/admin-hub-signalr-service';
 import { HelperService } from 'src/app/core/services/helper-service';
 import { AnnounceContentTypeStore } from 'src/app/core/services/stores/announce-content-type-store';
 import { IUser } from 'src/app/shared/models/IUser';
@@ -29,7 +30,8 @@ export class EditUserAnnounceDialogComponent implements OnInit,OnDestroy {
     private userAnnouncestore: UserAnnounceStore,
     public announceContentTypeStore: AnnounceContentTypeStore,
     private fb: FormBuilder,
-    public helperService: HelperService
+    public helperService: HelperService,
+    private adminHubService:AdminHubService
   ) {
     this.title = data?.title;
     this.mode = data?.mode;

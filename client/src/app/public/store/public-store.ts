@@ -16,7 +16,8 @@ export class PublicStore {
   constructor(
     private httpClient: HttpClient,
     private loadingService: LoadingService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    
   ) {
     this.getList();
   }

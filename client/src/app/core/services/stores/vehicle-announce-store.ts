@@ -304,6 +304,67 @@ export class VehilceAnnounceStore {
       })
     );
   }
+
+  //SignalR Events
+  createNewVehicleAnnounce(model:IVehicleAnnounceList):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      draft.data.push(model);
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Yeni Araç İlanı Eklendi...');
+  }
+
+  updateVehicleannounce(model:IVehicleAnnounceList):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===model.id);
+      if(index!=-1){
+        draft.data[index]=model;
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Araç İlanı Güncellendi...');
+  }
+  addNewPhotoRealTime(photo:IVehicleAnnouncePhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.vehicleAnnounceId);
+      if(index!=-1){
+         draft.data[index].vehicleAnnouncePhotos.push(photo);
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Araç için Yeni Fotoğraf Eklendi...');
+  }
+
+  updatePhotoRealTime(photo:IVehicleAnnouncePhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.vehicleAnnounceId);
+      if(index!=-1){
+        const photoIndex=draft.data[index].vehicleAnnouncePhotos.findIndex(x=>x.id==photo.id);
+        if(photoIndex!=-1){
+          draft.data[index].vehicleAnnouncePhotos[photoIndex]=photo;
+        }
+        
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Araç için Fotoğraf Güncellendi...');
+  }
+
+  removePhotoRealTime(photo:IVehicleAnnouncePhoto):void{
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const index=draft.data.findIndex(x=>x.id===photo.vehicleAnnounceId);
+      if(index!=-1){
+        const photoIndex=draft.data[index].vehicleAnnouncePhotos.findIndex(x=>x.id==photo.id);
+        if(photoIndex!=-1){
+          draft.data[index].vehicleAnnouncePhotos.splice(photoIndex,1);
+        }
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Araç için Fotoğraf Silindi...');
+  }
+
+
   getParams(): VehicleAnnounceParams {
     return this.vehicleAnnounceParams;
   }

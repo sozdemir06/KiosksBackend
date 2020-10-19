@@ -109,9 +109,9 @@ namespace Business.Concrete
             return mapper.Map<HomeAnnounce, HomeAnnounceForReturnDto>(getByIdFromRepo);
         }
 
-       
 
-        [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
+
+        //[SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
         public async Task<Pagination<HomeAnnounceForReturnDto>> GetListAsync(HomeAnnounceParams queryParams)
         {
             var spec = new HomeAnnounceWithPhotoAndUserSpecification(queryParams);
@@ -165,6 +165,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.AnnounceType = "home";
             await homeAnnounceDal.Update(mapForUpdate);
 
             var spec = new HomeAnnounceWithPhotoAndUserSpecification(updateDto.Id);
@@ -186,6 +187,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.AnnounceType = "home";
             await homeAnnounceDal.Update(mapForUpdate);
 
             var spec = new HomeAnnounceWithPhotoAndUserSpecification(updateDto.Id);
@@ -196,9 +198,9 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Public", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnounceValidator), Priority = 2)]
-        public async Task<HomeAnnounceForUserDto> UpdateForPublicAsync(HomeAnnounceForCreationDto creationDto,int userId)
+        public async Task<HomeAnnounceForUserDto> UpdateForPublicAsync(HomeAnnounceForCreationDto creationDto, int userId)
         {
-           
+
 
             var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
             if (claimId != userId)
@@ -206,8 +208,8 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.OperationDenied });
             }
 
-             var checkFromRepo = await homeAnnounceDal.GetAsync(x => x.Id == creationDto.Id);
-             
+            var checkFromRepo = await homeAnnounceDal.GetAsync(x => x.Id == creationDto.Id);
+
             if (checkFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
@@ -216,6 +218,7 @@ namespace Business.Concrete
             var mapForUpdate = mapper.Map(creationDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
             mapForUpdate.IsNew = true;
+            mapForUpdate.AnnounceType = "home";
             mapForUpdate.IsPublish = false;
             mapForUpdate.Reject = false;
             await homeAnnounceDal.Update(mapForUpdate);

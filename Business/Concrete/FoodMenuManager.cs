@@ -40,13 +40,13 @@ namespace Business.Concrete
         [ValidationAspect(typeof(FoodMenuValidator), Priority = 2)]
         public async Task<FoodMenuForReturnDto> Create(FoodMenuForCreationDto creationDto)
         {
-             var claimId=int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+            var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
 
-              
+
             var mapForCreate = mapper.Map<FoodMenu>(creationDto);
             var slideId = Guid.NewGuid();
             mapForCreate.SlideId = slideId;
-            mapForCreate.UserId=claimId;
+            mapForCreate.UserId = claimId;
             mapForCreate.Created = DateTime.Now;
             mapForCreate.AnnounceType = "foodmenu";
 
@@ -88,7 +88,7 @@ namespace Business.Concrete
             return mapper.Map<FoodMenu, FoodMenuForDetailDto>(getDetailFromRepo);
         }
 
-        [SecuredOperation("Sudo,FoodMenu.List,FoodMenu.All", Priority = 1)]
+        // [SecuredOperation("Sudo,FoodMenu.List,FoodMenu.All", Priority = 1)]
         public async Task<Pagination<FoodMenuForReturnDto>> GetListAsync(FoodMenuParams queryParams)
         {
             var spec = new FoodMenuWithPagingSpecification(queryParams);
@@ -121,12 +121,12 @@ namespace Business.Concrete
             }
 
             var checkHomeAnnounceSubScreenForPublish = await foodMenuSubScreenDal.GetListAsync(x => x.FoodMenuId == updateDto.Id);
-            if (checkHomeAnnounceSubScreenForPublish.Count<=0)
+            if (checkHomeAnnounceSubScreenForPublish.Count <= 0)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotSelectSubScreen = Messages.NotSelectSubScreen });
             }
 
-             if (updateDto.IsPublish)
+            if (updateDto.IsPublish)
             {
                 var checkDateExpire = DateTime.Compare(DateTime.Now, checkFromRepo.PublishFinishDate);
                 if (checkDateExpire > 0)
@@ -138,6 +138,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.AnnounceType = "foodmenu";
             await foodMenuDal.Update(mapForUpdate);
 
             var spec = new FoodMenuWithUserSpecification(updateDto.Id);
@@ -158,6 +159,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
+            mapForUpdate.AnnounceType = "foodmenu";
             await foodMenuDal.Update(mapForUpdate);
 
             var spec = new FoodMenuWithUserSpecification(updateDto.Id);

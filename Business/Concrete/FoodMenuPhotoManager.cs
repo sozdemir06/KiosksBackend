@@ -50,7 +50,7 @@ namespace Business.Concrete
             mapForCreate.FoodMenuId = uploadDto.AnnounceId;
             mapForCreate.FileType = uploadFile.FileType;
             mapForCreate.IsConfirm = false;
-            mapForCreate.UnConfirm = true;
+            mapForCreate.UnConfirm = false;
             var mapForDb = mapper.Map<FoodMenuPhoto>(mapForCreate);
             var createPhoto = await foodMenuPhotoDal.Add(mapForDb);
             return mapper.Map<FoodMenuPhoto, FoodMenuPhotoForReturnDto>(createPhoto);

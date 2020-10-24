@@ -62,7 +62,7 @@
           matBadgeColor="warn"
           [matBadgeHidden]="onPhotoWaitConfirmCount(element) === 0"
           matBadgeSize="small"
-          >preview</mat-icon
+          >more_vert</mat-icon
         >
       </button>
       <mat-menu #tableMenu="matMenu">
@@ -99,7 +99,7 @@
           (click)="onEditNotifyGroup(element)"
           *appHasRole="allowedRolesForNotify"
         >
-          <mat-icon>notification_important</mat-icon>
+          <mat-icon>add_alert</mat-icon>
           <span>Admin Kullanıcı Bildirimleri</span>
         </button>
         <button

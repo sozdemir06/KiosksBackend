@@ -83,7 +83,7 @@
             src="{{ image.fullPath }}"
             [ngStyle]="{ width: screenWidth + 'vw' }"
             style="
-              max-width: 100%;
+              max-width: 100vw;
               max-height: 90vh;
               display: block;
               margin: 0 auto;
@@ -101,7 +101,7 @@
           [id]="
             announce?.slideId +
             '_' +
-            i +
+            i +''+ai+
             '_' +
             announce.announceType?.toLowerCase() +
             '_' +
@@ -120,7 +120,7 @@
               #video
               (ended)="onEnded($event)"
               (loadedmetadata)="onLoadedloaded($event)"
-              id="{{ i }}"
+              id="{{ i+''+ai }}"
               class="w-100 h-100"
               muted
               [muted]="'muted'"

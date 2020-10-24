@@ -14,20 +14,20 @@ namespace API.Controllers
     public class HomeAnnouncesController : ControllerBase
     {
         private readonly IHomeAnnounceService homeAnnounceService;
+        private readonly UserTracker userTracker;
         private readonly IKiosksService kiosksService;
         private readonly IHubContext<KiosksHub> kiosksHub;
         private readonly IOnlineScreenService onlineScreenService;
         private readonly IHubContext<AdminHub> hubContext;
-        private readonly IOnlineUserService onlineUserService;
-        public HomeAnnouncesController(IHomeAnnounceService homeAnnounceService, IKiosksService kiosksService,
+        public HomeAnnouncesController(IHomeAnnounceService homeAnnounceService, UserTracker userTracker,
+        IKiosksService kiosksService,
         IHubContext<KiosksHub> kiosksHub,
         IOnlineScreenService onlineScreenService,
-        IOnlineUserService onlineUserService,
          IHubContext<AdminHub> hubContext)
         {
-            this.onlineUserService = onlineUserService;
             this.hubContext = hubContext;
             this.homeAnnounceService = homeAnnounceService;
+            this.userTracker = userTracker;
             this.kiosksService = kiosksService;
             this.kiosksHub = kiosksHub;
             this.onlineScreenService = onlineScreenService;
@@ -44,10 +44,10 @@ namespace API.Controllers
         public async Task<ActionResult<HomeAnnounceForReturnDto>> Create([FromBody] HomeAnnounceForCreationDto creationDto)
         {
             var homeAnnounce = await homeAnnounceService.Create(creationDto);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds != null && connIds.Length != 0)
             {
-                await hubContext.Clients.GroupExcept("Home", connId).SendAsync("ReceiveNewHomeAnnounce", homeAnnounce);
+                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveNewHomeAnnounce", homeAnnounce,true);
             }
 
             return homeAnnounce;
@@ -57,10 +57,10 @@ namespace API.Controllers
         public async Task<ActionResult<HomeAnnounceForReturnDto>> Update(HomeAnnounceForCreationDto updateDto)
         {
             var homeAnnounce = await homeAnnounceService.Update(updateDto);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds != null && connIds.Length != 0)
             {
-                await hubContext.Clients.GroupExcept("Home", connId).SendAsync("ReceiveUpdateHomeAnnounce", homeAnnounce);
+                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveUpdateHomeAnnounce", homeAnnounce);
             }
 
             var onlineScreensConnectionId = await onlineScreenService.GetAllOnlineScreenConnectionId();
@@ -105,10 +105,10 @@ namespace API.Controllers
         public async Task<ActionResult<HomeAnnounceForUserDto>> CreateForUser([FromBody] HomeAnnounceForCreationDto creationDto, int userId)
         {
             var homeAnnounce = await homeAnnounceService.CreateForPublicAsync(creationDto, userId);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds != null && connIds.Length != 0)
             {
-                await hubContext.Clients.GroupExcept("Home", connId).SendAsync("ReceiveNewHomeAnnounce", homeAnnounce);
+                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveNewHomeAnnounce", homeAnnounce,true);
             }
 
             return homeAnnounce;
@@ -118,10 +118,10 @@ namespace API.Controllers
         public async Task<ActionResult<HomeAnnounceForUserDto>> UpdateForPublic(HomeAnnounceForCreationDto updateDto, int userId)
         {
             var homeAnnounce = await homeAnnounceService.UpdateForPublicAsync(updateDto, userId);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds != null && connIds.Length != 0)
             {
-                await hubContext.Clients.GroupExcept("Home", connId).SendAsync("ReceiveUpdateHomeAnnounce", homeAnnounce);
+                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveUpdateHomeAnnounce", homeAnnounce,true);
             }
 
             return homeAnnounce;

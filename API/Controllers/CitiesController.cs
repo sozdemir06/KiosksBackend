@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Hubs;
 using Business.Abstract;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace API.Controllers
 {
@@ -11,10 +13,18 @@ namespace API.Controllers
     public class CitiesController : ControllerBase
     {
         private readonly ICityService cityService;
-        public CitiesController(ICityService cityService)
+        private readonly IWheatherForeCastService wheatherForeCastService;
+        private readonly IHubContext<KiosksHub> kiosksHub;
+        private readonly IOnlineScreenService onlineScreenService;
+        public CitiesController(ICityService cityService,
+        IWheatherForeCastService wheatherForeCastService,
+        IHubContext<KiosksHub> kiosksHub, 
+        IOnlineScreenService onlineScreenService)
         {
+            this.onlineScreenService = onlineScreenService;
             this.cityService = cityService;
-
+            this.wheatherForeCastService = wheatherForeCastService;
+            this.kiosksHub = kiosksHub;
         }
 
         [HttpGet]
@@ -32,7 +42,17 @@ namespace API.Controllers
         [HttpPut]
         public async Task<ActionResult<CityForReturnDto>> Update(CityForCreationDto updateDto)
         {
-            return await cityService.Update(updateDto);
+            var city = await cityService.Update(updateDto);
+            var onlineScreens=await onlineScreenService.GetAllOnlineScreenConnectionId();
+            if(onlineScreens!=null && onlineScreens.Length!=0)
+            {
+                var foreCastsForKiosks=await wheatherForeCastService.WheatherForeCastsAsync();
+                if(foreCastsForKiosks!=null)
+                {
+                    await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReceiveWheatherForeCast",foreCastsForKiosks);
+                }
+            }
+            return city;
         }
 
         [HttpDelete("{itemId}")]

@@ -6,6 +6,7 @@ import { NotifyService } from '../notify-service';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { IExchangeRate } from 'src/app/shared/models/IExchangeRate';
+import produce from 'immer';
 
 @Injectable({ providedIn: 'root' })
 export class ExchangeRateStore {
@@ -18,7 +19,9 @@ export class ExchangeRateStore {
     private loadingService: LoadingService,
     private notifyService: NotifyService
   ) {
+
       this.getList();
+     
   }
 
   private getList() {
@@ -35,5 +38,15 @@ export class ExchangeRateStore {
         })
       );
     this.loadingService.showLoaderUntilCompleted(list$).subscribe();
+  }
+
+
+  updateRealTime(exchangeRate:IExchangeRate[]){
+     this.subject.next(exchangeRate);
+     this.notifyService.notify("success","Yeni Kur Eklendi...");
+  }
+
+  getListByInterval(){
+    this.getList();
   }
 }

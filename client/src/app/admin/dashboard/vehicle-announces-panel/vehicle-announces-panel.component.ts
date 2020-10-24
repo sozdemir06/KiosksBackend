@@ -9,7 +9,6 @@ import { VehilceAnnounceStore } from 'src/app/core/services/stores/vehicle-annou
 export class VehicleAnnouncesPanelComponent implements OnInit {
   allowedRolesForList: string[] = [
     'Sudo',
-    'VehicleAnnounces.List',
     'VehicleAnnounces.All',
     'VehicleAnnounces.Create',
     'VehicleAnnounces.Update'

@@ -311,7 +311,7 @@ export class VehilceAnnounceStore {
       draft.data.push(model);
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Yeni Araç İlanı Eklendi...');
+    this.notifyService.notify('success', `${model.header} başlıklı yeni araç ilanı eklendi...`);
   }
 
   updateVehicleannounce(model:IVehicleAnnounceList):void{
@@ -322,7 +322,7 @@ export class VehilceAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Araç İlanı Güncellendi...');
+    this.notifyService.notify('success', `${model.header} başlıklı  araç ilanı güncellendi...`);
   }
   addNewPhotoRealTime(photo:IVehicleAnnouncePhoto):void{
     const updateSubject=produce(this.subject.getValue(),draft=>{
@@ -332,7 +332,7 @@ export class VehilceAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Araç için Yeni Fotoğraf Eklendi...');
+    this.notifyService.notify('success', `${this.getAnnounceById(photo.vehicleAnnounceId)} başlıklı araç ilanı için yeni fotoğraf eklendi...`);
   }
 
   updatePhotoRealTime(photo:IVehicleAnnouncePhoto):void{
@@ -347,7 +347,7 @@ export class VehilceAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Araç için Fotoğraf Güncellendi...');
+    this.notifyService.notify('success',`${this.getAnnounceById(photo.vehicleAnnounceId)} başlıklı araç ilanı için  fotoğraf güncellendi...`);
   }
 
   removePhotoRealTime(photo:IVehicleAnnouncePhoto):void{
@@ -361,9 +361,16 @@ export class VehilceAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Araç için Fotoğraf Silindi...');
+    this.notifyService.notify('success', `${this.getAnnounceById(photo.vehicleAnnounceId)} başlıklı araç ilanı için fotoğraf kaldırıldı...`);
   }
 
+  private getAnnounceById(id:number):string{
+    let vehicleannounce:IVehicleAnnounceList;
+     produce(this.subject.getValue(),draft=>{
+        vehicleannounce=draft.data.find(x=>x.id===id);
+     });
+     return vehicleannounce.header;
+  }
 
   getParams(): VehicleAnnounceParams {
     return this.vehicleAnnounceParams;

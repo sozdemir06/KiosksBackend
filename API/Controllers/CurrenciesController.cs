@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Hubs;
 using Business.Abstract;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace API.Controllers
 {
@@ -11,10 +13,18 @@ namespace API.Controllers
     public class CurrenciesController : ControllerBase
     {
         private readonly ICurrencyService currencyService;
-        public CurrenciesController(ICurrencyService currencyService)
+        private readonly IExchangeRateService exchangeRateService;
+        private readonly IOnlineScreenService onlineScreenService;
+        private readonly IHubContext<KiosksHub> kiosksHub;
+        public CurrenciesController(ICurrencyService currencyService,
+        IExchangeRateService exchangeRateService,
+         IHubContext<KiosksHub> kiosksHub,
+        IOnlineScreenService onlineScreenService)
         {
+            this.kiosksHub = kiosksHub;
+            this.onlineScreenService = onlineScreenService;
             this.currencyService = currencyService;
-
+            this.exchangeRateService = exchangeRateService;
         }
 
         [HttpGet]
@@ -32,7 +42,17 @@ namespace API.Controllers
         [HttpPut]
         public async Task<ActionResult<CurrencyForReturnDto>> Update(CurrencyForCreationDto updateDto)
         {
-            return await currencyService.Update(updateDto);
+            var currency= await currencyService.Update(updateDto);
+            var onlineScreensConnectionId=await onlineScreenService.GetAllOnlineScreenConnectionId();
+            if(onlineScreensConnectionId!=null && onlineScreensConnectionId.Length!=0)
+            {
+                var currencyForKisosk=await exchangeRateService.GetExChangeRateAsync();
+                if(currencyForKisosk!=null)
+                {
+                    await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveExchangeRate",currencyForKisosk);
+                }
+            }
+            return currency;
         }
 
         [HttpDelete("{itemId}")]

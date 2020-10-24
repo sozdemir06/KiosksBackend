@@ -7,7 +7,7 @@ import { AnnounceStore } from 'src/app/core/services/stores/announce-store';
   styleUrls: ['./announce-panel.component.scss']
 })
 export class AnnouncePanelComponent implements OnInit {
-  allowedRolesForList:string[]=['Sudo','Announces.List','Announces.All',"Announces.Create","Announces.Update"]
+  allowedRolesForList:string[]=['Sudo','Announces.All',"Announces.Create","Announces.Update"]
   constructor(
     public announceStore:AnnounceStore
   ) { }

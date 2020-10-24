@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
           'error',
           'Bu Link için yetkiniz bulunmamaktadır...'
         );
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/app/home');
 
         return false;
       }

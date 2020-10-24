@@ -19,8 +19,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserPhoto> UserPhotos { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -69,7 +67,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<LiveTvBroadCastSubScreen> LiveTvBroadCastSubScreens { get; set; }
         public DbSet<NotifyGroup> NotifyGroups { get; set; }
         public DbSet<UserNotifyGroup> UserNotifyGroups { get; set; }
-        public DbSet<OnlineUser> OnlineUsers { get; set; }
         public DbSet<OnlineScreen> OnlineScreens { get; set; }
       
     }

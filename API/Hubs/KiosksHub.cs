@@ -10,17 +10,22 @@ namespace API.Hubs
     public class KiosksHub : Hub
     {
         private readonly IOnlineScreenService onlineScreenService;
+        private readonly KiosksScreenTracker kiosksScreenTracker;
 
-        public KiosksHub(IOnlineScreenService onlineScreenService)
+        public KiosksHub(IOnlineScreenService onlineScreenService, 
+        KiosksScreenTracker kiosksScreenTracker)
         {
+            this.kiosksScreenTracker = kiosksScreenTracker;
             this.onlineScreenService = onlineScreenService;
-
 
         }
 
         public override async Task OnConnectedAsync()
         {
             await Clients.Caller.SendAsync("OnConnected", Context.ConnectionId);
+            var onlineScreens = await onlineScreenService.GetAllOnlineScreenAsync();
+            var connectedScreenId = onlineScreens.Select(x => x.ScreenId).ToArray();
+            await Clients.All.SendAsync("OnlineScreens", connectedScreenId);
             await base.OnConnectedAsync();
         }
 

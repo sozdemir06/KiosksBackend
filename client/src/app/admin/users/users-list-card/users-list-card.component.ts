@@ -8,6 +8,7 @@ import { UserStore } from 'src/app/core/services/stores/user-store';
 import { EditUserRolesComponent } from '../edit-user-roles/edit-user-roles.component';
 import { EditUserNotfyGroupsComponent } from '../edit-user-notfy-groups/edit-user-notfy-groups.component';
 import { UserPhotoListComponent } from '../user-photo-list/user-photo-list.component';
+import { AdminHubService } from 'src/app/core/services/admin-hub-signalr-service';
 
 
 
@@ -24,7 +25,8 @@ export class UsersListCardComponent implements OnInit {
 
   constructor(
     private dialog:MatDialog,
-    private userStore:UserStore
+    private userStore:UserStore,
+    private adminHub:AdminHubService
   ) { }
 
   ngOnInit(): void {

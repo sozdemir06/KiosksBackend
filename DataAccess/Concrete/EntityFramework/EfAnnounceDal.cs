@@ -20,6 +20,9 @@ namespace DataAccess.Concrete.EntityFramework
 
                 var announces = await context.Announces
                                 .Include(u => u.User)
+                                .Include(x => x.User.Campus)
+                                .Include(x => x.User.Degree)
+                                .Include(x => x.User.Department)
                                 .Include(p => p.AnnouncePhotos)
                                 .Include(s => s.AnnounceSubScreens)
                                 .Where(
@@ -40,10 +43,13 @@ namespace DataAccess.Concrete.EntityFramework
 
                 var announces = await context.Announces
                                 .Include(u => u.User)
+                                .Include(x => x.User.Campus)
+                                .Include(x => x.User.Degree)
+                                .Include(x => x.User.Department)
                                 .Include(p => p.AnnouncePhotos)
                                 .Include(s => s.AnnounceSubScreens)
                                .Where(x => x.AnnounceSubScreens.Any(s => s.SubScreenId == subScreenId) &&
-                                 x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true || x.PublishStartDate >= DateTime.Now)
+                                 x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true)
                                  .AsNoTracking()
                                  .ToListAsync();
                 return announces;
@@ -72,6 +78,6 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        
+
     }
 }

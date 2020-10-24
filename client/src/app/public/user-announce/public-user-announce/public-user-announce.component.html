@@ -102,18 +102,18 @@
             </button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="onDetail(element)">
-                <mat-icon>preview</mat-icon>
+                <mat-icon>search</mat-icon>
                 <span>Göz At</span>
               </button>
               <ng-container *ngIf="element?.contentType?.toLowerCase()=='image'">
                 <button mat-menu-item (click)="onEditPhoto(element)">
-                  <mat-icon>add_photo_alternate</mat-icon>
+                  <mat-icon>insert_photo</mat-icon>
                   <span>Fotoğraf Ekle</span>
                 </button>
               </ng-container>
               <ng-container *ngIf="element?.contentType?.toLowerCase()=='video'">
                 <button mat-menu-item (click)="onEditPhoto(element)">
-                  <mat-icon>add_photo_alternate</mat-icon>
+                  <mat-icon>insert_photo</mat-icon>
                   <span>Video Ekle</span>
                 </button>
               </ng-container>

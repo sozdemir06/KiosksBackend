@@ -8,7 +8,7 @@ import { UserStore } from 'src/app/core/services/stores/user-store';
 })
 export class UserPanelComponent implements OnInit {
 
-  allowedRoles:string[]=['Sudo','User.List','User.All',"User.Create","User.Update"]
+  allowedRoles:string[]=['Sudo','User.All',"User.Create","User.Update"]
   
   constructor(
     public userStore:UserStore

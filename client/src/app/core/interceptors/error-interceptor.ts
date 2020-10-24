@@ -28,7 +28,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.router.navigateByUrl('/not-found');
           }
           if (error.status === 403) {
-            this.router.navigateByUrl('/not-found');
+            this.router.navigateByUrl('/app/auth');
           }
           if (error.status === 500) {
             this.router.navigateByUrl('/not-found');

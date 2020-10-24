@@ -14,21 +14,23 @@ namespace API.Controllers
     public class VehicleAnnounceController : ControllerBase
     {
         private readonly IVehicleAnnounceService vehicleAnnounceService;
+        private readonly UserTracker userTracker;
         private readonly IKiosksService kiosksService;
         private readonly IHubContext<KiosksHub> kiosksHub;
         private readonly IOnlineScreenService onlineScreenService;
         private readonly IHubContext<AdminHub> hubContext;
-        private readonly IOnlineUserService onlineUserService;
+
         public VehicleAnnounceController(IVehicleAnnounceService vehicleAnnounceService,
+        UserTracker userTracker,
         IKiosksService kiosksService,
         IHubContext<KiosksHub> kiosksHub,
         IOnlineScreenService onlineScreenService,
-        IOnlineUserService onlineUserService,
             IHubContext<AdminHub> hubContext)
         {
-            this.onlineUserService = onlineUserService;
+
             this.hubContext = hubContext;
             this.vehicleAnnounceService = vehicleAnnounceService;
+            this.userTracker = userTracker;
             this.kiosksService = kiosksService;
             this.kiosksHub = kiosksHub;
             this.onlineScreenService = onlineScreenService;
@@ -44,10 +46,10 @@ namespace API.Controllers
         public async Task<ActionResult<VehicleAnnounceForReturnDto>> Create(VehicleAnnounceForCreationDto creationDto)
         {
             var vehicleAnnounce = await vehicleAnnounceService.Create(creationDto);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("Car", connId).SendAsync("ReceiveNewVehicleannounce", vehicleAnnounce);
+                await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveNewVehicleannounce", vehicleAnnounce,true);
             }
 
             return vehicleAnnounce;
@@ -57,10 +59,10 @@ namespace API.Controllers
         public async Task<ActionResult<VehicleAnnounceForReturnDto>> Update(VehicleAnnounceForCreationDto creationDto)
         {
             var vehicleAnnounce = await vehicleAnnounceService.Update(creationDto);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+           var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("Car", connId).SendAsync("ReceiveUpdateVehicleannounce", vehicleAnnounce);
+                await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveUpdateVehicleannounce", vehicleAnnounce);
             }
 
             var screenConnectionId = await onlineScreenService.GetAllOnlineScreenConnectionId();
@@ -96,10 +98,10 @@ namespace API.Controllers
         public async Task<ActionResult<VehicleAnnounceForUserDto>> CreateForPublic(VehicleAnnounceForCreationDto creationDto, int userId)
         {
             var vehicleAnnounce = await vehicleAnnounceService.CreateForPublicAsync(creationDto, userId);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("Car", connId).SendAsync("ReceiveNewVehicleannounce", vehicleAnnounce);
+                await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveNewVehicleannounce", vehicleAnnounce,true);
             }
 
             return vehicleAnnounce;
@@ -108,10 +110,10 @@ namespace API.Controllers
         public async Task<ActionResult<VehicleAnnounceForUserDto>> UpdateForPublic(VehicleAnnounceForCreationDto creationDto, int userId)
         {
             var vehicleAnnounce = await vehicleAnnounceService.UpdateForPublicAsync(creationDto, userId);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+             var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("Car", connId).SendAsync("ReceiveUpdateVehicleannounce", vehicleAnnounce);
+                await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveUpdateVehicleannounce", vehicleAnnounce,true);
             }
 
             return vehicleAnnounce;

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, ViewChildren, QueryList, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { IKiosksSubScreenData } from 'src/app/shared/models/IKiosksSubScreenData';
-import { IKiosks } from '../models/IKiosks';
 import { HelperService } from 'src/app/core/services/helper-service';
 import { KiosksStore } from '../store/kiosks-store';
 import { map } from 'rxjs/operators';
@@ -81,7 +80,7 @@ data$: Observable<IKiosksSubScreenData>;
     const announces$ = this.kiosksStore.kiosks$.pipe(
       map((announces) =>
         announces.announces.filter((x) =>
-          x.announceSubScreens.filter((s) => s.screenId ==this.kiosksId &&
+          x.announceSubScreens.find((s) => s.screenId ==this.kiosksId &&
           new Date(x.publishStartDate) <= dateNow &&
           new Date(x.publishFinishDate) >= dateNow)
         )
@@ -91,7 +90,7 @@ data$: Observable<IKiosksSubScreenData>;
     const vehicleAnnounces$ = this.kiosksStore.kiosks$.pipe(
       map((vehicleannounces) =>
         vehicleannounces.vehicleAnnounces.filter((x) =>
-          x.vehicleAnnounceSubScreens.filter(
+          x.vehicleAnnounceSubScreens.find(
             (s) => s.screenId == this.kiosksId &&
             new Date(x.publishStartDate) <= dateNow &&
             new Date(x.publishFinishDate) >= dateNow
@@ -102,7 +101,7 @@ data$: Observable<IKiosksSubScreenData>;
     const homeAnnounces$ = this.kiosksStore.kiosks$.pipe(
       map((homeannounces) =>
         homeannounces.homeAnnounces.filter((x) =>
-          x.homeAnnounceSubScreens.filter(
+          x.homeAnnounceSubScreens.find(
             (s) => s.screenId == this.kiosksId&&
             new Date(x.publishStartDate) <= dateNow &&
             new Date(x.publishFinishDate) >= dateNow
@@ -113,7 +112,7 @@ data$: Observable<IKiosksSubScreenData>;
     const news$ = this.kiosksStore.kiosks$.pipe(
       map((news) =>
         news.news.filter((x) =>
-          x.newsSubScreens.filter( (s) => s.screenId == this.kiosksId &&
+          x.newsSubScreens.find( (s) => s.screenId == this.kiosksId &&
           new Date(x.publishStartDate) <= dateNow &&
           new Date(x.publishFinishDate) >= dateNow)
         )
@@ -122,7 +121,7 @@ data$: Observable<IKiosksSubScreenData>;
     const foodsMenu$ = this.kiosksStore.kiosks$.pipe(
       map((foodsMenu) =>
         foodsMenu.foodsMenu.filter((x) =>
-          x.foodMenuSubScreens.filter( (s) => s.screenId == this.kiosksId &&
+          x.foodMenuSubScreens.find( (s) => s.screenId == this.kiosksId &&
           new Date(x.publishStartDate) <= dateNow &&
           new Date(x.publishFinishDate) >= dateNow)
         )

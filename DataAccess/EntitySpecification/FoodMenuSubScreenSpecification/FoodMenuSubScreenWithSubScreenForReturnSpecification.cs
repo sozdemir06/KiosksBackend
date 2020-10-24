@@ -8,6 +8,7 @@ namespace DataAccess.EntitySpecification.FoodMenuSubScreenSpecification
         public FoodMenuSubScreenWithSubScreenForReturnSpecification(int foodMenuSubSCreendId):base(x=>x.Id==foodMenuSubSCreendId)
         {
             AddInclude(x=>x.SubScreen);
+
         }
     }
 }

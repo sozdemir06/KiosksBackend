@@ -1,4 +1,4 @@
-<ng-container *ngIf="position.toLowerCase()=='vertical'">
+<ng-container *ngIf="position?.toLowerCase()=='vertical'">
   <mat-card style="max-width: 100vw;" [ngStyle]="{height:height+'vh'}">
     <div class="container-fluid">
       <div class="row">
@@ -39,7 +39,7 @@
   </mat-card>  
 </ng-container>
 
-<ng-container *ngIf="position.toLowerCase()=='horizontal'">
+<ng-container *ngIf="position?.toLowerCase()=='horizontal'">
   <mat-card style="max-height: 90vh" [ngStyle]="{'max-width':width+'vw'}">
     <div class="container-fluid">
       <div class="row">

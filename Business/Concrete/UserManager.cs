@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -23,11 +24,21 @@ namespace Business.Concrete
     {
         private readonly IUserDal userDal;
         private readonly IRoleDal roleDal;
+        private readonly IRoleCategoryDal roleCategoryDal;
+        private readonly IAnnounceStatusCheck announceStatusCheck;
         private readonly IMapper mapper;
-        public UserManager(IUserDal userDal, IRoleDal roleDal, IMapper mapper)
+        private readonly IUserRoleDal userRoleDal;
+
+        public UserManager(IUserDal userDal, IRoleDal roleDal, IRoleCategoryDal roleCategoryDal,
+        IAnnounceStatusCheck announceStatusCheck,
+        IMapper mapper,
+        IUserRoleDal userRoleDal)
         {
+            this.userRoleDal = userRoleDal;
             this.mapper = mapper;
             this.roleDal = roleDal;
+            this.roleCategoryDal = roleCategoryDal;
+            this.announceStatusCheck = announceStatusCheck;
             this.userDal = userDal;
 
         }
@@ -44,8 +55,6 @@ namespace Business.Concrete
             return await userDal.GetAsync(x => x.Email == email);
         }
 
-
-       
 
         public async Task<UserForListDto> GetUserAsync(string email)
         {
@@ -88,7 +97,7 @@ namespace Business.Concrete
 
         }
 
-  
+
         public async Task<List<UserRoleForListDto>> GetUserRoles(User user)
         {
             var spec = new UserWithRoleSpecification(user);
@@ -114,10 +123,35 @@ namespace Business.Concrete
 
             var userForUpdate = mapper.Map(userForRegisterDto, userFromRepo);
 
-            var userUpdate=await userDal.Update(userForUpdate);
+
+
+            var userUpdate = await userDal.Update(userForUpdate);
             var spec = new UserWithCampusAndDepartmentAndDegreeSpecification(userUpdate.Email);
             var user = await userDal.GetEntityWithSpecAsync(spec);
-            return mapper.Map<User,UserForListDto>(user);
+
+            var chekcPublicRoles = await announceStatusCheck.CheckPublicRole(roleDal, roleCategoryDal);
+            var userRolePublic = await userRoleDal.GetAsync(x => x.Role.Name.ToLower() == "public");
+            if (user.IsActive)
+            {
+
+                if (userRolePublic == null)
+                {
+                    userRolePublic = new UserRole
+                    {
+                        UserId = user.Id,
+                        RoleId = chekcPublicRoles.Id
+                    };
+                    await userRoleDal.Add(userRolePublic);
+                }
+            }
+            else if (!user.IsActive)
+            {
+                if(userRolePublic!=null)
+                {
+                    await userRoleDal.Delete(userRolePublic);
+                }
+            }
+            return mapper.Map<User, UserForListDto>(user);
         }
     }
 }

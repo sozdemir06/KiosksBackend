@@ -7,7 +7,7 @@ import { NewsStore } from 'src/app/core/services/stores/news-store';
   styleUrls: ['./news-panel.component.scss']
 })
 export class NewsPanelComponent implements OnInit {
-  allowedRolesForList:string[]=['Sudo','News.List','News.All']
+  allowedRolesForList:string[]=['Sudo','News.All','News.Create','News.Update'];
   constructor(
     public newsStore:NewsStore
   ) { }

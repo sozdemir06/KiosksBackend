@@ -29,7 +29,7 @@
     >
       <app-homeannounce
         [homeannounce]="homeannounce"
-        [position]="kiosks.screen.position"
+        [position]="kiosks?.screen?.position"
         [height]="screenHeight"
       ></app-homeannounce>
     </ng-template>
@@ -56,7 +56,7 @@
     >
       <app-vehicleannounce
         [vehicleAnnounce]="vehicleAnnounce"
-        [position]="kiosks.screen.position"
+        [position]="kiosks?.screen?.position"
         [height]="screenHeight"
       ></app-vehicleannounce>
     </ng-template>
@@ -104,7 +104,7 @@
           [id]="
             announce?.slideId +
             '_' +
-            i +
+            i +''+ai+
             '_' +
             announce.announceType?.toLowerCase() +
             '_' +
@@ -120,7 +120,7 @@
             (ended)="onEnded($event)"
             (loadedmetadata)="onLoadedloaded($event)"
               #video
-              id="{{ i }}"
+              id="{{ i+''+ai }}"
               muted
               class="w-100 h-100"
               [muted]="'muted'"
@@ -159,7 +159,7 @@
       >
         <app-announce
           [announce]="announce"
-          [position]="kiosks.screen.position"
+          [position]="kiosks?.screen?.position"
           [height]="screenHeight"
         ></app-announce>
       </ng-template>
@@ -216,7 +216,7 @@
       >
         <app-news
           [news]="news"
-          [position]="kiosks.screen.position"
+          [position]="kiosks?.screen?.position"
           [height]="screenHeight"
         ></app-news>
       </ng-template>
@@ -241,7 +241,7 @@
     >
       <app-food-menu
         [foodMenu]="menu"
-        [position]="kiosks.screen.position"
+        [position]="kiosks?.screen?.position"
         [height]="screenHeight"
       ></app-food-menu>
     </ng-template>

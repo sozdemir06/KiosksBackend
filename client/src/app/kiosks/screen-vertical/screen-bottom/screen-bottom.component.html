@@ -101,7 +101,7 @@
           [id]="
             announce?.slideId +
             '_' +
-            i +
+            i +''+ai+
             '_' +
             announce.announceType?.toLowerCase() +
             '_' +
@@ -117,7 +117,7 @@
               #video
               (ended)="onEnded($event)"
               (loadedmetadata)="onLoadedloaded($event)"
-              id="{{ i }}"
+              id="{{ i+''+ai }}"
               muted
               class="w-100 h-100"
               [muted]="'muted'"

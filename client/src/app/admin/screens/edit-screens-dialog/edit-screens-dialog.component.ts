@@ -43,7 +43,9 @@ export class EditScreensDialogComponent implements OnInit {
     return this.screenForm.controls;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.screenForm.get("position").disable();
+  }
 
   onSubmit() {
     if (this.screenForm.valid) {
@@ -55,8 +57,8 @@ export class EditScreensDialogComponent implements OnInit {
         this.dialogRef.close();
       } else if (this.mode == 'update') {
         const model: IScreen = {
+          ...this.item,
           ...this.screenForm.value,
-          id: this.item?.id,
         };
 
         this.screenStore.update(model);

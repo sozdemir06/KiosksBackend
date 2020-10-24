@@ -87,7 +87,6 @@ export class RoleStore {
   }
 
   update(model:Partial<IRole>) {
-    console.log(model);
     const updatedRole$ = this.httpClient
       .put<IRole>(this.apiUrl + 'roles', model)
       .pipe(

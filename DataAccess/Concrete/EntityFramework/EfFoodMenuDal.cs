@@ -65,7 +65,7 @@ namespace DataAccess.Concrete.EntityFramework
                                 .Include(p => p.FoodMenuPhotos)
                                 .Include(s => s.FoodMenuSubScreens)
                                 .Where(x => x.FoodMenuSubScreens.Any(s => s.SubScreenId == subScreenId)
-                                 && x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true || x.PublishStartDate>=DateTime.Now)
+                                 && x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true)
                                  .AsNoTracking()
                                  .ToListAsync();
                 return foodsMenu;

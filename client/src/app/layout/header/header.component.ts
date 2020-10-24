@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+allowedAdminPanelRole:string[]=["Sudo","AdminPanel"];
   @Output() toggleSidenav=new EventEmitter();
   constructor(
     public authStore:AuthStore,

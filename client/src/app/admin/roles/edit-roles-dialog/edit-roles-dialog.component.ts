@@ -40,6 +40,7 @@ rolesForm:FormGroup;
     }else if(this.mode="update"){
       this.rolesForm=this.fb.group(formControls);
       this.rolesForm.patchValue({...this.role});
+      this.rolesForm.get("name").disable();
     }
 
   }
@@ -58,9 +59,8 @@ rolesForm:FormGroup;
       }else if(this.mode=="update")
       {
         const model:IRole={
+          ...this.role,
           ...this.rolesForm.value,
-          id:this.role.id,
-
         }
         
         this.roleStore.update(model);

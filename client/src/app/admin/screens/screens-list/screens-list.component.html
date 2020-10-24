@@ -73,10 +73,10 @@
           <mat-icon>link</mat-icon>
           <span>Alt Ekranlar</span>
         </button>
-        <button mat-menu-item [routerLink]="['/kiosks', element?.id]" *appHasRole="allowedPreviewRole">
-          <mat-icon>preview</mat-icon>
+        <!-- <button mat-menu-item [routerLink]="['/kiosks', element?.id]" *appHasRole="allowedPreviewRole">
+          <mat-icon>search</mat-icon>
           <span>Göz At</span>
-        </button>
+        </button> -->
         <ng-container *ngIf="!element.screenHeaders?.headerText">
           <button mat-menu-item (click)="onCreateHeader(element)">
             <mat-icon>line_style</mat-icon>
@@ -92,13 +92,13 @@
 
         <ng-container *ngIf="!element?.screenFooters?.id">
           <button mat-menu-item (click)="onCreateFooter(element)">
-            <mat-icon>horizontal_split</mat-icon>
+            <mat-icon>line_weight</mat-icon>
             <span>Alt Başlık Ekle</span>
           </button>
         </ng-container>
         <ng-container *ngIf="element?.screenFooters?.id">
           <button mat-menu-item (click)="onUpdateFooter(element)">
-            <mat-icon>horizontal_split</mat-icon>
+            <mat-icon>line_weight</mat-icon>
             <span>Alt Başlık Güncelle</span>
           </button>
         </ng-container>
@@ -107,10 +107,10 @@
           <mat-icon>insert_photo</mat-icon>
           <span>Header Logo</span>
         </button>
-        <button mat-menu-item (click)="onDelete(element)">
+        <!-- <button mat-menu-item (click)="onDelete(element)">
           <mat-icon>delete</mat-icon>
           <span>sil</span>
-        </button>
+        </button> -->
       </mat-menu>
     </td>
   </ng-container>

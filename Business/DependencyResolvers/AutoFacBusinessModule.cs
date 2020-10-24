@@ -18,13 +18,7 @@ namespace Business.DependencyResolvers.AutoFac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ProductManager>().As<IProductService>();
-            builder.RegisterType<EfProductDal>().As<IProductDal>();
 
-
-
-            builder.RegisterType<CategoryManager>().As<ICategoryService>();
-            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>();
 
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
@@ -163,9 +157,6 @@ namespace Business.DependencyResolvers.AutoFac
 
             builder.RegisterType<UserNotifyGroupManager>().As<IUserNotifyGroupService>();
             builder.RegisterType<EfUserNotifyGroupDal>().As<IUserNotifyGroupDal>();
-
-            builder.RegisterType<OnlineUserManager>().As<IOnlineUserService>();
-            builder.RegisterType<EfOnlineUserDal>().As<IOnlineUserDal>();
 
             builder.RegisterType<OnlineScreenManager>().As<IOnlineScreenService>();
             builder.RegisterType<EfOnlineScreenDal>().As<IOnlineScreenDal>();

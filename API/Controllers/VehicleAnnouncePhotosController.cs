@@ -13,19 +13,20 @@ namespace API.Controllers
     public class VehicleAnnouncePhotosController : ControllerBase
     {
         private readonly IVehicleAnnouncePhotoService vehicleAnnouncePhotoService;
+        private readonly UserTracker userTracker;
         private readonly IHubContext<KiosksHub> kiosksHub;
         private readonly IOnlineScreenService onlineScreenService;
         private readonly IHubContext<AdminHub> hubContext;
-        private readonly IOnlineUserService onlineUserService;
+
         public VehicleAnnouncePhotosController(IVehicleAnnouncePhotoService vehicleAnnouncePhotoService,
+        UserTracker userTracker,
         IHubContext<KiosksHub> kiosksHub,
         IOnlineScreenService onlineScreenService,
-         IOnlineUserService onlineUserService,
         IHubContext<AdminHub> hubContext)
         {
-            this.onlineUserService = onlineUserService;
             this.hubContext = hubContext;
             this.vehicleAnnouncePhotoService = vehicleAnnouncePhotoService;
+            this.userTracker = userTracker;
             this.kiosksHub = kiosksHub;
             this.onlineScreenService = onlineScreenService;
         }
@@ -40,10 +41,10 @@ namespace API.Controllers
         public async Task<ActionResult<VehicleAnnouncePhotoForReturnDto>> Create([FromForm] FileUploadDto uploadDto)
         {
             var photo = await vehicleAnnouncePhotoService.Create(uploadDto);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("Car", connId).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "create");
+                await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "create",true);
             }
 
             return photo;
@@ -53,10 +54,10 @@ namespace API.Controllers
         public async Task<ActionResult<VehicleAnnouncePhotoForReturnDto>> CreateForUser([FromForm] FileUploadDto uploadDto)
         {
             var photo = await vehicleAnnouncePhotoService.CreateForPublicAsync(uploadDto);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+           var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("Car", connId).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "create");
+                await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "create",true);
             }
 
             return photo;
@@ -66,10 +67,10 @@ namespace API.Controllers
         public async Task<VehicleAnnouncePhotoForReturnDto> Update(VehicleAnnouncePhotoForCreationDto creationDto)
         {
             var photo = await vehicleAnnouncePhotoService.Update(creationDto);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("Car", connId).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "update");
+                await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "update");
             }
 
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
@@ -85,10 +86,10 @@ namespace API.Controllers
         public async Task<VehicleAnnouncePhotoForReturnDto> Delete(int photoId)
         {
             var photo = await vehicleAnnouncePhotoService.Delete(photoId);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("Car", connId).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "delete");
+                await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "delete");
             }
 
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();

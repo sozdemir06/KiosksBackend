@@ -81,7 +81,7 @@ namespace Business.Concrete
             return mapper.Map<List<SubScreen>, List<SubScreenForReturnDto>>(subScreensByScreenId);
         }
 
-        [SecuredOperation("Sudo,SubScreens.List,SubScreens.All", Priority = 1)]
+        //[SecuredOperation("Sudo,SubScreens.List,SubScreens.All", Priority = 1)]
         public async Task<List<SubScreenForReturnDto>> GetListAsync()
         {
             var subScrens = await subScreenDal.GetListAsync();

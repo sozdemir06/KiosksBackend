@@ -125,7 +125,7 @@ namespace Business.Concrete
             return mapper.Map<UserPhoto, UserPhotoForReturnDto>(createPhoto);
         }
 
-        [SecuredOperation("Sudo,Public", Priority = 1)]
+        //[SecuredOperation("Sudo,Public", Priority = 1)]
         public async Task<PublicForReturnDto> GetAllAnnounceForPublicAsync()
         {
 

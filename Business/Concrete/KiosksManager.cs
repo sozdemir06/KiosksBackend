@@ -61,21 +61,28 @@ namespace Business.Concrete
         {
             var spec = new HomeAnnounceWithPhotoAndUserSpecification(announceId);
             var homeannounce = await homeAnnounceDal.GetEntityWithSpecAsync(spec);
-            return mapper.Map<HomeAnnounce,HomeAnnounceForKiosksForReturnDto>(homeannounce);
+            return mapper.Map<HomeAnnounce, HomeAnnounceForKiosksForReturnDto>(homeannounce);
         }
 
         public async Task<NewsForKiosksToReturnDto> GetNewsById(int newsId)
         {
-             var spec=new NewsWithUserSpecification(newsId);
-             var news=await newsDal.GetEntityWithSpecAsync(spec);
-             return mapper.Map<News,NewsForKiosksToReturnDto>(news);
+            var spec = new NewsWithUserSpecification(newsId);
+            var news = await newsDal.GetEntityWithSpecAsync(spec);
+            return mapper.Map<News, NewsForKiosksToReturnDto>(news);
+        }
+
+        public async Task<ScreenForKiosksToReturnDto> GetScreenByIdAsync(int screenId)
+        {
+            var spec=new ScreenWithSubScreenSpecification(screenId);
+            var screen=await screenDal.GetEntityWithSpecAsync(spec);
+            return mapper.Map<Screen,ScreenForKiosksToReturnDto>(screen);
         }
 
         public async Task<VehicleAnnounceForKiosksToReturnDto> GetVehicleAnnounceByIdAsync(int announceId)
         {
-            var spec=new VehicleAnnounceWithPagingSpecification(announceId);
-            var vehicleAnnounce=await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
-            return mapper.Map<VehicleAnnounce,VehicleAnnounceForKiosksToReturnDto>(vehicleAnnounce);
+            var spec = new VehicleAnnounceWithPagingSpecification(announceId);
+            var vehicleAnnounce = await vehicleAnnounceDal.GetEntityWithSpecAsync(spec);
+            return mapper.Map<VehicleAnnounce, VehicleAnnounceForKiosksToReturnDto>(vehicleAnnounce);
         }
 
         public async Task<KiosksForReturnDto> KiosksAsync(int screenId)
@@ -92,7 +99,6 @@ namespace Business.Concrete
             return new KiosksForReturnDto()
             {
                 Screen = mapper.Map<Screen, ScreenForKiosksToReturnDto>(screenFromRepo),
-
                 Announces = mapper.Map<List<Announce>, List<AnnounceForKiosksToReturnDto>>(announceFromRepo),
                 HomeAnnounces = mapper.Map<List<HomeAnnounce>, List<HomeAnnounceForKiosksForReturnDto>>(homeAnnounceFromRepo),
                 VehicleAnnounces = mapper.Map<List<VehicleAnnounce>, List<VehicleAnnounceForKiosksToReturnDto>>(vehicleAnnounceFromRepo),
@@ -102,6 +108,28 @@ namespace Business.Concrete
 
             };
 
+        }
+
+        public async Task<KiosksForReturnDto> KiosksBySubscreenId(int subscreenId)
+        {
+
+            var announceFromRepo = await announceDal.GetAnnounceForKiosksBySubScreenIdAsync(subscreenId);
+            var homeAnnounceFromRepo = await homeAnnounceDal.GetHomeAnnouncesForKiosksBySubScreenIdAsync(subscreenId);
+            var vehicleAnnounceFromRepo = await vehicleAnnounceDal.GetVehicleAnnouncesForKiosksBySubScreenIdAsync(subscreenId);
+            var newsFromRepo = await newsDal.GetNewsForKiosksBySubScreenIdAsync(subscreenId);
+            var foodsMenuFromRepo = await foodMenuDal.GetFoodsMenuForKiosksByScreenIdAsync(subscreenId);
+            var liveTvBroadCasts = await liveTvBroadCastDal.GetLiveTvBroadCastForKiosksBySubScreenIdAsync(subscreenId);
+
+            return new KiosksForReturnDto()
+            {
+                Announces = mapper.Map<List<Announce>, List<AnnounceForKiosksToReturnDto>>(announceFromRepo),
+                HomeAnnounces = mapper.Map<List<HomeAnnounce>, List<HomeAnnounceForKiosksForReturnDto>>(homeAnnounceFromRepo),
+                VehicleAnnounces = mapper.Map<List<VehicleAnnounce>, List<VehicleAnnounceForKiosksToReturnDto>>(vehicleAnnounceFromRepo),
+                News = mapper.Map<List<News>, List<NewsForKiosksToReturnDto>>(newsFromRepo),
+                FoodsMenu = mapper.Map<List<FoodMenu>, List<FoodMenuForKiosksToReturnDto>>(foodsMenuFromRepo),
+                LiveTvBroadCasts = mapper.Map<List<LiveTvBroadCast>, List<LiveTvBroadCastForKiosksToReturnDto>>(liveTvBroadCasts)
+
+            };
         }
     }
 }

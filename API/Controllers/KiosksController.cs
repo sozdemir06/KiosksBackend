@@ -21,5 +21,13 @@ namespace API.Controllers
         {
             return await kiosksService.KiosksAsync(screenId);
         }
+
+         [HttpGet("subscreen/{subscreenId}")]
+        public async Task<ActionResult<KiosksForReturnDto>> KiosksbySubScreenId(int subscreenId)
+        {
+            return await kiosksService.KiosksBySubscreenId(subscreenId);
+        }
+
+
     }
 }

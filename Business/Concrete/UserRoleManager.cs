@@ -20,7 +20,8 @@ namespace Business.Concrete
         private readonly IRoleDal roleDal;
         private readonly IUserRoleDal userRoleDal;
         private readonly IMapper mapper;
-        public UserRoleManager(IUserService userService, IMapper mapper, IUserDal userDal, IRoleDal roleDal, IUserRoleDal userRoleDal)
+        public UserRoleManager(IUserService userService, 
+        IMapper mapper, IUserDal userDal, IRoleDal roleDal, IUserRoleDal userRoleDal)
         {
             this.mapper = mapper;
 

@@ -49,6 +49,10 @@ namespace DataAccess.Concrete.EntityFramework
                                 .Include(x => x.User.Campus)
                                 .Include(x => x.User.Degree)
                                 .Include(x => x.User.Department)
+                                .Include(x => x.NumberOfRoom)
+                                .Include(x => x.Heatingtype)
+                                .Include(x => x.FlatOfHome)
+                                .Include(x => x.BuildingAge)
                                 .Include(p => p.HomeAnnouncePhotos)
                                 .Include(s => s.HomeAnnounceSubScreens)
                                 .Where(

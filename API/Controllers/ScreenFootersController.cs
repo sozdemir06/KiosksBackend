@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Hubs;
 using Business.Abstract;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace API.Controllers
 {
@@ -11,13 +13,19 @@ namespace API.Controllers
     public class ScreenFootersController : ControllerBase
     {
         private readonly IScreenFooterService screenFooterService;
-        public ScreenFootersController(IScreenFooterService screenFooterService)
+        private readonly IHubContext<KiosksHub> kiosksHub;
+        private readonly IOnlineScreenService onlineScreenService;
+
+        public ScreenFootersController(IScreenFooterService screenFooterService,
+        IHubContext<KiosksHub> kiosksHub,
+        IOnlineScreenService onlineScreenService)
         {
             this.screenFooterService = screenFooterService;
-
+            this.kiosksHub = kiosksHub;
+            this.onlineScreenService = onlineScreenService;
         }
 
-         [HttpGet]
+        [HttpGet]
         public async Task<ActionResult<List<ScreenFooterForReturnDto>>> List()
         {
             return await screenFooterService.GetListAsync();
@@ -26,13 +34,27 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<ScreenFooterForReturnDto>> Create(ScreenFooterForCreationDto createDto)
         {
-            return await screenFooterService.Create(createDto);
+            var footer = await screenFooterService.Create(createDto);
+            var screenConnectionId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(footer.ScreenId);
+            if (screenConnectionId != null && screenConnectionId.Length != 0)
+            {
+                await kiosksHub.Clients.Clients(screenConnectionId).SendAsync("ReceiveScreenFooter", footer);
+            }
+
+            return footer;
         }
 
         [HttpPut]
         public async Task<ActionResult<ScreenFooterForReturnDto>> Update(ScreenFooterForCreationDto updateDto)
         {
-            return await screenFooterService.Update(updateDto);
+            var footer = await screenFooterService.Update(updateDto);
+            var screenConnectionId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(footer.ScreenId);
+            if (screenConnectionId != null && screenConnectionId.Length != 0)
+            {
+                await kiosksHub.Clients.Clients(screenConnectionId).SendAsync("ReceiveScreenFooter", footer);
+            }
+
+            return footer;
         }
 
         [HttpDelete("{itemId}")]

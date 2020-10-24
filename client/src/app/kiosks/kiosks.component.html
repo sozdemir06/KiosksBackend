@@ -10,21 +10,21 @@
       style="height: 5vh; max-width: 100vw"
     >
       <div>
-        <ng-container *ngIf="leftTopPhotoUrl;else defaultLeftImage">
+        <ng-container *ngIf="leftTopPhotoUrl">
           <img  [src]="leftTopPhotoUrl" alt="Left Logo" style="max-width: 5vw;" />
         </ng-container>
-        <ng-template #defaultLeftImage>
+        <!-- <ng-template #defaultLeftImage>
           <img  src="/assets/logo.jpg" alt="" style="max-width: 5vw;" />
-        </ng-template>
+        </ng-template> -->
       </div>
-      <div style="font-size: 1.2vw">{{data.screen.screenHeaders?.headerText}}</div>
+      <div style="font-size: 1.7vw">{{data.screen.screenHeaders?.headerText}}</div>
       <div>
-        <ng-container *ngIf="rightTopPhotoUrl;else defaultRightImage">
-          <img  [src]="rightTopPhotoUrl" alt="Left Logo" style="max-width: 5vw;" />
+        <ng-container *ngIf="rightTopPhotoUrl">
+          <img  [src]="rightTopPhotoUrl" alt="Right Logo" style="max-width: 5vw;" />
         </ng-container>
-        <ng-template #defaultRightImage>
+        <!-- <ng-template #defaultRightImage>
           <img  src="/assets/logo.jpg" alt="" style="max-width: 5vw;" />
-        </ng-template>
+        </ng-template> -->
       </div>
     </header>
     <!-- Header End -->
@@ -133,13 +133,25 @@
       </div>
       <!-- Wheather End -->
       <!-- Footer Text Start -->
-      <div style="font-size: 1.2vw">
-        {{ data?.screen?.screenFooters?.footerText }}
+      <div style="font-size: 1.2vw" class="text-white d-flex align-items-center">
+      
+        <span class="mr-2">  {{ data?.screen?.screenFooters?.footerText }}</span>
+        <mat-icon
+          *ngIf="(kiosksHub.status$ | async)?.toLowerCase() == 'connected'"
+          >wifi</mat-icon
+        >
+        <mat-icon
+          *ngIf="
+            (kiosksHub.status$ | async)?.toLowerCase() == 'disconnected' ||
+            (kiosksHub.status$ | async)?.toLowerCase() == 'reconnecting'
+          "
+          >wifi_off</mat-icon
+        >
       </div>
       <!-- Footer Text End -->
       <!-- Exchange Start -->
       <div>
-        <ng-container *ngIf="data?.screen.screenFooters?.isShowWheatherForCast">
+        <ng-container *ngIf="data?.screen.screenFooters?.isShowStockExchange">
           <div
             class="d-flex align-items-center bg-dark"
             style="height: 5vh; overflow: hidden"

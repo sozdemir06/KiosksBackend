@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit,OnDestroy {
     this.checkLoginForm();
     this.checkLoginSubs=this.authStore.isLoggedIn$.subscribe(isLoggedIn=>{
       if(isLoggedIn){
-        this.router.navigateByUrl("/");
+        this.router.navigateByUrl("/app/home");
       }
     })
   }
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit,OnDestroy {
       },err=>{
         this.notifyService.notify("error",err);
       },()=>{
-        this.router.navigateByUrl("/");
+        this.router.navigateByUrl("/app/home");
         this.notifyService.notify("success","Giriş Başarılı");
       })
     }

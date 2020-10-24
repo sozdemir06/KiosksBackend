@@ -48,7 +48,7 @@ namespace Business.Concrete
             return mapper.Map<Role, RoleForListDto>(roleToReturn);
         }
 
-        [SecuredOperation("Sudo,Roles.List,Roles.All", Priority = 1)]
+        //[SecuredOperation("Sudo,Roles.List,Roles.All", Priority = 1)]
         public async Task<Pagination<RoleForListDto>> GetRolesAsync(RoleQueryParams queryParams)
         {
             var spec = new RolesWithRoleCategorySpecification(queryParams);

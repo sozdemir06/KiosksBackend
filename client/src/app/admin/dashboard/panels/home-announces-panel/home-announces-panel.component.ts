@@ -9,7 +9,6 @@ import { HomeAnnounceStore } from 'src/app/core/services/stores/home-announce-st
 export class HomeAnnouncesPanelComponent implements OnInit {
   allowedRolesForList: string[] = [
     'Sudo',
-    'HomeAnnounces.List',
     'HomeAnnounces.All',
     'HomeAnnounces.Create',
     'HomeAnnounces.Update',

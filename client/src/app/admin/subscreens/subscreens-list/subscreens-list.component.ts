@@ -65,7 +65,6 @@ export class SubscreensListComponent implements OnInit {
          height:"90vh",
          data:{
            subscreen:element,
-           screenId:this.screenId
          }
       })
   }

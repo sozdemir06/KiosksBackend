@@ -13,6 +13,7 @@ namespace Entities.Dtos
         public ScreenFooterForReturnDto ScreenFooters { get; set; }
         public List<SubScreenForReturnDto> SubScreens { get; set; }
         public List<ScreenHeaderPhotoForReturnDto> ScreenHeaderPhotos { get; set; }
+        public List<OnlineScreenForReturnDto> OnlineScreens { get; set; }
       
     }
 }

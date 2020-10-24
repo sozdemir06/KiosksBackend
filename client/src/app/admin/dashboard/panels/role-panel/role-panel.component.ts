@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./role-panel.component.scss']
 })
 export class RolePanelComponent implements OnInit {
-allowedRoles:string[]=["Sudo","Roles.List","Roles.All","Roles.Update","Roles.Create"];
+allowedRoles:string[]=["Sudo","Roles.All","Roles.Update","Roles.Create"];
 
 
   constructor() { }

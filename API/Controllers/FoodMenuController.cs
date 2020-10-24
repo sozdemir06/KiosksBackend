@@ -14,24 +14,24 @@ namespace API.Controllers
     public class FoodMenuController : ControllerBase
     {
         private readonly IFoodMenuService foodMenuService;
+        private readonly UserTracker userTracker;
         private readonly IKiosksService kiosksService;
         private readonly IOnlineScreenService onlineScreenService;
         private readonly IHubContext<KiosksHub> kiosksHub;
-        private readonly IOnlineUserService onlineUserService;
         private readonly IHubContext<AdminHub> hubContext;
-        public FoodMenuController(IFoodMenuService foodMenuService,
+        public FoodMenuController(IFoodMenuService foodMenuService,UserTracker userTracker,
         IKiosksService kiosksService,
         IOnlineScreenService onlineScreenService,
         IHubContext<KiosksHub> kiosksHub,
-        IOnlineUserService onlineUserService,
             IHubContext<AdminHub> hubContext)
         {
             this.hubContext = hubContext;
             this.foodMenuService = foodMenuService;
+            this.userTracker = userTracker;
             this.kiosksService = kiosksService;
             this.onlineScreenService = onlineScreenService;
             this.kiosksHub = kiosksHub;
-            this.onlineUserService = onlineUserService;
+           
         }
 
         [HttpGet]
@@ -50,10 +50,10 @@ namespace API.Controllers
         public async Task<ActionResult<FoodMenuForReturnDto>> Create([FromBody] FoodMenuForCreationDto creationDto)
         {
             var foodMenu = await foodMenuService.Create(creationDto);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("FoodMenu", connId).SendAsync("ReceiveNewFoodMenu", foodMenu);
+                await hubContext.Clients.GroupExcept("FoodMenu", connIds).SendAsync("ReceiveNewFoodMenu", foodMenu,true);
             }
 
             return foodMenu;
@@ -63,10 +63,10 @@ namespace API.Controllers
         public async Task<ActionResult<FoodMenuForReturnDto>> Update(FoodMenuForCreationDto updateDto)
         {
             var foodMenu = await foodMenuService.Update(updateDto);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("FoodMenu", connId).SendAsync("ReceiveUpdateFoodMenu", foodMenu);
+                await hubContext.Clients.GroupExcept("FoodMenu", connIds).SendAsync("ReceiveUpdateFoodMenu", foodMenu);
             }
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
             if (onlineScreens != null && onlineScreens.Length != 0)

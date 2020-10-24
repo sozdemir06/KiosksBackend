@@ -340,7 +340,7 @@ export class AnnounceStore {
        draft.data.push(model);
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Yeni Duyuru eklendi...');
+    this.notifyService.notify('success', `${model.header} başlıklı duyuru eklendi...`);
   }
 
   updateAnnounceRealTime(model:IAnnounce):void{
@@ -351,24 +351,28 @@ export class AnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Duyuru Güncellendi...');
+    this.notifyService.notify('success', `${model.header} başlıklı duyuru güncellendi...`);
   }
 
   addNewPhotoRealTime(photo:IAnnouncePhoto):void{
+    let announce:IAnnounce;
     const updateSubject=produce(this.subject.getValue(),draft=>{
       const index=draft.data.findIndex(x=>x.id===photo.announceId);
       if(index!=-1){
+        announce=draft.data[index];
          draft.data[index].announcePhotos.push(photo);
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Duyuru için Yeni Fotoğraf Eklendi...');
+    this.notifyService.notify('success', `${announce.header} başlıklı duyuru için yeni fotoğraf eklendi...`);
   }
 
   updatePhotoRealTime(photo:IAnnouncePhoto):void{
+    let announce:IAnnounce;
     const updateSubject=produce(this.subject.getValue(),draft=>{
       const index=draft.data.findIndex(x=>x.id===photo.announceId);
       if(index!=-1){
+        announce=draft.data[index];
         const photoIndex=draft.data[index].announcePhotos.findIndex(x=>x.id==photo.id);
         if(photoIndex!=-1){
           draft.data[index].announcePhotos[photoIndex]=photo;
@@ -377,13 +381,15 @@ export class AnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Duyuru için Fotoğraf Güncellendi...');
+    this.notifyService.notify('success',  `${announce.header} başlıklı duyuru için fotoğraf güncellendi...`);
   }
 
   removePhotoRealTime(photo:IAnnouncePhoto):void{
+    let announce:IAnnounce;
     const updateSubject=produce(this.subject.getValue(),draft=>{
       const index=draft.data.findIndex(x=>x.id===photo.announceId);
       if(index!=-1){
+        announce=draft.data[index];
         const photoIndex=draft.data[index].announcePhotos.findIndex(x=>x.id==photo.id);
         if(photoIndex!=-1){
           draft.data[index].announcePhotos.splice(photoIndex,1);
@@ -391,7 +397,7 @@ export class AnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Duyuru için Fotoğraf Silindi...');
+    this.notifyService.notify('success', `${announce.header} başlıklı duyuru için fotoğraf silindi...`);
   }
 
 

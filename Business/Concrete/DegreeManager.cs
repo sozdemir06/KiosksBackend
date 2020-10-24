@@ -58,7 +58,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
+        //[SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         public async Task<Pagination<DegreeForReturnDto>> GetListAsync(DegreeParams queryParams)
         {
             var spec=new DegreeForPagingSpecification(queryParams);
@@ -81,7 +81,7 @@ namespace Business.Concrete
             );
         }
 
-        [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
+        //[SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         public async Task<List<DegreeForReturnDto>> GetListWithoutPaging(int categoryId)
         {
              var departments = await titleDal.GetListAsync();

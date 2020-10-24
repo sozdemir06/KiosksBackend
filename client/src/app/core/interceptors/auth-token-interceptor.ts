@@ -8,7 +8,6 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IUser } from 'src/app/shared/models/IUser';
-import { AuthStore } from 'src/app/auth/auth.store';
 import { Router } from '@angular/router';
 
 const AUTH_DATA = 'auth_data';

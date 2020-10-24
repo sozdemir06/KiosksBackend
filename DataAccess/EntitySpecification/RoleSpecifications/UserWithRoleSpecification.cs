@@ -13,5 +13,6 @@ namespace DataAccess.EntitySpecification.RoleSpecifications
              AddInclude(x=>x.UserRoles);
              AddInclude(x=>x.RoleCategory);
          }
+
     }
 }

@@ -14,23 +14,23 @@ namespace API.Controllers
     public class NewsController : ControllerBase
     {
         private readonly INewsService newsService;
+        private readonly UserTracker userTracker;
         private readonly IHubContext<AdminHub> hubContext;
         private readonly IKiosksService kiosksService;
         private readonly IHubContext<KiosksHub> kiosksHub;
-        private readonly IOnlineUserService onlineUserService;
         private readonly IOnlineScreenService onlineScreenService;
-        public NewsController(INewsService newsService, IHubContext<AdminHub> hubContext, IKiosksService kiosksService,
+        public NewsController(INewsService newsService,UserTracker userTracker, 
+        IHubContext<AdminHub> hubContext, 
+        IKiosksService kiosksService,
         IHubContext<KiosksHub> kiosksHub,
-        IOnlineScreenService onlineScreenService,
-            IOnlineUserService onlineUserService)
+        IOnlineScreenService onlineScreenService)
         {
             this.onlineScreenService = onlineScreenService;
-            this.onlineUserService = onlineUserService;
             this.hubContext = hubContext;
             this.kiosksService = kiosksService;
             this.kiosksHub = kiosksHub;
             this.newsService = newsService;
-
+            this.userTracker = userTracker;
         }
 
         [HttpGet]
@@ -43,10 +43,10 @@ namespace API.Controllers
         public async Task<ActionResult<NewsForReturnDto>> Create([FromBody] NewsForCreationDto creationDto)
         {
             var news = await newsService.Create(creationDto);
-            var connectionId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connectionId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("News", connectionId).SendAsync("ReceiveNewNews", news);
+                await hubContext.Clients.GroupExcept("News", connIds).SendAsync("ReceiveNewNews", news,true);
             }
 
             return news;
@@ -57,10 +57,10 @@ namespace API.Controllers
         public async Task<ActionResult<NewsForReturnDto>> Update(NewsForCreationDto updateDto)
         {
             var news = await newsService.Update(updateDto);
-            var connectionId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connectionId))
+           var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("News", connectionId).SendAsync("ReceiveUpdateNews", news);
+                await hubContext.Clients.GroupExcept("News", connIds).SendAsync("ReceiveUpdateNews", news);
             }
 
             var screenConnectionId = await onlineScreenService.GetAllOnlineScreenConnectionId();

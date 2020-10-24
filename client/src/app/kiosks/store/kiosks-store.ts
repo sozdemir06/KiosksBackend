@@ -24,6 +24,11 @@ import { INewsDetail } from 'src/app/shared/models/INewsDetail';
 import { IFoodMenu } from 'src/app/shared/models/IFoodMenu';
 import { IFoodMenuPhoto } from 'src/app/shared/models/IFoodMenuPhoto';
 import { IFoodMenuSubScreen } from 'src/app/shared/models/IFoodMenuSubScreen';
+import { IScreenHeader } from 'src/app/shared/models/IScreenHeader';
+import { IScreenFooter } from 'src/app/shared/models/IScreenFooter';
+import { IScreenHeaderPhoto } from 'src/app/shared/models/IScreenHeaderPhoto';
+import { IScreenForKiosks } from '../models/IScreenForKiosks';
+import { ISubScreen } from 'src/app/shared/models/ISubScreen';
 
 @Injectable({ providedIn: 'root' })
 export class KiosksStore {
@@ -55,6 +60,10 @@ export class KiosksStore {
     this.loadingService.showLoaderUntilCompleted(list$).subscribe();
   }
 
+  getListBySubScreenId(subscreenId:number):Observable<IKiosks>{
+    return this.httpClient.get<IKiosks>(this.apUrl+"kiosks/subscreen/"+subscreenId); 
+  }
+
   checkDateIfExpireAndRemoveFromStore(slideId: string, announceType: string) {
     switch (announceType.toLowerCase()) {
       case 'announce':
@@ -79,13 +88,13 @@ export class KiosksStore {
 
   removeFromAnnounces(slideId: string) {
     const updateSubject = produce(this.subject.getValue(), (draft) => {
-      const index = draft.announces.findIndex((x) => x.slideId == slideId);
+      const index = draft?.announces.findIndex((x) => x.slideId == slideId);
       if (index != -1) {
         const checkIfExpire = this.helperService.checkExpire(
-          draft.announces[index].publishFinishDate
+          draft?.announces[index].publishFinishDate
         );
         if (checkIfExpire) {
-          draft.announces.splice(index, 1);
+          draft?.announces.splice(index, 1);
         }
       }
     });
@@ -94,13 +103,13 @@ export class KiosksStore {
 
   removeFromHomeAnnounces(slideId: string) {
     const updateSubject = produce(this.subject.getValue(), (draft) => {
-      const index = draft.homeAnnounces.findIndex((x) => x.slideId == slideId);
+      const index = draft?.homeAnnounces.findIndex((x) => x.slideId == slideId);
       if (index != -1) {
         const checkIfExpire = this.helperService.checkExpire(
-          draft.homeAnnounces[index].publishFinishDate
+          draft?.homeAnnounces[index].publishFinishDate
         );
         if (checkIfExpire) {
-          draft.homeAnnounces.splice(index, 1);
+          draft?.homeAnnounces.splice(index, 1);
         }
       }
     });
@@ -677,12 +686,16 @@ export class KiosksStore {
 
   createFoodMenuSubsCreenRealTime(subScreen: IFoodMenuSubScreen) {
     const updatesubject = produce(this.subject.getValue(), (draft) => {
-      const index = draft.foodsMenu.findIndex((x) => x.id === subScreen.foodMenuId);
+      const index = draft.foodsMenu.findIndex(
+        (x) => x.id === subScreen.foodMenuId
+      );
       if (index != -1) {
         draft.foodsMenu[index].foodMenuSubScreens.push(subScreen);
         this.notifyService.notify(
           'success',
-          'Yemek Menüsü ' + subScreen.subScreenName + ' adlı ekranda yayına alındı...'
+          'Yemek Menüsü ' +
+            subScreen.subScreenName +
+            ' adlı ekranda yayına alındı...'
         );
       }
     });
@@ -691,16 +704,20 @@ export class KiosksStore {
 
   removeFoodMenuSubscreenRealTime(subscreen: IFoodMenuSubScreen) {
     const updatesubject = produce(this.subject.getValue(), (draft) => {
-      const index = draft.foodsMenu.findIndex((x) => x.id === subscreen.foodMenuId);
+      const index = draft.foodsMenu.findIndex(
+        (x) => x.id === subscreen.foodMenuId
+      );
       if (index != -1) {
-        const subscreenIndex = draft.foodsMenu[index].foodMenuSubScreens.findIndex(
-          (x) => x.id === subscreen.id
-        );
+        const subscreenIndex = draft.foodsMenu[
+          index
+        ].foodMenuSubScreens.findIndex((x) => x.id === subscreen.id);
         if (subscreenIndex != -1) {
           draft.foodsMenu[index].foodMenuSubScreens.splice(subscreenIndex, 1);
           this.notifyService.notify(
             'success',
-            'Yemek Menüsü ' + subscreen.subScreenName + ' adlı ekrandan kaldırıldı...'
+            'Yemek Menüsü ' +
+              subscreen.subScreenName +
+              ' adlı ekrandan kaldırıldı...'
           );
         }
       }
@@ -709,4 +726,74 @@ export class KiosksStore {
   }
 
   //FoodMenu Events END
+
+  //Screen Heaader START
+  updateScreenHeaderRealTime(header: IScreenHeader) {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      draft.screen.screenHeaders = header;
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Ekran Üst başlığı güncellendi..');
+  }
+  //Screen Header END
+  //Screen Footer START
+  updateScreenFooterRealTime(footer: IScreenFooter) {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      draft.screen.screenFooters = footer;
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify('success', 'Ekran Alt başlığı güncellendi..');
+  }
+  //Screen Footer END
+
+  updateScreenPhotoRealTime(photo: IScreenHeaderPhoto) {
+    const updateSubject = produce(this.subject.getValue(), (draft) => {
+      const photoIndex = draft.screen.screenHeaderPhotos.findIndex(
+        (x) => x.id == photo.id
+      );
+      if (photoIndex != -1) {
+        const isMain = draft.screen.screenHeaderPhotos.find(
+          (x) =>
+            x.isMain == true &&
+            x.position.toLowerCase() == photo.position.toLowerCase() &&
+            x.screenId==photo.screenId
+        );
+
+        if(isMain){
+          isMain.isMain=false;
+        }
+        draft.screen.screenHeaderPhotos[photoIndex]=photo;
+      }
+    });
+    this.subject.next(updateSubject);
+  }
+
+  //Update Screen START
+  updateScreenRealTime(screen:IScreenForKiosks){
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+       const screenid=draft.screen.id;
+       if(screenid==screen.id){
+         draft.screen=screen;
+       }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify("success","Ekran Güncellendi..");
+  }
+
+  //Update SubScreen
+  updateSubScreenRealTime(subscreen:ISubScreen){
+    const updateSubject=produce(this.subject.getValue(),draft=>{
+      const screenid=draft.screen.id;
+      if(screenid==subscreen.screenId)
+      {
+         const subscreenIndex=draft.screen.subScreens.findIndex(x=>x.id==subscreen.id);
+         if(subscreenIndex!=-1)
+         {
+            draft.screen.subScreens[subscreenIndex]=subscreen;
+         }
+      }
+    });
+    this.subject.next(updateSubject);
+    this.notifyService.notify("success","Alt Ekran Güncellendi..");
+  }
 }

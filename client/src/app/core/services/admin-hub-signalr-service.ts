@@ -34,8 +34,16 @@ export class AdminHubService {
     private vehicleAnnounceStore: VehilceAnnounceStore,
     private userStore: UserStore,
     private newsStore: NewsStore,
-    private foodMenuStore:FoodMenuStore
+    private foodMenuStore: FoodMenuStore
   ) {}
+
+  playTone() {
+    let audio = new Audio();
+    audio.src = '/assets/sound/tone.mp3';
+    audio.load();
+    audio.play();
+    audio.remove();
+  }
 
   createHubConneciton(user: IUser) {
     this.hubConnection = new HubConnectionBuilder()
@@ -66,16 +74,32 @@ export class AdminHubService {
 
   onListenersForAdmin() {
     //Announce Public To Admin
-    this.hubConnection.on('ReceiveNewAnnounce', (announce: IAnnounce) => {
-      this.announcestore.addNewAnnounceRealTime(announce);
-    });
-    this.hubConnection.on('ReceiveUpdateAnnounce', (announce: IAnnounce) => {
-      this.announcestore.updateAnnounceRealTime(announce);
-    });
+    this.hubConnection.on(
+      'ReceiveNewAnnounce',
+      (announce: IAnnounce, playSound: boolean) => {
+        this.announcestore.addNewAnnounceRealTime(announce);
+        if (playSound) {
+          this.playTone();
+        }
+      }
+    );
+    this.hubConnection.on(
+      'ReceiveUpdateAnnounce',
+      (announce: IAnnounce, playSound: boolean) => {
+        this.announcestore.updateAnnounceRealTime(announce);
+        if (playSound) {
+          this.playTone();
+        }
+      }
+    );
     this.hubConnection.on(
       'ReceiveNewPhotoAnnounce',
-      (photo: IAnnouncePhoto,eventType:string) => {
+      (photo: IAnnouncePhoto, eventType: string, playSound: boolean) => {
         const type = eventType.toLowerCase();
+        if (playSound) {
+          this.playTone();
+        }
+
         if (type == 'create') {
           this.announcestore.addNewPhotoRealTime(photo);
         } else if (type == 'update') {
@@ -90,20 +114,31 @@ export class AdminHubService {
     //HomeAnnounce Public To Admin Start
     this.hubConnection.on(
       'ReceiveNewHomeAnnounce',
-      (homeAnnounce: IHomeAnnounce) => {
+      (homeAnnounce: IHomeAnnounce,playSound:boolean) => {
         this.homeAnnouncestore.createNewHomeAnnounceRealTime(homeAnnounce);
+        if(playSound){
+          this.playTone();
+        }
+       
       }
     );
     this.hubConnection.on(
       'ReceiveUpdateHomeAnnounce',
-      (homeAnnounce: IHomeAnnounce) => {
+      (homeAnnounce: IHomeAnnounce,playSound:boolean) => {
         this.homeAnnouncestore.updateHomeAnnounceRealTime(homeAnnounce);
+        if(playSound){
+          this.playTone();
+        }
+       
       }
     );
     this.hubConnection.on(
       'ReceiveNewHomeAnnouncePhoto',
-      (photo: IHomeAnnouncePhoto,eventType:string) => {
+      (photo: IHomeAnnouncePhoto, eventType: string,playSound:boolean) => {
         const type = eventType.toLowerCase();
+        if(playSound){
+          this.playTone();
+        }
         if (type == 'create') {
           this.homeAnnouncestore.addNewPhotoRealTime(photo);
         } else if (type == 'update') {
@@ -118,20 +153,29 @@ export class AdminHubService {
     //VehicleAnnounce Public To Admin Start
     this.hubConnection.on(
       'ReceiveNewVehicleannounce',
-      (vehicleAnnounce: IVehicleAnnounceList) => {
+      (vehicleAnnounce: IVehicleAnnounceList,playSound:boolean) => {
         this.vehicleAnnounceStore.createNewVehicleAnnounce(vehicleAnnounce);
+        if(playSound){
+          this.playTone();
+        }
       }
     );
     this.hubConnection.on(
       'ReceiveUpdateVehicleannounce',
-      (vehicleAnnounce: IVehicleAnnounceList) => {
+      (vehicleAnnounce: IVehicleAnnounceList,playSound:boolean) => {
         this.vehicleAnnounceStore.updateVehicleannounce(vehicleAnnounce);
+        if(playSound){
+          this.playTone();
+        }
       }
     );
     this.hubConnection.on(
       'ReceiveNewVehicleannouncePhoto',
-      (photo: IVehicleAnnouncePhoto,eventType:string) => {
+      (photo: IVehicleAnnouncePhoto, eventType: string,playSound:boolean) => {
         const type = eventType.toLowerCase();
+        if(playSound){
+          this.playTone();
+        }
         if (type == 'create') {
           this.vehicleAnnounceStore.addNewPhotoRealTime(photo);
         } else if (type == 'update') {
@@ -144,28 +188,43 @@ export class AdminHubService {
     //Vehicleannounce Public To Admin End
 
     //Register New User Start
-    this.hubConnection.on('ReceiveNewUser', (user: IUserList) => {
+    this.hubConnection.on('ReceiveNewUser', (user: IUserList,playSound:boolean) => {
       this.userStore.create(user);
+      if(playSound){
+        this.playTone();
+      }
     });
     this.hubConnection.on(
       'ReceiveNewUserProfilePhoto',
-      (userphoto: IUserPhoto) => {
+      (userphoto: IUserPhoto,playSound:boolean) => {
         this.userStore.addPhoto(userphoto);
+        if(playSound){
+          this.playTone();
+        }
       }
     );
     //Register New User End
 
     //News Start
-    this.hubConnection.on('ReceiveNewNews', (news: INews) => {
+    this.hubConnection.on('ReceiveNewNews', (news: INews,playSound:boolean) => {
       this.newsStore.createNewNews(news);
+      if(playSound){
+        this.playTone();
+      }
     });
-    this.hubConnection.on('ReceiveUpdateNews', (news: INews) => {
+    this.hubConnection.on('ReceiveUpdateNews', (news: INews,playSound:boolean) => {
       this.newsStore.updateNews(news);
+      if(playSound){
+        this.playTone();
+      }
     });
     this.hubConnection.on(
       'ReceiveNewsPhoto',
-      (photo: INewsPhoto, eventType: string) => {
+      (photo: INewsPhoto, eventType: string,playSound:boolean) => {
         const type = eventType.toLowerCase();
+        if(playSound){
+          this.playTone();
+        }
         if (type == 'create') {
           this.newsStore.addNewPhotoRealTime(photo);
         } else if (type == 'update') {
@@ -178,29 +237,36 @@ export class AdminHubService {
 
     //News End
     //FoodMenu Start
-    this.hubConnection.on('ReceiveNewFoodMenu', (foodMenu: IFoodMenu) => {
-        this.foodMenuStore.createNewFoodMenuRealTime(foodMenu);
-      });
-      this.hubConnection.on('ReceiveUpdateFoodMenu', (foodMenu: IFoodMenu) => {
-        this.foodMenuStore.updateFoodMenuRealTime(foodMenu);
-      });
-      this.hubConnection.on(
-        'ReceiveFoodMenuPhoto',
-        (photo: IFoodMenuPhoto, eventType: string) => {
-          const type = eventType.toLowerCase();
-          if (type == 'create') {
-            this.foodMenuStore.addNewPhotoRealTime(photo);
-          } else if (type == 'update') {
-            this.foodMenuStore.updatePhotoRealTime(photo);
-          } else if (type == 'delete') {
-            this.foodMenuStore.removePhotoRealTime(photo);
-          }
+    this.hubConnection.on('ReceiveNewFoodMenu', (foodMenu: IFoodMenu,playSound:boolean) => {
+      this.foodMenuStore.createNewFoodMenuRealTime(foodMenu);
+      if(playSound){
+        this.playTone();
+      }
+    });
+    this.hubConnection.on('ReceiveUpdateFoodMenu', (foodMenu: IFoodMenu,playSound:boolean) => {
+      this.foodMenuStore.updateFoodMenuRealTime(foodMenu);
+      if(playSound){
+        this.playTone();
+      }
+    });
+    this.hubConnection.on(
+      'ReceiveFoodMenuPhoto',
+      (photo: IFoodMenuPhoto, eventType: string,playSound:boolean) => {
+        const type = eventType.toLowerCase();
+        if(playSound){
+          this.playTone();
         }
-      );
-  
-      //FoodMenu End
+        if (type == 'create') {
+          this.foodMenuStore.addNewPhotoRealTime(photo);
+        } else if (type == 'update') {
+          this.foodMenuStore.updatePhotoRealTime(photo);
+        } else if (type == 'delete') {
+          this.foodMenuStore.removePhotoRealTime(photo);
+        }
+      }
+    );
 
-
+    //FoodMenu End
   }
 
   stopHubConnection() {

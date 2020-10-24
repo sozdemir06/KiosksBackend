@@ -330,7 +330,7 @@ export class HomeAnnounceStore {
        draft.data.push(model);
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Yeni Ev ilanı eklendi..');
+    this.notifyService.notify('success', `${model.header} başlıklı ev ilanı eklendi...`);
   }
 
   updateHomeAnnounceRealTime(model:IHomeAnnounce):void{
@@ -341,24 +341,28 @@ export class HomeAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Ev ilanı Güncellendi...');
+    this.notifyService.notify('success', `${model.header} başlıklı ev ilanı güncellendi...`);
   }
 
   addNewPhotoRealTime(photo:IHomeAnnouncePhoto):void{
+    let homeannounce:IHomeAnnounce;
     const updateSubject=produce(this.subject.getValue(),draft=>{
       const index=draft.data.findIndex(x=>x.id===photo.homeAnnounceId);
       if(index!=-1){
+        homeannounce=draft.data[index];
          draft.data[index].homeAnnouncePhotos.push(photo);
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Ev İlanı için Yeni Fotoğraf Eklendi...');
+    this.notifyService.notify('success', `${homeannounce.header} başlıklı ev ilanı için yeni fotoğraf eklendi...`);
   }
 
   updatePhotoRealTime(photo:IHomeAnnouncePhoto):void{
+    let homeannounce:IHomeAnnounce;
     const updateSubject=produce(this.subject.getValue(),draft=>{
       const index=draft.data.findIndex(x=>x.id===photo.homeAnnounceId);
       if(index!=-1){
+        homeannounce=draft.data[index];
         const photoIndex=draft.data[index].homeAnnouncePhotos.findIndex(x=>x.id==photo.id);
         if(photoIndex!=-1){
           draft.data[index].homeAnnouncePhotos[photoIndex]=photo;
@@ -367,13 +371,15 @@ export class HomeAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'ev İlanı için Fotoğraf Güncellendi...');
+    this.notifyService.notify('success', `${homeannounce.header} başlıklı ev ilanı için fotoğraf güncellendi...`);
   }
 
   removePhotoRealTime(photo:IHomeAnnouncePhoto):void{
+    let homeannounce:IHomeAnnounce;
     const updateSubject=produce(this.subject.getValue(),draft=>{
       const index=draft.data.findIndex(x=>x.id===photo.homeAnnounceId);
       if(index!=-1){
+        homeannounce=draft.data[index];
         const photoIndex=draft.data[index].homeAnnouncePhotos.findIndex(x=>x.id==photo.id);
         if(photoIndex!=-1){
           draft.data[index].homeAnnouncePhotos.splice(photoIndex,1);
@@ -381,7 +387,7 @@ export class HomeAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Ev İlanı için Fotoğraf Silindi...');
+    this.notifyService.notify('success', `${homeannounce.header} başlıklı ev ilanı için fotoğraf silindi...`);
   }
 
 

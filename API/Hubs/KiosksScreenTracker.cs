@@ -53,5 +53,21 @@ namespace API.Hubs
 
             return Task.FromResult(onlineScreens);
         }
+
+         public async Task<string[]> GetOnlineScreens()
+        {
+            string[] onlinescreens=null;
+            lock (ConnectedScreens)
+            {
+                var users = ConnectedScreens.OrderBy(k => k.Key).ToList();
+                foreach (var item in users)
+                {
+                    onlinescreens=item.Value.ToArray();
+                };
+                
+            }
+
+            return await Task.FromResult(onlinescreens);
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace DataAccess.EntitySpecification.ScreenSpecification
             AddInclude(x => x.SubScreens);
             AddInclude(x => x.ScreenHeaderPhotos);
             AddInclude(x => x.ScreenFooters);
+            AddInclude(x => x.ScreenHeaders);
             AddOrderBy(x => x.Name);
         }
     }

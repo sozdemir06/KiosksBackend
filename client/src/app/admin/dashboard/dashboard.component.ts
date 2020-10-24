@@ -38,10 +38,6 @@ export class DashboardComponent implements OnInit,OnDestroy{
           this.sideNavBehavior="side";
         }
       })
-
-      this.adminHubService.onListenersForAdmin();
-      this.kiosksHub.createHubConnection();
-  
   }
 
   ngOnDestroy(){

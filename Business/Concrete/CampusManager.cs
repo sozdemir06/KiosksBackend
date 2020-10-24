@@ -55,7 +55,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
+        //[SecuredOperation("Sudo,UserOptions.All", Priority = 1)]
         public async Task<List<CampusForReturnDto>> GetCampusListAsync()
         {
             var campuses = await campusDal.GetListAsync();

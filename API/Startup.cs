@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using API.Hubs;
 using AutoMapper;
-using Business.Handlers.Products.Query;
+using Business.Concrete;
 using Core.DependencyResolvers;
 using Core.Extensions;
 using Core.Utilities.IoC;
@@ -38,10 +38,11 @@ namespace API
             //     opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             // });
             services.AddSingleton<KiosksScreenTracker>();
+            services.AddSingleton<UserTracker>();
             services.AddDbContext<DataContext>();
 
-            services.AddMediatR(typeof(ProductListQuery).Assembly);
-            services.AddAutoMapper(typeof(ProductListQuery));
+            //services.AddMediatR(typeof(ProductListQuery).Assembly);
+            services.AddAutoMapper(typeof(AuthManager));
             services.AddSingleton<SeedContext>();
             services.AddControllers();
             services.AddSignalR();

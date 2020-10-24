@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, tap, shareReplay, finalize, delay } from 'rxjs/operators';
+import { map, tap, shareReplay, finalize} from 'rxjs/operators';
 import { IUser } from '../shared/models/IUser';
 import { IUserForLogin } from '../shared/models/IUserForLogin';
 import { Router } from '@angular/router';
 import { AdminHubService } from '../core/services/admin-hub-signalr-service';
+
+
 
 const AUTH_DATA = 'auth_data';
 const AUTH_TOKEN = 'auth_token';
@@ -31,8 +33,7 @@ export class AuthStore {
   constructor(
     private http: HttpClient,
     private router:Router,
-    private adminHubService:AdminHubService
-    
+    private adminHubService:AdminHubService,
     ) {
     this.isLoggedIn$ = this.user$.pipe(map((user) => !!user));
     this.isLoggedOut$ = this.isLoggedIn$.pipe(map((isLoggedIn) => !isLoggedIn));
@@ -42,6 +43,7 @@ export class AuthStore {
     if (user) {
       this.subject.next(user);
       this.adminHubService.createHubConneciton(user);
+      this.adminHubService.onListenersForAdmin();
       this.autoLogout();
     }
   }
@@ -55,10 +57,12 @@ export class AuthStore {
         localStorage.setItem(AUTH_DATA, JSON.stringify(user));
         localStorage.setItem(AUTH_TOKEN, user.token);
         this.adminHubService.createHubConneciton(user);
+        this.adminHubService.onListenersForAdmin();
+        window.location.reload();
         this.autoLogout();
       }),
       finalize(() => this.loadingSubject.next(false)),
-      shareReplay()
+      shareReplay() 
     );
   }
 
@@ -78,15 +82,17 @@ export class AuthStore {
   this.cleartimeOut=setTimeout(() => {
       this.logOut();
     }, +expireTime);
-  }
+  }   
 
 
 
   logOut(): void {
     this.subject.next(null);
-    this.router.navigateByUrl("/");
+    this.router.navigateByUrl("/app/home");
     localStorage.removeItem(AUTH_DATA);
     localStorage.removeItem(AUTH_TOKEN);
+    this.adminHubService.stopHubConnection();
+    window.location.reload();
   }
 
   isMatchRoles(allowedRoles: string[]): boolean {

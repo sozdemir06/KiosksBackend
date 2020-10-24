@@ -98,7 +98,7 @@ namespace Business.Concrete
 
         }
 
-        [SecuredOperation("Sudo,Screens.List,Screens.All", Priority = 1)]
+        //[SecuredOperation("Sudo,Screens.List,Screens.All", Priority = 1)]
         public async Task<List<ScreenForReturnDto>> GetListAsync()
         {
 
@@ -129,7 +129,7 @@ namespace Business.Concrete
             {
                 var subs = await subSCreenDal.GetListAsync(x => x.ScreenId == checkByIdFromRepo.Id);
 
-                if (updateDto.Position.ToLower() == "vertical" & checkByIdFromRepo.Position.ToLower() == "horizontal")
+                if (updateDto.Position.ToLower() == "vertical" && checkByIdFromRepo.Position.ToLower() == "horizontal")
                 {
                     foreach (var item in subs)
                     {

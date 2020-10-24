@@ -15,7 +15,9 @@ export class UsersComponent implements OnInit {
   toolbarTitle: string = 'Kullanıcı adı,soyadı,birim ve ünvana göre arama...';
   allowdRolesForCreate: string[] = ['Sudo', 'User.Create', 'User.All'];
 
-  constructor(public userService: UserStore, private dialog: MatDialog) {}
+  constructor(
+    public userService: UserStore, 
+    private dialog: MatDialog) {}
 
   ngOnInit(): void {}
 

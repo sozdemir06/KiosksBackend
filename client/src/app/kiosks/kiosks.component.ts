@@ -106,24 +106,26 @@ export class KiosksComponent implements OnInit, OnDestroy, AfterViewInit {
         .subscribe((result) => {
           this.rightTopPhotoUrl = result?.fullPath;
         });
-
-        this.kiosksHub.createHubConnection(this.screenId);
-
-        this.kiosksHub.hubConnection.on("OnConnected",(connectionId:string)=>{
-          this.kiosksHub.onConnected(this.screenId,connectionId);
-      });
-
-      this.kiosksHub.kiosksListener();
     });
   }
 
   ngOnInit(): void {
-   
+    this.kiosksHub.createHubConnection();
+
+    this.kiosksHub.hubConnection.on('OnConnected', (connectionId: string) => {
+      this.kiosksHub.onConnected(this.screenId, connectionId);
+    });
+
+    this.kiosksHub.kiosksListener();
+    setInterval(() => {
+      this.exchangeRateStore$.getListByInterval();
+      this.wheatherForeCastsStore$.getListByInterval();
+    }, 120 * 60 * 1000);
   }
 
   ngOnDestroy() {
     this.leftSub.unsubscribe();
     this.rightSub.unsubscribe();
-    //this.kiosksHub.stopHubConnection();
+    this.kiosksHub.stopHubConnection();  
   }
-}
+} 

@@ -7,7 +7,7 @@ import { FoodMenuStore } from 'src/app/core/services/stores/food-menu-store';
   styleUrls: ['./food-menu-panel.component.scss']
 })
 export class FoodMenuPanelComponent implements OnInit {
-  allowedRolesForList:string[]=['Sudo','FoodMenu.List','FoodMenu.All']
+  allowedRolesForList:string[]=['Sudo','FoodMenu.All','FoodMenu.Create','FoodMenu.Update'];
   constructor(
     public foodMenuStore:FoodMenuStore
   ) { }

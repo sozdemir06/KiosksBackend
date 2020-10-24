@@ -92,7 +92,8 @@ namespace Business.Concrete
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
-            var getAlreadyIsMain = await screenHeaderPhotoDal.GetAsync(x => x.IsMain == true);
+            var getAlreadyIsMain = await screenHeaderPhotoDal
+                        .GetAsync(x => x.IsMain == true && x.Position.ToLower()==updateDto.Position.ToLower() && x.ScreenId==updateDto.ScreenId);
             if (getAlreadyIsMain != null)
             {
                 getAlreadyIsMain.IsMain = false;
@@ -116,6 +117,10 @@ namespace Business.Concrete
             }
 
             var mapForUpdate = mapper.Map(updateDto, checkByIdFromRepo);
+            if(mapForUpdate.IsMain)
+            {
+                mapForUpdate.IsMain=false;
+            }
             var updatePhoto = await screenHeaderPhotoDal.Update(mapForUpdate);
             return mapper.Map<ScreenHeaderPhoto, ScreenHeaderPhotoForReturnDto>(updatePhoto);
         }

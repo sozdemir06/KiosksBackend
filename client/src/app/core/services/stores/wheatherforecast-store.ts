@@ -18,7 +18,7 @@ export class WheatherForeCastStore {
     private loadingService: LoadingService,
     private notifyService: NotifyService
   ) {
-      this.getList();
+      this.getList(); 
   }
 
   private getList() {
@@ -31,9 +31,26 @@ export class WheatherForeCastStore {
           return throwError(error);
         }),
         tap((forecasts) => {
+          forecasts.forEach(el=>{
+            const cityname=el.cityName.split(" ");
+            el.cityName=cityname[0];
+          })
           this.subject.next(forecasts);
         })
       );
     this.loadingService.showLoaderUntilCompleted(list$).subscribe();
+  }
+
+  updateRealTime(model:IWheatherForeCast[]){
+    model.forEach(el=>{
+      const cityname=el.cityName.split(" ");
+      el.cityName=cityname[0];
+    })
+    this.subject.next(model);
+    this.notifyService.notify("success","Hava Durumu Güncellendi..");
+  }
+
+  getListByInterval(){
+    this.getList();
   }
 }

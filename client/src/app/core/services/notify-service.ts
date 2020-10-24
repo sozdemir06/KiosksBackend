@@ -11,7 +11,7 @@ export class NotifyService {
         private snackBar:MatSnackBar
     ) {
         this.config={
-            duration:4000,
+            duration:6000,
             horizontalPosition:"right",
             verticalPosition:"bottom"
         };

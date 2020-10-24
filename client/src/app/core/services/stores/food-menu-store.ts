@@ -324,7 +324,7 @@ export class FoodMenuStore {
           draft.data.push(model);
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Yeni Yemek Menüsü Eklendi...');
+    this.notifyService.notify('success', `${model.created} tarihli yeni bir yemek menüsü eklendi...`);
   }
 
   updateFoodMenuRealTime(model:IFoodMenu):void{
@@ -335,7 +335,7 @@ export class FoodMenuStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Yemek Menüsü Güncellendi...');
+    this.notifyService.notify('success', `${model.created} tarihli yemek menüsü güncellendi...`);
   }
 
   addNewPhotoRealTime(photo:IFoodMenuPhoto):void{
@@ -346,7 +346,7 @@ export class FoodMenuStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Yemek Menüsü için Yeni Fotoğraf Eklendi...');
+    this.notifyService.notify('success', `${this.getFoodMenuCreatedById(photo.foodMenuId)} tarihli menü için yeni fotoğraf eklendi...`);
   }
 
   updatePhotoRealTime(photo:IFoodMenuPhoto):void{
@@ -361,7 +361,7 @@ export class FoodMenuStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Yemek Menüsü için Fotoğraf Güncellendi...');
+    this.notifyService.notify('success', `${this.getFoodMenuCreatedById(photo.foodMenuId)} tarihli menü için fotoğraf güncellendi...`);
   }
 
   removePhotoRealTime(photo:IFoodMenuPhoto):void{
@@ -375,9 +375,16 @@ export class FoodMenuStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', 'Yemek Menüsü için Fotoğraf Silindi...');
+    this.notifyService.notify('success', `${this.getFoodMenuCreatedById(photo.foodMenuId)} tarihli menü fotoğraf silindi...`);
   }
 
+ private getFoodMenuCreatedById(id:number):Date{
+    let foodMenu:IFoodMenu;
+    produce(this.subject.getValue(),draft=>{
+       foodMenu=draft.data.find(x=>x.id===id);
+    });
+    return foodMenu.created;
+  }
   getParams(): FoodMenuParams {
     return this.foodMenuParams;
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EditSubscreensDialogComponent } from './edit-subscreens-dialog/edit-subscreens-dialog.component';
 import { ActivatedRoute } from '@angular/router';
+import { NotifyService } from 'src/app/core/services/notify-service';
 
 @Component({
   selector: 'app-subscreens',
@@ -16,7 +17,8 @@ export class SubscreensComponent implements OnInit {
   
     constructor(
       private dialog:MatDialog,
-      private route:ActivatedRoute
+      private route:ActivatedRoute,
+      private notifyService:NotifyService
 
     
     ) { }
@@ -29,16 +31,17 @@ export class SubscreensComponent implements OnInit {
   
   
     onCreate(){
-      this.dialog.open(EditSubscreensDialogComponent,{
-        width:"45rem",
-        maxHeight:"100vh",
-        data:{
-          title:"Yeni alt Ekran Ekle",
-          mode:"create",
-          screenId:this.screenId,
-          item:null
-        }
-      })
+      this.notifyService.notify("warning","Ana Ekran Eklendiğinde alt ekranlar otomatik oluşturulur...");
+      // this.dialog.open(EditSubscreensDialogComponent,{
+      //   width:"45rem",
+      //   maxHeight:"100vh",
+      //   data:{
+      //     title:"Yeni alt Ekran Ekle",
+      //     mode:"create",
+      //     screenId:this.screenId,
+      //     item:null
+      //   }
+      // })
     }
 
 }

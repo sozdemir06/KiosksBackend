@@ -13,19 +13,18 @@ namespace API.Controllers
     public class NewsPhotoController : ControllerBase
     {
         private readonly INewsPhotoService newsPhotoService;
+        private readonly UserTracker userTracker;
         private readonly IHubContext<KiosksHub> kiosksHub;
         private readonly IOnlineScreenService onlineScreenService;
         private readonly IHubContext<AdminHub> hubContext;
-        private readonly IOnlineUserService onlineUserService;
-        public NewsPhotoController(INewsPhotoService newsPhotoService,
+        public NewsPhotoController(INewsPhotoService newsPhotoService,UserTracker userTracker,
         IHubContext<KiosksHub> kiosksHub,
         IOnlineScreenService onlineScreenService,
-        IOnlineUserService onlineUserService,
         IHubContext<AdminHub> hubContext)
         {
-            this.onlineUserService = onlineUserService;
             this.hubContext = hubContext;
             this.newsPhotoService = newsPhotoService;
+            this.userTracker = userTracker;
             this.kiosksHub = kiosksHub;
             this.onlineScreenService = onlineScreenService;
         }
@@ -40,10 +39,10 @@ namespace API.Controllers
         public async Task<ActionResult<NewsPhotoForReturnDto>> Create([FromForm] FileUploadDto uploadDto)
         {
             var photo = await newsPhotoService.Create(uploadDto);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+           var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("News", connId).SendAsync("ReceiveNewsPhoto", photo, "create");
+                await hubContext.Clients.GroupExcept("News", connIds).SendAsync("ReceiveNewsPhoto", photo, "create",true);
             }
 
             return photo;
@@ -53,10 +52,10 @@ namespace API.Controllers
         public async Task<NewsPhotoForReturnDto> Update(NewsPhotoForCreationDto creationDto)
         {
             var photo = await newsPhotoService.Update(creationDto);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (string.IsNullOrEmpty(connId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("News", connId).SendAsync("ReceiveNewsPhoto", photo, "update");
+                await hubContext.Clients.GroupExcept("News", connIds).SendAsync("ReceiveNewsPhoto", photo, "update");
             }
 
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
@@ -72,10 +71,10 @@ namespace API.Controllers
         public async Task<NewsPhotoForReturnDto> Delete(int photoId)
         {
             var photo = await newsPhotoService.Delete(photoId);
-            var connId = await onlineUserService.GetUserConnectionStringAsync();
-            if (!string.IsNullOrEmpty(connId))
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds!=null && connIds.Length!=0)
             {
-                await hubContext.Clients.GroupExcept("News", connId).SendAsync("ReceiveNewsPhoto", photo, "delete");
+                await hubContext.Clients.GroupExcept("News", connIds).SendAsync("ReceiveNewsPhoto", photo, "delete");
             }
 
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();

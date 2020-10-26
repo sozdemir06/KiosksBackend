@@ -20,7 +20,6 @@ import { IVehicleAnnounceSubScreen } from 'src/app/shared/models/IVehicleAnnounc
 import { INews } from 'src/app/shared/models/INews';
 import { INewsPhoto } from 'src/app/shared/models/INewsPhoto';
 import { INewsSubScreen } from 'src/app/shared/models/INewsSubScreen';
-import { INewsDetail } from 'src/app/shared/models/INewsDetail';
 import { IFoodMenu } from 'src/app/shared/models/IFoodMenu';
 import { IFoodMenuPhoto } from 'src/app/shared/models/IFoodMenuPhoto';
 import { IFoodMenuSubScreen } from 'src/app/shared/models/IFoodMenuSubScreen';
@@ -29,6 +28,11 @@ import { IScreenFooter } from 'src/app/shared/models/IScreenFooter';
 import { IScreenHeaderPhoto } from 'src/app/shared/models/IScreenHeaderPhoto';
 import { IScreenForKiosks } from '../models/IScreenForKiosks';
 import { ISubScreen } from 'src/app/shared/models/ISubScreen';
+import { IHomeAnnounceForKiosks } from '../models/IHomeAnnounceForKiosks';
+import { IAnnounceForKiosks } from '../models/IAnnounceForKiosks';
+import { IFoodMenuForKiosks } from '../models/IFoodMenuForKiosks';
+import { INewsForKiosks } from '../models/INewsForKiosks';
+import { IVehicleAnnounceForKiosks } from '../models/IVehicleAnnounceForKiosks';
 
 @Injectable({ providedIn: 'root' })
 export class KiosksStore {
@@ -42,7 +46,9 @@ export class KiosksStore {
     private loadingService: LoadingService,
     private notifyService: NotifyService,
     private helperService: HelperService
-  ) {}
+  ) {
+    
+  }
 
   getListByScreenId(screenId: number) {
     const list$ = this.httpClient
@@ -221,33 +227,36 @@ export class KiosksStore {
         );
         if (photoIndex != -1) {
           draft.announces[index].announcePhotos.splice(photoIndex, 1);
-          this.notifyService.notify(
-            'success',
-            'Fotoğraf yayından kaldırıldı...'
-          );
+         
         }
       }
     });
     this.subject.next(updateSubject);
+    this.notifyService.notify(
+      'success',
+      'Fotoğraf yayından kaldırıldı...'
+    );
   }
 
-  createSubsCreenRealTime(subScreen: IAnnounceSubScreen) {
+  createSubsCreenRealTime(announce: IAnnounceForKiosks,subscreen:IAnnounceSubScreen) {
     const updatesubject = produce(this.subject.getValue(), (draft) => {
       const index = draft.announces.findIndex(
-        (x) => x.id === subScreen.announceId
+        (x) => x.id === announce.id
       );
-      if (index != -1) {
-        draft.announces[index].announceSubScreens.push(subScreen);
-        this.notifyService.notify(
-          'success',
-          'Duyuru ' + subScreen.subScreenName + ' adlı ekranda yayına alındı...'
-        );
+      if (index !=-1) {
+         draft.announces[index].announceSubScreens.push(subscreen)
+      }else if(index===-1){
+        draft.announces.push(announce);
       }
     });
     this.subject.next(updatesubject);
+    this.notifyService.notify(
+      'success',
+      'Duyuru yayına alındı...'
+    );
   }
 
-  removeSubscreenRealTime(subscreen: IAnnounceSubScreen) {
+  removeSubscreenRealTime(subscreen:IAnnounceSubScreen) {
     const updatesubject = produce(this.subject.getValue(), (draft) => {
       const index = draft.announces.findIndex(
         (x) => x.id === subscreen.announceId
@@ -258,14 +267,15 @@ export class KiosksStore {
         ].announceSubScreens.findIndex((x) => x.id === subscreen.id);
         if (subscreenIndex != -1) {
           draft.announces[index].announceSubScreens.splice(subscreenIndex, 1);
-          this.notifyService.notify(
-            'success',
-            'Duyuru ' + subscreen.subScreenName + ' adlı ekrandan kaldırıldı...'
-          );
+         
         }
       }
     });
     this.subject.next(updatesubject);
+    this.notifyService.notify(
+      'success',
+      'Duyuru ' + subscreen.subScreenName + ' adlı ekrandan kaldırıldı...'
+    );
   }
   //Announce Events END
 
@@ -339,24 +349,27 @@ export class KiosksStore {
       }
     });
     this.subject.next(updateSubject);
+   
   }
 
-  createHomeAnnounceSubsCreenRealTime(subScreen: IHomeAnnounceSubScreen) {
+  createHomeAnnounceSubsCreenRealTime(subScreen: IHomeAnnounceSubScreen,homeAnnounce:IHomeAnnounceForKiosks) {
     const updatesubject = produce(this.subject.getValue(), (draft) => {
       const index = draft.homeAnnounces.findIndex(
         (x) => x.id === subScreen.homeAnnounceId
       );
       if (index != -1) {
         draft.homeAnnounces[index].homeAnnounceSubScreens.push(subScreen);
-        this.notifyService.notify(
-          'success',
-          'Ev ilanı ' +
-            subScreen.subScreenName +
-            ' adlı ekranda yayına alındı...'
-        );
+      }else if(index===-1){
+        draft.homeAnnounces.push(homeAnnounce);
       }
     });
     this.subject.next(updatesubject);
+    this.notifyService.notify(
+      'success',
+      'Ev ilanı ' +
+        subScreen.subScreenName +
+        ' adlı ekranda yayına alındı...'
+    );
   }
 
   removeHomeAnnounceSubscreenRealTime(subscreen: IHomeAnnounceSubScreen) {
@@ -373,16 +386,17 @@ export class KiosksStore {
             subscreenIndex,
             1
           );
-          this.notifyService.notify(
-            'success',
-            'Ev ilanı ' +
-              subscreen.subScreenName +
-              ' adlı ekrandan kaldırıldı...'
-          );
+         
         }
       }
     });
     this.subject.next(updatesubject);
+    this.notifyService.notify(
+      'success',
+      'Ev ilanı ' +
+        subscreen.subScreenName +
+        ' adlı ekrandan kaldırıldı...'
+    );
   }
   //HomeAnnounce Events END
 
@@ -456,32 +470,37 @@ export class KiosksStore {
             photoIndex,
             1
           );
-          this.notifyService.notify(
-            'success',
-            'Araç ilanı için fotoğraf silindi...'
-          );
+         
         }
       }
     });
     this.subject.next(updateSubject);
+    this.notifyService.notify(
+      'success',
+      'Araç ilanı için fotoğraf silindi...'
+    );
   }
 
-  createVehicleAnnounceSubsCreenRealTime(subScreen: IVehicleAnnounceSubScreen) {
+  createVehicleAnnounceSubsCreenRealTime(subScreen: IVehicleAnnounceSubScreen,vehicleAnnounce:IVehicleAnnounceForKiosks) {
     const updatesubject = produce(this.subject.getValue(), (draft) => {
       const index = draft.vehicleAnnounces.findIndex(
         (x) => x.id === subScreen.vehicleAnnounceId
       );
+      console.log(index);
       if (index != -1) {
         draft.vehicleAnnounces[index].vehicleAnnounceSubScreens.push(subScreen);
-        this.notifyService.notify(
-          'success',
-          'Araç ilanı ' +
-            subScreen.subScreenName +
-            ' adlı ekranda yayına alındı...'
-        );
+      }else if(index===-1){
+        draft.vehicleAnnounces.push(vehicleAnnounce);
       }
     });
     this.subject.next(updatesubject);
+    console.log(this.subject.getValue());
+    this.notifyService.notify(
+      'success',
+      'Araç ilanı ' +
+        subScreen.subScreenName +
+        ' adlı ekranda yayına alındı...'
+    );
   }
 
   removeVehicleAnnounceSubscreenRealTime(subscreen: IVehicleAnnounceSubScreen) {
@@ -498,16 +517,17 @@ export class KiosksStore {
             subscreenIndex,
             1
           );
-          this.notifyService.notify(
-            'success',
-            'Araç ilanı ' +
-              subscreen.subScreenName +
-              ' adlı ekrandan kaldırıldı...'
-          );
+        
         }
       }
     });
     this.subject.next(updatesubject);
+    this.notifyService.notify(
+      'success',
+      'Araç ilanı ' +
+        subscreen.subScreenName +
+        ' adlı ekrandan kaldırıldı...'
+    );
   }
   //VehicleAnnounce Events END
 
@@ -577,20 +597,23 @@ export class KiosksStore {
       }
     });
     this.subject.next(updateSubject);
+   
   }
 
-  createNewsSubsCreenRealTime(subScreen: INewsSubScreen) {
+  createNewsSubsCreenRealTime(subScreen: INewsSubScreen,news:INewsForKiosks) {
     const updatesubject = produce(this.subject.getValue(), (draft) => {
       const index = draft.news.findIndex((x) => x.id === subScreen.newsId);
       if (index != -1) {
         draft.news[index].newsSubScreens.push(subScreen);
-        this.notifyService.notify(
-          'success',
-          'Haber ' + subScreen.subScreenName + ' adlı ekranda yayına alındı...'
-        );
+      }else if(index===-1){
+        draft.news.push(news);
       }
     });
     this.subject.next(updatesubject);
+    this.notifyService.notify(
+      'success',
+      'Haber ' + subScreen.subScreenName + ' adlı ekranda yayına alındı...'
+    );
   }
 
   removeNewsSubscreenRealTime(subscreen: INewsSubScreen) {
@@ -610,6 +633,7 @@ export class KiosksStore {
       }
     });
     this.subject.next(updatesubject);
+    
   }
   //News EVents END
   //FoodMenu Events START
@@ -684,22 +708,24 @@ export class KiosksStore {
     this.subject.next(updateSubject);
   }
 
-  createFoodMenuSubsCreenRealTime(subScreen: IFoodMenuSubScreen) {
+  createFoodMenuSubsCreenRealTime(subScreen: IFoodMenuSubScreen,foodMenu:IFoodMenuForKiosks) {
     const updatesubject = produce(this.subject.getValue(), (draft) => {
       const index = draft.foodsMenu.findIndex(
         (x) => x.id === subScreen.foodMenuId
       );
       if (index != -1) {
         draft.foodsMenu[index].foodMenuSubScreens.push(subScreen);
-        this.notifyService.notify(
-          'success',
-          'Yemek Menüsü ' +
-            subScreen.subScreenName +
-            ' adlı ekranda yayına alındı...'
-        );
+      }else if(index===-1){
+        draft.foodsMenu.push(foodMenu);
       }
     });
     this.subject.next(updatesubject);
+    this.notifyService.notify(
+      'success',
+      'Yemek Menüsü ' +
+        subScreen.subScreenName +
+        ' adlı ekranda yayına alındı...'
+    );
   }
 
   removeFoodMenuSubscreenRealTime(subscreen: IFoodMenuSubScreen) {

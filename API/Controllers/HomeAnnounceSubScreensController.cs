@@ -13,16 +13,18 @@ namespace API.Controllers
     public class HomeAnnounceSubScreensController : ControllerBase
     {
         private readonly IHomeAnnounceSubScreenService homeAnnounceSubScreenService;
+        private readonly IKiosksService kiosksService;
         private readonly IOnlineScreenService onlineScreenService;
         private readonly IHubContext<KiosksHub> kiosksHub;
         public HomeAnnounceSubScreensController(IHomeAnnounceSubScreenService homeAnnounceSubScreenService,
+        IKiosksService kiosksService,
         IHubContext<KiosksHub> kiosksHub,
         IOnlineScreenService onlineScreenService)
         {
             this.kiosksHub = kiosksHub;
             this.onlineScreenService = onlineScreenService;
             this.homeAnnounceSubScreenService = homeAnnounceSubScreenService;
-
+            this.kiosksService = kiosksService;
         }
 
         [HttpPost]
@@ -32,7 +34,12 @@ namespace API.Controllers
             var onlineScreensConnectionId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveHomeAnnounceSubScreen", subscreen, "create");
+                var homeAnnounceForKiosks=await kiosksService.GetHomeAnnounceByIdAsync(subscreen.HomeAnnounceId);
+                if(homeAnnounceForKiosks!=null)
+                {
+                    await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveHomeAnnounceSubScreen", subscreen, "create",homeAnnounceForKiosks);
+                }
+                
             }
             return subscreen;
         }
@@ -50,7 +57,7 @@ namespace API.Controllers
             var onlineScreensConnectionId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveHomeAnnounceSubScreen", subscreen, "delete");
+                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveHomeAnnounceSubScreen", subscreen, "delete",null);
             }
             return subscreen;
         }

@@ -13,16 +13,18 @@ namespace API.Controllers
     public class VehicleAnnounceSubScreensController : ControllerBase
     {
         private readonly IVehicleAnnounceSubScreenService vehicleAnnouncesubScreenService;
+        private readonly IKiosksService kiosksService;
         private readonly IOnlineScreenService onlineScreenService;
         private readonly IHubContext<KiosksHub> kiosksHub;
         public VehicleAnnounceSubScreensController(IVehicleAnnounceSubScreenService vehicleAnnouncesubScreenService,
+        IKiosksService kiosksService,
         IHubContext<KiosksHub> kiosksHub,
         IOnlineScreenService onlineScreenService)
         {
             this.kiosksHub = kiosksHub;
             this.onlineScreenService = onlineScreenService;
             this.vehicleAnnouncesubScreenService = vehicleAnnouncesubScreenService;
-
+            this.kiosksService = kiosksService;
         }
 
         [HttpPost]
@@ -32,7 +34,12 @@ namespace API.Controllers
             var onlineScreensConnectionId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveVehicleAnnounceSubScreen", subscreen, "create");
+                var vehicleAnnounceforKiosks = await kiosksService.GetVehicleAnnounceByIdAsync(subscreen.VehicleAnnounceId);
+                if (vehicleAnnounceforKiosks != null)
+                {
+                    await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveVehicleAnnounceSubScreen", subscreen, "create",vehicleAnnounceforKiosks);
+                }
+
             }
 
             return subscreen;
@@ -51,7 +58,7 @@ namespace API.Controllers
             var onlineScreensConnectionId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveVehicleAnnounceSubScreen", subscreen, "delete");
+                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveVehicleAnnounceSubScreen", subscreen, "delete",null);
             }
 
             return subscreen;

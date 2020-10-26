@@ -9,7 +9,6 @@ namespace DataAccess.Concrete.Configurations
         public void Configure(EntityTypeBuilder<RoleCategory> builder)
         {
             builder.HasKey(x=>x.Id);
-
             builder.Property(x=>x.Name).HasMaxLength(60);
         }
     }

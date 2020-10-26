@@ -320,7 +320,7 @@ export class NewsStore {
           draft.data.push(model);
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${model.header} başlıklı yeni haber eklendi..`);
+    this.notifyService.notify('success', "Yeni haber eklendi..");
   }
 
   updateNews(model:INews):void{
@@ -331,7 +331,7 @@ export class NewsStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${model.header} başlıklı haber güncellendi...`);
+    this.notifyService.notify('success', "Yeni haber güncellendi..");
   }
 
   addNewPhotoRealTime(photo:INewsPhoto):void{
@@ -342,7 +342,7 @@ export class NewsStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${this.getNewsHeaderById(photo.newsId)} balıklı haber için yeni fotoğraf eklendi...`);
+    this.notifyService.notify('success',"Haber için yeni fotoğraf eklendi...");
   }
 
   updatePhotoRealTime(photo:INewsPhoto):void{
@@ -357,7 +357,7 @@ export class NewsStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${this.getNewsHeaderById(photo.newsId)} balıklı haber için fotoğraf güncellendi...`);
+    this.notifyService.notify('success', "Haber için fotoğraf güncellendi...");
   }
 
   removePhotoRealTime(photo:INewsPhoto):void{
@@ -371,16 +371,10 @@ export class NewsStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${this.getNewsHeaderById(photo.newsId)} balıklı haber için fotoğraf silindi...`);
+    this.notifyService.notify('success', "Haber için fotoğraf kaldırıldı...");
   }
 
-  private getNewsHeaderById(id:number):string{
-    let news:INews;
-    produce(this.subject.getValue(),draft=>{
-      news=draft.data.find(x=>x.id===id);
-    });
-    return news.header;
-  }
+  
 
   getParams(): NewsParams {
     return this.newsParams;

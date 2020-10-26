@@ -37,7 +37,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(NewsSubScreenValidator), Priority = 2)]
         public async Task<NewsSubScreenForReturnDto> Create(NewsSubScreenForCreationDto creationDto)
         {
-            var checkById = await newsSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId && x.NewsId==creationDto.NewsId);
+            var checkById = await newsSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId && x.NewsId == creationDto.NewsId);
             if (checkById != null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.SubScreenAlreadyExist });
@@ -61,6 +61,10 @@ namespace Business.Concrete
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundScreen });
             }
+            if (!checkAnnounceFromRepo.IsPublish)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = "Haber henüz onay bekliyor...." });
+            }
 
             var subScreenForReturn = new NewsSubScreen()
             {
@@ -82,7 +86,7 @@ namespace Business.Concrete
         [SecuredOperation("Sudo,News.Delete,News.All", Priority = 1)]
         public async Task<NewsSubScreenForReturnDto> Delete(int Id)
         {
-             var checkByIdFromRepo = await newsSubScreenDal.GetAsync(x => x.Id == Id);
+            var checkByIdFromRepo = await newsSubScreenDal.GetAsync(x => x.Id == Id);
             if (checkByIdFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
@@ -95,7 +99,7 @@ namespace Business.Concrete
         [SecuredOperation("Sudo,News.List,News.All", Priority = 1)]
         public async Task<List<NewsSubScreenForReturnDto>> GetByAnnounceId(int announceId)
         {
-             var spec = new NewsSubScreenWithSubScreenByNewsId(announceId);
+            var spec = new NewsSubScreenWithSubScreenByNewsId(announceId);
             var getHomeAnnounceSubScreenByAnnounceId = await newsSubScreenDal.ListEntityWithSpecAsync(spec);
             if (getHomeAnnounceSubScreenByAnnounceId == null)
             {
@@ -105,10 +109,10 @@ namespace Business.Concrete
             return mapper.Map<List<NewsSubScreen>, List<NewsSubScreenForReturnDto>>(getHomeAnnounceSubScreenByAnnounceId);
         }
 
-         [SecuredOperation("Sudo,News.List,News.All", Priority = 1)]
+        [SecuredOperation("Sudo,News.List,News.All", Priority = 1)]
         public async Task<List<NewsSubScreenForReturnDto>> GetListAsync()
         {
-             var getListFromRepo = await newsSubScreenDal.GetListAsync();
+            var getListFromRepo = await newsSubScreenDal.GetListAsync();
             if (getListFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
@@ -119,9 +123,9 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,News.Update,News.All", Priority = 1)]
         [ValidationAspect(typeof(NewsSubScreenValidator), Priority = 2)]
-        public async  Task<NewsSubScreenForReturnDto> Update(NewsSubScreenForCreationDto updateDto)
+        public async Task<NewsSubScreenForReturnDto> Update(NewsSubScreenForCreationDto updateDto)
         {
-             var checkByIdFromRepo = await newsSubScreenDal.GetAsync(x => x.Id == updateDto.Id);
+            var checkByIdFromRepo = await newsSubScreenDal.GetAsync(x => x.Id == updateDto.Id);
             if (checkByIdFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
@@ -129,7 +133,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkByIdFromRepo);
             var updatePhoto = await newsSubScreenDal.Update(mapForUpdate);
-            return mapper.Map<NewsSubScreen,NewsSubScreenForReturnDto>(updatePhoto);
+            return mapper.Map<NewsSubScreen, NewsSubScreenForReturnDto>(updatePhoto);
         }
     }
 }

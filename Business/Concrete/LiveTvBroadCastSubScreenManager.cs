@@ -64,6 +64,11 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundScreen });
             }
 
+            if (!checkAnnounceFromRepo.IsPublish)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = "Canlı Tv yayını henüz onay bekliyor...." });
+            }
+
             var subScreenForReturn = new LiveTvBroadCastSubScreen()
             {
                 SubScreenId = subScreenFromRepo.Id,
@@ -94,7 +99,7 @@ namespace Business.Concrete
             return mapper.Map<LiveTvBroadCastSubScreen, LiveTvBroadCastSubScreenForReturnDto>(checkByIdFromRepo);
         }
 
-       [SecuredOperation("Sudo,LiveTvBroadCasts.List,LiveTvBroadCasts.All", Priority = 1)]
+        [SecuredOperation("Sudo,LiveTvBroadCasts.List,LiveTvBroadCasts.All", Priority = 1)]
         public async Task<List<LiveTvBroadCastSubScreenForReturnDto>> GetByAnnounceId(int announceId)
         {
             var spec = new LiveTvBroadCastSubScreenWithSubScreenSpecification(announceId);
@@ -119,7 +124,7 @@ namespace Business.Concrete
             return mapper.Map<List<LiveTvBroadCastSubScreen>, List<LiveTvBroadCastSubScreenForReturnDto>>(getListFromRepo);
         }
 
-       [SecuredOperation("Sudo,LiveTvBroadCasts.Update,LiveTvBroadCasts.All", Priority = 1)]
+        [SecuredOperation("Sudo,LiveTvBroadCasts.Update,LiveTvBroadCasts.All", Priority = 1)]
         [ValidationAspect(typeof(LiveTvBroadCastSubsCreenValidator), Priority = 2)]
         public async Task<LiveTvBroadCastSubScreenForReturnDto> Update(LiveTvBroadCastSubScreenForCreationDto updateDto)
         {

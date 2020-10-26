@@ -67,7 +67,7 @@ namespace API.Controllers
             if (screenConnectionId != null && screenConnectionId.Length != 0)
             {
                 var newsForKiosks = await kiosksService.GetNewsById(news.Id);
-                if (newsForKiosks != null)
+                if (newsForKiosks != null && newsForKiosks.IsPublish)
                 {
                     await kiosksHub.Clients.Clients(screenConnectionId).SendAsync("ReceiveNews", newsForKiosks);
                 }

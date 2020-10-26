@@ -3,7 +3,6 @@ import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { IPagination } from 'src/app/shared/models/IPagination';
 import { IFoodMenu } from 'src/app/shared/models/IFoodMenu';
-import { IFoodMenuDetail } from 'src/app/shared/models/IFoodMenuDetail';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { LoadingService } from '../loading-service';
 import { NotifyService } from '../notify-service';
@@ -324,7 +323,7 @@ export class FoodMenuStore {
           draft.data.push(model);
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${model.created} tarihli yeni bir yemek menüsü eklendi...`);
+    this.notifyService.notify('success', "Yeni bir yemek menüsü eklendi...");
   }
 
   updateFoodMenuRealTime(model:IFoodMenu):void{
@@ -335,7 +334,7 @@ export class FoodMenuStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${model.created} tarihli yemek menüsü güncellendi...`);
+    this.notifyService.notify('success', "Yemek menüsü güncellendi...");
   }
 
   addNewPhotoRealTime(photo:IFoodMenuPhoto):void{
@@ -346,7 +345,7 @@ export class FoodMenuStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${this.getFoodMenuCreatedById(photo.foodMenuId)} tarihli menü için yeni fotoğraf eklendi...`);
+    this.notifyService.notify('success', "Menü için yeni fotoğraf eklendi...");
   }
 
   updatePhotoRealTime(photo:IFoodMenuPhoto):void{
@@ -361,7 +360,7 @@ export class FoodMenuStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${this.getFoodMenuCreatedById(photo.foodMenuId)} tarihli menü için fotoğraf güncellendi...`);
+    this.notifyService.notify('success', " Menü için fotoğraf güncellendi...");
   }
 
   removePhotoRealTime(photo:IFoodMenuPhoto):void{
@@ -375,16 +374,10 @@ export class FoodMenuStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${this.getFoodMenuCreatedById(photo.foodMenuId)} tarihli menü fotoğraf silindi...`);
+    this.notifyService.notify('success', "Menü için fotoğraf silindi...");
   }
 
- private getFoodMenuCreatedById(id:number):Date{
-    let foodMenu:IFoodMenu;
-    produce(this.subject.getValue(),draft=>{
-       foodMenu=draft.data.find(x=>x.id===id);
-    });
-    return foodMenu.created;
-  }
+ 
   getParams(): FoodMenuParams {
     return this.foodMenuParams;
   }

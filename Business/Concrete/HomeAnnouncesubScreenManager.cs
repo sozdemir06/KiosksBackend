@@ -24,10 +24,10 @@ namespace Business.Concrete
         private readonly IScreenDal screenDal;
         private readonly ISubSCreenDal subSCreenDal;
 
-        public HomeAnnouncesubScreenManager(IHomeAnnounceSubScreenDal homeAnnounceSubScreenDal, 
-            IMapper mapper, 
-            IHomeAnnounceDal homeAnnounceDal,IScreenDal screenDal,ISubSCreenDal subSCreenDal
-         
+        public HomeAnnouncesubScreenManager(IHomeAnnounceSubScreenDal homeAnnounceSubScreenDal,
+            IMapper mapper,
+            IHomeAnnounceDal homeAnnounceDal, IScreenDal screenDal, ISubSCreenDal subSCreenDal
+
             )
         {
             this.homeAnnounceDal = homeAnnounceDal;
@@ -35,7 +35,7 @@ namespace Business.Concrete
             this.subSCreenDal = subSCreenDal;
             this.mapper = mapper;
             this.homeAnnounceSubScreenDal = homeAnnounceSubScreenDal;
-        
+
 
         }
 
@@ -43,45 +43,50 @@ namespace Business.Concrete
         [ValidationAspect(typeof(HomeAnnounceSubsCreenValidator), Priority = 2)]
         public async Task<HomeAnnounceSubScreenForReturnDto> Create(HomeAnnounceSubScreenForCreationDto creationDto)
         {
-            var checkById = await homeAnnounceSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId && x.HomeAnnounceId==creationDto.HomeAnnounceId);
+            var checkById = await homeAnnounceSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId && x.HomeAnnounceId == creationDto.HomeAnnounceId);
             if (checkById != null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.SubScreenAlreadyExist });
             }
 
-            var subScreenFromRepo=await subSCreenDal.GetAsync(x=>x.Id==creationDto.SubScreenId);
-            if(subScreenFromRepo==null)
+            var subScreenFromRepo = await subSCreenDal.GetAsync(x => x.Id == creationDto.SubScreenId);
+            if (subScreenFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundSubSCreen });
- 
+
             }
 
-            var checkAnnounceFromRepo = await homeAnnounceDal.GetAsync(x=>x.Id==creationDto.HomeAnnounceId);
-            if(checkAnnounceFromRepo==null)
+            var checkAnnounceFromRepo = await homeAnnounceDal.GetAsync(x => x.Id == creationDto.HomeAnnounceId);
+            if (checkAnnounceFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundAnnounce });
             }
 
-            var screenFromRepo= await screenDal.GetAsync(x=>x.Id==creationDto.ScreenId);
-            if(screenFromRepo==null)
+            var screenFromRepo = await screenDal.GetAsync(x => x.Id == creationDto.ScreenId);
+            if (screenFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundScreen });
             }
 
-            var subScreenForReturn=new HomeAnnounceSubScreen()
+            if (!checkAnnounceFromRepo.IsPublish)
             {
-                SubScreenId=subScreenFromRepo.Id,
-                ScreenId=screenFromRepo.Id,
-                HomeAnnounceId=checkAnnounceFromRepo.Id,
-                SubScreenName=subScreenFromRepo.Name,
-                SubScreenPosition=subScreenFromRepo.Position
-                
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = "Ev ilanı henüz onay bekliyor...." });
+            }
+
+            var subScreenForReturn = new HomeAnnounceSubScreen()
+            {
+                SubScreenId = subScreenFromRepo.Id,
+                ScreenId = screenFromRepo.Id,
+                HomeAnnounceId = checkAnnounceFromRepo.Id,
+                SubScreenName = subScreenFromRepo.Name,
+                SubScreenPosition = subScreenFromRepo.Position
+
             };
 
             var createSubScreen = await homeAnnounceSubScreenDal.Add(subScreenForReturn);
-            var spec=new HomeAnnounSubScreenWithSubScreenForReturnSpecification(createSubScreen.Id);
-            var getFromRepo=await homeAnnounceSubScreenDal.GetEntityWithSpecAsync(spec);
-            
+            var spec = new HomeAnnounSubScreenWithSubScreenForReturnSpecification(createSubScreen.Id);
+            var getFromRepo = await homeAnnounceSubScreenDal.GetEntityWithSpecAsync(spec);
+
             return mapper.Map<HomeAnnounceSubScreen, HomeAnnounceSubScreenForReturnDto>(getFromRepo);
         }
 
@@ -98,17 +103,17 @@ namespace Business.Concrete
             return mapper.Map<HomeAnnounceSubScreen, HomeAnnounceSubScreenForReturnDto>(checkByIdFromRepo);
         }
 
-         [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounces.List,HomeAnnounces.All", Priority = 1)]
         public async Task<List<HomeAnnounceSubScreenForReturnDto>> GetByAnnounceId(int announceId)
         {
-              var spec=new HomeAnnounSubScreenWithSubScreenSpecification(announceId);
-              var getHomeAnnounceSubScreenByAnnounceId=await homeAnnounceSubScreenDal.ListEntityWithSpecAsync(spec);
-              if(getHomeAnnounceSubScreenByAnnounceId==null)
-              {
-                  throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound }); 
-              }
+            var spec = new HomeAnnounSubScreenWithSubScreenSpecification(announceId);
+            var getHomeAnnounceSubScreenByAnnounceId = await homeAnnounceSubScreenDal.ListEntityWithSpecAsync(spec);
+            if (getHomeAnnounceSubScreenByAnnounceId == null)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
+            }
 
-              return mapper.Map<List<HomeAnnounceSubScreen>,List<HomeAnnounceSubScreenForReturnDto>>(getHomeAnnounceSubScreenByAnnounceId);
+            return mapper.Map<List<HomeAnnounceSubScreen>, List<HomeAnnounceSubScreenForReturnDto>>(getHomeAnnounceSubScreenByAnnounceId);
 
         }
 
@@ -124,7 +129,7 @@ namespace Business.Concrete
             return mapper.Map<List<HomeAnnounceSubScreen>, List<HomeAnnounceSubScreenForReturnDto>>(getListFromRepo);
         }
 
-         [SecuredOperation("Sudo,HomeAnnounces.Update,HomeAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,HomeAnnounces.Update,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnounceSubsCreenValidator), Priority = 2)]
         public async Task<HomeAnnounceSubScreenForReturnDto> Update(HomeAnnounceSubScreenForCreationDto updateDto)
         {

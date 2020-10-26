@@ -13,16 +13,18 @@ namespace API.Controllers
     public class FoodMenuSubScreenController : ControllerBase
     {
         private readonly IFoodMenuSubScreenService foodMenuSubScreenService;
+        private readonly IKiosksService kiosksService;
         private readonly IHubContext<KiosksHub> kiosksHub;
         private readonly IOnlineScreenService onlineScreenService;
         public FoodMenuSubScreenController(IFoodMenuSubScreenService foodMenuSubScreenService,
+        IKiosksService kiosksService,
         IOnlineScreenService onlineScreenService,
         IHubContext<KiosksHub> kiosksHub)
         {
             this.onlineScreenService = onlineScreenService;
             this.kiosksHub = kiosksHub;
             this.foodMenuSubScreenService = foodMenuSubScreenService;
-
+            this.kiosksService = kiosksService;
         }
 
         [HttpPost]
@@ -32,7 +34,12 @@ namespace API.Controllers
             var onlineScreensByScreenId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensByScreenId != null && onlineScreensByScreenId.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreensByScreenId).SendAsync("ReceiveFoodMenuSubScreen", subscreen, "create");
+                var foodMenuForKiosks=await kiosksService.GetFoodMenuById(subscreen.FoodMenuId);
+                if(foodMenuForKiosks!=null)
+                {
+                     await kiosksHub.Clients.Clients(onlineScreensByScreenId).SendAsync("ReceiveFoodMenuSubScreen", subscreen, "create",foodMenuForKiosks);
+                }
+               
             }
             return subscreen;
 
@@ -51,7 +58,7 @@ namespace API.Controllers
             var onlineScreensByScreenId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensByScreenId != null && onlineScreensByScreenId.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreensByScreenId).SendAsync("ReceiveFoodMenuSubScreen", subscreen, "delete");
+                await kiosksHub.Clients.Clients(onlineScreensByScreenId).SendAsync("ReceiveFoodMenuSubScreen", subscreen, "delete",null);
             }
             return subscreen;
         }

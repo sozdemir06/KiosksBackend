@@ -13,16 +13,18 @@ namespace API.Controllers
     public class AnnounceSubScreensController : ControllerBase
     {
         private readonly IAnnounceSubScreenService announceSubScreenService;
+        private readonly IKiosksService kiosksService;
         private readonly IOnlineScreenService onlineScreenService;
         private readonly IHubContext<KiosksHub> kiosksHub;
         public AnnounceSubScreensController(IAnnounceSubScreenService announceSubScreenService,
+        IKiosksService kiosksService,
         IHubContext<KiosksHub> kiosksHub,
         IOnlineScreenService onlineScreenService)
         {
             this.kiosksHub = kiosksHub;
             this.onlineScreenService = onlineScreenService;
             this.announceSubScreenService = announceSubScreenService;
-
+            this.kiosksService = kiosksService;
         }
 
         [HttpPost]
@@ -32,7 +34,12 @@ namespace API.Controllers
             var onlineScreensById = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensById != null && onlineScreensById.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreensById).SendAsync("ReceiveAnnounceSubScreen", subscreen, "create");
+                var announceForKiosks = await kiosksService.GetAnnounceByIdAsync(subscreen.AnnounceId);
+                if (announceForKiosks != null)
+                {
+                    await kiosksHub.Clients.Clients(onlineScreensById).SendAsync("ReceiveAnnounceSubScreen", subscreen, "create", announceForKiosks);
+                }
+
             }
 
             return subscreen;
@@ -51,7 +58,9 @@ namespace API.Controllers
             var onlineScreensById = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensById != null && onlineScreensById.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreensById).SendAsync("ReceiveAnnounceSubScreen", subscreen, "delete");
+
+                await kiosksHub.Clients.Clients(onlineScreensById).SendAsync("ReceiveAnnounceSubScreen", subscreen, "delete", null);
+
             }
 
             return subscreen;

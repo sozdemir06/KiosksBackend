@@ -11,7 +11,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 import produce from 'immer';
 import { IAnnouncePhoto } from 'src/app/shared/models/IAnnouncePhoto';
 import { IAnnounceSubScreen } from 'src/app/shared/models/IAnnounceSubScreen';
-import { IHomeAnnouncePhoto } from 'src/app/shared/models/IHomeAnnouncePhoto';
+
 
 @Injectable({ providedIn: 'root' })
 export class AnnounceStore {
@@ -340,7 +340,7 @@ export class AnnounceStore {
        draft.data.push(model);
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${model.header} başlıklı duyuru eklendi...`);
+    this.notifyService.notify('success', " Yeni duyuru eklendi...");
   }
 
   updateAnnounceRealTime(model:IAnnounce):void{
@@ -351,7 +351,7 @@ export class AnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${model.header} başlıklı duyuru güncellendi...`);
+    this.notifyService.notify('success', "Duyuru Güncellendi...");
   }
 
   addNewPhotoRealTime(photo:IAnnouncePhoto):void{
@@ -364,7 +364,7 @@ export class AnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${announce.header} başlıklı duyuru için yeni fotoğraf eklendi...`);
+    this.notifyService.notify('success', " Duyuru için yeni fotoğraf eklendi...");
   }
 
   updatePhotoRealTime(photo:IAnnouncePhoto):void{
@@ -381,7 +381,7 @@ export class AnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success',  `${announce.header} başlıklı duyuru için fotoğraf güncellendi...`);
+    this.notifyService.notify('success', " Duyuru için fotoğraf güncellendi...");
   }
 
   removePhotoRealTime(photo:IAnnouncePhoto):void{
@@ -397,7 +397,7 @@ export class AnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${announce.header} başlıklı duyuru için fotoğraf silindi...`);
+    this.notifyService.notify('success', " Duyuru için fotoğraf silindi...");
   }
 
 

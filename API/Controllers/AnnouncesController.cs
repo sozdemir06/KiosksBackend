@@ -68,7 +68,7 @@ namespace API.Controllers
             if (onlineScreens != null && onlineScreens.Length != 0)
             {
                 var announceForKiosks = await kiosksService.GetAnnounceByIdAsync(announce.Id);
-                if (announceForKiosks != null)
+                if (announceForKiosks != null && announceForKiosks.IsPublish)
                 {
                     await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReceiveAnnounce", announceForKiosks);
                 }

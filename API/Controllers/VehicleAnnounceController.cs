@@ -69,7 +69,7 @@ namespace API.Controllers
             if (screenConnectionId != null && screenConnectionId.Length != 0)
             {
                 var vehicleAnnounceForKiosks = await kiosksService.GetVehicleAnnounceByIdAsync(vehicleAnnounce.Id);
-                if (vehicleAnnounceForKiosks != null)
+                if (vehicleAnnounceForKiosks != null && vehicleAnnounce.IsPublish)
                 {
                     await kiosksHub.Clients.Clients(screenConnectionId).SendAsync("ReceiveVehicleAnnounce", vehicleAnnounceForKiosks);
                 }

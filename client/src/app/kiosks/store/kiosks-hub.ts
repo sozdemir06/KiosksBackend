@@ -1,6 +1,7 @@
 import { Identifiers } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, ISubscription } from '@microsoft/signalr';
+import { sub } from 'date-fns';
 import { th } from 'date-fns/locale';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ExchangeRateStore } from 'src/app/core/services/stores/exchangerate-store';
@@ -26,7 +27,12 @@ import { IVehicleAnnouncePhoto } from 'src/app/shared/models/IVehicleAnnouncePho
 import { IVehicleAnnounceSubScreen } from 'src/app/shared/models/IVehicleAnnounceSubScreen';
 import { IWheatherForeCast } from 'src/app/shared/models/IWheatherForeCast';
 import { environment } from 'src/environments/environment';
+import { IAnnounceForKiosks } from '../models/IAnnounceForKiosks';
+import { IFoodMenuForKiosks } from '../models/IFoodMenuForKiosks';
+import { IHomeAnnounceForKiosks } from '../models/IHomeAnnounceForKiosks';
+import { INewsForKiosks } from '../models/INewsForKiosks';
 import { IScreenForKiosks } from '../models/IScreenForKiosks';
+import { IVehicleAnnounceForKiosks } from '../models/IVehicleAnnounceForKiosks';
 import { KiosksStore } from './kiosks-store';
 
 @Injectable({ providedIn: 'root' })
@@ -95,9 +101,10 @@ export class KiosksHubService {
     );
     this.hubConnection.on(
       'ReceiveAnnounceSubScreen',
-      (subscreen: IAnnounceSubScreen, eventType: string) => {
+      (subscreen:IAnnounceSubScreen, eventType: string,announce: IAnnounceForKiosks) => {
+        
         if (eventType.toLowerCase() == 'create') {
-          this.kiosksStore.createSubsCreenRealTime(subscreen);
+          this.kiosksStore.createSubsCreenRealTime(announce,subscreen);
         } else if (eventType.toLowerCase() == 'delete') {
           this.kiosksStore.removeSubscreenRealTime(subscreen);
         }
@@ -121,9 +128,9 @@ export class KiosksHubService {
     );
     this.hubConnection.on(
       'ReceiveHomeAnnounceSubScreen',
-      (subscreen: IHomeAnnounceSubScreen, eventType: string) => {
+      (subscreen: IHomeAnnounceSubScreen, eventType: string,homeAnnounce:IHomeAnnounceForKiosks) => {
         if (eventType.toLowerCase() == 'create') {
-          this.kiosksStore.createHomeAnnounceSubsCreenRealTime(subscreen);
+          this.kiosksStore.createHomeAnnounceSubsCreenRealTime(subscreen,homeAnnounce);
         } else if (eventType.toLowerCase() == 'delete') {
           this.kiosksStore.removeHomeAnnounceSubscreenRealTime(subscreen);
         }
@@ -150,9 +157,9 @@ export class KiosksHubService {
     );
     this.hubConnection.on(
       'ReceiveVehicleAnnounceSubScreen',
-      (subscreen: IVehicleAnnounceSubScreen, eventType: string) => {
+      (subscreen: IVehicleAnnounceSubScreen, eventType: string,vehicleAnnounce:IVehicleAnnounceForKiosks) => {
         if (eventType.toLowerCase() == 'create') {
-          this.kiosksStore.createVehicleAnnounceSubsCreenRealTime(subscreen);
+          this.kiosksStore.createVehicleAnnounceSubsCreenRealTime(subscreen,vehicleAnnounce);
         } else if (eventType.toLowerCase() == 'delete') {
           this.kiosksStore.removeVehicleAnnounceSubscreenRealTime(subscreen);
         }
@@ -175,9 +182,9 @@ export class KiosksHubService {
     );
     this.hubConnection.on(
       'ReceiveNewsSubScreen',
-      (subscreen: INewsSubScreen, eventType: string) => {
+      (subscreen: INewsSubScreen, eventType: string,news:INewsForKiosks) => {
         if (eventType.toLowerCase() == 'create') {
-          this.kiosksStore.createNewsSubsCreenRealTime(subscreen);
+          this.kiosksStore.createNewsSubsCreenRealTime(subscreen,news);
         } else if (eventType.toLowerCase() == 'delete') {
           this.kiosksStore.removeNewsSubscreenRealTime(subscreen);
         }
@@ -202,9 +209,9 @@ export class KiosksHubService {
     );
     this.hubConnection.on(
       'ReceiveFoodMenuSubScreen',
-      (subscreen: IFoodMenuSubScreen, eventType: string) => {
+      (subscreen: IFoodMenuSubScreen, eventType: string,foodMenu:IFoodMenuForKiosks) => {
         if (eventType.toLowerCase() == 'create') {
-          this.kiosksStore.createFoodMenuSubsCreenRealTime(subscreen);
+          this.kiosksStore.createFoodMenuSubsCreenRealTime(subscreen,foodMenu);
         } else if (eventType.toLowerCase() == 'delete') {
           this.kiosksStore.removeFoodMenuSubscreenRealTime(subscreen);
         }

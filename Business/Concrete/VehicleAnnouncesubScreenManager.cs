@@ -38,7 +38,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(VehicleAnnounceSubScreenValidator), Priority = 2)]
         public async Task<VehicleAnnounceSubScreenForReturnDto> Create(VehicleAnnounceSubScreenForCreationDto creationDto)
         {
-            var checkById = await vehicleAnnounceSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId && x.VehicleAnnounceId==creationDto.VehicleAnnounceId);
+            var checkById = await vehicleAnnounceSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId && x.VehicleAnnounceId == creationDto.VehicleAnnounceId);
             if (checkById != null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.SubScreenAlreadyExist });
@@ -61,6 +61,11 @@ namespace Business.Concrete
             if (screenFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundScreen });
+            }
+
+            if (!checkAnnounceFromRepo.IsPublish)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = "Araç ilanı henüz onay bekliyor...." });
             }
 
             var subScreenForReturn = new VehicleAnnounceSubScreen()
@@ -118,7 +123,7 @@ namespace Business.Concrete
             return mapper.Map<List<VehicleAnnounceSubScreen>, List<VehicleAnnounceSubScreenForReturnDto>>(getListFromRepo);
         }
 
-         [SecuredOperation("Sudo,VehicleAnnounces.Update,VehicleAnnounces.All", Priority = 1)]
+        [SecuredOperation("Sudo,VehicleAnnounces.Update,VehicleAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnounceSubScreenValidator), Priority = 2)]
         public async Task<VehicleAnnounceSubScreenForReturnDto> Update(VehicleAnnounceSubScreenForCreationDto updateDto)
         {

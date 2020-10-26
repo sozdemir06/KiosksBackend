@@ -72,7 +72,7 @@ namespace API.Controllers
             if (onlineScreens != null && onlineScreens.Length != 0)
             {
                 var foodsMenuForKiosks = await kiosksService.GetFoodMenuById(foodMenu.Id);
-                if (foodsMenuForKiosks != null)
+                if (foodsMenuForKiosks != null && foodsMenuForKiosks.IsPublish)
                 {
                     await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReceiveFoodMenu", foodsMenuForKiosks);
                 }

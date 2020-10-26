@@ -1,6 +1,63 @@
 [
-    {
-        "Name":"Users",
-        "Description":"Kullanıcı yetkileri"
-    }
+ {
+   "Id": 1,
+   "Name": "Users",
+   "Description": "Kullanıcı yetkileri"
+ },
+ {
+   "Id": 2,
+   "Name": "Roles",
+   "Description": "Uygulama Yetkileri"
+ },
+ {
+   "Id": 3,
+   "Name": "Screens",
+   "Description": "Ana Ekranlar Yetkisi"
+ },
+ {
+   "Id": 4,
+   "Name": "SubScreens",
+   "Description": "Alt Ekran Yetkisi"
+ },
+ {
+   "Id": 5,
+   "Name": "HomeAnnounces",
+   "Description": "Ev ilanı ile ilgili tüm yetkiler"
+ },
+ {
+   "Id": 6,
+   "Name": "VehicleAnnounces",
+   "Description": "Araç ilanı ile ilgili yetkiler."
+ },
+ {
+   "Id": 7,
+   "Name": "Announces",
+   "Description": "Duyurular ile ilgili yetkiler"
+ },
+ {
+   "Id": 8,
+   "Name": "News",
+   "Description": "Haberler ile ilgili tüm yetkiler"
+ },
+ {
+   "Id": 9,
+   "Name": "NewsPhotos",
+   "Description": "Haberlere ait Fotoğraf ve Video ile ilgili yetkiler"
+ },
+ {
+   "Id": 10,
+   "Name": "WheatherForeCasts",
+   "Description": "Hava Durumu"
+ },
+ {
+   "Id": 11,
+   "Name": "ExchangeRates",
+   "Description": "Döviz Kuru"
+ },
+ {
+   "Id": 12,
+   "Name": "FoodsMenu",
+   "Description": "Yemek Menüsü ile ilgili tüm yetkiler"
+ },
+
 ]

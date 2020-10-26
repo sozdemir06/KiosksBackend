@@ -330,7 +330,7 @@ export class HomeAnnounceStore {
        draft.data.push(model);
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${model.header} başlıklı ev ilanı eklendi...`);
+    this.notifyService.notify('success', "Yeni Ev İlanı Eklendi...");
   }
 
   updateHomeAnnounceRealTime(model:IHomeAnnounce):void{
@@ -341,20 +341,18 @@ export class HomeAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${model.header} başlıklı ev ilanı güncellendi...`);
+    this.notifyService.notify('success', "Ev İlanı Güncellendi...");
   }
 
   addNewPhotoRealTime(photo:IHomeAnnouncePhoto):void{
-    let homeannounce:IHomeAnnounce;
     const updateSubject=produce(this.subject.getValue(),draft=>{
       const index=draft.data.findIndex(x=>x.id===photo.homeAnnounceId);
       if(index!=-1){
-        homeannounce=draft.data[index];
          draft.data[index].homeAnnouncePhotos.push(photo);
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${homeannounce.header} başlıklı ev ilanı için yeni fotoğraf eklendi...`);
+    this.notifyService.notify('success',"Ev ilanı için Yeni fotoğraf eklendi...");
   }
 
   updatePhotoRealTime(photo:IHomeAnnouncePhoto):void{
@@ -371,7 +369,7 @@ export class HomeAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${homeannounce.header} başlıklı ev ilanı için fotoğraf güncellendi...`);
+    this.notifyService.notify('success',  "Ev İlanı için fotoğraf Güncellendi...");
   }
 
   removePhotoRealTime(photo:IHomeAnnouncePhoto):void{
@@ -387,9 +385,8 @@ export class HomeAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${homeannounce.header} başlıklı ev ilanı için fotoğraf silindi...`);
+    this.notifyService.notify('success', "Ev İlanı için fotoğraf Silindi...");
   }
-
 
 
   getHomeAnnounceParams(): HomeAnnounceParams {

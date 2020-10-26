@@ -172,15 +172,15 @@ export class AdminHubService {
     this.hubConnection.on(
       'ReceiveNewVehicleannouncePhoto',
       (photo: IVehicleAnnouncePhoto, eventType: string,playSound:boolean) => {
-        const type = eventType.toLowerCase();
+        const eventtype = eventType.toLowerCase();
         if(playSound){
           this.playTone();
         }
-        if (type == 'create') {
+        if (eventtype == 'create') {
           this.vehicleAnnounceStore.addNewPhotoRealTime(photo);
-        } else if (type == 'update') {
+        } else if (eventtype == 'update') {
           this.vehicleAnnounceStore.updatePhotoRealTime(photo);
-        } else if (type == 'delete') {
+        } else if (eventtype == 'delete') {
           this.vehicleAnnounceStore.removePhotoRealTime(photo);
         }
       }

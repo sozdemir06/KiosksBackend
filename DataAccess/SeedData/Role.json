@@ -1,17 +1,290 @@
 [
-  {
-    "Name": "User.List",
-    "Description": "Tüm kullanıcıları listeleme yetkisi",
-    "RoleCategoryId": 1
-  },
-  {
-    "Name": "User.Create",
-    "Description": "Yeni kullanıcı ekleme yetkisi",
-    "RoleCategoryId": 1
-  },
-  {
-    "Name": "User.Update",
-    "Description": "Kullanıcı bilgisini güncelleme yetkisi",
-    "RoleCategoryId": 1
-  }
+ {
+   "Name": "User.Update",
+   "Description": "Kullanıcı bilgisini güncelleme yetkisi",
+   "Created": "2020-06-21 02:05:49.908422",
+   "RoleCategoryId": 1
+ },
+ {
+   "Name": "Public",
+   "Description": "Ana Kullanıcı Yetkisi",
+   "Created": "2020-10-22 11:22:38.006966",
+   "RoleCategoryId": 1
+ },
+ {
+   "Name": "Sudo",
+   "Description": "Tüm Yetkiye Sahip",
+   "Created": "2020-06-26 23:36:06.302437",
+   "RoleCategoryId": 1
+ },
+ {
+   "Name": "Screens.Create",
+   "Description": "Ana Ekran Ekleme yetkisi",
+   "Created": "2020-07-14 23:42:30.417715",
+   "RoleCategoryId": 3
+ },
+ {
+   "Name": "Screens.Update",
+   "Description": "Ana Ekran güncelleme yetkisi",
+   "Created": "2020-07-14 23:43:07.115565",
+   "RoleCategoryId": 3
+ },
+ {
+   "Name": "Screens.Delete",
+   "Description": "Ana Ekran Silme yetkisi",
+   "Created": "2020-07-14 23:43:28.232672",
+   "RoleCategoryId": 3
+ },
+ {
+   "Name": "SubScreens.Create",
+   "Description": "Alt ekran ekleme yetkisi",
+   "Created": "2020-07-14 23:44:47.922302",
+   "RoleCategoryId": 4
+ },
+ {
+   "Name": "SubScreens.Update",
+   "Description": "Alt ekran güncelleme yetkisi",
+   "Created": "2020-07-14 23:45:10.862932",
+   "RoleCategoryId": 4
+ },
+ {
+   "Name": "SubScreens.Delete",
+   "Description": "Alt ekran silme yetkisi",
+   "Created": "2020-07-14 23:45:25.72062",
+   "RoleCategoryId": 4
+ },
+ {
+   "Name": "HomeAnnounces.Create",
+   "Description": "Yeni ev ilanı ekleme yetkisi",
+   "Created": "2020-08-06 11:57:38.052462",
+   "RoleCategoryId": 5
+ },
+ {
+   "Name": "HomeAnnounces.All",
+   "Description": "Ev ilanı ile ilgili tüm yetkiler",
+   "Created": "2020-08-06 11:58:05.730831",
+   "RoleCategoryId": 5
+ },
+ {
+   "Name": "HomeAnnounces.Update",
+   "Description": "Ev ilanı güncelleme yetkisi",
+   "Created": "2020-08-06 11:58:52.058644",
+   "RoleCategoryId": 5
+ },
+ {
+   "Name": "HomeAnnounces.Delete",
+   "Description": "Ev ilanı silme yetkisi",
+   "Created": "2020-08-06 11:59:37.030632",
+   "RoleCategoryId": 4
+ },
+ {
+   "Name": "HomeAnnounces.Publish",
+   "Description": "Ev ilanını yayınlama yetkisi",
+   "Created": "2020-08-06 12:10:59.716045",
+   "RoleCategoryId": 4
+ },
+ {
+   "Name": "VehicleAnnounces.Create",
+   "Description": "Yeni araç ilanı ekleme yetkisi",
+   "Created": "2020-08-06 14:16:50.934014",
+   "RoleCategoryId": 6
+ },
+ {
+   "Name": "VehicleAnnounces.All",
+   "Description": "Araç ilanı tam yetki.",
+   "Created": "2020-08-06 14:18:05.480485",
+   "RoleCategoryId": 6
+ },
+ {
+   "Name": "VehicleAnnounces.Publish",
+   "Description": "Araç ilanını yayınlama yetkisi",
+   "Created": "2020-08-06 14:18:39.415234",
+   "RoleCategoryId": 6
+ },
+ {
+   "Name": "VehicleAnnounces.Delete",
+   "Description": "Araç ilanını silme yetkisi",
+   "Created": "2020-08-06 14:19:03.640724",
+   "RoleCategoryId": 5
+ },
+ {
+   "Name": "VehicleAnnounces.Update",
+   "Description": "Araç ilanlarını güncelleme yetkisi",
+   "Created": "2020-08-06 14:19:25.059895",
+   "RoleCategoryId": 5
+ },
+ {
+   "Name": "AdminPanel",
+   "Description": "Yönetici Panel yetkisi",
+   "Created": "2020-10-22 14:38:52.432713",
+   "RoleCategoryId": 1
+ },
+ {
+   "Name": "Announces.Create",
+   "Description": "Yeni Duyuru ekleme yetkisi",
+   "Created": "2020-08-11 21:26:42.450144",
+   "RoleCategoryId": 7
+ },
+ {
+   "Name": "Announces.Update",
+   "Description": "Duyuruları güncelleme yetkisi",
+   "Created": "2020-08-11 21:27:04.210861",
+   "RoleCategoryId": 7
+ },
+ {
+   "Name": "Announces.Delete",
+   "Description": "Duyuruları silme yetkisi",
+   "Created": "2020-08-11 21:27:39.179519",
+   "RoleCategoryId": 7
+ },
+ {
+   "Name": "Announces.All",
+   "Description": "Duyurular ile ilgili tüm yetkiler",
+   "Created": "2020-08-11 21:28:08.859255",
+   "RoleCategoryId": 7
+ },
+ {
+   "Name": "News.Create",
+   "Description": "Yeni haber ekleme yetkisi",
+   "Created": "2020-08-13 15:04:00.917664",
+   "RoleCategoryId": 7
+ },
+ {
+   "Name": "News.Delete",
+   "Description": "Haber Silme yetkisi",
+   "Created": "2020-08-13 15:04:18.248046",
+   "RoleCategoryId": 7
+ },
+ {
+   "Name": "News.Update",
+   "Description": "Hbaerleri gücnelleme yetkisi",
+   "Created": "2020-08-13 15:05:14.682647",
+   "RoleCategoryId": 7
+ },
+ {
+   "Name": "News.All",
+   "Description": "Haberler için bütün yetkiler",
+   "Created": "2020-08-13 15:06:23.339194",
+   "RoleCategoryId": 7
+ },
+ {
+   "Name": "User.Create",
+   "Description": "Yeni Kullanıcı ekleme yetkisi",
+   "Created": "2020-09-14 13:41:54.84235",
+   "RoleCategoryId": 1
+ },
+ {
+   "Name": "User.All",
+   "Description": "Tüm Kullanıcı işlemleri için yetki verme",
+   "Created": "2020-09-14 13:42:45.873928",
+   "RoleCategoryId": 1
+ },
+ {
+   "Name": "Roles.Create",
+   "Description": "Yeni Rol Ekle",
+   "Created": "2020-09-14 13:56:43.772646",
+   "RoleCategoryId": 2
+ },
+ {
+   "Name": "Roles.Update",
+   "Description": "Mevcut Rolleri güncelle yetkisi",
+   "Created": "2020-09-14 13:57:19.787778",
+   "RoleCategoryId": 2
+ },
+ {
+   "Name": "Roles.All",
+   "Description": "Rollerle ilgili tüm yetkiler",
+   "Created": "2020-09-14 13:58:12.161809",
+   "RoleCategoryId": 2
+ },
+ {
+   "Name": "HomeAnnounceOptions.All",
+   "Description": "Ev ilanı tüm opsiyonları için yetki",
+   "Created": "2020-09-14 14:40:08.95446",
+   "RoleCategoryId": 5
+ },
+ {
+   "Name": "VehicleAnnounceOptions.All",
+   "Description": "Araç ilanı tüm opsiyonlar için yetki",
+   "Created": "2020-09-14 14:50:15.446905",
+   "RoleCategoryId": 6
+ },
+ {
+   "Name": "UserOptions.All",
+   "Description": "Kullanıcı opsiyonları için tüm yetkiler",
+   "Created": "2020-09-14 15:22:24.880781",
+   "RoleCategoryId": 1
+ },
+ {
+   "Name": "AddCityForWheatherForeCast",
+   "Description": "Hava durumu şehir ekle çıkar",
+   "Created": "2020-09-14 15:36:50.808125",
+   "RoleCategoryId": 10
+ },
+ {
+   "Name": "AddMoneyForExchangeRate",
+   "Description": "Döviz Kuru için para birimi seç kaldır",
+   "Created": "2020-09-14 15:43:25.910639",
+   "RoleCategoryId": 11
+ },
+ {
+   "Name": "Screens.All",
+   "Description": "Ana Ekran tüm yetkiler",
+   "Created": "2020-09-14 16:15:41.223151",
+   "RoleCategoryId": 3
+ },
+ {
+   "Name": "SubScreens.All",
+   "Description": "Alt Ekranlarla ilgili tüm yetkiler",
+   "Created": "2020-09-14 16:24:22.465051",
+   "RoleCategoryId": 4
+ },
+ {
+   "Name": "News.Publish",
+   "Description": "Haber yayınlama yetkisi",
+   "Created": "2020-09-15 14:50:36.030653",
+   "RoleCategoryId": 8
+ },
+ {
+   "Name": "Announces.Publish",
+   "Description": "Duyuru yayınlama yetkisi",
+   "Created": "2020-09-15 14:55:11.164127",
+   "RoleCategoryId": 7
+ },
+ {
+   "Name": "AnnounceOptons.All",
+   "Description": "Duyurulara ait tüm opsiyon yetkisi",
+   "Created": "2020-09-15 14:55:50.438801",
+   "RoleCategoryId": 7
+ },
+ {
+   "Name": "FoodMenu.Create",
+   "Description": "Yeni yemek menusu oluşturma yetkisi",
+   "Created": "2020-09-15 15:06:47.690927",
+   "RoleCategoryId": 12
+ },
+ {
+   "Name": "FoodMenu.Delete",
+   "Description": "Yemek menüsü silme yetkisi",
+   "Created": "2020-09-15 15:07:04.713683",
+   "RoleCategoryId": 12
+ },
+ {
+   "Name": "FoodMenu.Publish",
+   "Description": "Yemek menüsü yayınlama yetkisi",
+   "Created": "2020-09-15 15:08:41.650571",
+   "RoleCategoryId": 12
+ },
+ {
+   "Name": "FoodMenu.Update",
+   "Description": "Yemek menüsü güncelleme yetkisi",
+   "Created": "2020-09-15 15:09:06.551814",
+   "RoleCategoryId": 12
+ },
+ {
+   "Name": "FoodMenu.All",
+   "Description": "Yemek menüsü tüm yetkiler",
+   "Created": "2020-09-15 15:10:22.820466",
+   "RoleCategoryId": 12
+ }
 ]

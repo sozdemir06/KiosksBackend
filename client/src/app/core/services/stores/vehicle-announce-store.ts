@@ -9,10 +9,9 @@ import { IVehicleAnnounceList } from 'src/app/shared/models/IVehicleAnnounceList
 import { map, catchError, tap } from 'rxjs/operators';
 import { VehicleAnnounceParams } from 'src/app/shared/models/VehicleAnnounceParams';
 import produce from 'immer';
-import { IVehicleAnnounceDetail } from 'src/app/shared/models/IVehicleAnnounceDetail';
 import { IVehicleAnnouncePhoto } from 'src/app/shared/models/IVehicleAnnouncePhoto';
 import { IVehicleAnnounceSubScreen } from 'src/app/shared/models/IVehicleAnnounceSubScreen';
-import { HomeAnnounceParams } from 'src/app/shared/models/HomeAnnounceParams';
+
 
 @Injectable({ providedIn: 'root' })
 export class VehilceAnnounceStore {
@@ -311,7 +310,7 @@ export class VehilceAnnounceStore {
       draft.data.push(model);
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${model.header} başlıklı yeni araç ilanı eklendi...`);
+    this.notifyService.notify('success', "Yeni araç ilanı eklendi...");
   }
 
   updateVehicleannounce(model:IVehicleAnnounceList):void{
@@ -322,7 +321,7 @@ export class VehilceAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${model.header} başlıklı  araç ilanı güncellendi...`);
+    this.notifyService.notify('success', "Araç ilanı güncellendi...");
   }
   addNewPhotoRealTime(photo:IVehicleAnnouncePhoto):void{
     const updateSubject=produce(this.subject.getValue(),draft=>{
@@ -332,7 +331,7 @@ export class VehilceAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${this.getAnnounceById(photo.vehicleAnnounceId)} başlıklı araç ilanı için yeni fotoğraf eklendi...`);
+    this.notifyService.notify('success', "Araç ilanı için yeni fotoğraf eklendi...");
   }
 
   updatePhotoRealTime(photo:IVehicleAnnouncePhoto):void{
@@ -347,7 +346,7 @@ export class VehilceAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success',`${this.getAnnounceById(photo.vehicleAnnounceId)} başlıklı araç ilanı için  fotoğraf güncellendi...`);
+    this.notifyService.notify('success',"Araç ilanı için  fotoğraf güncellendi...");
   }
 
   removePhotoRealTime(photo:IVehicleAnnouncePhoto):void{
@@ -361,16 +360,10 @@ export class VehilceAnnounceStore {
       }
     });
     this.subject.next(updateSubject);
-    this.notifyService.notify('success', `${this.getAnnounceById(photo.vehicleAnnounceId)} başlıklı araç ilanı için fotoğraf kaldırıldı...`);
+    this.notifyService.notify('success', "Araç ilanı için  fotoğraf silindi...");
   }
 
-  private getAnnounceById(id:number):string{
-    let vehicleannounce:IVehicleAnnounceList;
-     produce(this.subject.getValue(),draft=>{
-        vehicleannounce=draft.data.find(x=>x.id===id);
-     });
-     return vehicleannounce.header;
-  }
+ 
 
   getParams(): VehicleAnnounceParams {
     return this.vehicleAnnounceParams;

@@ -297,11 +297,24 @@ namespace DataAccess.SeedData
                         }
                     }
 
+                    if (!_context.UserRoles.Any())
+                    {
+                        var user = _context.Users.FirstOrDefault(x => x.Email.ToLower() == "sukru.ozdemir@hmb.gov.tr");
+                        if (user != null)
+                        {
+                            var sudoRole = _context.Roles.FirstOrDefault(x => x.Name.ToLower() == "sudo");
+                            if (sudoRole != null)
+                            {
+                                var userrole = new UserRole
+                                {
+                                    UserId = user.Id,
+                                    RoleId = sudoRole.Id
+                                };
 
-
-
-
-
+                                _context.UserRoles.Add(userrole);
+                            }
+                        }
+                    }
 
                     _context.SaveChanges();
 

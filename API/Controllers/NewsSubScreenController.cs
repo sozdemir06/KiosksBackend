@@ -35,7 +35,7 @@ namespace API.Controllers
             if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
             {
                 var newsForKiosks=await kiosksService.GetNewsById(subscreen.NewsId);
-                if(newsForKiosks!=null)
+                if(newsForKiosks!=null && newsForKiosks.IsPublish)
                 {
                     await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveNewsSubScreen", subscreen, "create",newsForKiosks);
                 }

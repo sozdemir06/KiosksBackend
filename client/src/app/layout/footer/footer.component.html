@@ -2,7 +2,8 @@
   class="footer pt-3 w-100 bg-dark d-flex flex-row align-items-center justify-content-center"
 >
   <p class="text-white d-flex align-items-center">
-    <span class="mr-2">Güvenlik Sistemler @2020 Tüm Hakları saklıdır</span>
+    <span class="mr-2">{{(publicFooterTextStore.footerText$ | async)?.footerText}}</span>
+    <span class="mr-2" *ngIf="(publicFooterTextStore.footerText$ |async)?.contentPhoneNumber">İletişim:{{(publicFooterTextStore.footerText$ | async)?.contentPhoneNumber}}</span>
     <mat-icon
       *ngIf="(adminHubService.status$ | async)?.toLowerCase() == 'connected'"
       >wifi</mat-icon

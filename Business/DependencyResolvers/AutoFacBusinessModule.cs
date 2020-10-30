@@ -161,6 +161,11 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<OnlineScreenManager>().As<IOnlineScreenService>();
             builder.RegisterType<EfOnlineScreenDal>().As<IOnlineScreenDal>();
 
+            builder.RegisterType<PublicLogoManager>().As<IPublicLogoService>();
+            builder.RegisterType<EfPublicLogoDal>().As<IPublicLogoDal>();
+
+            builder.RegisterType<PublicFooterTerxtManager>().As<IPublicFooterTextService>();
+            builder.RegisterType<EfPublicFooterTextDal>().As<IPublicfooterTextDal>();
 
 
 

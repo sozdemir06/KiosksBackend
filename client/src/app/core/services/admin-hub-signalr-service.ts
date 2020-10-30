@@ -20,6 +20,10 @@ import { INewsPhoto } from 'src/app/shared/models/INewsPhoto';
 import { IFoodMenu } from 'src/app/shared/models/IFoodMenu';
 import { IFoodMenuPhoto } from 'src/app/shared/models/IFoodMenuPhoto';
 import { FoodMenuStore } from './stores/food-menu-store';
+import { IPublicLogo } from 'src/app/shared/models/IPublicLogo';
+import { LogoStore } from 'src/app/public/store/logo-store';
+import { IPublicFooterText } from 'src/app/shared/models/IPublicFooterText';
+import { PublicFooterTextStore } from './stores/public-footer-text-store';
 
 @Injectable({ providedIn: 'root' })
 export class AdminHubService {
@@ -34,7 +38,9 @@ export class AdminHubService {
     private vehicleAnnounceStore: VehilceAnnounceStore,
     private userStore: UserStore,
     private newsStore: NewsStore,
-    private foodMenuStore: FoodMenuStore
+    private foodMenuStore: FoodMenuStore,
+    private logoStore:LogoStore,
+    private publicFooterText:PublicFooterTextStore
   ) {}
 
   playTone() {
@@ -265,8 +271,18 @@ export class AdminHubService {
         }
       }
     );
-
     //FoodMenu End
+    //Logo START
+      this.hubConnection.on("ReceiveLogo",(logo:IPublicLogo)=>{
+        this.logoStore.updateLogoRealTime(logo);
+      })
+    //Logo END
+    //Public Footer START
+    this.hubConnection.on("ReceiveFooterText",(footerText:IPublicFooterText)=>{
+      this.publicFooterText.updateTextRealTime(footerText);
+    })
+    //Public Footer END
+
   }
 
   stopHubConnection() {

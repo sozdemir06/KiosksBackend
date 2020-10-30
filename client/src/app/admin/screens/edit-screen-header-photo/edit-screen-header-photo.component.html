@@ -1,84 +1,95 @@
 <div class="row p-4">
-    <ng-container *ngIf="(item$ | async).screenHeaderPhotos.length>0; else dataIsEmpty">
-      <ng-container *ngFor="let image of (item$ | async)?.screenHeaderPhotos">
-        <div class="col-md-4 col-lg-4 col-xl-4">
-          <mat-card>
-            <mat-card-subtitle class="d-flex justify-content-between align-items-center">
-              <div >
-               <span *ngIf="image.position"> {{image.position=="left"?"Sol Üst Logo":"Sağ Üst Logo"}}</span> 
-              </div>
-              <div>
-                <button mat-icon-button [matMenuTriggerFor]="menu">
-                  <mat-icon>more_vert</mat-icon>
+  <ng-container
+    *ngIf="(item$ | async).screenHeaderPhotos.length > 0; else dataIsEmpty"
+  >
+    <ng-container *ngFor="let image of (item$ | async)?.screenHeaderPhotos">
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <mat-card>
+          <mat-card-subtitle
+            class="d-flex justify-content-between align-items-center"
+          >
+            <div>
+              <span *ngIf="image.position">
+                {{
+                  image.position == "left" ? "Sol Üst Logo" : "Sağ Üst Logo"
+                }}</span
+              >
+            </div>
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="onSetPosition(image, 'left')">
+                  Sol Üst Logo
                 </button>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="onSetPosition(image,'left')">Sol Üst Logo</button>
-                  <button mat-menu-item (click)="onSetPosition(image,'right')">Sağ Üst Logo</button>
-                </mat-menu>
-              </div>
-            </mat-card-subtitle>
-            <ng-container *ngIf="image?.fileType.toLowerCase() == 'image'">
-              <img
-                mat-card-image
-                src="{{ image?.fullPath }}"
-                alt="İlan Fotoğrafı"
-                height="100"
-              />
-            </ng-container>
-            <ng-container *ngIf="image?.fileType.toLowerCase() == 'video'">
-              <video controls class="w-100 h-100">
-                <source src="{{ image?.fullPath }}" type="video/mp4" />
-                <source src="{{ image?.fullPath }}" type="video/ogg" />
-                <source src="{{ image?.fullPath }}" type="video/webm" />
-                Your browser does not support the video tag.
-              </video>
-            </ng-container>
-  
-            <mat-card-actions class="d-flex">
-              <ng-container *appHasRole="roleForUpdate">
-                <button
-                  mat-icon-button
-                  *ngIf="image.isMain"
-                  (click)="onUnConfirm(image)"
-                >
-                  <mat-icon>check</mat-icon>
+                <button mat-menu-item (click)="onSetPosition(image, 'right')">
+                  Sağ Üst Logo
                 </button>
-              </ng-container>
-  
-              <ng-container *appHasRole="roleForUpdate">
-                <button
-                  mat-icon-button
-                  *ngIf="!image.isMain"
-                  (click)="onConfirm(image)"
-                >
-                  <mat-icon color="warn">clear</mat-icon>
-                </button>
-              </ng-container>
-  
-              <ng-container *appHasRole="roleForDelete">
-                <button mat-icon-button (click)="onDelete(image)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </ng-container>
-            </mat-card-actions>
-          </mat-card>
-        </div>
-      </ng-container>
-    </ng-container>
-  
-    <div class="col-md-4">
-      <ng-template #dataIsEmpty>
-        <h4 class="text-info ml-5 p-4 h-25">
-          Sol üst ve Sağ üst logo için henüz resim eklenmemiş..
-        </h4>
-      </ng-template>
-    </div>
-  </div>
+              </mat-menu>
+            </div>
+          </mat-card-subtitle>
+          <ng-container *ngIf="image?.fileType.toLowerCase() == 'image'">
+            <img
+              mat-card-image
+              src="{{ image?.fullPath }}"
+              alt="İlan Fotoğrafı"
+              height="100"
+            />
+          </ng-container>
+          <ng-container *ngIf="image?.fileType.toLowerCase() == 'video'">
+            <video controls class="w-100 h-100">
+              <source src="{{ image?.fullPath }}" type="video/mp4" />
+              <source src="{{ image?.fullPath }}" type="video/ogg" />
+              <source src="{{ image?.fullPath }}" type="video/webm" />
+              Your browser does not support the video tag.
+            </video>
+          </ng-container>
 
-  <app-upload
+          <mat-card-actions class="d-flex">
+            <ng-container *appHasRole="roleForUpdate">
+              <button
+                mat-icon-button
+                *ngIf="image.isMain"
+                (click)="onUnConfirm(image)"
+              >
+                <mat-icon>check</mat-icon>
+              </button>
+            </ng-container>
+
+            <ng-container *appHasRole="roleForUpdate">
+              <button
+                mat-icon-button
+                *ngIf="!image.isMain"
+                (click)="onConfirm(image)"
+              >
+                <mat-icon color="warn">clear</mat-icon>
+              </button>
+            </ng-container>
+
+            <ng-container *appHasRole="roleForDelete">
+              <button mat-icon-button (click)="onDelete(image)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </ng-container>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <div class="col-md-4">
+    <ng-template #dataIsEmpty>
+      <h4 class="text-info ml-5 p-4 h-25">
+        Sol üst ve Sağ üst logo için henüz resim eklenmemiş..
+      </h4>
+    </ng-template>
+  </div>
+</div>
+
+<app-upload
   [apiUrl]="'http://localhost:5000/api/screenheaderphotos'"
   [announceId]="item.id"
   [roleForUpload]="roleForCreate"
   (uploadResult)="uploadResult($event)"
 ></app-upload>
-  

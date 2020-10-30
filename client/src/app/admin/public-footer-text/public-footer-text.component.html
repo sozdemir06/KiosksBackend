@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3 my-3">
+    <mat-card>
+      <form
+        class="d-flex flex-column w-100"
+        [formGroup]="footerTextForm"
+        (ngSubmit)="onSubmitform()"
+        autocomplete="off"
+      >
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            placeholder="Footer Text..."
+            formControlName="footerText"
+          />
+          <mat-error *ngIf="f.footerText.errors?.required"
+            >Footer metni boş olamaz</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            placeholder="İletişim Numarası..."
+            formControlName="contentPhoneNumber"
+          />
+        </mat-form-field>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="!footerTextForm.valid"
+        >
+          Kaydet
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>
+<app-loading></app-loading>

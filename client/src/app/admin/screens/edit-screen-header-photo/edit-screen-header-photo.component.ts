@@ -85,7 +85,7 @@ export class EditScreenHeaderPhotoComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '45rem',
       data: {
-        message:"Bu fotoğraf belirlenen bölge için ana resim olarak atamak onaylıyormusunuz.?",
+        message:"Bu fotoğraf belirlenen bölge için ana resim olarak atanacak onaylıyormusunuz.?",
       },
     });
     dialogRef.afterClosed().subscribe((result) => {

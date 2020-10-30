@@ -14,7 +14,7 @@ namespace Business.MappingProfile
             CreateMap<Role, UserRoleForListDto>();
             CreateMap<OnlineScreen, OnlineScreenForReturnDto>();
             CreateMap<User, UserForListDto>()
-           .ForMember(x => x.Avatar, o => o.MapFrom(z => z.UserPhotos.FirstOrDefault(x => x.IsConfirm && !x.UnConfirm).FullPath));
+           .ForMember(x => x.Avatar, o => o.MapFrom(z => z.UserPhotos.FirstOrDefault(x => x.IsConfirm && !x.UnConfirm && x.IsMain).FullPath));
             CreateMap<UserForRegisterDto, User>();
             CreateMap<UserPhoto, UserPhotoForReturnDto>();
             CreateMap<UserPhotoForCreationDto, UserPhoto>();
@@ -220,9 +220,15 @@ namespace Business.MappingProfile
             CreateMap<NotifyGroupForCreationDto, NotifyGroup>();
 
             CreateMap<UserNotifyGroup, UserNotifyGroupForReturnDto>()
-                    .ForMember(src=>src.GroupName,o=>o.MapFrom(dest=>dest.NotifyGroup.GroupName))
-                    .ForMember(src=>src.Description,o=>o.MapFrom(dest=>dest.NotifyGroup.Description));
+                    .ForMember(src => src.GroupName, o => o.MapFrom(dest => dest.NotifyGroup.GroupName))
+                    .ForMember(src => src.Description, o => o.MapFrom(dest => dest.NotifyGroup.Description));
             CreateMap<UserNotifyGroupForCreationDto, UserNotifyGroup>();
+
+            CreateMap<PublicLogo, PublicLogoForReturnDto>();
+            CreateMap<PublicLogoForCreationDto, PublicLogo>();
+            
+            CreateMap<PublicFooterText, PublicFooterTextForReturnDto>();
+            CreateMap<PublicFooterTextForCreationDto, PublicFooterText>();
 
         }
     }

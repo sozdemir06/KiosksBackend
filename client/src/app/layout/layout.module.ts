@@ -21,6 +21,7 @@ import { CurrencyPanelComponent } from '../admin/dashboard/currency-panel/curren
 import { LiveTvPanelComponent } from '../admin/dashboard/live-tv-panel/live-tv-panel.component';
 import { LiveTvListPanelComponent } from '../admin/dashboard/live-tv-list-panel/live-tv-list-panel.component';
 import { UserOptionsPanelComponent } from '../admin/dashboard/user-options-panel/user-options-panel.component';
+import { PublicLogoPanelComponent } from '../admin/dashboard/public-logo-and-footer/public-logo-panel/public-logo-panel.component';
 
 export const routes: Routes = [
   {
@@ -50,7 +51,9 @@ export const routes: Routes = [
       },
       {
         path: '**',
-        component: NotFoundComponent,
+        redirectTo:"home",
+        pathMatch:"full"
+        
       },
     ],
   },
@@ -76,7 +79,8 @@ export const routes: Routes = [
     CurrencyPanelComponent,
     LiveTvPanelComponent,
     LiveTvListPanelComponent,
-    UserOptionsPanelComponent
+    UserOptionsPanelComponent,
+    PublicLogoPanelComponent
   ],
   imports: [SharedModule, RouterModule.forChild(routes)],
 
@@ -98,7 +102,8 @@ export const routes: Routes = [
     FoodMenuPanelComponent,
     LiveTvPanelComponent,
     LiveTvListPanelComponent,
-    UserOptionsPanelComponent
+    UserOptionsPanelComponent,
+    PublicLogoPanelComponent
   ],
 })
 export class LayoutModule {}

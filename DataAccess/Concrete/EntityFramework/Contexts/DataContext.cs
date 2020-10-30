@@ -68,6 +68,9 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<NotifyGroup> NotifyGroups { get; set; }
         public DbSet<UserNotifyGroup> UserNotifyGroups { get; set; }
         public DbSet<OnlineScreen> OnlineScreens { get; set; }
+        public DbSet<PublicLogo> PublicLogos { get; set; }
+        public DbSet<PublicFooterText> PublicFooterTexts { get; set; }
+
       
     }
 }

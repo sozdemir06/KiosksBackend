@@ -221,6 +221,16 @@ const routes: Routes = [
           ),
         data: { roles: ['Sudo', 'UserOptions.All'] },
       },
+      {
+        path:"logo",
+        loadChildren:()=>import("../public-logo/public-logo.module").then(m=>m.PublicLogoModule),
+        data:{roles:['Sudo']}
+      },
+      {
+        path:"footer-text",
+        loadChildren:()=>import("../public-footer-text/public-footer-text.module").then(m=>m.PublicFooterTextModule),
+        data:{roles:['Sudo']}
+      }
     ],
   },
 ];

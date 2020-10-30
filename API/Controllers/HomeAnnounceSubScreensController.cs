@@ -35,7 +35,7 @@ namespace API.Controllers
             if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
             {
                 var homeAnnounceForKiosks=await kiosksService.GetHomeAnnounceByIdAsync(subscreen.HomeAnnounceId);
-                if(homeAnnounceForKiosks!=null)
+                if(homeAnnounceForKiosks!=null && homeAnnounceForKiosks.IsPublish)
                 {
                     await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveHomeAnnounceSubScreen", subscreen, "create",homeAnnounceForKiosks);
                 }

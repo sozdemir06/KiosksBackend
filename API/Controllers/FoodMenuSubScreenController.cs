@@ -35,7 +35,7 @@ namespace API.Controllers
             if (onlineScreensByScreenId != null && onlineScreensByScreenId.Length != 0)
             {
                 var foodMenuForKiosks=await kiosksService.GetFoodMenuById(subscreen.FoodMenuId);
-                if(foodMenuForKiosks!=null)
+                if(foodMenuForKiosks!=null && foodMenuForKiosks.IsPublish)
                 {
                      await kiosksHub.Clients.Clients(onlineScreensByScreenId).SendAsync("ReceiveFoodMenuSubScreen", subscreen, "create",foodMenuForKiosks);
                 }

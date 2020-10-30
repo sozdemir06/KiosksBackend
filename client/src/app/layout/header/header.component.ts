@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthStore } from 'src/app/auth/auth.store';
 import { Router } from '@angular/router';
+import { LogoStore } from 'src/app/public/store/logo-store';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,8 @@ allowedAdminPanelRole:string[]=["Sudo","AdminPanel"];
   @Output() toggleSidenav=new EventEmitter();
   constructor(
     public authStore:AuthStore,
-    private router:Router
+    private router:Router,
+    public logoStore:LogoStore
   ) { }
 
   ngOnInit(): void {

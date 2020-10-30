@@ -8,9 +8,9 @@
         <button mat-icon-button (click)="onToogleSidenav()" *appHasRole="allowedAdminPanelRole">
           <mat-icon>menu</mat-icon>
         </button>
-        <img
+        <img *ngIf="logoStore.logo$ | async"
           routerLink="/app/home"
-          src="/assets/logo/logo.png"
+          src="{{(logoStore.logo$ | async).fullPath}}"
           alt="Logo"
           width="70"
           style="cursor: pointer; outline: none"

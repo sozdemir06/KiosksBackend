@@ -55,7 +55,7 @@ namespace Business.Concrete
 
             var mapForCreate = mapper.Map<UserNotifyGroup>(createDto);
             var saveToDb = await userNotifyGroupDal.Add(mapForCreate);
-            var spec=new UserNotifyGroupWithNotifyGroupSpecification();
+            var spec=new UserNotifyGroupWithByNotifyGroupId(saveToDb.NotifyGroupId);
             var getUserNotifyGroup=await userNotifyGroupDal.GetEntityWithSpecAsync(spec);
             var mapForReturn = mapper.Map<UserNotifyGroup, UserNotifyGroupForReturnDto>(getUserNotifyGroup);
             return mapForReturn;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminHubService } from 'src/app/core/services/admin-hub-signalr-service';
+import { PublicFooterTextStore } from 'src/app/core/services/stores/public-footer-text-store';
 
 @Component({
   selector: 'app-footer',
@@ -9,7 +10,8 @@ import { AdminHubService } from 'src/app/core/services/admin-hub-signalr-service
 export class FooterComponent implements OnInit {
 
   constructor(
-    public adminHubService:AdminHubService
+    public adminHubService:AdminHubService,
+    public publicFooterTextStore:PublicFooterTextStore
   ) { }
 
   ngOnInit(): void {

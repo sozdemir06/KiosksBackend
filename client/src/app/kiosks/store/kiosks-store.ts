@@ -416,7 +416,7 @@ export class KiosksStore {
         }
       } else {
         draft.vehicleAnnounces.push(announce);
-        this.notifyService.notify('success', 'Araç Ev ilanı eklendi...');
+        this.notifyService.notify('success', 'Araç  ilanı eklendi...');
       }
     });
     this.subject.next(updateSubject);

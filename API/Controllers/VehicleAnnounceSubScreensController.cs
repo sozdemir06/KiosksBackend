@@ -35,7 +35,7 @@ namespace API.Controllers
             if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
             {
                 var vehicleAnnounceforKiosks = await kiosksService.GetVehicleAnnounceByIdAsync(subscreen.VehicleAnnounceId);
-                if (vehicleAnnounceforKiosks != null)
+                if (vehicleAnnounceforKiosks != null && vehicleAnnounceforKiosks.IsPublish)
                 {
                     await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveVehicleAnnounceSubScreen", subscreen, "create",vehicleAnnounceforKiosks);
                 }

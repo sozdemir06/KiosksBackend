@@ -1,0 +1,54 @@
+<div class="row p-4 bg-white">
+  <ng-container
+    *ngIf="(publicLogoStore.logos$ | async)?.length > 0; else dataIsEmpty"
+  >
+    <ng-container *ngFor="let image of publicLogoStore.logos$ | async">
+      <div class="col-md-2">
+        <mat-card>
+          <img
+            mat-card-image
+            src="{{ image?.fullPath }}"
+            alt="İlan Fotoğrafı"
+            height="150"
+          />
+          <mat-card-actions class="d-flex">
+            <ng-container *appHasRole="roleForUpdate">
+              <span
+                class="badge badge-danger mr-2"
+                *ngIf="!image?.isMain"
+                (click)="onConfirm(image)"
+                >Ana Logo Yap</span
+              >
+              <span class="badge badge-success mr-2" *ngIf="image?.isMain"
+                >Ana Logo</span
+              >
+            </ng-container>
+
+            <ng-container *appHasRole="roleForDelete">
+              <span class="badge badge-danger" (click)="onDelete(image)"
+                >Sil</span
+              >
+            </ng-container>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
+  </ng-container>
+ 
+  <div class="col-md-4">
+    <ng-template #dataIsEmpty>
+      <div class="alert alert-primary" role="alert">
+        Henüz yüklenmiş logo bulunamadı...
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="col-md-12 my-3">
+    <app-upload
+    [apiUrl]="'http://localhost:5000/api/publiclogo'"
+    [announceId]="1"
+    [roleForUpload]="roleForCreate"
+    (uploadResult)="uploadResult($event)"
+  ></app-upload>
+  </div>
+</div>

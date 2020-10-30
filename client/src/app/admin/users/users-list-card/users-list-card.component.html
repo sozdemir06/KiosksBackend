@@ -4,11 +4,21 @@
     <th mat-header-cell *matHeaderCellDef>Resim</th>
     <td mat-cell *matCellDef="let element">
       <img
+      mat-card-avatar
+      *ngIf="(element?.avatar);else defaultavatar"
+      src="{{element?.avatar}}"
+      alt="User Avatar"
+      width="35"
+    />
+      <ng-template #defaultavatar>
+        <img
         mat-card-avatar
         src="/assets/user/avatar.png"
         alt="User Avatar"
         width="35"
       />
+      </ng-template>
+    
     </td>
   </ng-container>
 

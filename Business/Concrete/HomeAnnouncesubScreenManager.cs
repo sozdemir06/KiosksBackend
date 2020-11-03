@@ -68,10 +68,6 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundScreen });
             }
 
-            if (!checkAnnounceFromRepo.IsPublish)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = "Ev ilanı henüz onay bekliyor...." });
-            }
 
             var subScreenForReturn = new HomeAnnounceSubScreen()
             {

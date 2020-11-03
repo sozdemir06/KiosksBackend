@@ -56,7 +56,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleAnnounceOptions.All,Public", Priority = 1)]
+        //[SecuredOperation("Sudo,VehicleAnnounceOptions.All,Public", Priority = 1)]
         public async Task<List<VehicleFuelTypeForReturnDto>> GetListAsync()
         {
            var buildingsAgeList = await vehicleFuelTypeDal.GetListAsync();

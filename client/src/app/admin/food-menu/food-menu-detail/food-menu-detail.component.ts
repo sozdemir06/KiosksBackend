@@ -37,7 +37,7 @@ export class FoodMenuDetailComponent implements OnInit,AfterViewInit {
 
   roleForAddSubScreen: string[] = [
     'Sudo',
-    'FoodMenu.Create',
+    'FoodMenu.Publish',
     'FoodMenu.All',
   ];
 

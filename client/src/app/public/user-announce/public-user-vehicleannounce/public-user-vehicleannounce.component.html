@@ -1,19 +1,20 @@
 <div class="row">
   <div class="col-md-12">
+    <mat-card class="p-1 mb-3">
+      <div class="d-flex justify-content-end">
+        <button mat-raised-button color="primary" (click)="onCreate()">
+          <mat-icon>create</mat-icon>
+          <span>Yeni Araç İlanı Ekle</span>
+        </button>
+      </div>
+    </mat-card>
     <ng-container
       *ngIf="
         (userVehicleAnnounceStore.Vehicleannounces$ | async)?.data?.length > 0;
         else empty
       "
     >
-      <mat-card class="p-1">
-        <div class="d-flex justify-content-end">
-          <button mat-raised-button color="primary" (click)="onCreate()">
-            <mat-icon>create</mat-icon>
-            <span>Yeni Araç İlanı Ekle</span>
-          </button>
-        </div>
-      </mat-card>
+     
       <table
         mat-table
         [dataSource]="

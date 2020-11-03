@@ -70,7 +70,7 @@ namespace Business.Concrete
             return mapper.Map<ScreenHeaderPhoto, ScreenHeaderPhotoForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,Screens.List,Screens.All", Priority = 1)]
+        //[SecuredOperation("Sudo,Screens.List,Screens.All", Priority = 1)]
         public async Task<List<ScreenHeaderPhotoForReturnDto>> GetListAsync(int announceId)
         {
             var getListFromRepo = await screenHeaderPhotoDal.GetListAsync(x => x.ScreenId == announceId);

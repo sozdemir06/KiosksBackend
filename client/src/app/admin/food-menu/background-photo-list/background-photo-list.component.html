@@ -1,7 +1,7 @@
 <div class="row p-4">
     <ng-container *ngIf="(foodMenuBgStore.bgphotos$ | async)?.length>0;else dataIsEmpty">
       <ng-container *ngFor="let image of foodMenuBgStore.bgphotos$ | async">
-        <div class="col-md-2">
+        <div class="col-md-3 col-lg-2">
           <mat-card>
             <img
               mat-card-image
@@ -9,31 +9,19 @@
               alt="İlan Fotoğrafı"
               height="100"
             />
-            <mat-card-actions class="d-flex justify-content-start align-items-center">
-              <ng-container *appHasRole="roleForUpdate">
-                <button
-                  mat-icon-button
-                  *ngIf="image.isSetBackground"
-                  (click)="onSetBackground(image)"
-                >
-                  <mat-icon color="primary">image_search</mat-icon>
-                </button>
-              </ng-container>
-              <ng-container *appHasRole="roleForUpdate">
-                <button
-                  mat-icon-button
-                  *ngIf="!image.isSetBackground"
-                  (click)="onSetBackground(image)"
-                >
-                  <mat-icon color="warn">image_search</mat-icon>
-                </button>
-              </ng-container>
-              <ng-container *appHasRole="roleForDelete">
-                <button mat-icon-button (click)="onDelete(image)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </ng-container>
-            </mat-card-actions>
+            <div class="d-flex justify-content-start align-items-center">
+              <div class="d-flex align-items-center">
+                <ng-container *appHasRole="roleForUpdate">
+                  <span class="badge badge-danger mr-2" *ngIf="!image?.isSetBackground" (click)="onSetBackground(image)">Arka Plan Yap</span>
+                </ng-container>
+                <ng-container *appHasRole="roleForUpdate">
+                  <span class="badge badge-success mr-2" *ngIf="image?.isSetBackground" (click)="onSetBackground(image)">Arka Plan</span>
+                </ng-container>
+                <ng-container *appHasRole="roleForDelete">
+                  <span class="badge badge-danger mr-2"  (click)="onDelete(image)">Sil</span>
+                </ng-container>
+              </div>
+            </div>
           </mat-card>
         </div>
       </ng-container>

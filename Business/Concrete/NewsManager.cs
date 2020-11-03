@@ -86,11 +86,7 @@ namespace Business.Concrete
             var countSpec = new NewsWithFilterForCountAsyncSpecificaiton(queryParams);
             var totalItem = await newsDal.CountAsync(countSpec);
 
-            if (listFromRepo == null)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.HomeAnnounceEmpty });
-            }
-
+           
             var data = mapper.Map<List<News>, List<NewsForReturnDto>>(listFromRepo);
             return new Pagination<NewsForReturnDto>
             (

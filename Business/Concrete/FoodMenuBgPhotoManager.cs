@@ -28,7 +28,7 @@ namespace Business.Concrete
 
         }
 
-         [SecuredOperation("Sudo,FoodMenu.Create,FoodMenu.All", Priority = 1)]
+        [SecuredOperation("Sudo,FoodMenu.Create,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuBgPhotoValidator), Priority = 2)]
         public async Task<FoodMenuBgPhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
@@ -45,7 +45,7 @@ namespace Business.Concrete
             return mapper.Map<FoodMenuBgPhoto, FoodMenuBgPhotoForReturnDto>(createPhoto);
         }
 
-       [SecuredOperation("Sudo,FoodMenu.Delete,FoodMenu.All", Priority = 1)]
+        [SecuredOperation("Sudo,FoodMenu.Delete,FoodMenu.All", Priority = 1)]
         public async Task<FoodMenuBgPhotoForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await foodMenuBgPhotoDal.GetAsync(x => x.Id == Id);
@@ -72,20 +72,20 @@ namespace Business.Concrete
             return mapper.Map<List<FoodMenuBgPhoto>, List<FoodMenuBgPhotoForReturnDto>>(getListFromRepo);
         }
 
-         [SecuredOperation("Sudo,FoodMenu.Update,FoodMenu.All", Priority = 1)]
+        [SecuredOperation("Sudo,FoodMenu.Update,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuBgPhotoValidator), Priority = 2)]
         public async Task<FoodMenuBgPhotoForReturnDto> SetBackgroundPhoto(FoodMenuBgPhotoForCreationDto updateDto)
         {
-             var checkByIdFromRepo = await foodMenuBgPhotoDal.GetAsync(x => x.Id == updateDto.Id);
+            var checkByIdFromRepo = await foodMenuBgPhotoDal.GetAsync(x => x.Id == updateDto.Id);
             if (checkByIdFromRepo == null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFound });
             }
 
-            var getCurrentSelectedBgPhoto=await foodMenuBgPhotoDal.GetAsync(x=>x.IsSetBackground==true);
-            if(getCurrentSelectedBgPhoto!=null)
+            var getCurrentSelectedBgPhoto = await foodMenuBgPhotoDal.GetAsync(x => x.IsSetBackground == true);
+            if (getCurrentSelectedBgPhoto != null)
             {
-                getCurrentSelectedBgPhoto.IsSetBackground=false;
+                getCurrentSelectedBgPhoto.IsSetBackground = false;
                 await foodMenuBgPhotoDal.Update(getCurrentSelectedBgPhoto);
             }
 

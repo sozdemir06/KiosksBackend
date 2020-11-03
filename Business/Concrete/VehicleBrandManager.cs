@@ -57,7 +57,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
+        //[SecuredOperation("Sudo,VehicleAnnounceOptions.All", Priority = 1)]
         public async Task<Pagination<VehicleBrandForReturnDto>> GetListAsync(VehicleBrandParams vehicleBrandParams)
         {
             var spec = new VehicleBrandWithVehicleCategorySpecification(vehicleBrandParams);
@@ -80,7 +80,7 @@ namespace Business.Concrete
             );
         }
 
-        [SecuredOperation("Sudo,VehicleAnnounceOptions.All,Public", Priority = 1)]
+        //[SecuredOperation("Sudo,VehicleAnnounceOptions.All,Public", Priority = 1)]
         public async Task<List<VehicleBrandForReturnDto>> GetListByCategoryId(int categoryId)
         {
             var getListByCategoryId = await vehicleBrandDal.GetListAsync(x => x.VehicleCategoryId == categoryId);

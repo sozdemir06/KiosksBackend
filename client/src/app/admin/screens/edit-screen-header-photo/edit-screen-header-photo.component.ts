@@ -19,9 +19,9 @@ export class EditScreenHeaderPhotoComponent implements OnInit {
 
   mode: 'create' | 'update';
 
-  roleForUpdate: string[] = ["Sudo","ScreenHeaderPhoto.Update","Screen.All"];
-  roleForDelete: string[] = ["Sudo","ScreenHeaderPhoto.Delete","Screen.All"];
-  roleForCreate: string[] = ["Sudo","ScreenHeaderPhoto.Create","Screen.All"];
+  roleForUpdate: string[] = ["Sudo","Screens.Update","Screens.All"];
+  roleForDelete: string[] = ["Sudo","Screens.Delete","Screens.All"];
+  roleForCreate: string[] = ["Sudo","Screens.Create","Screens.All"];
 
 
   constructor(

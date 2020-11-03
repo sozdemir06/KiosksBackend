@@ -19,8 +19,8 @@ namespace API.Controllers
         private readonly IKiosksService kiosksService;
         private readonly IHubContext<KiosksHub> kiosksHub;
         private readonly IOnlineScreenService onlineScreenService;
-        public NewsController(INewsService newsService,UserTracker userTracker, 
-        IHubContext<AdminHub> hubContext, 
+        public NewsController(INewsService newsService, UserTracker userTracker,
+        IHubContext<AdminHub> hubContext,
         IKiosksService kiosksService,
         IHubContext<KiosksHub> kiosksHub,
         IOnlineScreenService onlineScreenService)
@@ -44,9 +44,9 @@ namespace API.Controllers
         {
             var news = await newsService.Create(creationDto);
             var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            if (connIds != null && connIds.Length != 0)
             {
-                await hubContext.Clients.GroupExcept("News", connIds).SendAsync("ReceiveNewNews", news,true);
+                await hubContext.Clients.GroupExcept("News", connIds).SendAsync("ReceiveNewNews", news, true);
             }
 
             return news;
@@ -57,8 +57,8 @@ namespace API.Controllers
         public async Task<ActionResult<NewsForReturnDto>> Update(NewsForCreationDto updateDto)
         {
             var news = await newsService.Update(updateDto);
-           var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds != null && connIds.Length != 0)
             {
                 await hubContext.Clients.GroupExcept("News", connIds).SendAsync("ReceiveUpdateNews", news);
             }
@@ -66,11 +66,9 @@ namespace API.Controllers
             var screenConnectionId = await onlineScreenService.GetAllOnlineScreenConnectionId();
             if (screenConnectionId != null && screenConnectionId.Length != 0)
             {
-                var newsForKiosks = await kiosksService.GetNewsById(news.Id);
-                if (newsForKiosks != null && newsForKiosks.IsPublish)
-                {
-                    await kiosksHub.Clients.Clients(screenConnectionId).SendAsync("ReceiveNews", newsForKiosks);
-                }
+
+                await kiosksHub.Clients.Clients(screenConnectionId).SendAsync("ReloadScreen", true);
+
             }
 
             return news;
@@ -83,12 +81,7 @@ namespace API.Controllers
             var screenConnectionId = await onlineScreenService.GetAllOnlineScreenConnectionId();
             if (screenConnectionId != null && screenConnectionId.Length != 0)
             {
-                var newForKiosks = await kiosksService.GetNewsById(news.Id);
-                if (newForKiosks != null)
-                {
-                    await kiosksHub.Clients.Clients(screenConnectionId).SendAsync("ReceiveNews", news);
-                }
-
+              await kiosksHub.Clients.Clients(screenConnectionId).SendAsync("ReloadScreen",true);
             }
 
             return news;

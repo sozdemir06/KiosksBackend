@@ -1,12 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <ng-container
-      *ngIf="
-        (userAnnounceStore.announces$ | async)?.data?.length > 0;
-        else empty
-      "
-    >
-    <mat-card class="p-1">
+    <mat-card class="p-1 mb-3">
       <div class="d-flex justify-content-end">
         <button mat-raised-button color="primary" (click)="onCreate()">
           <mat-icon>create</mat-icon>
@@ -14,6 +8,13 @@
         </button>
       </div>
     </mat-card>
+    <ng-container
+      *ngIf="
+        (userAnnounceStore.announces$ | async)?.data?.length > 0;
+        else empty
+      "
+    >
+  
       <table
         mat-table
         [dataSource]="(userAnnounceStore.announces$ | async)?.data"

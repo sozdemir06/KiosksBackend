@@ -42,9 +42,9 @@ namespace API.Controllers
         {
             var photo = await vehicleAnnouncePhotoService.Create(uploadDto);
             var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            if (connIds != null && connIds.Length != 0)
             {
-                await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "create",true);
+                await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "create", true);
             }
 
             return photo;
@@ -54,10 +54,10 @@ namespace API.Controllers
         public async Task<ActionResult<VehicleAnnouncePhotoForReturnDto>> CreateForUser([FromForm] FileUploadDto uploadDto)
         {
             var photo = await vehicleAnnouncePhotoService.CreateForPublicAsync(uploadDto);
-           var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds != null && connIds.Length != 0)
             {
-                await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "create",true);
+                await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "create", true);
             }
 
             return photo;
@@ -68,7 +68,7 @@ namespace API.Controllers
         {
             var photo = await vehicleAnnouncePhotoService.Update(creationDto);
             var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            if (connIds != null && connIds.Length != 0)
             {
                 await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "update");
             }
@@ -76,7 +76,7 @@ namespace API.Controllers
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
             if (onlineScreens != null && onlineScreens.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReceiveVehicleAnnouncePhoto", photo, "update");
+                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen", true);
             }
 
             return photo;
@@ -87,7 +87,7 @@ namespace API.Controllers
         {
             var photo = await vehicleAnnouncePhotoService.Delete(photoId);
             var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            if (connIds != null && connIds.Length != 0)
             {
                 await hubContext.Clients.GroupExcept("Car", connIds).SendAsync("ReceiveNewVehicleannouncePhoto", photo, "delete");
             }
@@ -95,7 +95,7 @@ namespace API.Controllers
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
             if (onlineScreens != null && onlineScreens.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReceiveVehicleAnnouncePhoto", photo, "delete");
+                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen", true);
             }
 
             return photo;

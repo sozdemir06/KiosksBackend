@@ -254,7 +254,7 @@ export class NewsStore {
             (draft) => {
               const index=draft.data.findIndex(x=>x.id==subscreen.newsId);
               if(index!=-1){
-                draft.data[index].newsSubScreens.push(subscreen);
+                draft.data[index]?.newsSubScreens.push(subscreen);
               }
             }
           );

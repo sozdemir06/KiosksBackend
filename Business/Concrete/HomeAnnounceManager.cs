@@ -119,10 +119,7 @@ namespace Business.Concrete
             var countSpec = new HomeAnnounceWithFilterForCountSpecification(queryParams);
             var totalItem = await homeAnnounceDal.CountAsync(countSpec);
 
-            if (listFromRepo == null)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.HomeAnnounceEmpty });
-            }
+           
 
             var data = mapper.Map<List<HomeAnnounce>, List<HomeAnnounceForReturnDto>>(listFromRepo);
             return new Pagination<HomeAnnounceForReturnDto>

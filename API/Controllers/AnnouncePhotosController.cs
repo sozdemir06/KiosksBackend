@@ -59,7 +59,7 @@ namespace API.Controllers
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
             if (onlineScreens != null && onlineScreens.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReceiveAnnouncePhoto", photo, "update");
+                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen",true);
             }
 
             return photo;
@@ -77,7 +77,7 @@ namespace API.Controllers
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
             if (onlineScreens != null && onlineScreens.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReceiveAnnouncePhoto", photo, "delete");
+                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen",true);
             }
             return photo;
         }

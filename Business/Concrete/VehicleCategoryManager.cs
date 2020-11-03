@@ -57,7 +57,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-       [SecuredOperation("Sudo,VehicleAnnounceOptions.All,Public", Priority = 1)]
+       //[SecuredOperation("Sudo,VehicleAnnounceOptions.All,Public", Priority = 1)]
         public async Task<List<VehicleCategoryForReturnDto>> GetListAsync()
         {
             var vehicleCategories = await vehicleCategoryDal.GetListAsync();

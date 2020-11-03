@@ -62,12 +62,6 @@ namespace Business.Concrete
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundScreen });
             }
-
-            if (!checkAnnounceFromRepo.IsPublish)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = "Araç ilanı henüz onay bekliyor...." });
-            }
-
             var subScreenForReturn = new VehicleAnnounceSubScreen()
             {
                 SubScreenId = subScreenFromRepo.Id,

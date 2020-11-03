@@ -25,7 +25,7 @@ export class HomeAnnounceComponent implements OnInit, AfterViewInit, OnDestroy {
   subscreens$: Observable<ISubScreen[]>;
   @ViewChild('searchInput') searchInput: ElementRef;
   unSubsCribeFromSearchInput: any;
-  roleForCreate:string[]=['Sudo','HomeAnnounces.Create,HomeAnnounces.All']
+  roleForCreate:string[]=['Sudo','HomeAnnounces.Create','HomeAnnounces.All']
   constructor(
     private dialog: MatDialog,
     public homeAnnounceStore: HomeAnnounceStore,

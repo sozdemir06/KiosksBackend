@@ -34,12 +34,8 @@ namespace API.Controllers
             var onlineScreensConnectionId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
             {
-                var homeAnnounceForKiosks=await kiosksService.GetHomeAnnounceByIdAsync(subscreen.HomeAnnounceId);
-                if(homeAnnounceForKiosks!=null && homeAnnounceForKiosks.IsPublish)
-                {
-                    await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveHomeAnnounceSubScreen", subscreen, "create",homeAnnounceForKiosks);
-                }
-                
+                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReloadScreen", true);
+
             }
             return subscreen;
         }
@@ -57,7 +53,7 @@ namespace API.Controllers
             var onlineScreensConnectionId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveHomeAnnounceSubScreen", subscreen, "delete",null);
+                 await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReloadScreen", true);
             }
             return subscreen;
         }

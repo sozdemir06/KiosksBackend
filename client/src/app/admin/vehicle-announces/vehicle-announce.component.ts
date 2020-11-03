@@ -20,7 +20,7 @@ export class VehicleAnnounceComponent implements OnInit,AfterViewInit,OnDestroy 
   @ViewChild('searchInput') searchInput: ElementRef;
   subscription:Subscription=Subscription.EMPTY;
 
-  roleForCreate:string[]=['Sudo','VehicleAnnounces.Create,VehicleAnnounces.All']
+  roleForCreate:string[]=['Sudo','VehicleAnnounces.Create','VehicleAnnounces.All']
   subscreens$:Observable<ISubScreen[]>;
 
 

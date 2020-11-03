@@ -19,8 +19,7 @@ namespace Core.Aspects.AutoFac.Logging
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { WrongLoggingType = AspectMessages.WrongLoggerType });
             }
-            // Activator contructure DI yapamadigi icin provider'a kaydik. (LoggerServiceBase)Activator.CreateInstance(loggerService);
-            //_loggerServiceBase = (LoggerServiceBase)ServiceTool.ServiceProvider.GetService(loggerService);
+        
             _loggerServiceBase = (LoggerServiceBase)Activator.CreateInstance(loggerService);
         }
 

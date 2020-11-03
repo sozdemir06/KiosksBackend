@@ -20,7 +20,7 @@ export class FoodMenuComponent implements OnInit {
   @ViewChild('searchInput') searchInput: ElementRef;
   subscription:Subscription=Subscription.EMPTY;
 
-  roleForCreate:string[]=['Sudo','FoodMenu.Create,FoodMenu.All']
+  roleForCreate:string[]=['Sudo','FoodMenu.Create','FoodMenu.All']
   subscreens$:Observable<ISubScreen[]>;
 
 

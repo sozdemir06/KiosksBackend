@@ -273,7 +273,7 @@ export class HomeAnnounceStore {
                 (x) => x.id === subscreen.homeAnnounceId
               );
               if (index != -1) {
-                draft.data[index].homeAnnounceSubScreens.push(subscreen);
+                draft.data[index]?.homeAnnounceSubScreens.push(subscreen);
               }
             }
           );

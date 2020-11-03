@@ -11,7 +11,9 @@ export class VehicleAnnouncesPanelComponent implements OnInit {
     'Sudo',
     'VehicleAnnounces.All',
     'VehicleAnnounces.Create',
-    'VehicleAnnounces.Update'
+    'VehicleAnnounces.Update',
+    'VehicleAnnounces.Delete',
+    'VehicleAnnounces.Publish'
   ];
   constructor(
     public vehicleStore:VehilceAnnounceStore

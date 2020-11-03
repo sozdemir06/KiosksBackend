@@ -57,7 +57,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-       [SecuredOperation("Sudo,AnnounceOptons.All", Priority = 1)]
+       //[SecuredOperation("Sudo,AnnounceOptons.All", Priority = 1)]
         public async Task<List<AnnounceContentTypeForReturnDto>> GetListAsync()
         {
             var buildingsAgeList = await announceConetntTypeDal.GetListAsync();

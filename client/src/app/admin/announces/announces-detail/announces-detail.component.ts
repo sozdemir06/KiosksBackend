@@ -38,7 +38,7 @@ export class AnnouncesDetailComponent implements OnInit,AfterViewInit {
 
   roleForAddSubScreen: string[] = [
     'Sudo',
-    'Announces.Create',
+    'Announces.Publish',
     'Announces.All',
   ];
 

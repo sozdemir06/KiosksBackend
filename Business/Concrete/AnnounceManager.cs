@@ -48,9 +48,6 @@ namespace Business.Concrete
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.AlreadyExist });
             }
-
-
-
             var mapForCreate = mapper.Map<Announce>(creationDto);
             var slideId = Guid.NewGuid();
             mapForCreate.SlideId = slideId;
@@ -130,10 +127,7 @@ namespace Business.Concrete
             var countSpec = new AnnounceWithFilterForCaountAsyncSpecification(queryParams);
             var totalItem = await announceDal.CountAsync(countSpec);
 
-            if (listFromRepo.Count<=0)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.HomeAnnounceEmpty });
-            }
+           
 
             var data = mapper.Map<List<Announce>, List<AnnounceForReturnDto>>(listFromRepo);
             return new Pagination<AnnounceForReturnDto>

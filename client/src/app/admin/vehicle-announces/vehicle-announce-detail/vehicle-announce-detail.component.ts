@@ -37,7 +37,7 @@ export class VehicleAnnounceDetailComponent implements OnInit ,AfterViewInit{
 
   roleForAddSubScreen: string[] = [
     'Sudo',
-    'VehicleAnnounces.Create',
+    'VehicleAnnounces.Publish',
     'VehicleAnnounces.All',
   ];
 

@@ -47,7 +47,7 @@ namespace API.Controllers
             var connIds = await userTracker.GetOnlineUser();
             if (connIds != null && connIds.Length != 0)
             {
-                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveNewHomeAnnounce", homeAnnounce,true);
+                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveNewHomeAnnounce", homeAnnounce, true);
             }
 
             return homeAnnounce;
@@ -66,11 +66,8 @@ namespace API.Controllers
             var onlineScreensConnectionId = await onlineScreenService.GetAllOnlineScreenConnectionId();
             if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
             {
-                var homeAnnounceforKiosks = await kiosksService.GetHomeAnnounceByIdAsync(homeAnnounce.Id);
-                if (homeAnnounceforKiosks != null && homeAnnounceforKiosks.IsPublish)
-                {
-                    await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveHomeAnnounce", homeAnnounceforKiosks);
-                }
+
+                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReloadScreen", true);
 
             }
 
@@ -84,11 +81,7 @@ namespace API.Controllers
             var onlineScreensConnectionId = await onlineScreenService.GetAllOnlineScreenConnectionId();
             if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
             {
-                var homeAnnounceforKiosks = await kiosksService.GetHomeAnnounceByIdAsync(homeAnnounce.Id);
-                if (homeAnnounceforKiosks != null)
-                {
-                    await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveHomeAnnounce", homeAnnounceforKiosks);
-                }
+                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReloadScreen", true);
 
             }
 
@@ -108,7 +101,7 @@ namespace API.Controllers
             var connIds = await userTracker.GetOnlineUser();
             if (connIds != null && connIds.Length != 0)
             {
-                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveNewHomeAnnounce", homeAnnounce,true);
+                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveNewHomeAnnounce", homeAnnounce, true);
             }
 
             return homeAnnounce;
@@ -121,7 +114,7 @@ namespace API.Controllers
             var connIds = await userTracker.GetOnlineUser();
             if (connIds != null && connIds.Length != 0)
             {
-                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveUpdateHomeAnnounce", homeAnnounce,true);
+                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveUpdateHomeAnnounce", homeAnnounce, true);
             }
 
             return homeAnnounce;

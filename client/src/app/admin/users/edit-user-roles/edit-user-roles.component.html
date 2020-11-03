@@ -1,4 +1,7 @@
-<p>Kullanıcı Mevcut Role Listesi</p>
+<p class="d-flex justify-content-between align-items-center"> 
+  <span class="text-info">{{user?.firstName+" "+user.lastName}} Mevcut role listesi</span>
+  <mat-icon [mat-dialog-close]="true">close</mat-icon> 
+</p>
 <table
   mat-table
   [dataSource]="(userRoleStore?.userRoles$ | async)"

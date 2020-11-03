@@ -116,10 +116,7 @@ namespace Business.Concrete
             var countSpec = new VehicleAnnounceWithFilterForCountSpecification(queryParams);
             var totalItem = await vehicleAnnounceDal.CountAsync(countSpec);
 
-            if (listFromRepo == null)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.HomeAnnounceEmpty });
-            }
+       
 
             var data = mapper.Map<List<VehicleAnnounce>, List<VehicleAnnounceForReturnDto>>(listFromRepo);
             return new Pagination<VehicleAnnounceForReturnDto>

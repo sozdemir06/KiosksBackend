@@ -244,7 +244,7 @@ export class VehilceAnnounceStore {
             (draft) => {
               const index=draft.data.findIndex(x=>x.id==subscreen.vehicleAnnounceId);
               if(index!=-1){
-                draft.data[index].vehicleAnnounceSubScreens.push(subscreen);
+                draft.data[index]?.vehicleAnnounceSubScreens.push(subscreen);
               }
             }
           );

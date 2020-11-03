@@ -75,7 +75,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,User.All", Priority = 1)]
+        //[SecuredOperation("Sudo,User.All", Priority = 1)]
         public async Task<List<UserNotifyGroupForReturnDto>> GetListAsync()
         {
             var spec=new UserNotifyGroupWithNotifyGroupSpecification();
@@ -89,7 +89,7 @@ namespace Business.Concrete
             return mapForReturn;
         }
 
-        [SecuredOperation("Sudo,User.All", Priority = 1)]
+        //[SecuredOperation("Sudo,User.All", Priority = 1)]
         public async Task<List<UserNotifyGroupForReturnDto>> GetListByUserId(int userId)
         {
             var userFromRepo = await userDal.GetAsync(x => x.Id == userId);

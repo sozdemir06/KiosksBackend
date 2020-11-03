@@ -34,11 +34,8 @@ namespace API.Controllers
             var onlineScreensConnectionId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
             {
-                var vehicleAnnounceforKiosks = await kiosksService.GetVehicleAnnounceByIdAsync(subscreen.VehicleAnnounceId);
-                if (vehicleAnnounceforKiosks != null && vehicleAnnounceforKiosks.IsPublish)
-                {
-                    await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveVehicleAnnounceSubScreen", subscreen, "create",vehicleAnnounceforKiosks);
-                }
+
+                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReloadScreen", true);
 
             }
 
@@ -58,7 +55,7 @@ namespace API.Controllers
             var onlineScreensConnectionId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensConnectionId != null && onlineScreensConnectionId.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReceiveVehicleAnnounceSubScreen", subscreen, "delete",null);
+                await kiosksHub.Clients.Clients(onlineScreensConnectionId).SendAsync("ReloadScreen", true);
             }
 
             return subscreen;

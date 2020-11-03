@@ -125,4 +125,8 @@ export class FoodMenuBgPhotoStore {
       );
     this.loadingService.showLoaderUntilCompleted(update$).subscribe();
   }
+
+  reloadBgPhoto():void{
+    this.getList();
+  }
 }

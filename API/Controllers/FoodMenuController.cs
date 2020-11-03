@@ -19,7 +19,7 @@ namespace API.Controllers
         private readonly IOnlineScreenService onlineScreenService;
         private readonly IHubContext<KiosksHub> kiosksHub;
         private readonly IHubContext<AdminHub> hubContext;
-        public FoodMenuController(IFoodMenuService foodMenuService,UserTracker userTracker,
+        public FoodMenuController(IFoodMenuService foodMenuService, UserTracker userTracker,
         IKiosksService kiosksService,
         IOnlineScreenService onlineScreenService,
         IHubContext<KiosksHub> kiosksHub,
@@ -31,7 +31,7 @@ namespace API.Controllers
             this.kiosksService = kiosksService;
             this.onlineScreenService = onlineScreenService;
             this.kiosksHub = kiosksHub;
-           
+
         }
 
         [HttpGet]
@@ -51,9 +51,9 @@ namespace API.Controllers
         {
             var foodMenu = await foodMenuService.Create(creationDto);
             var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            if (connIds != null && connIds.Length != 0)
             {
-                await hubContext.Clients.GroupExcept("FoodMenu", connIds).SendAsync("ReceiveNewFoodMenu", foodMenu,true);
+                await hubContext.Clients.GroupExcept("FoodMenu", connIds).SendAsync("ReceiveNewFoodMenu", foodMenu, true);
             }
 
             return foodMenu;
@@ -64,18 +64,16 @@ namespace API.Controllers
         {
             var foodMenu = await foodMenuService.Update(updateDto);
             var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            if (connIds != null && connIds.Length != 0)
             {
                 await hubContext.Clients.GroupExcept("FoodMenu", connIds).SendAsync("ReceiveUpdateFoodMenu", foodMenu);
             }
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
             if (onlineScreens != null && onlineScreens.Length != 0)
             {
-                var foodsMenuForKiosks = await kiosksService.GetFoodMenuById(foodMenu.Id);
-                if (foodsMenuForKiosks != null && foodsMenuForKiosks.IsPublish)
-                {
-                    await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReceiveFoodMenu", foodsMenuForKiosks);
-                }
+
+                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen", true);
+
             }
 
             return foodMenu;
@@ -84,15 +82,13 @@ namespace API.Controllers
         [HttpPut("publish")]
         public async Task<ActionResult<FoodMenuForReturnDto>> Publish(FoodMenuForCreationDto updateDto)
         {
-            var foodMenu= await foodMenuService.Publish(updateDto);
-             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
+            var foodMenu = await foodMenuService.Publish(updateDto);
+            var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
             if (onlineScreens != null && onlineScreens.Length != 0)
             {
-                var foodsMenuForKiosks = await kiosksService.GetFoodMenuById(foodMenu.Id);
-                if (foodsMenuForKiosks != null)
-                {
-                    await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReceiveFoodMenu", foodsMenuForKiosks);
-                }
+
+                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen",true);
+
             }
 
             return foodMenu;

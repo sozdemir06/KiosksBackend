@@ -115,7 +115,15 @@ const routes: Routes = [
         path: 'screens',
         loadChildren: () =>
           import('../screens/screens.module').then((m) => m.ScreensModule),
-        data: { roles: ['Sudo', 'Screens.List', 'Screens.All'] },
+        data: {
+          roles: [
+            'Sudo',
+            'Screens.Create',
+            'Screens.Update',
+            'Screens.Delete',
+            'Screens.All',
+          ],
+        },
       },
       {
         path: 'subscreens/:id',
@@ -123,7 +131,15 @@ const routes: Routes = [
           import('../subscreens/subscreens.module').then(
             (m) => m.SubscreensModule
           ),
-        data: { roles: ['Sudo', 'SubScreens.List', 'SubScreens.All'] },
+        data: {
+          roles: [
+            'Sudo',
+            'SubScreens.Create',
+            'SubScreens.Update',
+            'SubScreens.Delete',
+            'SubScreens.All',
+          ],
+        },
       },
       {
         path: 'home-announces',
@@ -131,7 +147,16 @@ const routes: Routes = [
           import('../home-announces/home-announces.module').then(
             (m) => m.HomeAnnouncesModule
           ),
-        data: { roles: ['Sudo', 'HomeAnnounces.List,HomeAnnounces.All'] },
+        data: {
+          roles: [
+            'Sudo',
+            'HomeAnnounces.Publish',
+            'HomeAnnounces.Create',
+            'HomeAnnounces.Update',
+            'HomeAnnounces.Delete',
+            'HomeAnnounces.All',
+          ],
+        },
       },
       {
         path: 'vehicle-announces',
@@ -139,7 +164,16 @@ const routes: Routes = [
           import('../vehicle-announces/vehicle-announces.module').then(
             (m) => m.VehicleAnnouncesModule
           ),
-        data: { roles: ['Sudo', 'VehicleAnnounces.List,VehicleAnnounces.All'] },
+        data: {
+          roles: [
+            'Sudo',
+            'VehicleAnnounces.Create',
+            'VehicleAnnounces.Update',
+            'VehicleAnnounces.Delete',
+            'VehicleAnnounces.All',
+            'VehicleAnnounces.Publish',
+          ],
+        },
       },
       {
         path: 'announces',
@@ -147,7 +181,16 @@ const routes: Routes = [
           import('../announces/announces.module').then(
             (m) => m.AnnouncesModule
           ),
-        data: { roles: ['Sudo', 'Announces.List', 'Announces.All'] },
+        data: {
+          roles: [
+            'Sudo',
+            'Announces.Create',
+            'Announces.Update',
+            'Announces.Delete',
+            'Announces.Publish',
+            'Announces.All',
+          ],
+        },
       },
       {
         path: 'announce-content-types',
@@ -155,19 +198,37 @@ const routes: Routes = [
           import(
             '../announces-options/announce-content-types/announce-content-types.module'
           ).then((m) => m.AnnounceContentTypesModule),
-        data: { roles: ['Sudo', 'Announces.List', 'Announces.All'] },
+        data: { roles: ['Sudo', 'Announces.All'] },
       },
       {
         path: 'news',
         loadChildren: () =>
           import('../news/news.module').then((m) => m.NewsModule),
-        data: { roles: ['Sudo', 'News.List', 'News.All'] },
+        data: {
+          roles: [
+            'Sudo',
+            'News.All',
+            'News.Create',
+            'News.Update',
+            'News.Delete',
+            'News.Publish',
+          ],
+        },
       },
       {
         path: 'foods-menu',
         loadChildren: () =>
           import('../food-menu/food-menu.module').then((m) => m.FoodMenuModule),
-        data: { roles: ['Sudo', 'FoodMenu.List', 'FoodMenu.All'] },
+        data: {
+          roles: [
+            'Sudo',
+            'FoodMenu.Create',
+            'FoodMenu.All',
+            'FoodMenu.Update',
+            'FoodMenu.Delete',
+            'FoodMenu.Publish',
+          ],
+        },
       },
       {
         path: 'cities',
@@ -186,7 +247,14 @@ const routes: Routes = [
         loadChildren: () =>
           import('../live-tv/live-tv.module').then((m) => m.LiveTvModule),
         data: {
-          roles: ['Sudo', 'LiveTvBroadCasts.List', 'LiveTvBroadCasts.All'],
+          roles: [
+            'Sudo',
+            'LiveTvBroadCasts.Create',
+            'LiveTvBroadCasts.All',
+            'LiveTvBroadCasts.Update',
+            'LiveTvBroadCasts.Delete',
+            'LiveTvBroadCasts.Publish',
+          ],
         },
       },
       {
@@ -222,15 +290,21 @@ const routes: Routes = [
         data: { roles: ['Sudo', 'UserOptions.All'] },
       },
       {
-        path:"logo",
-        loadChildren:()=>import("../public-logo/public-logo.module").then(m=>m.PublicLogoModule),
-        data:{roles:['Sudo']}
+        path: 'logo',
+        loadChildren: () =>
+          import('../public-logo/public-logo.module').then(
+            (m) => m.PublicLogoModule
+          ),
+        data: { roles: ['Sudo'] },
       },
       {
-        path:"footer-text",
-        loadChildren:()=>import("../public-footer-text/public-footer-text.module").then(m=>m.PublicFooterTextModule),
-        data:{roles:['Sudo']}
-      }
+        path: 'footer-text',
+        loadChildren: () =>
+          import('../public-footer-text/public-footer-text.module').then(
+            (m) => m.PublicFooterTextModule
+          ),
+        data: { roles: ['Sudo'] },
+      },
     ],
   },
 ];

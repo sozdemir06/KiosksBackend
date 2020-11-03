@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { WheatherForeCastStore } from '../core/services/stores/wheatherforecast-store';
 import { ExchangeRateStore } from '../core/services/stores/exchangerate-store';
 import { KiosksHubService } from './store/kiosks-hub';
+import { FoodMenuBgPhotoStore } from '../core/services/stores/food-menu-bg-photo-store';
 
 @Component({
   selector: 'app-kiosks',
@@ -33,7 +34,8 @@ export class KiosksComponent implements OnInit, OnDestroy, AfterViewInit {
     private route: ActivatedRoute,
     public wheatherForeCastsStore$: WheatherForeCastStore,
     public exchangeRateStore$: ExchangeRateStore,
-    public kiosksHub: KiosksHubService
+    public kiosksHub: KiosksHubService,
+    private foodMenuBgPhotoStore:FoodMenuBgPhotoStore,
   ) {}
 
   ngAfterViewInit() {
@@ -117,6 +119,17 @@ export class KiosksComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.kiosksHub.kiosksListener();
+    //Reload Screen if detect changes START
+    this.kiosksHub.hubConnection.on(
+      'ReloadScreen',
+      (reload: boolean = false) => {
+        if (reload) {
+          this.kioksStore.getListByScreenId(this.screenId);
+          this.foodMenuBgPhotoStore.reloadBgPhoto();
+        }
+      }
+    );
+    //Reload Screen if detect changes END
     setInterval(() => {
       this.exchangeRateStore$.getListByInterval();
       this.wheatherForeCastsStore$.getListByInterval();
@@ -126,6 +139,6 @@ export class KiosksComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.leftSub.unsubscribe();
     this.rightSub.unsubscribe();
-    this.kiosksHub.stopHubConnection();  
+    this.kiosksHub.stopHubConnection();
   }
-} 
+}

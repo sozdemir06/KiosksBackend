@@ -96,10 +96,6 @@ namespace Business.Concrete
             var countSpec = new FoodMenuWithFilterForCountAsyncSpecification(queryParams);
             var totalItem = await foodMenuDal.CountAsync(countSpec);
 
-            if (listFromRepo == null)
-            {
-                throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.HomeAnnounceEmpty });
-            }
 
             var data = mapper.Map<List<FoodMenu>, List<FoodMenuForReturnDto>>(listFromRepo);
             return new Pagination<FoodMenuForReturnDto>

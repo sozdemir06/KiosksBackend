@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, Inject, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Inject,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import { RoleStore } from 'src/app/core/services/stores/role-store';
 import { RoleParams } from 'src/app/shared/models/RoleParams';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -14,64 +22,65 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 @Component({
   selector: 'app-edit-user-roles',
   templateUrl: './edit-user-roles.component.html',
-  styleUrls: ['./edit-user-roles.component.scss']
+  styleUrls: ['./edit-user-roles.component.scss'],
 })
-export class EditUserRolesComponent implements OnInit,AfterViewInit{
-  displayedColumns: string[] = ['RoleName', 'Description', 'CategoryName',"Actions"];
-  @Input() dataSource:IRole[];
-  unSubscribeSearchInputEvent:any;
+export class EditUserRolesComponent implements OnInit, AfterViewInit {
+  displayedColumns: string[] = [
+    'RoleName',
+    'Description',
+    'CategoryName',
+    'Actions',
+  ];
+  @Input() dataSource: IRole[];
+  unSubscribeSearchInputEvent: any;
 
-  user:IUserList;
+  user: IUserList;
 
   @ViewChild('searchInputt', { static: true }) Input: ElementRef;
-
 
   constructor(
     public roleStore: RoleStore,
     public roleCategoryStore: RoleCategorStore,
-    public userRoleStore:UserRoleStore,
-    @Inject(MAT_DIALOG_DATA) public data:any,
-    private dialog:MatDialog
+    public userRoleStore: UserRoleStore,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialog: MatDialog
   ) {
-    this.user=this.data?.user;
+    this.user = this.data?.user;
   }
 
   ngOnInit(): void {
     this.userRoleStore.getUserRoles(this.user.id);
   }
 
-  onDelete(role:IRole){
-    const dialogRef= this.dialog.open(ConfirmDialogComponent,{
-       width:"45rem",
-     });
+  onDelete(role: IRole) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '45rem',
+    });
 
-     dialogRef.afterClosed().subscribe(result=>{
-       if(result){
-         this.userRoleStore.delete(this.user.id,role.id);
-       }
-     })
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.userRoleStore.delete(this.user.id, role.id);
+      }
+    });
   }
 
-  ngAfterViewInit(){
-
-      this.unSubscribeSearchInputEvent = fromEvent<any>(
-        this.Input.nativeElement,
-        'keyup'
+  ngAfterViewInit() {
+    this.unSubscribeSearchInputEvent = fromEvent<any>(
+      this.Input.nativeElement,
+      'keyup'
+    )
+      .pipe(
+        map((event) => event.target.value),
+        delay(0),
+        debounceTime(400),
+        distinctUntilChanged()
       )
-        .pipe(
-          map((event) => event.target.value),
-          delay(0),
-          debounceTime(400),
-          distinctUntilChanged()
-        )
-        .subscribe((result) => {
-          const params = this.roleStore.getroleParams();
-          params.search = result;
-          this.roleStore.setRoleParams(params);
-          this.roleStore.onGetRoles();
-        });
- 
-   
+      .subscribe((result) => {
+        const params = this.roleStore.getroleParams();
+        params.search = result;
+        this.roleStore.setRoleParams(params);
+        this.roleStore.onGetRoles();
+      });
   }
 
   onPageChange(event: PageEvent) {
@@ -82,16 +91,19 @@ export class EditUserRolesComponent implements OnInit,AfterViewInit{
     this.roleStore.onGetRoles();
   }
 
-
-
-  onSelectRole(role:IRole){
-      if(role)
-      {
-         this.userRoleStore.create(this.user.id,role.id);
+  onSelectRole(role: IRole) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '60rem',
+      data: {
+        message: role?.name + ' Adlı rolü vermek istiyormusunuz.?',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.userRoleStore.create(this.user.id, role.id);
       }
+    });
   }
-
-
 
   onReset() {
     const params = new RoleParams();
@@ -105,5 +117,4 @@ export class EditUserRolesComponent implements OnInit,AfterViewInit{
     this.roleStore.setRoleParams(params);
     this.roleStore.onGetRoles();
   }
-
 }

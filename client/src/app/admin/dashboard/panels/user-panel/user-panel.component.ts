@@ -4,18 +4,19 @@ import { UserStore } from 'src/app/core/services/stores/user-store';
 @Component({
   selector: 'app-user-panel',
   templateUrl: './user-panel.component.html',
-  styleUrls: ['./user-panel.component.scss']
+  styleUrls: ['./user-panel.component.scss'],
 })
 export class UserPanelComponent implements OnInit {
+  allowedRoles: string[] = [
+    'Sudo',
+    'User.All',
+    'User.Create',
+    'User.Update',
+    'User.Delete',
+    'User.Publish',
+  ];
 
-  allowedRoles:string[]=['Sudo','User.All',"User.Create","User.Update"]
-  
-  constructor(
-    public userStore:UserStore
-  ) { }
+  constructor(public userStore: UserStore) {}
 
-  ngOnInit(): void {
-  }
-
-  
+  ngOnInit(): void {}
 }

@@ -57,7 +57,7 @@
               style="cursor: pointer"
             />
             <span [matMenuTriggerFor]="menu" style="cursor: pointer"
-              >Şükrü Özdemir</span
+              >{{(authStore?.user$ |async)?.firstName }} {{(authStore?.user$ |async)?.lastName }}</span
             >
             <mat-menu #menu="matMenu">
               <button

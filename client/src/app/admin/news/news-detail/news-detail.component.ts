@@ -39,7 +39,7 @@ export class NewsDetailComponent implements OnInit,AfterViewInit {
 
   roleForAddSubScreen: string[] = [
     'Sudo',
-    'News.Create',
+    'News.Publish',
     'News.All',
   ];
 

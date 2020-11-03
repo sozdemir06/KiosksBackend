@@ -62,11 +62,6 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundScreen });
             }
 
-             if(!checkAnnounceFromRepo.IsPublish)
-            {
-               throw new RestException(HttpStatusCode.BadRequest, new { NotFound = "Menü henüz onay bekliyor...." });  
-            }
-
             var subScreenForReturn = new FoodMenuSubscreen()
             {
                 SubScreenId = subScreenFromRepo.Id,

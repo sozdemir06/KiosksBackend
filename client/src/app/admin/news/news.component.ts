@@ -17,7 +17,7 @@ import { SubScreenStore } from 'src/app/core/services/stores/subscreen-store';
 export class NewsComponent implements OnInit,OnDestroy {
   unSubsCribeFromSearchInput:Subscription=Subscription.EMPTY;
   @ViewChild('searchInput') searchInput: ElementRef;
-  roleForCreate:string[]=['Sudo','News.Create,News.All']
+  roleForCreate:string[]=['Sudo','News.Create','News.All']
   
   constructor(
     public newsStore:NewsStore,

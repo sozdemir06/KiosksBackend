@@ -73,7 +73,7 @@ namespace Business.MappingProfile
 
             CreateMap<HomeAnnounce, HomeAnnounceForReturnDto>();
             CreateMap<HomeAnnounce, HomeAnnounceForKiosksForReturnDto>()
-                    .ForMember(x => x.HomeAnnouncePhotos, o => o.MapFrom(z => z.HomeAnnouncePhotos.Where(t => t.IsConfirm == true)));
+                    .ForMember(x => x.HomeAnnouncePhotos, o => o.MapFrom(z => z.HomeAnnouncePhotos.Where(t => t.IsConfirm == true && !t.UnConfirm)));
             CreateMap<HomeAnnounce, HomeAnnounceForPublicDto>()
                    .ForMember(x => x.HomeAnnouncePhotos, o => o.MapFrom(z => z.HomeAnnouncePhotos.Where(t => t.IsConfirm == true)))
                     .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.HomeAnnouncePhotos.FirstOrDefault(x => x.IsConfirm).FullPath));
@@ -94,7 +94,7 @@ namespace Business.MappingProfile
                     .ForMember(x => x.VehicleBrandName, o => o.MapFrom(z => z.VehicleBrand.BrandName))
                     .ForMember(x => x.VehicleModelName, o => o.MapFrom(z => z.VehicleModel.VehicleModelName));
             CreateMap<VehicleAnnounce, VehicleAnnounceForKiosksToReturnDto>()
-                 .ForMember(x => x.VehicleAnnouncePhotos, o => o.MapFrom(z => z.VehicleAnnouncePhotos.Where(t => t.IsConfirm == true)))
+                 .ForMember(x => x.VehicleAnnouncePhotos, o => o.MapFrom(z => z.VehicleAnnouncePhotos.Where(t => t.IsConfirm == true && !t.UnConfirm)))
                   .ForMember(x => x.VehicleCategoryName, o => o.MapFrom(z => z.VehicleCategory.CategoryName))
                     .ForMember(x => x.VehicleBrandName, o => o.MapFrom(z => z.VehicleBrand.BrandName))
                     .ForMember(x => x.VehicleModelName, o => o.MapFrom(z => z.VehicleModel.VehicleModelName));
@@ -125,7 +125,7 @@ namespace Business.MappingProfile
 
             CreateMap<Announce, AnnounceForReturnDto>();
             CreateMap<Announce, AnnounceForKiosksToReturnDto>()
-                     .ForMember(x => x.AnnouncePhotos, o => o.MapFrom(z => z.AnnouncePhotos.Where(t => t.IsConfirm == true)));
+                     .ForMember(x => x.AnnouncePhotos, o => o.MapFrom(z => z.AnnouncePhotos.Where(t => t.IsConfirm && !t.UnConfirm)));
             CreateMap<Announce, AnnounceForPublicDto>()
                    .ForMember(x => x.AnnouncePhotos, o => o.MapFrom(z => z.AnnouncePhotos.Where(t => t.IsConfirm == true)))
                    .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.AnnouncePhotos.FirstOrDefault(x => x.IsConfirm).FullPath));
@@ -145,7 +145,7 @@ namespace Business.MappingProfile
 
             CreateMap<News, NewsForReturnDto>();
             CreateMap<News, NewsForKiosksToReturnDto>()
-                         .ForMember(x => x.NewsPhotos, o => o.MapFrom(z => z.NewsPhotos.Where(t => t.IsConfirm == true)));
+                         .ForMember(x => x.NewsPhotos, o => o.MapFrom(z => z.NewsPhotos.Where(t => t.IsConfirm == true && !t.UnConfirm)));
             CreateMap<News, NewsForPublicDto>()
                          .ForMember(x => x.NewsPhotos, o => o.MapFrom(z => z.NewsPhotos.Where(t => t.IsConfirm == true)))
                           .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.NewsPhotos.FirstOrDefault(x => x.IsConfirm).FullPath));
@@ -161,7 +161,7 @@ namespace Business.MappingProfile
 
             CreateMap<FoodMenu, FoodMenuForReturnDto>();
             CreateMap<FoodMenu, FoodMenuForKiosksToReturnDto>()
-                 .ForMember(x => x.FoodMenuPhotos, o => o.MapFrom(z => z.FoodMenuPhotos.Where(t => t.IsConfirm == true)));
+                 .ForMember(x => x.FoodMenuPhotos, o => o.MapFrom(z => z.FoodMenuPhotos.Where(t => t.IsConfirm == true && !t.UnConfirm)));
             CreateMap<FoodMenu, FoodMenuForPublicDto>()
                .ForMember(x => x.FoodMenuPhotos, o => o.MapFrom(z => z.FoodMenuPhotos.Where(t => t.IsConfirm == true)))
                 .ForMember(x => x.PhotoUrl, o => o.MapFrom(z => z.FoodMenuPhotos.FirstOrDefault(x => x.IsConfirm).FullPath));

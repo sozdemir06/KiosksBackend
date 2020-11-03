@@ -34,12 +34,8 @@ namespace API.Controllers
             var onlineScreensByScreenId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensByScreenId != null && onlineScreensByScreenId.Length != 0)
             {
-                var foodMenuForKiosks=await kiosksService.GetFoodMenuById(subscreen.FoodMenuId);
-                if(foodMenuForKiosks!=null && foodMenuForKiosks.IsPublish)
-                {
-                     await kiosksHub.Clients.Clients(onlineScreensByScreenId).SendAsync("ReceiveFoodMenuSubScreen", subscreen, "create",foodMenuForKiosks);
-                }
-               
+
+               await kiosksHub.Clients.Clients(onlineScreensByScreenId).SendAsync("ReloadScreen",true);
             }
             return subscreen;
 
@@ -58,7 +54,7 @@ namespace API.Controllers
             var onlineScreensByScreenId = await onlineScreenService.GetOnlineScreenConnectionIdByScreenId(subscreen.ScreenId);
             if (onlineScreensByScreenId != null && onlineScreensByScreenId.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreensByScreenId).SendAsync("ReceiveFoodMenuSubScreen", subscreen, "delete",null);
+                 await kiosksHub.Clients.Clients(onlineScreensByScreenId).SendAsync("ReloadScreen",true);
             }
             return subscreen;
         }

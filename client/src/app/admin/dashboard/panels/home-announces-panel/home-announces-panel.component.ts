@@ -12,6 +12,8 @@ export class HomeAnnouncesPanelComponent implements OnInit {
     'HomeAnnounces.All',
     'HomeAnnounces.Create',
     'HomeAnnounces.Update',
+    'HomeAnnounces.Delete',
+    'HomeAnnounces.Publish',
   ];
   constructor(
     public homeAnnounceStore:HomeAnnounceStore

@@ -10,7 +10,7 @@
         </button>
         <img *ngIf="logoStore.logo$ | async"
           routerLink="/app/home"
-          src="{{(logoStore.logo$ | async).fullPath}}"
+          src="{{(logoStore.logo$ | async)?.photoUrl}}"
           alt="Logo"
           width="70"
           style="cursor: pointer; outline: none"

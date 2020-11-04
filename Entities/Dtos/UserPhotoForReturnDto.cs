@@ -13,5 +13,6 @@ namespace Entities.Dtos
         public bool UnConfirm { get; set; }
         public bool IsMain { get; set; }
         public int UserId { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }

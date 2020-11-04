@@ -6,6 +6,7 @@ namespace Core.Entities.Concrete
         public string Name { get; set; }
         public string FullPath { get; set; }
         public bool IsSetBackground { get; set; }
+        
 
     }
 }

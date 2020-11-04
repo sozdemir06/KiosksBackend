@@ -1,3 +1,4 @@
+using System.IO;
 using System.Threading.Tasks;
 using API.Hubs;
 using AutoMapper;
@@ -13,8 +14,10 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
@@ -101,6 +104,12 @@ namespace API
 
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+              Path.Combine(env.ContentRootPath, "MyStaticFiles")),
+                RequestPath = "/StaticFiles"
+            });
             seedData.SeedAsync();
             app.UseRouting();
             app.UseCors(x => x.AllowAnyHeader()
@@ -113,6 +122,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
                 endpoints.MapHub<AdminHub>("/hubs/AdminHub");
                 endpoints.MapHub<KiosksHub>("/hubs/KiosksHub");
             });

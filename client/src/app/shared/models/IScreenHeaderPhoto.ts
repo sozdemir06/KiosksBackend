@@ -6,4 +6,5 @@ export interface IScreenHeaderPhoto {
   isMain:boolean;
   position:string;
   screenId:number;
+  photoUrl:string;
 }

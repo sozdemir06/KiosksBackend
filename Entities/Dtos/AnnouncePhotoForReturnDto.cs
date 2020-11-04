@@ -12,5 +12,6 @@ namespace Entities.Dtos
         public bool UnConfirm { get; set; }
         public int AnnounceId { get; set; }
         public int Duration { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }

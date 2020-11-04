@@ -16,7 +16,8 @@ namespace Business.MappingProfile
             CreateMap<User, UserForListDto>()
            .ForMember(x => x.Avatar, o => o.MapFrom(z => z.UserPhotos.FirstOrDefault(x => x.IsConfirm && !x.UnConfirm && x.IsMain).FullPath));
             CreateMap<UserForRegisterDto, User>();
-            CreateMap<UserPhoto, UserPhotoForReturnDto>();
+            CreateMap<UserPhoto, UserPhotoForReturnDto>()
+                  .ForMember(x=>x.PhotoUrl,o=>o.MapFrom<UserPhotoUrlResolver>());      
             CreateMap<UserPhotoForCreationDto, UserPhoto>();
 
 
@@ -86,7 +87,8 @@ namespace Business.MappingProfile
             CreateMap<HomeAnnounceSubScreen, HomeAnnounceSubScreenForReturnDto>();
             CreateMap<HomeAnnounceSubScreenForCreationDto, HomeAnnounceSubScreen>();
 
-            CreateMap<HomeAnnouncePhoto, HomeAnnouncePhotoForReturnDto>();
+            CreateMap<HomeAnnouncePhoto, HomeAnnouncePhotoForReturnDto>()
+                    .ForMember(x=>x.PhotoUrl,o=>o.MapFrom<HomeAnnouncePhotoUrlResolver>());    
             CreateMap<HomeAnnouncePhotoForCreationDto, HomeAnnouncePhoto>();
 
             CreateMap<VehicleAnnounce, VehicleAnnounceForReturnDto>()
@@ -120,7 +122,8 @@ namespace Business.MappingProfile
             CreateMap<VehicleAnnounceSubScreen, VehicleAnnounceSubScreenForReturnDto>();
             CreateMap<VehicleAnnounceSubScreenForCreationDto, VehicleAnnounceSubScreen>();
 
-            CreateMap<VehicleAnnouncePhoto, VehicleAnnouncePhotoForReturnDto>();
+            CreateMap<VehicleAnnouncePhoto, VehicleAnnouncePhotoForReturnDto>()
+                .ForMember(x=>x.PhotoUrl,o=>o.MapFrom<VehicleAnnouncePhotoUrlResolver>());
             CreateMap<VehicleAnnouncePhotoForCreationDto, VehicleAnnouncePhoto>();
 
             CreateMap<Announce, AnnounceForReturnDto>();
@@ -137,7 +140,8 @@ namespace Business.MappingProfile
             CreateMap<AnnounceSubScreen, AnnounceSubScreenForReturnDto>();
             CreateMap<AnnounceSubScreenForCreationDto, AnnounceSubScreen>();
 
-            CreateMap<AnnouncePhoto, AnnouncePhotoForReturnDto>();
+            CreateMap<AnnouncePhoto, AnnouncePhotoForReturnDto>()
+                 .ForMember(x => x.PhotoUrl, o => o.MapFrom<AnnouncePhotoUrlResolver>());
             CreateMap<AnnouncePhotoForCretionDto, AnnouncePhoto>();
 
             CreateMap<AnnounceContentType, AnnounceContentTypeForReturnDto>();
@@ -156,7 +160,8 @@ namespace Business.MappingProfile
             CreateMap<NewsSubScreen, NewsSubScreenForReturnDto>();
             CreateMap<NewsSubScreenForCreationDto, NewsSubScreen>();
 
-            CreateMap<NewsPhoto, NewsPhotoForReturnDto>();
+            CreateMap<NewsPhoto, NewsPhotoForReturnDto>()
+                .ForMember(x=>x.PhotoUrl,o=>o.MapFrom<NewsPhotoUrlResolver>());
             CreateMap<NewsPhotoForCreationDto, NewsPhoto>();
 
             CreateMap<FoodMenu, FoodMenuForReturnDto>();
@@ -172,10 +177,12 @@ namespace Business.MappingProfile
             CreateMap<FoodMenuSubscreen, FoodMenuSubScreenForReturnDto>();
             CreateMap<FoodMenuSubScreenForCreationDto, FoodMenuSubscreen>();
 
-            CreateMap<FoodMenuPhoto, FoodMenuPhotoForReturnDto>();
+            CreateMap<FoodMenuPhoto, FoodMenuPhotoForReturnDto>()
+                .ForMember(x=>x.PhotoUrl,o=>o.MapFrom<FoodMenuPhotoUrlResolver>());
             CreateMap<FoodMenuPhotoForCreationDto, FoodMenuPhoto>();
 
-            CreateMap<FoodMenuBgPhoto, FoodMenuBgPhotoForReturnDto>();
+            CreateMap<FoodMenuBgPhoto, FoodMenuBgPhotoForReturnDto>()
+            .ForMember(x=>x.PhotoUrl,o=>o.MapFrom<FoodMenuBgPhotoUrlResolver>());
             CreateMap<FoodMenuBgPhotoForCreationDto, FoodMenuBgPhoto>();
 
             CreateMap<ScreenHeader, ScreenHeaderForReturnDto>();
@@ -184,7 +191,8 @@ namespace Business.MappingProfile
             CreateMap<ScreenFooter, ScreenFooterForReturnDto>();
             CreateMap<ScreenFooterForCreationDto, ScreenFooter>();
 
-            CreateMap<ScreenHeaderPhoto, ScreenHeaderPhotoForReturnDto>();
+            CreateMap<ScreenHeaderPhoto, ScreenHeaderPhotoForReturnDto>()
+            .ForMember(x=>x.PhotoUrl,o=>o.MapFrom<ScreenHeaderPhotoUrlResolver>());
             CreateMap<ScreenHeaderPhotoForCreationDto, ScreenHeaderPhoto>();
 
             CreateMap<City, CityForReturnDto>();
@@ -224,7 +232,8 @@ namespace Business.MappingProfile
                     .ForMember(src => src.Description, o => o.MapFrom(dest => dest.NotifyGroup.Description));
             CreateMap<UserNotifyGroupForCreationDto, UserNotifyGroup>();
 
-            CreateMap<PublicLogo, PublicLogoForReturnDto>();
+            CreateMap<PublicLogo, PublicLogoForReturnDto>()
+                .ForMember(x=>x.PhotoUrl,o=>o.MapFrom<LogoUrlResolver>());
             CreateMap<PublicLogoForCreationDto, PublicLogo>();
             
             CreateMap<PublicFooterText, PublicFooterTextForReturnDto>();

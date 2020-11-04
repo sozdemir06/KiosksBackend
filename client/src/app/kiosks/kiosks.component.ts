@@ -95,7 +95,7 @@ export class KiosksComponent implements OnInit, OnDestroy, AfterViewInit {
           )
         )
         .subscribe((result) => {
-          this.leftTopPhotoUrl = result?.fullPath;
+          this.leftTopPhotoUrl = result?.photoUrl;
         });
       this.rightSub = this.kioksStore.kiosks$
         .pipe(
@@ -106,7 +106,7 @@ export class KiosksComponent implements OnInit, OnDestroy, AfterViewInit {
           )
         )
         .subscribe((result) => {
-          this.rightTopPhotoUrl = result?.fullPath;
+          this.rightTopPhotoUrl = result?.photoUrl;
         });
     });
   }

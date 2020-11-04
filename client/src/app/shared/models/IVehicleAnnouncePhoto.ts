@@ -5,4 +5,5 @@ export interface IVehicleAnnouncePhoto{
     isConfirm:boolean;
     unConfirm:boolean;
     vehicleAnnounceId:number;
+    photoUrl:string;
 }

@@ -11,5 +11,6 @@ namespace Entities.Dtos
         public bool IsConfirm { get; set; }
         public bool UnConfirm { get; set; }
         public int FoodMenuId { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }

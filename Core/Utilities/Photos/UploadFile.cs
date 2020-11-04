@@ -8,13 +8,17 @@ using Core.Extensions;
 using ImageMagick;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+
 namespace Core.Utilities.Photos
 {
     public class UploadFile : IUploadFile
     {
         private readonly IHostingEnvironment host;
-        public UploadFile(IHostingEnvironment host)
+        private readonly IConfiguration config;
+        public UploadFile(IHostingEnvironment host, IConfiguration config)
         {
+            this.config = config;
             this.host = host;
 
         }
@@ -22,7 +26,7 @@ namespace Core.Utilities.Photos
         public async Task<bool> DeleteFile(string fileName, string folderName)
         {
             var checkDelete = true;
-            var filePath = Path.Combine(host.WebRootPath, folderName, fileName);
+            var filePath = Path.Combine(host.ContentRootPath + "/MyStaticFiles/"+fileName);
             if (!File.Exists(filePath))
             {
                 checkDelete = false;
@@ -44,7 +48,7 @@ namespace Core.Utilities.Photos
             }
 
             var fileExtensions = Path.GetExtension(file.FileName);
-            string[] accepted_file_types = new[] { ".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG", ".GIF",".gif"};
+            string[] accepted_file_types = new[] { ".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG", ".GIF", ".gif" };
             if (!accepted_file_types.Any(s => s == fileExtensions))
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { InCorrectFileTypes = "Yüklenen dosya tipi desteklenmiyor.Sadece .jpg,.jpeg,.png desteklenmektedir." });
@@ -57,7 +61,7 @@ namespace Core.Utilities.Photos
                 throw new RestException(HttpStatusCode.BadRequest, new { FileSizeExceed = "Dosya boyutu fotopraf için 5MB video için 40MB olmalıdır." });
             }
 
-            var uploadsFolderPath = Path.Combine(host.WebRootPath, uploadedLocationName);
+            var uploadsFolderPath = Path.Combine(host.ContentRootPath + "/MyStaticFiles/images", uploadedLocationName);
             if (!Directory.Exists(uploadsFolderPath))
             {
                 Directory.CreateDirectory(uploadsFolderPath);
@@ -73,15 +77,15 @@ namespace Core.Utilities.Photos
                 image.Write(filePath);
             }
 
-            var imageToCompress = new FileInfo(host.WebRootPath + "/" + uploadedLocationName + "/" + fileName);
+            var imageToCompress = new FileInfo(host.ContentRootPath + "/MyStaticFiles/images" + "/" + uploadedLocationName + "/" + fileName);
             var optimizer = new ImageOptimizer();
             optimizer.Compress(imageToCompress);
             imageToCompress.Refresh();
 
             var result = new UploadedFileResultDto()
             {
-                FullPath = "http://localhost:5000/" + uploadedLocationName + "/" + fileName,
-                Name = fileName,
+                FullPath = config["ApiUrl"] + "images/" + uploadedLocationName + "/" + fileName,
+                Name = "images/" + uploadedLocationName + "/" + fileName,
                 FileType = "image"
             };
 
@@ -110,7 +114,7 @@ namespace Core.Utilities.Photos
                 throw new RestException(HttpStatusCode.BadRequest, new { FileSizeExceed = "Dosya boyutu fotopraf için 5MB video için 40MB olmalıdır." });
             }
 
-            var uploadsFolderPath = Path.Combine(host.WebRootPath, uploadedLocationName);
+            var uploadsFolderPath = Path.Combine(host.ContentRootPath + "/MyStaticFiles/images", uploadedLocationName);
             if (!Directory.Exists(uploadsFolderPath))
             {
                 Directory.CreateDirectory(uploadsFolderPath);
@@ -141,8 +145,8 @@ namespace Core.Utilities.Photos
             {
                 var uploadResult = new UploadedFileResultDto()
                 {
-                    FullPath = "http://localhost:5000/" + uploadedLocationName + "/" + fileName,
-                    Name = fileName,
+                    FullPath = config["ApiUrl"] + "images/" + uploadedLocationName + "/" + fileName,
+                    Name = "images/" + uploadedLocationName + "/" + fileName,
                     FileType = "image"
                 };
                 result.Add(uploadResult);
@@ -176,7 +180,7 @@ namespace Core.Utilities.Photos
             {
 
 
-                var uploadsFolderPath = Path.Combine(host.WebRootPath, uploadedLocationName);
+                var uploadsFolderPath = Path.Combine(host.ContentRootPath + "/MyStaticFiles/images", uploadedLocationName);
                 if (!Directory.Exists(uploadsFolderPath))
                 {
                     Directory.CreateDirectory(uploadsFolderPath);
@@ -197,8 +201,8 @@ namespace Core.Utilities.Photos
 
                 return new UploadedFileResultDto
                 {
-                    FullPath = "http://localhost:5000/" + uploadedLocationName + "/" + fileName,
-                    Name = fileName,
+                    FullPath = config["ApiUrl"] + "images/" + uploadedLocationName + "/" + fileName,
+                    Name = "images/" + uploadedLocationName + "/" + fileName,
                     FileType = "video"
                 };
 

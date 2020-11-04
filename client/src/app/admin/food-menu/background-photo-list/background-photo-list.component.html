@@ -5,7 +5,7 @@
           <mat-card>
             <img
               mat-card-image
-              src="{{ image?.fullPath }}"
+              src="{{ image?.photoUrl }}"
               alt="İlan Fotoğrafı"
               height="100"
             />
@@ -29,9 +29,9 @@
   
     <div class="col-md-4">
       <ng-template #dataIsEmpty>
-        <h4 class="text-info ml-5 p-4 h-25">
+        <div class="alert alert-primary" role="alert">
           Yemek Menüsü için ana arka plan resmi belirtilmemiş.
-        </h4>
+        </div>
       </ng-template>
     </div>
   </div>

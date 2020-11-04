@@ -73,8 +73,8 @@ namespace API.Hubs
                 };
                 
             }
-
-            return await Task.FromResult(onlineUser);
+            var sptlArray=onlineUser.SelectMany(x=>x.Split(",")).ToArray();
+            return await Task.FromResult(sptlArray);
         }
 
 

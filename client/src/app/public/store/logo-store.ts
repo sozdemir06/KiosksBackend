@@ -40,7 +40,7 @@ export class LogoStore {
 
  updateLogoRealTime(logo:IPublicLogo){
      const updateSubject=produce(this.subject.getValue(),draft=>{
-          draft.fullPath=logo.fullPath;
+          draft.photoUrl=logo.photoUrl;
      });
      this.subject.next(updateSubject);
  }

@@ -3,5 +3,6 @@ export interface IFoodMenuBgPhoto{
     name:string;
     fullPath:string;
     isSetBackground:boolean;
+    photoUrl:string;
 
 }

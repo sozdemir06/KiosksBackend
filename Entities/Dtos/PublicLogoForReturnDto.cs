@@ -9,5 +9,6 @@ namespace Entities.Dtos
         public string FullPath { get; set; }
         public string FileType { get; set; }
         public bool IsMain { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }

@@ -32,16 +32,16 @@
           <ng-container *ngIf="image?.fileType.toLowerCase() == 'image'">
             <img
               mat-card-image
-              src="{{ image?.fullPath }}"
+              src="{{ image?.photoUrl }}"
               alt="İlan Fotoğrafı"
               height="100"
             />
           </ng-container>
           <ng-container *ngIf="image?.fileType.toLowerCase() == 'video'">
             <video controls class="w-100 h-100">
-              <source src="{{ image?.fullPath }}" type="video/mp4" />
-              <source src="{{ image?.fullPath }}" type="video/ogg" />
-              <source src="{{ image?.fullPath }}" type="video/webm" />
+              <source src="{{ image?.photoUrl }}" type="video/mp4" />
+              <source src="{{ image?.photoUrl }}" type="video/ogg" />
+              <source src="{{ image?.photoUrl }}" type="video/webm" />
               Your browser does not support the video tag.
             </video>
           </ng-container>
@@ -80,9 +80,9 @@
 
   <div class="col-md-4">
     <ng-template #dataIsEmpty>
-      <h4 class="text-info ml-5 p-4 h-25">
+      <div class="alert alert-primary" role="alert">
         Sol üst ve Sağ üst logo için henüz resim eklenmemiş..
-      </h4>
+      </div>
     </ng-template>
   </div>
 </div>

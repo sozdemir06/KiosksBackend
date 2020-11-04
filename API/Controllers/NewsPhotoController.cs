@@ -5,6 +5,7 @@ using Business.Abstract;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System.Linq;
 
 namespace API.Controllers
 {
@@ -17,7 +18,7 @@ namespace API.Controllers
         private readonly IHubContext<KiosksHub> kiosksHub;
         private readonly IOnlineScreenService onlineScreenService;
         private readonly IHubContext<AdminHub> hubContext;
-        public NewsPhotoController(INewsPhotoService newsPhotoService,UserTracker userTracker,
+        public NewsPhotoController(INewsPhotoService newsPhotoService, UserTracker userTracker,
         IHubContext<KiosksHub> kiosksHub,
         IOnlineScreenService onlineScreenService,
         IHubContext<AdminHub> hubContext)
@@ -39,12 +40,12 @@ namespace API.Controllers
         public async Task<ActionResult<NewsPhotoForReturnDto>> Create([FromForm] FileUploadDto uploadDto)
         {
             var photo = await newsPhotoService.Create(uploadDto);
-           var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
-            {
-                await hubContext.Clients.GroupExcept("News", connIds).SendAsync("ReceiveNewsPhoto", photo, "create",true);
-            }
+            var connIds = await userTracker.GetOnlineUser();
 
+            if (connIds != null && connIds.Length != 0)
+            {
+                await hubContext.Clients.GroupExcept("News",connIds).SendAsync("ReceiveNewsPhoto", photo, "create", true);
+            }
             return photo;
         }
 
@@ -53,7 +54,7 @@ namespace API.Controllers
         {
             var photo = await newsPhotoService.Update(creationDto);
             var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            if (connIds != null && connIds.Length != 0)
             {
                 await hubContext.Clients.GroupExcept("News", connIds).SendAsync("ReceiveNewsPhoto", photo, "update");
             }
@@ -61,7 +62,7 @@ namespace API.Controllers
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
             if (onlineScreens != null && onlineScreens.Length != 0)
             {
-               await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen",true);
+                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen", true);
             }
 
             return photo;
@@ -72,7 +73,7 @@ namespace API.Controllers
         {
             var photo = await newsPhotoService.Delete(photoId);
             var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            if (connIds != null && connIds.Length != 0)
             {
                 await hubContext.Clients.GroupExcept("News", connIds).SendAsync("ReceiveNewsPhoto", photo, "delete");
             }
@@ -80,7 +81,7 @@ namespace API.Controllers
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
             if (onlineScreens != null && onlineScreens.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen",true);
+                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen", true);
             }
 
             return photo;

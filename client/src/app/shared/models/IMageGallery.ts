@@ -5,5 +5,6 @@ export interface IMageGallery{
     isConfirm:boolean;
     fileType?:string;
     announceId?:number;
+    photoUrl:string;
     
 }

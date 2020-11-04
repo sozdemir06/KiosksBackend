@@ -142,7 +142,7 @@ namespace Business.Concrete
             return mapper.Map<AnnouncePhoto, AnnouncePhotoForReturnDto>(checkByIdFromRepo);
         }
 
-        [SecuredOperation("Sudo,Announces.List,Announces.All", Priority = 1)]
+        //[SecuredOperation("Sudo,Announces.List,Announces.All", Priority = 1)]
         public async Task<List<AnnouncePhotoForReturnDto>> GetListAsync(int announceId)
         {
             var getListFromRepo = await announcePhotoDal.GetListAsync(x => x.AnnounceId == announceId);

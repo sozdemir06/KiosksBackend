@@ -41,10 +41,10 @@ namespace API.Controllers
         public async Task<ActionResult<HomeAnnouncePhotoForReturnDto>> Create([FromForm] FileUploadDto uploadDto)
         {
             var photo = await photoService.Create(uploadDto);
-             var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds != null && connIds.Length != 0)
             {
-                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveNewHomeAnnouncePhoto", photo, "create",true);
+                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveNewHomeAnnouncePhoto", photo, "create", true);
             }
 
             return photo;
@@ -54,15 +54,15 @@ namespace API.Controllers
         public async Task<HomeAnnouncePhotoForReturnDto> Update(HomeAnnouncePhotoForCreationDto creationDto)
         {
             var photo = await photoService.Update(creationDto);
-           var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            var connIds = await userTracker.GetOnlineUser();
+            if (connIds != null && connIds.Length != 0)
             {
                 await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveNewHomeAnnouncePhoto", photo, "update");
             }
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
-            if (onlineScreens != null || onlineScreens.Length != 0)
+            if (onlineScreens != null && onlineScreens.Length != 0)
             {
-                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen",true);
+                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen", true);
             }
 
             return photo;
@@ -73,14 +73,14 @@ namespace API.Controllers
         {
             var photo = await photoService.Delete(photoId);
             var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            if (connIds != null && connIds.Length != 0)
             {
                 await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveNewHomeAnnouncePhoto", photo, "delete");
             }
             var onlineScreens = await onlineScreenService.GetAllOnlineScreenConnectionId();
-            if (onlineScreens != null || onlineScreens.Length != 0)
+            if (onlineScreens != null && onlineScreens.Length != 0)
             {
-               await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen",true);
+                await kiosksHub.Clients.Clients(onlineScreens).SendAsync("ReloadScreen", true);
             }
 
             return photo;
@@ -91,9 +91,9 @@ namespace API.Controllers
         {
             var photo = await photoService.CreateForPublicAsync(uploadDto);
             var connIds = await userTracker.GetOnlineUser();
-            if (connIds!=null && connIds.Length!=0)
+            if (connIds != null && connIds.Length != 0)
             {
-                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveNewHomeAnnouncePhoto", photo, "create",true);
+                await hubContext.Clients.GroupExcept("Home", connIds).SendAsync("ReceiveNewHomeAnnouncePhoto", photo, "create", true);
             }
 
             return photo;

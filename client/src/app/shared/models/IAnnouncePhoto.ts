@@ -7,4 +7,5 @@ export interface IAnnouncePhoto{
     fileType:string;
     announceId:number;
     duration:number;
+    photoUrl:string;
 }

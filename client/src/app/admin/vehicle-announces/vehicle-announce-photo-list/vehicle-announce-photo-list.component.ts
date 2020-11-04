@@ -11,7 +11,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
   styleUrls: ['./vehicle-announce-photo-list.component.scss'],
 })
 export class VehicleAnnouncePhotoListComponent implements OnInit {
-  @Input() images: IHomeAnnouncePhoto[];
+  @Input() images: IVehicleAnnouncePhoto[];
   @Input() announceId: number;
 
   @Input() roleForUpdate: string[] = ["Sudo","VehicleAnnounces.Update","VehicleAnnounces.All"];

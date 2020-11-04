@@ -4,4 +4,5 @@ export interface IPublicLogo{
     fullPath:string;
     fileType:string;
     isMain:boolean;
+    photoUrl:string;
 }

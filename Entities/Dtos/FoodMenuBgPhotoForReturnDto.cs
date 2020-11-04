@@ -8,5 +8,6 @@ namespace Entities.Dtos
         public string Name { get; set; }
         public string FullPath { get; set; }
         public bool IsSetBackground { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }

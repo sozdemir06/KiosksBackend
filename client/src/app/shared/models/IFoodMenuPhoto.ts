@@ -8,4 +8,5 @@ export interface IFoodMenuPhoto{
     foodMenuId:number;
     isSetBackground:boolean;
     isBackground:boolean;
+    photoUrl:string;
 }

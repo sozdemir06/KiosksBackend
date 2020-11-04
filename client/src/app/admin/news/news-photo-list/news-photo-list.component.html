@@ -6,7 +6,7 @@
             <ng-container>
               <img
                 mat-card-image
-                src="{{ image?.fullPath }}"
+                src="{{ image?.photoUrl }}"
                 alt="İlan Fotoğrafı"
                 height="140"
               />
@@ -32,9 +32,9 @@
   
     <div class="col-md-4">
       <ng-template #dataIsEmpty>
-        <h4 class="text-info ml-5 p-4 h-25">
+        <div class="alert alert-primary" role="alert">
           Bu ilan için henüz fotoğraf eklenmemiş..
-        </h4>
+        </div>
       </ng-template>
     </div>
   </div>

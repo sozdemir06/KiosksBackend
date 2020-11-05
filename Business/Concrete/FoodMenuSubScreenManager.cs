@@ -6,7 +6,9 @@ using Business.Abstract;
 using Business.Constants;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using DataAccess.Abstract;
@@ -35,6 +37,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,FoodMenu.Create,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuSubScreenValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<FoodMenuSubScreenForReturnDto> Create(FoodMenuSubScreenForCreationDto creationDto)
         {
             var checkById = await foodMenuSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId && x.FoodMenuId == creationDto.FoodMenuId);
@@ -79,7 +82,8 @@ namespace Business.Concrete
             return mapper.Map<FoodMenuSubscreen, FoodMenuSubScreenForReturnDto>(getFromRepo);
         }
 
-      [SecuredOperation("Sudo,FoodMenu.Delete,FoodMenu.All", Priority = 1)]
+        [SecuredOperation("Sudo,FoodMenu.Delete,FoodMenu.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<FoodMenuSubScreenForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await foodMenuSubScreenDal.GetAsync(x => x.Id == Id);
@@ -92,7 +96,7 @@ namespace Business.Concrete
             return mapper.Map<FoodMenuSubscreen, FoodMenuSubScreenForReturnDto>(checkByIdFromRepo);
         }
 
-         [SecuredOperation("Sudo,FoodMenu.List,FoodMenu.All", Priority = 1)]
+        [SecuredOperation("Sudo,FoodMenu.List,FoodMenu.All", Priority = 1)]
         public async Task<List<FoodMenuSubScreenForReturnDto>> GetByAnnounceId(int announceId)
         {
             var spec = new FoodMenuSubScreenWithSubScreenSpecification(announceId);
@@ -120,6 +124,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,FoodMenu.Update,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuSubScreenValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<FoodMenuSubScreenForReturnDto> Update(FoodMenuSubScreenForCreationDto updateDto)
         {
             var checkByIdFromRepo = await foodMenuSubScreenDal.GetAsync(x => x.Id == updateDto.Id);

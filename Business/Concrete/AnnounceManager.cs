@@ -10,7 +10,9 @@ using Business.Constants;
 using Business.Helpers;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.QueryParams;
@@ -39,6 +41,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Announces.Create,Announces.All", Priority = 1)]
         [ValidationAspect(typeof(AnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<AnnounceForReturnDto> Create(AnnounceForCreationDto creationDto)
         {
             var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
@@ -71,6 +74,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Public", Priority = 1)]
         [ValidationAspect(typeof(AnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<AnnounceForUserDto> CreateForPublicAsync(AnnounceForCreationDto creationDto, int userId)
         {
             var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
@@ -106,6 +110,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,Announces.Delete,Announces.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<AnnounceForReturnDto> Delete(int Id)
         {
             var getByIdFromRepo = await announceDal.GetAsync(x => x.Id == Id);
@@ -127,7 +132,7 @@ namespace Business.Concrete
             var countSpec = new AnnounceWithFilterForCaountAsyncSpecification(queryParams);
             var totalItem = await announceDal.CountAsync(countSpec);
 
-           
+
 
             var data = mapper.Map<List<Announce>, List<AnnounceForReturnDto>>(listFromRepo);
             return new Pagination<AnnounceForReturnDto>
@@ -141,6 +146,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Announces.Publish,Announces.All", Priority = 1)]
         [ValidationAspect(typeof(AnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<AnnounceForReturnDto> Publish(AnnounceForCreationDto updateDto)
         {
             var checkFromRepo = await announceDal.GetAsync(x => x.Id == updateDto.Id);
@@ -163,11 +169,11 @@ namespace Business.Concrete
                     throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.PublishDateExpire });
                 }
 
-            } 
+            }
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
-            mapForUpdate.AnnounceType="announce";
+            mapForUpdate.AnnounceType = "announce";
             await announceDal.Update(mapForUpdate);
 
             var spec = new AnnounceWithUserSpecification(updateDto.Id);
@@ -178,6 +184,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Announces.Update,Announces.All", Priority = 1)]
         [ValidationAspect(typeof(AnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<AnnounceForReturnDto> Update(AnnounceForCreationDto updateDto)
         {
             var checkFromRepo = await announceDal.GetAsync(x => x.Id == updateDto.Id);
@@ -188,7 +195,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
-            mapForUpdate.AnnounceType="announce";
+            mapForUpdate.AnnounceType = "announce";
             await announceDal.Update(mapForUpdate);
 
             var spec = new AnnounceWithUserSpecification(updateDto.Id);
@@ -199,6 +206,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Public", Priority = 1)]
         [ValidationAspect(typeof(AnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<AnnounceForUserDto> UpdateForPublicAsync(AnnounceForCreationDto updateDto, int userId)
         {
             var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
@@ -215,7 +223,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkFromRepo);
             mapForUpdate.Updated = DateTime.Now;
-            mapForUpdate.AnnounceType="announce";
+            mapForUpdate.AnnounceType = "announce";
             mapForUpdate.IsNew = true;
             mapForUpdate.IsPublish = false;
             mapForUpdate.Reject = false;

@@ -8,7 +8,9 @@ using Business.Constants;
 using Business.Helpers;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities;
 using Core.Entities.Concrete;
 using Core.Extensions;
@@ -113,6 +115,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,User.Update,User.All", Priority = 1)]
         [ValidationAspect(typeof(UserValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<UserForListDto> Update(UserForRegisterDto userForRegisterDto)
         {
             var userFromRepo = await userDal.GetAsync(x => x.Email == userForRegisterDto.Email);

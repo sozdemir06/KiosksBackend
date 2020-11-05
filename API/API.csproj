@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+   <Content Include="MyStaticfiles/**" CopyToPublishDirectory="PreserveNewest" />
     <ProjectReference Include="..\Business\Business.csproj" />
   </ItemGroup>
 

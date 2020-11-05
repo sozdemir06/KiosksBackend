@@ -8,7 +8,9 @@ using Business.Abstract;
 using Business.Constants;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.Utilities.Photos;
@@ -38,6 +40,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Announces.Create,Announces.All", Priority = 1)]
         [ValidationAspect(typeof(AnnouncePhotoValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<AnnouncePhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
             var checkAnnounceById = await announceDal.GetAsync(x => x.Id == uploadDto.AnnounceId);
@@ -77,6 +80,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Public", Priority = 1)]
         [ValidationAspect(typeof(AnnouncePhotoValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<AnnouncePhotoForReturnDto> CreateForPublic(FileUploadDto uploadDto)
         {
             var checkAnnounceById = await announceDal.GetAsync(x => x.Id == uploadDto.AnnounceId);
@@ -128,6 +132,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,Announces.Delete,Announces.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger),Priority=3)] 
         public async Task<AnnouncePhotoForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await announcePhotoDal.GetAsync(x => x.Id == Id);
@@ -156,6 +161,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Announces.Update,Announces.All", Priority = 1)]
         [ValidationAspect(typeof(AnnouncePhotoValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger),Priority=3)]
         public async Task<AnnouncePhotoForReturnDto> Update(AnnouncePhotoForCretionDto updateDto)
         {
             var checkByIdFromRepo = await announcePhotoDal.GetAsync(x => x.Id == updateDto.Id);

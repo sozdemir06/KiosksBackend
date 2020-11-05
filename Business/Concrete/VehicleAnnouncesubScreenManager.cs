@@ -6,7 +6,9 @@ using Business.Abstract;
 using Business.Constants;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using DataAccess.Abstract;
@@ -36,6 +38,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,VehicleAnnounces.Create,VehicleAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnounceSubScreenValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<VehicleAnnounceSubScreenForReturnDto> Create(VehicleAnnounceSubScreenForCreationDto creationDto)
         {
             var checkById = await vehicleAnnounceSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId && x.VehicleAnnounceId == creationDto.VehicleAnnounceId);
@@ -80,6 +83,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,VehicleAnnounces.Delete,VehicleAnnounces.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<VehicleAnnounceSubScreenForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await vehicleAnnounceSubScreenDal.GetAsync(x => x.Id == Id);
@@ -119,6 +123,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,VehicleAnnounces.Update,VehicleAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnounceSubScreenValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<VehicleAnnounceSubScreenForReturnDto> Update(VehicleAnnounceSubScreenForCreationDto updateDto)
         {
             var checkByIdFromRepo = await vehicleAnnounceSubScreenDal.GetAsync(x => x.Id == updateDto.Id);

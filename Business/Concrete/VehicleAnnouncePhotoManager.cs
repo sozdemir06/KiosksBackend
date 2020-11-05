@@ -8,7 +8,9 @@ using Business.Abstract;
 using Business.Constants;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.Utilities.Photos;
@@ -39,6 +41,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,VehicleAnnounces.Create,VehicleAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnouncePhotoValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<VehicleAnnouncePhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
             var checkAnnounceById = await vehicleAnnounceDal.GetAsync(x => x.Id == uploadDto.AnnounceId);
@@ -62,6 +65,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Public", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnouncePhotoValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<VehicleAnnouncePhotoForReturnDto> CreateForPublicAsync(FileUploadDto uploadDto)
         {
             var checkAnnounceById = await vehicleAnnounceDal.GetAsync(x => x.Id == uploadDto.AnnounceId);
@@ -89,6 +93,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,VehicleAnnounces.Delete,VehicleAnnounces.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<VehicleAnnouncePhotoForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await vehicleAnnouncePhotoDal.GetAsync(x => x.Id == Id);
@@ -117,6 +122,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,VehicleAnnounces.Update,VehicleAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnouncePhotoValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<VehicleAnnouncePhotoForReturnDto> Update(VehicleAnnouncePhotoForCreationDto updateDto)
         {
             var checkByIdFromRepo = await vehicleAnnouncePhotoDal.GetAsync(x => x.Id == updateDto.Id);

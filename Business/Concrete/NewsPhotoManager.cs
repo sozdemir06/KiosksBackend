@@ -6,7 +6,9 @@ using Business.Abstract;
 using Business.Constants;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.Utilities.Photos;
@@ -33,6 +35,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,News.Create,News.All", Priority = 1)]
         [ValidationAspect(typeof(NewsPhotoValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<NewsPhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
             var checkAnnounceById = await newsDal.GetAsync(x => x.Id == uploadDto.AnnounceId);
@@ -41,7 +44,7 @@ namespace Business.Concrete
                 throw new RestException(HttpStatusCode.BadRequest, new { NotFound = Messages.NotFoundAnnounce });
             }
 
-           
+
 
             var uploadFile = new UploadedFileResultDto();
             if (uploadDto.FileType.ToLower() == "image")
@@ -62,6 +65,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,News.Delete,News.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<NewsPhotoForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await newsPhotoDal.GetAsync(x => x.Id == Id);
@@ -88,8 +92,9 @@ namespace Business.Concrete
             return mapper.Map<List<NewsPhoto>, List<NewsPhotoForReturnDto>>(getListFromRepo);
         }
 
-         [SecuredOperation("Sudo,News.Update,News.All", Priority = 1)]
+        [SecuredOperation("Sudo,News.Update,News.All", Priority = 1)]
         [ValidationAspect(typeof(NewsPhotoValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<NewsPhotoForReturnDto> Update(NewsPhotoForCreationDto updateDto)
         {
             var checkByIdFromRepo = await newsPhotoDal.GetAsync(x => x.Id == updateDto.Id);

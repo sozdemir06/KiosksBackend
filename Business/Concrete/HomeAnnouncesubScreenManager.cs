@@ -7,7 +7,9 @@ using Business.Abstract;
 using Business.Constants;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using DataAccess.Abstract;
@@ -41,6 +43,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,HomeAnnounces.Create,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnounceSubsCreenValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<HomeAnnounceSubScreenForReturnDto> Create(HomeAnnounceSubScreenForCreationDto creationDto)
         {
             var checkById = await homeAnnounceSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId && x.HomeAnnounceId == creationDto.HomeAnnounceId);
@@ -87,6 +90,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,HomeAnnounces.Delete,HomeAnnounces.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<HomeAnnounceSubScreenForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await homeAnnounceSubScreenDal.GetAsync(x => x.Id == Id);
@@ -127,6 +131,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,HomeAnnounces.Update,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnounceSubsCreenValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<HomeAnnounceSubScreenForReturnDto> Update(HomeAnnounceSubScreenForCreationDto updateDto)
         {
             var checkByIdFromRepo = await homeAnnounceSubScreenDal.GetAsync(x => x.Id == updateDto.Id);

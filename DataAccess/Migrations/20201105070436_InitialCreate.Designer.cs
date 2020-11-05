@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200911195243_UpdateLiveTvListConfiguration")]
-    partial class UpdateLiveTvListConfiguration
+    [Migration("20201105070436_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -126,6 +126,9 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
+
+                    b.Property<bool>("UnConfirm")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -387,6 +390,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<bool>("UnConfirm")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("FoodMenuId");
@@ -545,6 +551,9 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
+
+                    b.Property<bool>("UnConfirm")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -784,6 +793,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("NewsId")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("UnConfirm")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NewsId");
@@ -824,6 +836,24 @@ namespace DataAccess.Migrations
                     b.ToTable("NewsSubScreens");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.NotifyGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("GroupName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NotifyGroups");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.NumberOfRoom", b =>
                 {
                     b.Property<int>("Id")
@@ -839,6 +869,68 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("NumberOfRooms");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.OnlineScreen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ConnectionId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ScreenId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScreenId");
+
+                    b.ToTable("OnlineScreens");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.PublicFooterText", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ContentPhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FooterText")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PublicFooterTexts");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.PublicLogo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullPath")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PublicLogos");
                 });
 
             modelBuilder.Entity("Core.Entities.Concrete.Role", b =>
@@ -1093,6 +1185,63 @@ namespace DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Core.Entities.Concrete.UserNotifyGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("NotifyGroupId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NotifyGroupId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserNotifyGroups");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.UserPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullPath")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsConfirm")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("UnConfirm")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserPhotos");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.UserRole", b =>
                 {
                     b.Property<int>("Id")
@@ -1221,6 +1370,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<bool>("UnConfirm")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("VehicleAnnounceId")
                         .HasColumnType("integer");
 
@@ -1269,7 +1421,6 @@ namespace DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'115', '1', '', '', 'False', '1'")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("BrandName")
@@ -1384,23 +1535,6 @@ namespace DataAccess.Migrations
                     b.ToTable("VehicleModels");
                 });
 
-            modelBuilder.Entity("Entities.Concrete.Category", b =>
-                {
-                    b.Property<int>("CategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("character varying(60)")
-                        .HasMaxLength(60);
-
-                    b.HasKey("CategoryId");
-
-                    b.ToTable("Categories");
-                });
-
             modelBuilder.Entity("Entities.Concrete.Log", b =>
                 {
                     b.Property<int>("Id")
@@ -1420,37 +1554,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Logs");
-                });
-
-            modelBuilder.Entity("Entities.Concrete.Product", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("character varying(60)")
-                        .HasMaxLength(60);
-
-                    b.Property<string>("QuantityPerUnit")
-                        .HasColumnType("text");
-
-                    b.Property<int>("UnitsInStock")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ProductId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Core.Entities.Concrete.Announce", b =>
@@ -1495,7 +1598,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Core.Entities.Concrete.FoodMenu", b =>
                 {
                     b.HasOne("Core.Entities.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("FoodMenus")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1627,7 +1730,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Core.Entities.Concrete.News", b =>
                 {
                     b.HasOne("Core.Entities.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("News")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1659,6 +1762,15 @@ namespace DataAccess.Migrations
                     b.HasOne("Core.Entities.Concrete.SubScreen", "SubScreen")
                         .WithMany("NewsSubScreens")
                         .HasForeignKey("SubScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.OnlineScreen", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.Screen", "Screen")
+                        .WithMany("OnlineScreens")
+                        .HasForeignKey("ScreenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1725,6 +1837,30 @@ namespace DataAccess.Migrations
                     b.HasOne("Core.Entities.Concrete.Department", "Department")
                         .WithMany("Users")
                         .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.UserNotifyGroup", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.NotifyGroup", "NotifyGroup")
+                        .WithMany("UserNotifyGroups")
+                        .HasForeignKey("NotifyGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.User", "User")
+                        .WithMany("UserNotifyGroups")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.UserPhoto", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.User", "User")
+                        .WithMany("UserPhotos")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1839,15 +1975,6 @@ namespace DataAccess.Migrations
                     b.HasOne("Core.Entities.Concrete.VehicleCategory", "VehicleCategories")
                         .WithMany("VehicleModels")
                         .HasForeignKey("VehicleCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Entities.Concrete.Product", b =>
-                {
-                    b.HasOne("Entities.Concrete.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

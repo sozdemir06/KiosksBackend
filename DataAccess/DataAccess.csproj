@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <None Include="SeedData\**" CopyToOutputDirectory="PreserveNewest"/>
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>

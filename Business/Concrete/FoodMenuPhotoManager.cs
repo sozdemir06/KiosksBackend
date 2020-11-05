@@ -6,7 +6,9 @@ using Business.Abstract;
 using Business.Constants;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.Utilities.Photos;
@@ -34,6 +36,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,FoodMenu.Create,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuPhotoValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<FoodMenuPhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
             var checkAnnounceById = await foodMenuDal.GetAsync(x => x.Id == uploadDto.AnnounceId);
@@ -57,6 +60,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,FoodMenu.Delete,FoodMenu.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<FoodMenuPhotoForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await foodMenuPhotoDal.GetAsync(x => x.Id == Id);
@@ -98,6 +102,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,FoodMenu.Update,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuPhotoValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<FoodMenuPhotoForReturnDto> Update(FoodMenuPhotoForCreationDto updateDto)
         {
             var checkByIdFromRepo = await foodMenuPhotoDal.GetAsync(x => x.Id == updateDto.Id);

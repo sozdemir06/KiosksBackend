@@ -8,7 +8,9 @@ using Business.Abstract;
 using Business.Constants;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.Utilities.Photos;
@@ -40,6 +42,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,HomeAnnounces.Create,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnouncePhotoValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<HomeAnnouncePhotoForReturnDto> Create(FileUploadDto uploadDto)
         {
 
@@ -64,6 +67,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Public", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnouncePhotoValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<HomeAnnouncePhotoForReturnDto> CreateForPublicAsync(FileUploadDto uploadDto)
         {
             var checkAnnounceById = await homeAnnounceDal.GetAsync(x => x.Id == uploadDto.AnnounceId);
@@ -91,6 +95,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,HomeAnnounces.Delete,HomeAnnounces.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<HomeAnnouncePhotoForReturnDto> Delete(int Id)
         {
 
@@ -120,6 +125,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,HomeAnnounces.Update,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnouncePhotoValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<HomeAnnouncePhotoForReturnDto> Update(HomeAnnouncePhotoForCreationDto updateDto)
         {
             var checkByIdFromRepo = await homeAnnouncePhotoDal.GetAsync(x => x.Id == updateDto.Id);

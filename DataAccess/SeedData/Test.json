@@ -1,0 +1,28 @@
+{
+  "Message": {
+    "MethodName": "Create",
+    "Parameters": [
+      {
+        "Name": "creationDto",
+        "Value": {
+          "Id": 0,
+          "Header": "Yeni Duyuru",
+          "AnnounceType": null,
+          "ContentType": "Image",
+          "Content": "",
+          "SlideId": "00000000-0000-0000-0000-000000000000",
+          "Created": "0001-01-01T00:00:00",
+          "Updated": "0001-01-01T00:00:00",
+          "PublishStartDate": "2020-11-05T12:17:27",
+          "PublishFinishDate": "2020-11-27T12:17:27",
+          "SlideIntervalTime": 5,
+          "UserId": 3,
+          "IsNew": true,
+          "Reject": false,
+          "IsPublish": false
+        },
+        "Type": "AnnounceForCreationDto"
+      }
+    ]
+  }
+}

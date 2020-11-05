@@ -51,7 +51,7 @@
         "Status":false
     },
     {
-        "SubScreenName":"ZO-Protokol Üst",
+        "Name":"ZO-Protokol Üst",
         "Position":"Top",
         "ScreenId":3,
         "Height":30,
@@ -59,7 +59,7 @@
         "Status":true
     },
     {
-        "SubScreenName":"ZO-Protokol Orta",
+        "Name":"ZO-Protokol Orta",
         "Position":"Middle",
         "ScreenId":3,
         "Height":30,
@@ -67,7 +67,7 @@
         "Status":false
     },
     {
-        "SubScreenName":"ZO-Protokol Alt",
+        "Name":"ZO-Protokol Alt",
         "Position":"Bottom",
         "ScreenId":3,
         "Height":30,

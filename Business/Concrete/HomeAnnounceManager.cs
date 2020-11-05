@@ -10,7 +10,9 @@ using Business.Constants;
 using Business.Helpers;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.QueryParams;
@@ -39,6 +41,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,HomeAnnounces.Create,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<HomeAnnounceForReturnDto> Create(HomeAnnounceForCreationDto creationDto)
         {
             var checkByNameFromRepo = await homeAnnounceDal.GetAsync(x => x.Header.ToLower() == creationDto.Header.ToLower());
@@ -62,6 +65,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Public", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<HomeAnnounceForUserDto> CreateForPublicAsync(HomeAnnounceForCreationDto creationDto, int userId)
         {
             var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
@@ -97,6 +101,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,HomeAnnounces.Delete,HomeAnnounces.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<HomeAnnounceForReturnDto> Delete(int Id)
         {
             var getByIdFromRepo = await homeAnnounceDal.GetAsync(x => x.Id == Id);
@@ -119,7 +124,7 @@ namespace Business.Concrete
             var countSpec = new HomeAnnounceWithFilterForCountSpecification(queryParams);
             var totalItem = await homeAnnounceDal.CountAsync(countSpec);
 
-           
+
 
             var data = mapper.Map<List<HomeAnnounce>, List<HomeAnnounceForReturnDto>>(listFromRepo);
             return new Pagination<HomeAnnounceForReturnDto>
@@ -134,6 +139,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,HomeAnnounces.Publish,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<HomeAnnounceForReturnDto> Publish(HomeAnnounceForCreationDto updateDto)
         {
             var checkFromRepo = await homeAnnounceDal.GetAsync(x => x.Id == updateDto.Id);
@@ -174,6 +180,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,HomeAnnounces.Update,HomeAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<HomeAnnounceForReturnDto> Update(HomeAnnounceForCreationDto updateDto)
         {
             var checkFromRepo = await homeAnnounceDal.GetAsync(x => x.Id == updateDto.Id);
@@ -195,6 +202,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Public", Priority = 1)]
         [ValidationAspect(typeof(HomeAnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<HomeAnnounceForUserDto> UpdateForPublicAsync(HomeAnnounceForCreationDto creationDto, int userId)
         {
 

@@ -9,7 +9,7 @@ using DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-
+using System.Reflection;
 
 namespace DataAccess.SeedData
 {
@@ -27,6 +27,7 @@ namespace DataAccess.SeedData
         {
             try
             {
+                var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 if (_context.Database.GetPendingMigrations().Count() > 0)
                 {
                     _context.Database.Migrate();
@@ -37,7 +38,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.Campuses.Any())
                     {
-                        var campuseData = File.ReadAllText("../DataAccess/SeedData/Campus.json");
+                        var campuseData = File.ReadAllText(path + @"/SeedData/Campus.json");
                         var campuses = JsonSerializer.Deserialize<List<Campus>>(campuseData);
 
                         foreach (var campus in campuses)
@@ -49,7 +50,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.Departments.Any())
                     {
-                        var departmentData = File.ReadAllText("../DataAccess/SeedData/Department.json");
+                        var departmentData = File.ReadAllText(path + @"/SeedData/Department.json");
                         var departments = JsonSerializer.Deserialize<List<Department>>(departmentData);
 
                         foreach (var department in departments)
@@ -60,7 +61,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.Degrees.Any())
                     {
-                        var degreesData = File.ReadAllText("../DataAccess/SeedData/Degree.json");
+                        var degreesData = File.ReadAllText(path + @"/SeedData/Degree.json");
                         var degrees = JsonSerializer.Deserialize<List<Degree>>(degreesData);
 
                         foreach (var degree in degrees)
@@ -71,7 +72,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.Users.Any())
                     {
-                        var userData = File.ReadAllText("../DataAccess/SeedData/User.json");
+                        var userData = File.ReadAllText(path + @"/SeedData/User.json");
                         var users = JsonSerializer.Deserialize<List<User>>(userData);
 
                         foreach (var user in users)
@@ -81,7 +82,7 @@ namespace DataAccess.SeedData
                             CreatePasswordHash("466357", out passwordHash, out passwordSalt);
                             user.PasswordHash = passwordHash;
                             user.PasswordSalt = passwordSalt;
-                            user.IsActive = false;
+                            user.IsActive = true;
                             user.Created = DateTime.Now;
                             user.Updated = DateTime.Now;
                             _context.Users.Add(user);
@@ -90,7 +91,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.RoleCategories.Any())
                     {
-                        var roleCategoriesData = File.ReadAllText("../DataAccess/SeedData/RoleCategory.json");
+                        var roleCategoriesData = File.ReadAllText(path + @"/SeedData/RoleCategory.json");
                         var roleCategories = JsonSerializer.Deserialize<List<RoleCategory>>(roleCategoriesData);
 
                         foreach (var roleCategory in roleCategories)
@@ -101,7 +102,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.Roles.Any())
                     {
-                        var rolesData = File.ReadAllText("../DataAccess/SeedData/Role.json");
+                        var rolesData = File.ReadAllText(path + @"/SeedData/Role.json");
                         var roles = JsonSerializer.Deserialize<List<Role>>(rolesData);
 
                         foreach (var role in roles)
@@ -112,7 +113,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.NumberOfRooms.Any())
                     {
-                        var numberOfRoomData = File.ReadAllText("../DataAccess/SeedData/NumberOfRoom.json");
+                        var numberOfRoomData = File.ReadAllText(path + @"/SeedData/NumberOfRoom.json");
                         var numberOfrooms = JsonSerializer.Deserialize<List<NumberOfRoom>>(numberOfRoomData);
 
                         foreach (var rooms in numberOfrooms)
@@ -123,7 +124,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.BuildingsAge.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/BuildingAge.json");
+                        var data = File.ReadAllText(path + @"/SeedData/BuildingAge.json");
                         var dataList = JsonSerializer.Deserialize<List<BuildingAge>>(data);
 
                         foreach (var item in dataList)
@@ -134,7 +135,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.FlatsOfHome.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/FlatOfHome.json");
+                        var data = File.ReadAllText(path + @"/SeedData/FlatOfHome.json");
                         var dataList = JsonSerializer.Deserialize<List<FlatOfHome>>(data);
 
                         foreach (var item in dataList)
@@ -145,7 +146,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.HeatingTypes.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/HeatingType.json");
+                        var data = File.ReadAllText(path + @"/SeedData/HeatingType.json");
                         var dataList = JsonSerializer.Deserialize<List<HeatingType>>(data);
 
                         foreach (var item in dataList)
@@ -156,7 +157,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.VehicleCategories.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/VehicleCategory.json");
+                        var data = File.ReadAllText(path + @"/SeedData/VehicleCategory.json");
                         var dataList = JsonSerializer.Deserialize<List<VehicleCategory>>(data);
 
                         foreach (var item in dataList)
@@ -167,7 +168,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.VehicleBrands.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/VehicleBrand.json");
+                        var data = File.ReadAllText(path + @"/SeedData/VehicleBrand.json");
                         var dataList = JsonSerializer.Deserialize<List<VehicleBrand>>(data);
 
                         foreach (var item in dataList)
@@ -178,7 +179,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.VehicleModels.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/VehicleModel.json");
+                        var data = File.ReadAllText(path + @"/SeedData/VehicleModel.json");
                         var dataList = JsonSerializer.Deserialize<List<VehicleModel>>(data);
 
                         foreach (var item in dataList)
@@ -189,7 +190,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.VehicleFuelTypes.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/VehicleFuelType.json");
+                        var data = File.ReadAllText(path + @"/SeedData/VehicleFuelType.json");
                         var dataList = JsonSerializer.Deserialize<List<VehicleFuelType>>(data);
 
                         foreach (var item in dataList)
@@ -200,7 +201,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.VehicleGearTypes.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/VehicleGearType.json");
+                        var data = File.ReadAllText(path + @"/SeedData/VehicleGearType.json");
                         var dataList = JsonSerializer.Deserialize<List<VehicleGearType>>(data);
 
                         foreach (var item in dataList)
@@ -211,7 +212,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.VehicleEngineSizes.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/VehicleEngineSize.json");
+                        var data = File.ReadAllText(path + @"/SeedData/VehicleEngineSize.json");
                         var dataList = JsonSerializer.Deserialize<List<VehicleEngineSize>>(data);
 
                         foreach (var item in dataList)
@@ -222,7 +223,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.AnnounceContentTypes.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/AnnounceContentType.json");
+                        var data = File.ReadAllText(path + @"/SeedData/AnnounceContentType.json");
                         var dataList = JsonSerializer.Deserialize<List<AnnounceContentType>>(data);
 
                         foreach (var item in dataList)
@@ -233,7 +234,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.Screens.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/Screen.json");
+                        var data = File.ReadAllText(path + @"/SeedData/Screen.json");
                         var dataList = JsonSerializer.Deserialize<List<Screen>>(data);
 
                         foreach (var item in dataList)
@@ -244,7 +245,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.SubScreens.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/SubScreen.json");
+                        var data = File.ReadAllText(path + @"/SeedData/SubScreen.json");
                         var dataList = JsonSerializer.Deserialize<List<SubScreen>>(data);
 
                         foreach (var item in dataList)
@@ -255,7 +256,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.Cities.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/Cities.json");
+                        var data = File.ReadAllText(path + @"/SeedData/Cities.json");
                         var dataList = JsonSerializer.Deserialize<List<City>>(data);
 
                         foreach (var item in dataList)
@@ -266,7 +267,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.Currencies.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/Currencies.json");
+                        var data = File.ReadAllText(path + @"/SeedData/Currencies.json");
                         var dataList = JsonSerializer.Deserialize<List<Currency>>(data);
 
                         foreach (var item in dataList)
@@ -277,7 +278,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.LiveTvLists.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/Tvlist.json");
+                        var data = File.ReadAllText(path + @"/SeedData/Tvlist.json");
                         var dataList = JsonSerializer.Deserialize<List<LiveTvList>>(data);
 
                         foreach (var item in dataList)
@@ -288,7 +289,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.NotifyGroups.Any())
                     {
-                        var data = File.ReadAllText("../DataAccess/SeedData/NotifyGroup.json");
+                        var data = File.ReadAllText(path + @"/SeedData/NotifyGroup.json");
                         var dataList = JsonSerializer.Deserialize<List<NotifyGroup>>(data);
 
                         foreach (var item in dataList)
@@ -298,7 +299,7 @@ namespace DataAccess.SeedData
                     }
 
                     if (!_context.UserRoles.Any())
-                    {
+                    {                                                                       
                         var user = _context.Users.FirstOrDefault(x => x.Email.ToLower() == "sukru.ozdemir@hmb.gov.tr");
                         if (user != null)
                         {
@@ -325,7 +326,7 @@ namespace DataAccess.SeedData
             catch (Exception ex)
             {
                 var logger = _loggerFactory.CreateLogger<SeedContext>();
-                logger.LogError("Seeding Error", ex.Message);
+                logger.LogError("Seeding Error", ex.InnerException);
 
             }
         }

@@ -6,7 +6,9 @@ using Business.Abstract;
 using Business.Constants;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using DataAccess.Abstract;
@@ -36,9 +38,10 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Announces.Create,Announces.All", Priority = 1)]
         [ValidationAspect(typeof(AnnouncesubScreenValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<AnnounceSubScreenForReturnDto> Create(AnnounceSubScreenForCreationDto creationDto)
         {
-            var checkById = await announceSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId && x.AnnounceId==creationDto.AnnounceId);
+            var checkById = await announceSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId && x.AnnounceId == creationDto.AnnounceId);
             if (checkById != null)
             {
                 throw new RestException(HttpStatusCode.BadRequest, new { AlreadyExist = Messages.SubScreenAlreadyExist });
@@ -81,6 +84,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,Announces.Delete,Announces.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<AnnounceSubScreenForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await announceSubScreenDal.GetAsync(x => x.Id == Id);
@@ -93,7 +97,7 @@ namespace Business.Concrete
             return mapper.Map<AnnounceSubScreen, AnnounceSubScreenForReturnDto>(checkByIdFromRepo);
         }
 
-       [SecuredOperation("Sudo,Announces.List,Announces.All", Priority = 1)]
+        [SecuredOperation("Sudo,Announces.List,Announces.All", Priority = 1)]
         public async Task<List<AnnounceSubScreenForReturnDto>> GetByAnnounceId(int announceId)
         {
             var spec = new AnnounSubScreenWithSubScreenSpecification(announceId);
@@ -118,8 +122,9 @@ namespace Business.Concrete
             return mapper.Map<List<AnnounceSubScreen>, List<AnnounceSubScreenForReturnDto>>(getListFromRepo);
         }
 
-         [SecuredOperation("Sudo,Announces.Update,Announces.All", Priority = 1)]
+        [SecuredOperation("Sudo,Announces.Update,Announces.All", Priority = 1)]
         [ValidationAspect(typeof(AnnouncesubScreenValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<AnnounceSubScreenForReturnDto> Update(AnnounceSubScreenForCreationDto updateDto)
         {
             var checkByIdFromRepo = await announceSubScreenDal.GetAsync(x => x.Id == updateDto.Id);
@@ -130,7 +135,7 @@ namespace Business.Concrete
 
             var mapForUpdate = mapper.Map(updateDto, checkByIdFromRepo);
             var updatePhoto = await announceSubScreenDal.Update(mapForUpdate);
-            return mapper.Map<AnnounceSubScreen,AnnounceSubScreenForReturnDto>(updatePhoto);
+            return mapper.Map<AnnounceSubScreen, AnnounceSubScreenForReturnDto>(updatePhoto);
         }
     }
 }

@@ -10,7 +10,9 @@ using Business.Constants;
 using Business.Helpers;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.QueryParams;
@@ -38,6 +40,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,FoodMenu.Create,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<FoodMenuForReturnDto> Create(FoodMenuForCreationDto creationDto)
         {
             var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
@@ -62,6 +65,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,FoodMenu.Delete,FoodMenu.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<FoodMenuForReturnDto> Delete(int Id)
         {
             var getByIdFromRepo = await foodMenuDal.GetAsync(x => x.Id == Id);
@@ -108,6 +112,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,FoodMenu.Publish,FoodMenu.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<FoodMenuForReturnDto> Publish(FoodMenuForCreationDto updateDto)
         {
             var checkFromRepo = await foodMenuDal.GetAsync(x => x.Id == updateDto.Id);
@@ -145,6 +150,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,FoodMenu.Update,FoodMenu.All", Priority = 1)]
         [ValidationAspect(typeof(FoodMenuValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<FoodMenuForReturnDto> Update(FoodMenuForCreationDto updateDto)
         {
             var checkFromRepo = await foodMenuDal.GetAsync(x => x.Id == updateDto.Id);

@@ -10,7 +10,9 @@ using Business.Constants;
 using Business.Helpers;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.QueryParams;
@@ -38,7 +40,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,News.Create,News.All", Priority = 1)]
         [ValidationAspect(typeof(NewsValidator), Priority = 2)]
-
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<NewsForReturnDto> Create(NewsForCreationDto creationDto)
         {
             var checkByNameFromRepo = await newsDal.GetAsync(x => x.Header.ToLower() == creationDto.Header.ToLower());
@@ -64,6 +66,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,News.Delete,News.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<NewsForReturnDto> Delete(int Id)
         {
             var getByIdFromRepo = await newsDal.GetAsync(x => x.Id == Id);
@@ -99,6 +102,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,News.Publish,News.All", Priority = 1)]
         [ValidationAspect(typeof(NewsValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<NewsForReturnDto> Publish(NewsForCreationDto updateDto)
         {
             var checkFromRepo = await newsDal.GetAsync(x => x.Id == updateDto.Id);
@@ -136,6 +140,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,News.Update,News.All", Priority = 1)]
         [ValidationAspect(typeof(NewsValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<NewsForReturnDto> Update(NewsForCreationDto updateDto)
         {
             var checkFromRepo = await newsDal.GetAsync(x => x.Id == updateDto.Id);

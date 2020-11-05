@@ -6,7 +6,9 @@ using Business.Abstract;
 using Business.Constants;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using DataAccess.Abstract;
@@ -35,6 +37,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,News.Create,News.All", Priority = 1)]
         [ValidationAspect(typeof(NewsSubScreenValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<NewsSubScreenForReturnDto> Create(NewsSubScreenForCreationDto creationDto)
         {
             var checkById = await newsSubScreenDal.GetAsync(x => x.SubScreenId == creationDto.SubScreenId && x.NewsId == creationDto.NewsId);
@@ -80,6 +83,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,News.Delete,News.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<NewsSubScreenForReturnDto> Delete(int Id)
         {
             var checkByIdFromRepo = await newsSubScreenDal.GetAsync(x => x.Id == Id);
@@ -119,6 +123,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,News.Update,News.All", Priority = 1)]
         [ValidationAspect(typeof(NewsSubScreenValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<NewsSubScreenForReturnDto> Update(NewsSubScreenForCreationDto updateDto)
         {
             var checkByIdFromRepo = await newsSubScreenDal.GetAsync(x => x.Id == updateDto.Id);

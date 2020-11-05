@@ -10,7 +10,9 @@ using Business.Constants;
 using Business.Helpers;
 using Business.ValidaitonRules.FluentValidation;
 using BusinessAspects.AutoFac;
+using Core.Aspects.AutoFac.Logging;
 using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.Entities.Concrete;
 using Core.Extensions;
 using Core.QueryParams;
@@ -39,6 +41,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,VehicleAnnounces.Create,VehicleAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<VehicleAnnounceForReturnDto> Create(VehicleAnnounceForCreationDto creationDto)
         {
             var checkByNameFromRepo = await vehicleAnnounceDal.GetAsync(x => x.Header.ToLower() == creationDto.Header.ToLower());
@@ -61,6 +64,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Public", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<VehicleAnnounceForUserDto> CreateForPublicAsync(VehicleAnnounceForCreationDto creationDto, int userId)
         {
             var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
@@ -95,6 +99,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Sudo,VehicleAnnounces.Delete,VehicleAnnounces.All", Priority = 1)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<VehicleAnnounceForReturnDto> Delete(int Id)
         {
             var getByIdFromRepo = await vehicleAnnounceDal.GetAsync(x => x.Id == Id);
@@ -130,6 +135,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,VehicleAnnounces.Publish,VehicleAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<VehicleAnnounceForReturnDto> Publish(VehicleAnnounceForCreationDto updateDto)
         {
             var checkFromRepo = await vehicleAnnounceDal.GetAsync(x => x.Id == updateDto.Id);
@@ -167,6 +173,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,VehicleAnnounces.Update,VehicleAnnounces.All", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<VehicleAnnounceForReturnDto> Update(VehicleAnnounceForCreationDto updateDto)
         {
             var checkFromRepo = await vehicleAnnounceDal.GetAsync(x => x.Id == updateDto.Id);
@@ -186,6 +193,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Sudo,Public", Priority = 1)]
         [ValidationAspect(typeof(VehicleAnnounceValidator), Priority = 2)]
+        [LogAspect(typeof(PgSqlLogger), Priority = 3)]
         public async Task<VehicleAnnounceForUserDto> UpdateForPublicAsync(VehicleAnnounceForCreationDto updateDto, int userId)
         {
             var claimId = int.Parse(httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);

@@ -11,7 +11,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=Hmkiosks;Username=postgres;Password=466357",b=>b.MigrationsAssembly("DataAccess"));
+            optionsBuilder.UseNpgsql("Host=localhost;Database=hmkiosks;Username=postgres;Password=466357",b=>b.MigrationsAssembly("DataAccess"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

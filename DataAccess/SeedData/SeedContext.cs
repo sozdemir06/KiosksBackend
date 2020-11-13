@@ -300,7 +300,7 @@ namespace DataAccess.SeedData
 
                     if (!_context.UserRoles.Any())
                     {                                                                       
-                        var user = _context.Users.FirstOrDefault(x => x.Email.ToLower() == "sukru.ozdemir@hmb.gov.tr");
+                        var user = _context.Users.FirstOrDefault(x => x.Email.ToLower().Contains("sukru.ozdemir@hmb.gov.tr"));
                         if (user != null)
                         {
                             var sudoRole = _context.Roles.FirstOrDefault(x => x.Name.ToLower() == "sudo");

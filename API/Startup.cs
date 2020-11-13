@@ -102,7 +102,18 @@ namespace API
                 //app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
+
+            seedData.SeedAsync();
+            app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials()
+               .WithOrigins("http://localhost:4200"));
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -110,21 +121,12 @@ namespace API
               Path.Combine(env.ContentRootPath, "MyStaticFiles")),
                 RequestPath = "/StaticFiles"
             });
-            seedData.SeedAsync();
-            app.UseRouting();
-            app.UseCors(x => x.AllowAnyHeader()
-               .AllowAnyMethod()
-               .AllowCredentials()
-               .WithOrigins("http://localhost:4200"));
-            app.UseAuthentication();
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapFallbackToController("Index", "Fallback");
                 endpoints.MapHub<AdminHub>("/hubs/AdminHub");
                 endpoints.MapHub<KiosksHub>("/hubs/KiosksHub");
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

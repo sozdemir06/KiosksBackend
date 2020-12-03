@@ -36,8 +36,8 @@ export class LoginComponent implements OnInit,OnDestroy {
 
   checkLoginForm(){
     this.loginForm=this.fb.group({
-      email:["sozdemir06@gmail.com",[Validators.required,Validators.email]],
-      password:["466357",[Validators.required,Validators.minLength(4),Validators.maxLength(8)]]
+      email:["",[Validators.required,Validators.email]],
+      password:["",[Validators.required,Validators.minLength(4),Validators.maxLength(8)]]
     })
   }
 

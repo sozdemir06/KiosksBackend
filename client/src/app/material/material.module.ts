@@ -15,15 +15,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
-
-
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   imports: [
@@ -37,10 +34,10 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
     MatTabsModule,
-    MatInputModule,
     MatTableModule,
     MatPaginatorModule,
     MatChipsModule,
@@ -48,9 +45,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatCheckboxModule,
     MatAutocompleteModule,
     MatProgressBarModule,
-    MatButtonToggleModule
-    
-    
+    MatButtonToggleModule,
   ],
   exports: [
     MatButtonModule,
@@ -62,10 +57,10 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
     MatTabsModule,
-    MatInputModule,
     MatTableModule,
     MatPaginatorModule,
     MatChipsModule,
@@ -73,7 +68,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatCheckboxModule,
     MatAutocompleteModule,
     MatProgressBarModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
   ],
 })
 export class MaterialModule {}

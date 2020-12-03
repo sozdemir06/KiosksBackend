@@ -54,9 +54,9 @@ export class EditSubscreensDialogComponent implements OnInit {
   }
 
   diabledInput(position: string): void {
-    if (position === 'Vertical') {
+    if (position?.toLowerCase() === 'vertical') {
       this.subScreenForm.get('width').disable();
-    } else if (position == 'Horizontal') {
+    } else if (position?.toLowerCase() == 'horizontal') {
       this.subScreenForm.get('height').disable();
     }
   }

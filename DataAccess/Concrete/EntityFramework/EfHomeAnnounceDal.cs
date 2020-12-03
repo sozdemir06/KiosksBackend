@@ -56,7 +56,7 @@ namespace DataAccess.Concrete.EntityFramework
                                 .Include(p => p.HomeAnnouncePhotos)
                                 .Include(s => s.HomeAnnounceSubScreens)
                                 .Where(
-                                 x => x.HomeAnnounceSubScreens.Any(s => s.ScreenId == subScreenId) &&
+                                 x => x.HomeAnnounceSubScreens.Any(s => s.SubScreenId == subScreenId) &&
                                  x.PublishStartDate <= DateTime.Now && x.PublishFinishDate >= DateTime.Now && x.IsPublish == true)
                                  .AsNoTracking()
                                  .ToListAsync();
